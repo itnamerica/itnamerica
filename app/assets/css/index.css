@@ -30,7 +30,15 @@ body {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.navbar {margin-bottom: 0 !important}
+.navbar {
+  margin-bottom: 0 !important;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+  /* -webkit-box-shadow: 0px 10px 24px -1px rgba(0,0,0,0.5);
+-moz-box-shadow: 0px 10px 24px -1px rgba(0,0,0,0.5);
+box-shadow: 0px 10px 24px -1px rgba(0,0,0,0.5); */
+}
 nav {
   min-height: 100px;
   font-family: Lato;
@@ -45,8 +53,8 @@ nav .navbar-header, nav .navbar-header .navbar-brand {
   width:200px;
 }
 nav .navbar-header img {
-  /*margin-top: 25px;*/
-  height: 60px;
+  margin-top: 10px;
+  height: 40px;
 }
 nav .navbar-nav {
   margin-top: 25px;
@@ -67,12 +75,12 @@ nav .navbar-nav a {
 /*nav .navbar-nav a:hover{color: #e05944 !important;}*/
 nav .navbar-nav a:hover { color: white !important}
 nav .navbar-nav a:hover i, nav .navbar-nav a:hover span { color: white !important}
-nav .navbar-nav a .glyphicon-home {color: #529ba8;}
-nav .navbar-nav a .glyphicon-info-sign {color: #e05944}
-nav .navbar-nav a .fa-newspaper {color: #529ba8}
-nav .navbar-nav a .glyphicon-envelope {color: #e05944;}
-nav .navbar-nav a .fa-car {color: #529ba8;}
-nav .navbar-nav a .glyphicon-heart {color: #e05944;}
+nav .navbar-nav a .glyphicon-home {color: #e05944}
+nav .navbar-nav a .glyphicon-info-sign {color: #529ba8;}
+nav .navbar-nav a .fa-cog {color: #e05944}
+nav .navbar-nav a .glyphicon-envelope {color: #529ba8;}
+nav .navbar-nav a .fa-map-marker {color: #e05944;}
+nav .navbar-nav a .glyphicon-heart {color: #529ba8}
 nav .navbar-nav a .fa-hand-paper-o {color: #529ba8;}
 nav .navbar-nav a .glyphicon-usd {color: #e05944;}
 
