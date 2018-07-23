@@ -135,6 +135,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/draft',
             templateUrl: viewsPath + 'draft.html'
         })
+        .state('find-your-itn', {
+            url: '/find-your-itn',
+            templateUrl: viewsPath + 'find-your-itn.html'
+        })
         .state('ways-to-give', {
             url: '/ways-to-give',
             templateUrl: viewsPath + 'ways-to-give.html'
@@ -189,7 +193,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $scope.viewsPath = "../app/views";
     };
 
-    $scope.affiliate = "Lanier";
+    $scope.affiliate = "America";
     $scope.zoomLevel = 1;
     $scope.tab = 1;
     $scope.loading = false;

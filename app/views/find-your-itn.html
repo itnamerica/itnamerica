@@ -1,0 +1,120 @@
+
+<div class="find-your-itn" ng-init="catchAnchor()">
+    
+  <div class="jumbotron section first-hero" id="first-hero-find">
+    <h1>Find your ITN Community</h1>
+  </div>
+
+
+  <div class="jumbotron section" id="find-community" style="background:white">
+    <div class="container">
+      <h2 class="mt-25 mb-50 ta-center">Find Your ITN Community</h2>
+      <p><strong>ITN<em>America</em> is the only national senior transportation network. Our affiliates work in 13 communities across 12 states, from Maine to Florida to California. Our model is local, but our network is national, and with reach comes strength. Want to support the transportation needs of a family member 3,000 miles away? ITNs make it happen.</strong></p>
+      
+      <div class="row mt-50" style="font-weight:bold;font-size:25px;">
+        <div class="col-sm-6">
+          <img ng-src="{{assetsPath}}/images/icons/blue_pointer.png" width="28" height="38" alt="blue pointer for ITN affiliates" style="    margin-right:3%;"> ITN Affiliate
+        </div>
+        <div class="col-sm-6">
+          <img ng-src="{{assetsPath}}/images/icons/orange_pointer.png" width="28" height="38"  alt="orange pointer for TTP" style="margin-right:3%;"> Trusted Transportation Partner (TTP)
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="jumbotron section map" style="padding:0">
+      <div id="map" style="height:600px"></div>
+  </div>
+  
+
+  <div class="jumbotron section" id="affiliates" style="background:white">
+    <div class="container" style="color:#e05944;background:white">
+      <h2 class="mt-25 mb-50 ta-center">ITN Affiliates</h2>
+      <div class="row">
+        <div class="col-sm-6">
+          <ul style="list-style-type:none;font-weight:bold">
+            <li><a href="http://www.itnbluegrass.com/" target="_blank">ITN<em>Bluegrass</em></a></li>
+            <li><a href="http://www.itncentralct.org/" target="_blank">ITN<em>CentralCT</em></a></li>
+            <li><a href="http://www.itncentraloklahoma.org/" target="_blank">ITN<em>CentralOklahoma</em></a></li>
+            <li><a href="http://www.itnlanier.org/" target="_blank">ITN<em>Lanier</em></a></li>
+            <li><a href="http://www.itnlehighvalley.org/" target="_blank">ITN<em>LehighValley</em></a></li>
+            <li><a href="http://www.itnmemphis.org/" target="_blank">ITN<em>Memphis</em></a></li>
+            <li><a href="http://www.itnmontereycounty.org/" target="_blank">ITN<em>MontereyCounty</em></a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6">
+          <ul style="list-style-type:none;font-weight:bold">
+            <li><a href="http://www.itnnorthjersey.org/" target="_blank">ITN<em>NorthJersey</em></a></li>
+            <li><a href="http://www.itnorlando.org/" target="_blank">ITN<em>Orlando</em></a></li>
+            <li><a href="http://www.itnportland.org/" target="_blank">ITN<em>Portland</em></a></li>
+            <li><a href="http://www.itnsoutherndelaware.org/" target="_blank">ITN<em>SouthernDelaware</em></a></li>
+            <li><a href="http://www.itngateway.org/" target="_blank">ITN<em>Gateway</em></a></li>
+            <li><a href="http://www.itnsuncoast.org/" target="_blank">ITN<em>Suncoast</em></a></li>
+          </ul>
+        </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="jumbotron section" id="find-affiliates" style="background:#e05944;color:white">
+    <div class="container ta-center">
+      <h2 class="mt-25 mb-50">Become an ITN Affiliate</h2>
+      <p>ITN brings sustainable, dignified transportation to communities across the country. We partner with local individuals or organizations interested in using our time-tested, supported model to their community. With ITN<em>America</em>’s guidance and expertise, a dedicated group can build a nonprofit senior transportation system anywhere. And by plugging into the ITN network, the benefits of membership — ride credits, CarTrade, Healthy Miles, Road Scholarships, Personal Transportation Accounts, and more — are magnified. Want to become part of the ITN family?<p> 
+        <a class="btn btn-lg" ui-sref="contact" style="padding:20px 30px;margin-top:40px"> > Contact us.</a>
+    </div>
+  </div>
+
+  <div class="jumbotron section" id="itn-country">
+    <div class="container ta-center">
+      <h2 class="mt-25 mb-50">ITNCountry Communities</h2>
+      <p><strong>ITN<em>Country</em> is now working with a handful of specially selected communities to pilot test a new on-line learning system for small and rural communities. These are partner cities and towns that struggle to support sustainable community transportation services. But through ITN<em>Country</em>, they gain access to the same model programs that work in larger, higher density locations. This is the first step to launching ITN<em>Country</em> nationally.</strong></p>
+        <a class="btn btn-lg" href="http://www.itncountry.org" target="_blank" style="padding:20px 30px;margin-top:40px"> > Find out more.</a>
+    </div>
+  </div>
+
+
+</div><!--find-your-itn-->
+
+<script>
+
+  function initMap() {
+    var itnPortland = {lat: 43.676373, lng: -70.366664};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: itnPortland
+    });
+
+    var marker = new google.maps.Marker({
+      position: itnPortland,
+      map: map,
+      title: 'ITNPortland, One Westbrook Common, Suite 3, Westbrook, Maine 04092, (207) 854-0505'
+    });
+  }
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPl0CQZe2FpgGzGj0KyFo08JAj-WBKvlc&callback=initMap">
+</script>
+
+
+
+<style>
+   /* Always set the map height explicitly to define the size of the div
+    * element that contains the map. */
+   #map {
+     height: 100%;
+   }
+   .labels {
+     color: red;
+     background-color: white;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 10px;
+     font-weight: bold;
+     text-align: center;
+     width: 40px;
+     height:20px;
+     border: 2px solid black;
+     white-space: nowrap;
+   }
+ </style>

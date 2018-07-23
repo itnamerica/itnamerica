@@ -327,7 +327,7 @@ nav .dropdown-menu li.divider{
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 400px;
+  height: 500px;
 }
 .services .first-hero h1{
   color:white;
@@ -432,7 +432,7 @@ nav .dropdown-menu li.divider{
   background-position: center bottom;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 400px;
+  height: 500px;
 }
 .news .first-hero h1 {
   color:white;
@@ -442,7 +442,7 @@ nav .dropdown-menu li.divider{
 }
 .news .newsletter .newsletter-content {white-space:nowrap}
 .news .news-content {
-  min-height: 400px;
+  min-height: 500px;
   padding-top: 75px;
   padding-bottom: 75px;
   background: #fcedea;
@@ -476,7 +476,7 @@ nav .dropdown-menu li.divider{
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 400px;
+  height: 500px;
 }
 .contact #first-hero-contact h1 {
   color:White;
@@ -1471,12 +1471,12 @@ form textarea.form-control {font-size:25px}
 } 
 
 .ways-to-give #first-hero-ways{
-  background-image: url('../images/dark/bench2.jpg');
+  background-image: url('../images/dark/men_bench_hr.png');
   background-attachment: fixed;
   background-position: center bottom;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 400px;
+  height: 500px;
 }
 .ways-to-give #first-hero-ways h1 {
   color:white;
@@ -1500,13 +1500,32 @@ form textarea.form-control {font-size:25px}
   background-position: center bottom;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 400px;
+  height: 500px;
 }
 .about #first-hero-about h1 {
   color:white;
   text-shadow: 2px 2px #529ba8;
   margin-top: 170px;
   margin-left: 5%;
+}
+
+.find-your-itn #first-hero-find {
+  background-image: url('../images/dark/crowd_sunset_hr.png');
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 500px;
+}
+.find-your-itn #first-hero-find h1 {
+  color:white;
+  text-shadow: 2px 2px #529ba8;
+  margin-top: 170px;
+  margin-left: 5%;
+}
+
+.find-your-itn #affiliates ul li a {
+  color:inherit;
 }
     
 #footer {
