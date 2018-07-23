@@ -25,6 +25,7 @@
   
   <div class="jumbotron section map" style="padding:0">
       <div id="map" style="height:600px"></div>
+      <!-- <Marker label="Hello" position= {{lat: 43.676373, lng: -70.366664}}> -->
   </div>
   
 
@@ -80,6 +81,18 @@
 
   function initMap() {
     var itnPortland = {lat: 43.676373, lng: -70.366664};
+    var contentString = '<div id="marker-label">' + 
+    '<h2><a href="http://www.itnportland.org/">ITN<em>Portland</em></a></h2>' + 
+    '<p>One Westbrook Common, Suite 3 </p><p> Westbrook, Maine 04092</p>' +
+    '<p>(207) 854-0505</p>'
+    '</div>';
+    
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    // var contentString = '<div id="marker-label">'+
+    // '<p><a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+    // 'https://en.wikipedia.org/w/index.php?title=Uluru</a></p>'+'</div>';
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,
@@ -91,6 +104,11 @@
       map: map,
       title: 'ITNPortland, One Westbrook Common, Suite 3, Westbrook, Maine 04092, (207) 854-0505'
     });
+    
+    marker.addListener('click', function() {
+     infowindow.open(map, marker);
+   })
+   
   }
 </script>
 <script async defer
