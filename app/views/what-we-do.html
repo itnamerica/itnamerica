@@ -1,47 +1,48 @@
     
-    <div class="services" id="what-we-do">
+    <div class="services" id="what-we-do" ng-init="catchAnchor()">
       
     <div class="jumbotron section first-hero">
       <h1>What We Do</h1>
     </div>
 
 
-    <div class="jumbotron section operate">
+    <div class="jumbotron section" id="transportation">
       <div class="container">
-        <h2>Providing transportation to seniors and people with visual impairments in greater Hall County, Georgia. </h2>
-          <div class="row" style="border: 5px dashed #399eaa;">
-            <div class="col-md-6">
-              <a ui-sref="services-map"><img ng-src="{{assetsPath}}/images/gainesville.png"/></a>
-            </div><!--col-md-6 (first)-->
-            <div class="col-md-6">
-              <h3 class="wow fadeInUp">ITN<em>{{affiliate}}</em> Transports Members Living in These Zipcodes</h3>
-              <div class="col-lg-6">
-                <ul>
-                  <li>30501  -  Gainesville</li>
-                  <li>30502  -  Chestnut Mtn</li>
-                  <li>30503  -  Gainesville</li>
-                  <li>30504  -  Gainesville</li>
-                  <li>30506  -  Gainesville</li>
-                  <li>30507  -  Gainesville</li>
-                  <li>30517  -  Braselton</li>
-                  <li>30527  -  Clermont</li>
-                </ul>
-              </div><!--col-md-6-->
-              <div class="col-lg-6">
-                <ul>
-                  <li>30542  -  Flowery Branch</li>
-                  <li>30543  -  Gillsville</li>
-                  <li>30554  -  Lula</li>
-                  <li>30564  -  Murrayville</li>
-                  <li>30566  -  Oakwood</li>
-                  <li>30567  -  Pendergrass</li>
-                  <li>30575  -  Talmo</li>
-                </ul>
-            </div><!--col-md-6-->
-          </div><!--col-md-6 (first)-->
-          </div><!--row-->
+        Transportation
       </div>
-    </div><!--OPERATE-->
+    </div><!--TRANSP-->
+    
+    <div class="jumbotron section" id="programs">
+      <div class="container">
+        Programs
+      </div>
+    </div><!--PROGRAMS-->
+    
+    <div class="jumbotron section" id="research">
+      <div class="container">
+        Research
+      </div>
+    </div><!--RESEARCH-->
+    
+    <div class="jumbotron section" id="policy">
+      <div class="container">
+        Policy
+      </div>
+    </div><!--POLICY-->
+    
+    <div class="jumbotron section" id="education">
+      <div class="container">
+        Education
+      </div>
+    </div><!--EDUCATION-->
+    
+    <div class="jumbotron section" id="ashoka">
+      <div class="container">
+        Ashoka
+      </div>
+    </div><!--ASHOKA-->
+    
+    
     
     <div class="jumbotron section jumbo-title">
       <h2>Characteristics of ITN Service</h2>
@@ -71,117 +72,9 @@
           </div><!--col-sm-4-->
         </div><!--row-->
         
-        
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-blind" style="color: #fc6d6d"></i></div>
-            <div class="icon-legend">
-              We welcome members that are 60 years and older or who have disabilities
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-arrow-down" style="color: #399eaa"></i></div>
-            <div class="icon-legend">
-              Rides may be booked with discounts
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-users" style="color: #fc6d6d"></i></div>
-            <div class="icon-legend">
-              Riders may travel alone or with others, with 20% discounts for shared rides
-            </div><!--icon-legend-->
-          </div><!--col-sm-4-->
-        </div><!--row-->
-        
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-usd" style="color: #399eaa"></i></div>
-            <div class="icon-legend">
-              Community-based affiliates are supported by private, rather than public resources
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-taxi" style="color: #fc6d6d"></i></div>
-            <div class="icon-legend">
-              ITNs are nonprofit, keeping fares affordable
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-user-plus" style="color: #399eaa"></i></div>
-            <div class="icon-legend">
-              Not "just a taxi" - drivers provide arm-through-arm, door-through-door service and help with packages
-            </div><!--icon-legend-->
-          </div><!--col-sm-4-->
-        </div><!--row-->
-        
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-car" style="color: #fc6d6d"></i></div>
-            <div class="icon-legend">
-              The CarTrade™ program allows you to trade your car for rides
-            </div><!--icon-legend-->
-          </div><!--col-sm-4-->
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-hospital-o" style="color: #399eaa"></i></div>
-            <div class="icon-legend">
-              The HealthyMiles™ program allows businesses and health care providers to participate
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="icon-wrap"><i class="fa fa-shopping-cart" style="color: #fc6d6d"></i></div>
-            <div class="icon-legend">
-              The Ride & Shop™ program allows you to receive discount rates at certain businesses
-            </div><!--icon-legend-->
-          </div><!--col-sm-4-->
-
-        </div><!--row-->
+        </div>
       </div><!--jumbo-->
       
-    
-        
-        <div class="jumbotron section" style="background: #399eaa">
-          <div class="container dignified">
-            
-            <div class="row mt-50">
-              <div class="col-sm-6 container-text wow fadeInUp">
-                <h2>Dignified</h2>
-                <p>The Independent Transportation Network® (ITN) is dedicated to providing dignified transportation. Older adults join ITN<em>{{affiliate}}</em> and become dues-paying members of an organization committed to their mobility. When they pick up the telephone to schedule a ride, they are not asking a favor. ITN<em>{{affiliate}}</em> is a nonprofit built to ease the transition from the driver's seat to the passenger seat.</p>
-              </div>
-              <div class="col-sm-6">
-                <div class="img-circle"><img ng-src="{{assetsPath}}/images/itn-people-images/granny-portrait.jpg" alt="ITN member portrait"/></div>
-              </div>
-            </div><!--row-->
-            
-            <div class="row mb-50">
-              <div class="col-sm-6">
-                <div class="img-circle"><img ng-src="{{assetsPath}}/images/itn-people-images/man-fruits-portrait.jpeg" alt="ITN member portrait"/></div>
-              </div>
-              <div class="col-sm-6 container-text wow fadeInUp" data-wow-delay="1s">
-                <h2>Consumer Oriented</h2>
-                <p>At ITN<em>{{affiliate}}</em>, we provide arm-through-arm, door-through-door service, a standard that sets us apart from taxis and other transportation services. And like using your own automobile, ITN is available 24/7, offering the flexibility to schedule rides in advance or as needed, as well as the option to ride alone or with others. Because our members aren’t just our riders, they’re also our customers.</p>
-              </div>
-            </div><!--row-->
-            
-          </div><!--container-->
-        </div><!--jumbo-section-->
-        
-        
-        
-        <div class="jumbotron section red-section mb-25">
-          <div class="container operating-radius">
-            <h3>Call to find out if you live in our service area</h3>
-            
-            <p class="text-content wow fadeInUp" data-wow-delay="1s">
-              We are a membership-based organization. Our annual membership fee covers up to two members of the same household either over 60 years of age or adults with visual impairment 18 years and older.
-            </p>
-            <p>ITN<em>{{affiliate}}</em> provides its members with a unique rider service</p>
-            
-            <a ui-sref="member-programs"><button type="button" class="btn btn-info btn-lg">
-              <i class="fa fa-angle-right"></i> Find Out More
-            </button></a>
-            
-          </div><!--container-->
-        </div><!--jumbo-section-->
 
   </div><!--SERVICES-->
   

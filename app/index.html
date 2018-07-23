@@ -86,66 +86,79 @@
             </li>
             
             <li>
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <a ui-sref="about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <span class="glyphicon glyphicon-info-sign"></span> 
                 ABOUT US
                <span class="caret"></span></a>
                <ul class="dropdown-menu">
-                 <li><a ui-sref="what-we-do">What We Do</a></li>
-                 <li><a ui-sref="organization">Our Organization</a></li>
-                 <li><a ui-sref="faces">Faces of our Members</a></li>
-                 <li><a ui-sref="faq">FAQ</a></li>
-                 <li><a ui-sref="news">News</a></li>
-                 <li><a href="http://blog.itnamerica.org/" target="_blank">Blog</a></li>
-                 <li role="separator" class="divider"></li>
-                <li><a ui-sref="contact">Contact us</a></li>
+                 <li><a ui-sref="about({anchor: 'why'})">Why we're here</a></li>
+                 <li><a ui-sref="about({anchor: 'history'})">History</a></li>
+                 <li><a ui-sref="about({anchor: 'mission'})">Mission</a></li>
+                 <li><a ui-sref="about({anchor: 'board'})">Board of Director</a></li>
+                 <li><a ui-sref="about({anchor: 'council'})">Council of Advisors</a></li>
+                 
+                 <li><a ui-sref="annual-report-2017">2017 Annual Report</a></li>
+                 <li><a href="http://policy.itnamerica.org/">50 State Policy Project</a></li>
+                 <li><a ui-sref="mrc-photo-album">Million Rides Campaign 2018 Photo Album</a></li>
+                 <li><a href="http://www.itncountry.org">ITN<em>Country</em></a></li>
              </ul>
            </li>
+           
+           <li>
+             <a ui-sref="what-we-do" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+               <i class="fa fa-cog" aria-hidden="true"></i>
+               WHAT WE DO
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a ui-sref="what-we-do({anchor: 'transportation'})">Transportation Services</a></li>
+                <li><a ui-sref="what-we-do({anchor: 'programs'})">Programs</a></li>
+                <li><a ui-sref="what-we-do({anchor: 'research'})">Research</a></li>
+                <li><a ui-sref="what-we-do({anchor: 'policy'})">Policy</a></li>
+                <li><a ui-sref="what-we-do({anchor: 'education'})">Education</a></li>
+                <li><a ui-sref="what-we-do({anchor: 'ashoka'})">Ashoka Fellowship</a></li>
+                <li><a href="http://blog.itnamerica.org/">Our Blog</a></li>
+                <li><a href="http://pressroom.itnamerica.org/">Pressroom</a></li>
+            </ul>
+          </li>
             
-            <li>
-              <a ui-sref="what-we-do"><i class="fa fa-cog" aria-hidden="true"></i>
-                WHAT WE DO
-              </a>
-            </li>
-            
-            <li>
-              <a ui-sref="contact"><span class="glyphicon glyphicon-envelope"></span> 
-                CONTACT
-              </a>
-            </li>
-            
-            <li>
-              <a ui-sref="volunteer-to-drive"><i class="fa fa-map-marker" aria-hidden="true"></i>
-                FIND YOUR ITN
-              </a>
-            </li>
-            
-            <li>
-              <a ui-sref="donate"><span class="glyphicon glyphicon-heart"></span> 
-                WAYS TO GIVE
-              </a>
-            </li>
-
-            <li>
-              <a href="https://www.ridesinsight.org/"><img width="42" height="auto" src="http://blog.ridesinsight.org/wp-content/uploads/2018/05/ris_logo_bestquality.png">
-                RIDES IN SIGHT
-              </a>
-            </li>
+          <li>
+            <a ui-sref="contact"><span class="glyphicon glyphicon-envelope"></span> 
+              CONTACT
+            </a>
+          </li>
           
+          <li>
+            <a ui-sref="find-your-itn"><i class="fa fa-map-marker" aria-hidden="true"></i>
+              FIND YOUR ITN
+            </a>
+          </li>
+          
+          <li>
+            <a ui-sref="ways-to-give"><span class="glyphicon glyphicon-heart"></span> 
+              WAYS TO GIVE
+            </a>
+          </li>
+
+          <li>
+            <a href="https://www.ridesinsight.org/"><img width="42" height="auto" src="http://blog.ridesinsight.org/wp-content/uploads/2018/05/ris_logo_bestquality.png">
+              RIDES IN SIGHT
+            </a>
+          </li>
+        
             
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    
+    <!--ZOOM BUTTONS-->
+    <span style="margin-left:90%;position:absolute;margin-top:-100px !important;">
+      <img ng-src="{{assetsPath}}/images/icons/resize-large.png"/ ng-click="resizeText(0.1)">
+      <img ng-src="{{assetsPath}}/images/icons/resize-default.jpg" ng-click="resizeText()"/>
+      <img ng-src="{{assetsPath}}/images/icons/resize-small.png" ng-click="resizeText(-0.1)"/>
+    </span>
       
-      <!--ZOOM BUTTONS-->
-      <span style="margin-left:90%;position:absolute;margin-top:-100px !important;">
-        <img ng-src="{{assetsPath}}/images/icons/resize-large.png"/ ng-click="resizeText(0.1)">
-        <img ng-src="{{assetsPath}}/images/icons/resize-default.jpg" ng-click="resizeText()"/>
-        <img ng-src="{{assetsPath}}/images/icons/resize-small.png" ng-click="resizeText(-0.1)"/>
-      </span>
-      
-    </nav>
+  </nav>
 
   <div class="main" id="main-content">
     
@@ -172,10 +185,10 @@
           <div class="footer-title">JOIN OUR COMMUNITY</div>
           <hr>
           <div class="row">
-            <a href="https://www.facebook.com/itnlanier"><div class="col-sm-3 social-icon-border fb">
+            <a href="https://www.facebook.com/ITNAmerica/"><div class="col-sm-3 social-icon-border fb">
               <i class="fa fa-facebook"></i>
             </div></a>
-            <!-- <a href="http://www.twitter.com/itnamerica"><div class="col-sm-3 social-icon-border tw">
+            <a href="http://www.twitter.com/itnamerica"><div class="col-sm-3 social-icon-border tw">
               <i class="fa fa-twitter"></i>
             </div></a>
             <a href="http://www.youtube.com/itnamerica"><div class="col-sm-3 social-icon-border yt">
@@ -183,7 +196,7 @@
             </div></a>
             <a href="http://www.instagram.com/itnamerica"><div class="col-sm-3 social-icon-border in">
               <i class="fa fa-instagram"></i>
-            </div></a> -->
+            </div></a>
           </div>
         </div>
         

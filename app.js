@@ -20,7 +20,7 @@ app.use(express.static(__dirname + '/app'));
 
 app.use(session({secret: "Sam is awesome"}));
 
-var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft'];
+var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/mrc-photo-album','/annual-report-2017','/about','/ways-to-give'];
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds153700.mlab.com:53700/itnlanier', function(err, client) {
   if (err) { 

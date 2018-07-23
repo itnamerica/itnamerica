@@ -153,7 +153,7 @@ nav .dropdown-menu li.divider{
 
 .carousel-inner .item {
     width: 100%;
-    height: 500px;
+    height: 700px;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -163,7 +163,7 @@ nav .dropdown-menu li.divider{
 .carousel-inner .item img, .carousel-inner .item iframe {
   object-fit: cover;
   width: 100%;
-  height: 500px;
+  height: 700px;
   margin-left:auto;
   margin-right:auto;
   z-index: 10;
@@ -371,24 +371,24 @@ nav .dropdown-menu li.divider{
   text-align: center;
   padding: 2%;
 }
-.services .service-features {
+.service-features {
   background: white;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5%;
 }
-.services .service-features .col-sm-4 {
+.service-features .col-sm-4 {
   text-align:center;
   padding: 2%;
 }
-.services .service-features .col-sm-4 .icon-wrap {
+.service-features .col-sm-4 .icon-wrap {
   font-size: 50px;
 }
-.services .service-features .col-sm-4 .icon-wrap .fa {
+.service-features .col-sm-4 .icon-wrap .fa {
   font-size: 70px;
 }
-.services .service-features .col-sm-4 .icon-legend {
+.service-features .col-sm-4 .icon-legend {
   margin-top: 7%;
   font-weight: bold;
   font-size: 25px;
@@ -1469,6 +1469,45 @@ form textarea.form-control {font-size:25px}
 .member-app #pdfVersion, .volunteer-app #pdfVersion {
   font-size: 12px !important;
 } 
+
+.ways-to-give #first-hero-ways{
+  background-image: url('../images/dark/bench2.jpg');
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+}
+.ways-to-give #first-hero-ways h1 {
+  color:white;
+  text-shadow: 2px 2px #529ba8;
+  margin-top: 170px;
+  margin-left: 5%;
+}
+.ways-to-give .service-features img {
+  height:200px;
+}
+.ways-to-give .service-features .icon-legend {
+  text-align:justify;
+}
+.ways-to-give .service-features .icon-legend h3 {
+  text-align:center;
+}
+
+.about #first-hero-about{
+  background-image: url('../images/dark/old-aa-woman-reverse.jpg');
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+}
+.about #first-hero-about h1 {
+  color:white;
+  text-shadow: 2px 2px #529ba8;
+  margin-top: 170px;
+  margin-left: 5%;
+}
     
 #footer {
     width:100%;

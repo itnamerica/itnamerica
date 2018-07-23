@@ -8,36 +8,49 @@
     <li data-target="#myCarousel" data-slide-to="1"></li>
     <li data-target="#myCarousel" data-slide-to="2"></li>
     <li data-target="#myCarousel" data-slide-to="3"></li>
+    <li data-target="#myCarousel" data-slide-to="4"></li>
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img ng-src="{{assetsPath}}/images/dark/medium-res/highres-beach_small.jpeg" id="highres-beach" alt="beach">
+      <img ng-src="{{assetsPath}}/images/dark/woman_blue.jpg" alt="senior woman blue wall">
       <h2 class="carousel-statement">
-        Help seniors remain independent while saving for your own future transportation.
+        Dignified transportation <br>
+        The only national, non-profit senior transportation network. <br>
+        <a ui-sref="what-we-do" class="btn btn-lg"> > Find out more</a>
       </h2>
     </div>
 
     <div class="item">
-      <img ng-src="{{assetsPath}}/images/dark/medium-res/highres-old.jpeg" alt="senior woman">
+      <img ng-src="{{assetsPath}}/images/dark/walking-crowd2.jpg" alt="seniors walking in sunset">
       <h2 class="carousel-statement">
-        With your support, families stay connected and friendships grow.
+        Community solution <br>
+        Neighbors helping neighbors.<br>
+        <a ui-sref="ways-to-give" class="btn btn-lg"> > Find out more</a>
       </h2>
     </div>
 
     <div class="item">
-      <img ng-src="{{assetsPath}}/images/dark/medium-res/aa-couple2.jpg" alt="happy black couple">
+      <img ng-src="{{assetsPath}}/images/dark/old-aa-woman-reverse.jpg" alt="senior african american woman">
       <h2 class="carousel-statement">
-        ITN<em>{{affiliate}}</em> provides rides to seniors and visually challenged people in greater Hall County, Georgia.
+        Nationwide network <br>
+        From Maine to Florida to California.<br>
+        <a ui-sref="ways-to-give" class="btn btn-lg"> > Find out more</a>
       </h2>
     </div>
 
     <div class="item">
-      <iframe src="https://www.youtube.com/embed/AUKh9uJrS94?rel=0" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+      <img ng-src="{{assetsPath}}/images/dark/man-fruits.jpeg" alt="senior man grocery shopping">
       <h2 class="carousel-statement">
-        Learn why ITN<em>{{affiliate}}</em> is vital to Hall County. Watch the video.
+        Dedicated to seniors<br>
+        We're here for you. <br>
+        <a ui-sref="about" class="btn btn-lg"> > Find out more</a>
       </h2>
+    </div>
+    
+    <div class="item">
+      <a href="https://www.ridesinsight.org/"><img ng-src="{{assetsPath}}/images/dark/latest-ris4.png" alt="rides in sight banner"></a>
     </div>
   </div><!--carousel-inner-->
 
@@ -53,60 +66,23 @@
   </div><!--myCAROUSEL-->
 </div><!--hpCAROUSEL-->
 
-<div class="jumbotron section hp-first">
-  <h2 style="font-size:35px">Because life is about going places.</h2>
-  <div class="features row">
-    <div class="col-md-4 wow fadeInUp" data-wow-duration="1s">
-      <a ui-sref="member-app">
-        <div class="feature-icon" style="background: #529ba8">
-          <i class="fa fa-car"></i>
-        </div>
-      </a>
-      <h6>Ride with us</h6>
-      <div class="feature-description">
-        An arm-through-arm, door-through-door transportation for older people.
-         Affordable fares, no tipping, cash-free transactions<br>
-
-      </div>
-    </div>
-    <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">
-      <a ui-sref="volunteer-to-drive">
-        <div class="feature-icon" style="background: #e05944">
-          <i class="fa fa-heart"></i>
-        </div>
-      </a>
-      <h6>Volunteer to drive</h6>
-      <div class="feature-description">
-        Make a difference in your community and in someone’s life.<br>
-        Become an ITN driver
-      </div>
-    </div>
-    <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="2s">
-      <a ui-sref="pay-online">
-        <div class="feature-icon" style="background: #529ba8">
-          <i class="fa fa-usd"></i>
-        </div>
-      </a>
-      <h6>Make a payment</h6>
-      <div class="feature-description">
-        Replenish your Personal Transportation Account online
-        instantly, and securely, via Paypal
-      </div><!--feature description-->
-    </div><!--col-md-4-->
-  </div><!--features-->
-  
-  <div class="row post-features">
-    <div class="col-md-4 each">Affordable fares <hr align="center" width="35%"></div>
-    <div class="col-md-4 each">No tipping <hr align="center" width="35%"></div>
-    <div class="col-md-4 each">Cash-free transactions <hr align="center" width="35%"></div>
+<div class="jumbotron section infographic ta-center">
+  <div class="container">
+    <h1 style="color:#529ba8;margin-bottom:50px">10,000 Americans turn 70 every day.</h1>
+    
+    <p><strong>Life. It’s about going places — shopping, visiting friends, trips to the doctor — but as we get older going places gets harder. Everything from walking up stairs to operating an automobile grows more difficult with age. We might turn to friends, neighbors and family members for help, but once we make the decision to stop driving it’s easy to find ourselves stranded. Life outside the driver’s seat can carry a heavy toll.</strong></p>
+    <p><strong>But no one should be trapped because they stop driving. ITNAmerica is dedicated to senior mobility. We ensure outliving the ability to drive safely doesn’t lead to a life of isolation. Because life is about going places, at any age.</strong></p>
+    <img ng-src="{{assetsPath}}/images/what_we_do4.png" alt="itn infographic" style="width:500px;display:block;margin:50px auto"/>
+    
+    <a ui-sref="what-we-do" class="btn btn-lg" style="padding:20px 30px;"> > LEARN MORE</a>
+    
   </div>
-  
 </div><!--JUMBO FEATURES-->
 
 <div class="jumbotron section mission">
   <div class="container">
     <h1 style="font-size: 50px">Mission</h1>
-    <h4>To provide a community-based, and community supported, economically viable and consumer-oriented, quality transportation service for seniors and visually impaired adults.</h4>
+    <h4>ITN<em>America</em> promotes lifelong mobility for seniors. We support sustainable, community-based transportation by leading a national transportation network grounded in research, policy analysis and education.</h4>
   </div>
 </div><!--MISSION-->
 
@@ -114,18 +90,18 @@
   <div class="container">
     <h1>Our Progress</h1>
     <div class="row progress-steps">
-      <div class="col-sm-6">
-        <div class="numbers" id="rides-given">3501</div>
+      <div class="col-sm-4">
+        <div class="numbers" id="rides-given">1014412</div>
         Rides given
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <div class="numbers" id="miles-driven">68705</div>
         Miles driven
       </div>
-      <!-- <div class="col-sm-4">
-        <div class="numbers" id="riders">94</div>
+      <div class="col-sm-4">
+        <div class="numbers" id="riders">8785</div>
         Riders
-      </div> -->
+      </div>
     </div><!--ROW-->
     
   </div>
@@ -134,23 +110,7 @@
 
 <!-- <div class="jumbotron section rider-stories">
   <div class="container section-content">
-    <h1>Rider Stories</h1>
-      <div class="col-lg-5 rider-stories-text">            
-        <h4>Ellie wants to know how much she should tip the driver, who says "No thank you. You owe me nothing." <br>
-        Initially Ellie tries to argue because she just tipped the "girl" who did her hair, but the driver reassures her that no tip is required.</h4>
-        <h5>-Written by Nancy McCormick <br>
-        (ITNCoastalCT)<h5>
-        <p><a ui-sref="rider-stories" class="btn btn-primary btn-lg mt-25">READ MORE</a></p>
-      </div>
-      <div class="col-lg-5 rider-stories-text">
-        <h4>Recently, ITNMontereyCounty had a member sign on who needed the service only for a couple of months while he recovered from open heart surgery. <br>
-        Robert needed us three times a week to get to and from his cardiac rehab appointments. Though this was a temporary thing for him, he was moved by how much it impacted his life.</h4>
-          <h5>-Written by Samantha Kelley <br>
-        (ITNMontereyCounty)</h5>
-        <p>
-          <a ui-sref="rider-stories" class="btn btn-primary btn-lg mt-25">READ MORE</a>
-        </p>
-      </div>
+ITNAmerica blog posts carousel
   </div>
 </div> -->
 
@@ -159,8 +119,7 @@
     <h2>Regeneron and ITN<em>America</em></h2>
     <!-- <div class="row"> -->
       <div class="col-sm-9 reg-text">
-        <strong>ITN<em>{{affiliate}}</em> is part of the nationwide network of ITN<em>America</em> affiliates.
-        ITN<em>America</em> is proud to recognize Regeneron Pharmaceuticals, Inc. as a corporate sponsor committed to helping raise awareness of the challenges associated with vision impairment, low vision, senior mobility issues and the shortage of locally-available transportation options for seniors. As the National Pharmaceutical Eye-care Services Sponsor for ITN<em>America</em> and our affiliate communities, Regeneron Pharmaceuticals is proud to support ITN's mission to promote safe senior mobility. </strong>
+        <strong>ITN<em>America</em> is proud to recognize Regeneron Pharmaceuticals, Inc. as a corporate sponsor committed to helping raise awareness of the challenges associated with vision impairment, low vision, senior mobility issues and the shortage of locally-available transportation options for seniors. As the National Pharmaceutical Eye-care Services Sponsor for ITNAmerica and our affiliate communities, Regeneron Pharmaceuticals is proud to support ITN's mission to promote safe senior mobility. Visit Regeneron at www.regeneron.com.</strong>
       </div>
       <div class="col-sm-3 reg-img">
         <img ng-src="{{assetsPath}}/images/regeneron_logo.jpg" alt="regeneron logo" style="width: 300px"/>
