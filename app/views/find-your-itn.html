@@ -110,20 +110,259 @@
 // </script>
 
 <script type="text/javascript">
-function initMap() {
+  var itn1 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnportland.org/">ITN<em>Portland</em></a></h2>' + 
+      '<p>One Westbrook Common, Suite 3 </p><p> Westbrook, Maine 04092</p>' +
+      '<p>(207) 854-0505</p>'
+      '</div>';
+  var itn2 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnmontereycounty.org/">ITN<em>MontereyCounty</em></a></h2>' + 
+      '<p>5 Harris Court, Building A</p><p>Monterey, CA 93940-5750</p>' +
+      '<p>(831) 233-3447</p>'
+      '</div>';
+  var itn3 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itncentraloklahoma.org/">ITN<em>CentralOklahoma</em></a></h2>' + 
+      '<p>313 N.E. 50th St. </p><p>Oklahoma City, OK 73105</p>' +
+      '<p>(405) 602-1558</p>'
+      '</div>';
+  var itn4 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itngateway.org/">ITN<em>Gateway</em></a></h2>' + 
+      '<p>P.O. Box 147</p><p>St. Peters, MO 63376</p>' +
+      '<p>(636) 329-0888</p>'
+      '</div>';
+  var itn5 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnsuncoast.org/">ITN<em>Suncoast</em></a></h2>' + 
+      '<p>1226 N. Tamiami Trail Suite 300</p><p>Sarasota, FL 34236</p>' +
+      '<p>(941) 364-7530</p>'
+      '</div>';
+  var itn6 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnlehighvalley.org/">ITN<em>LehighValley</em></a></h2>' + 
+      '<p>35 E. Elizabeth Ave Suite 20A</p><p>Bethlehem, PA 18018</p>' +
+      '<p>(610) 419-1645</p>'
+      '</div>';
+  var itn7 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnmemphis.org/">ITN<em>Memphis</em></a></h2>' + 
+      '<p>561 South Prescott Street</p><p>Memphis, TN 38111</p>' +
+      '<p>(901) 833-7666</p>'
+      '</div>';
+  var itn8 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnnorthjersey.org/">ITN<em>NorthJersey</em></a></h2>' + 
+      '<p>205 Hillcrest Avenue</p><p>Wyckoff, NJ 07841</p>' +
+      '<p>(201) 398-6885</p>'
+      '</div>';
+  var itn9 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnsoutherndelaware.org/">ITN<em>SouthernDelaware</em></a></h2>' + 
+      '<p>24855 Broadkill Rd.</p><p>Milton, DE 19968</p>' +
+      '<p>302-448-8486</p>'
+      '</div>';
+  var itn10 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnbluegrass.org/">ITN<em>Bluegrass</em></a></h2>' + 
+      '<p>1206 N Limestone Street</p><p>Lexington, KY 40505</p>' +
+      '<p>(859) 252-8665</p>'
+      '</div>';
+  var itn11 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnorlando.org/">ITN<em>Orlando</em></a></h2>' + 
+      '<p>988 Woodcock Road Suite 200</p><p>Orlando, FL 32803</p>' +
+      '<p>(407) 228-7761</p>'
+      '</div>';
+  var itn12 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itnlanier.org/">ITN<em>Lanier</em></a></h2>' + 
+      '<p>PO Box 1183</p><p>Gainesville, GA 30503</p>' +
+      '<p>(678) 696-0360</p>'
+      '</div>';
+  var itn13 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.itncentralct.org/">ITN<em>CentralCT</em></a></h2>' + 
+      '<p>50 South Main St.</p><p>West Hartford, CT 06107</p>' +
+      '<p>(860) 346-RIDE (7433)</p>'
+      '</div>';
+      
+  var itn14 = '<div id="marker-label">' + 
+      '<h2><a href="http://brooklinecan.org/">Brookline Community Aging Network</a></h2>' + 
+      '<p>93 Winchester St</p><p>Brookline, MA 02446</p>' +
+      '</div>';
+  var itn15 = '<div id="marker-label">' + 
+      '<h2><a href="http://seniorservicesofalbany.com">Senior Services of Albany</a></h2>' + 
+      '<p>32 Essex Street</p><p>Albany, NY 12206</p>' +
+      '</div>';
+  var itn16 = '<div id="marker-label">' + 
+      '<h2><a href="http://partnersincare.org">Partners in Care Maryland</a></h2>' + 
+      '<p>8151-C Ritchie Hwy</p><p>Pasadena. MD 21122</p>' +
+      '</div>';
+  var itn17 = '<div id="marker-label">' + 
+      '<h2><a href="http://neighborride.org">Neighbor Ride</a></h2>' + 
+      '<p>5570 Sterrett Place, Suite 102</p><p>Columbia, MD 21044</p>' +
+      '</div>';
+  var itn18 = '<div id="marker-label">' + 
+      '<h2><a href="http://fswp.org/services/interfaith-volunteer-caregiver-program">Family Services of Western Pennsylvania</a></h2>' + 
+      '<p>6401 Penn Avenue</p><p>Pittsburgh, PA 15206</p>' +
+      '</div>';
+  var itn19 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.faithinactiongkv.com/">Faith in Action of the Greater Kanawha Valley</a></h2>' + 
+      '<p>P.O. Box 11623</p><p>Charleston, WV 25339</p>' +
+      '</div>';
+  var itn20 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.blountcaa.org/">Blount County Community Action Agency</em></a></h2>' + 
+      '<p>3509 Tuckaleechee Pike</p><p>Maryville, TN 37803</p>' +
+      '</div>';
+  var itn21 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.icareseniors.org/">I Care</em></a></h2>' + 
+      '<p>300 East Ponce de Leon Avenue, Suite 313</p><p>Decatur, GA 30030</p>' +
+      '</div>';
+  var itn22 = '<div id="marker-label">' + 
+      '<h2><a href="https://cicoa.org/">CICOA</a></h2>' + 
+      '<p>4755 Kingsway Drive, Suite 200</p><p>Indianapolis, IN 46205</p>' +
+      '</div>';
+  var itn23 = '<div id="marker-label">' + 
+      '<h2><a href="http://ridestc.org/">Senior Transportation Connection</a></h2>' + 
+      '<p>4735 West 150th St., Ste. A</p><p>Cleveland, OH 44135</p>' +
+      '</div>';
+  var itn24 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.ivcinfo.org/">Interfaith Volunteer Caregivers</a></h2>' + 
+      '<p>8075 Ritter Street</p><p>Center Line, MI 48015</p>' +
+      '</div>';
+  var itn25 = '<div id="marker-label">' + 
+      '<h2><a href="https://etsnw.org/">Escorted Transportation Service Northwest</a></h2>' + 
+      '<p>1801 West Central Road</p><p>Arlington Heights, IL 60005</p>' +
+      '</div>';
+  var itn26 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.eraswaukesha.org/">ERAs Senior Network</a></h2>' + 
+      '<p>210 NW Barstow Street, Suite 101</p><p>Waukesha, WI 53188</p>' +
+      '</div>';
+  var itn27 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.handi-wheels.org/">Handi-Wheels</a></h2>' + 
+      '<p>2525 Broadway N. #002</p><p>Fargo, ND 58102</p>' +
+      '</div>';
+  var itn28 = '<div id="marker-label">' + 
+      '<h2><a href="https://srcaging.org/services/transportation/">Seniors Resource Center</a></h2>' + 
+      '<p>3227 Chase St.</p><p>Denver, CO 80212</p>' +
+      '</div>';
+  var itn29 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.interlinkvolunteers.org/">Interlink</a></h2>' + 
+      '<p>817 A 6th Street</p><p>Clarkston, WA 99403-2002</p>' +
+      '</div>';
+  var itn30 = '<div id="marker-label">' + 
+      '<h2><a href="https://rideconnection.org/">Ride Connection</a></h2>' + 
+      '<p>9955 NE Glisan St</p><p>Portland, OR 97220</p>' +
+      '</div>';
+  var itn31 = '<div id="marker-label">' + 
+      '<h2><a href="https://whistlestop.org/">Whistlestop</em></a></h2>' + 
+      '<p>930 Tamalpais Avenue</p><p>San Rafael, CA 94901</p>' +
+      '</div>';
+  var itn32 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.elderhelpofsandiego.org/">ElderHelp of San Diego</a></h2>' + 
+      '<p>3860 Calle Fortunado Suite 101</p><p>San Diego, CA 92123</p>' +
+      '</div>';
+  var itn33 = '<div id="marker-label">' + 
+      '<h2><a href="http://northwestvalleyconnect.org/">Northwest Valley Connect</a></h2>' + 
+      '<p>PO Box 9303</p><p>Surprise, AZ 85374</p>' +
+      '</div>';
+  var itn34 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.lendahandbouldercity.org/">Lend A Hand of Boulder City</a></h2>' + 
+      '<p>400 Utah St.</p><p>Boulder City, NV 89005</p>' +
+      '</div>';
+  var itn35 = '<div id="marker-label">' + 
+      '<h2><a href="https://www.rsvpvolunteer.org/transportation-program">Central Iowa RSVP</a></h2>' + 
+      '<p>503 Elm Avenue</p><p>Story City, IA 50248</p>' +
+      '</div>';
+  var itn36 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.volunteersinvt.org/one2one.php">Rutland Community Programs “One-2-One”</a></h2>' + 
+      '<p>6 Court St</p><p>Rutland, VT 05701</p>' +
+      '</div>';
+  var itn37 = '<div id="marker-label">' + 
+      '<h2><a href="<a href="https://www.allianceyc.org/left-navigation/transportation/">Adult Resource Alliance of Yellowstone Count</a></h2>' + 
+      '<p>1505 Avenue D</p><p>Billings, MT 59102</p>' +
+      '</div>';
+  var itn38 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.neseniors.org/">Northeast Seniors Inc. in Minneapolis, MN</a></h2>' + 
+      '<p>900 42nd Ave NE #317</p><p>Columbia Heights, MN 55421</p>' +
+      '</div>';
+  var itn39 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.shepctrkville.com/TSC-services/transportation">Shepherd’s Center of Kernersville</a></h2>' + 
+      '<p>431-B W. Bodenhamer St</p><p>Kernersville, NC 27285</p>' +
+      '</div>';
+  var itn40 = '<div id="marker-label">' + 
+      '<h2><a href="https://readyrides.org/">Ready Rides in Northwood, NH</a></h2>' + 
+      '<p>P.O. Box 272</p><p>Northwood, NH 03261</p>' +
+      '</div>';
+  var itn41 = '<div id="marker-label">' + 
+      '<h2><a href="https://cjfsbham.org/transportation/">Collat Jewish Family Services in Birmingham, AL</a></h2>' + 
+      '<p>3940 Montclair Rd, Suite 205</p><p>Birmingham, AL 35213</p>' +
+      '</div>';
+  var itn42 = '<div id="marker-label">' + 
+      '<h2><a href="https://driveasenior.org/">Drive a Senior Network</a></h2>' + 
+      '<p>3005 S. Lamar Blvd., Suite D109 #435</p><p>Austin, TX 78704</p>' +
+      '</div>';
+  var itn43 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.eppsoncenter.org/">Eppson Center for Seniors</a></h2>' + 
+      '<p>1560 N. 3rd St</p><p>Laramie, WY 82072</p>' +
+      '</div>';
+  var itn44 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.jfskc.org/jet-express/">Jewish Family Services of Greater Kansas City</a></h2>' + 
+      '<p>5801 W. 115th St, Suite 103</p><p>Overland Park, KS</p>' +
+      '</div>';
+  var itn45 = '<div id="marker-label">' + 
+      '<h2><a href="https://gracefullyaging.org/">Neighbor to Neighbor of South Carolina</a></h2>' + 
+      '<p>921 N. Kings Highway</p><p>Myrtle Beach, SC 29578</p>' +
+      '</div>';
+  var itn46 = '<div id="marker-label">' + 
+      '<h2><a href="https://www.rcptransit.com/">River Cities Public Transit</a></h2>' + 
+      '<p>1600 East Dakota Ave</p><p>Pierre, SD 57501</p>' +
+      '</div>';
+  var itn47 = '<div id="marker-label">' + 
+      '<h2><a href="http://eastsidefriendsofseniors.org/">Eastside Friends of Seniors</a></h2>' + 
+      '<p>1121 228th Ave SE</p><p>Sammamish, WA 98075</p>' +
+      '</div>';
+  var itn48 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.ccasfnm.org/center-for-community-involvement.html">Catholic Charities of Sante Fe</a></h2>' + 
+      '<p>2010 Bridge Blvd SW</p><p>Albuquerque, NM 87105</p>' +
+      '</div>';
+  var itn49 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.bellavistacourtesyvan.com/">Bella Vista Courtesy Van</a></h2>' + 
+      '<p>1801 Forest Hills Blvd suite 120</p><p>Austin, TX 78704</p>' +
+      '</div>';
+  var itn50 = '<div id="marker-label">' + 
+      '<h2><a href="http://tscor.org">The Shepherd’s Center of Richmond</a></h2>' + 
+      '<p>3111 Northside Ave #400</p><p>Richmond, VA 23228</p>' +
+      '</div>';
+  var itn51 = '<div id="marker-label">' + 
+      '<h2><a href="http://viste.org/">Volunteers in Service to the Elderly</a></h2>' + 
+      '<p>1232 E. Magnolia</p><p>Lakeland, FL 33801</p>' +
+      '</div>';
+  var itn52 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.westfairrides.org/">Westfair Rides</a></h2>' + 
+      '<p>487 East Main St suite 218</p><p>Mount Kisco, NY 10549</p>' +
+      '</div>';
+  var itn53 = '<div id="marker-label">' + 
+      '<h2><a href="https://www.southernrivol.org/">Southern Rhode Island Volunteers</a></h2>' + 
+      '<p>100 Park Lane</p><p>Charlestown, RI 02813</p>' +
+      '</div>';
+  var itn54 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.sctupelo.org/">The Shepherd’s Center of Greater Tupelo</a></h2>' + 
+      '<p>400 Jefferson St</p><p>Tupelo, MS 38802</p>' +
+      '</div>';
+  var itn55 = '<div id="marker-label">' + 
+      '<h2><a href="http://www.bossiercoa.org/">Bossier Council on Aging</a></h2>' + 
+      '<p>706 Bearkat Drive</p><p>Bossier City, LA 71111</p>' +
+      '</div>';
+      
+      
+      
   var locations = [
-    ['ITNPortland', 43.676373, -70.366664, 4],
-    ['ITNMontereyCounty', 36.579623, -121.819117, 5],
-    ['ITNCentralOklahoma', 35.522804, -97.506028, 3]
-    // ['<a href="www.itngateway.org">ITNGateway</a>', 38.787470, -90.629892, 2],
-    // ['ITN<em>Suncoast</em>', 27.348977, -82.546442, 1]
+    [itn1, 43.676373, -70.366664],
+    [itn2, 36.579623, -121.819117],
+    [itn3, 35.522804, -97.506028]
+    [itn4, 38.787470, -90.629892],
+    [itn5, 27.348977, -82.546442]
   ];
 
+  function initMap() {
+  var myLatLng = {lat: 43.676373, lng: -70.366664};
+
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 10,
-    center: new google.maps.LatLng(43.676373, -70.366664),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
+    zoom: 4,
+    center: myLatLng
+    });
+
 
   var infowindow = new google.maps.InfoWindow();
 
@@ -142,7 +381,7 @@ function initMap() {
       }
     })(marker, i));
   }
-}
+  }
 </script>
 
 
