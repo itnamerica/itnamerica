@@ -87,7 +87,6 @@ console.log('beg js script ');
       '<h2><a href="http://www.itnportland.org/">ITN<em>Portland</em></a></h2>' + 
       '<p>One Westbrook Common, Suite 3 </p><p> Westbrook, Maine 04092</p>' +
       '<p>(207) 854-0505</p>' + '</div>', 43.676373, -70.366664];
-      console.log('itn1 is ', itn1);
   var itn2 = ['<div id="marker-label">' + 
       '<h2><a href="http://www.itnmontereycounty.org/">ITN<em>MontereyCounty</em></a></h2>' + 
       '<p>5 Harris Court, Building A</p><p>Monterey, CA 93940-5750</p>' +
@@ -136,6 +135,7 @@ console.log('beg js script ');
       '<h2><a href="http://www.itncentralct.org/">ITN<em>CentralCT</em></a></h2>' + 
       '<p>50 South Main St.</p><p>West Hartford, CT 06107</p>' +
       '<p>(860) 346-RIDE (7433)</p>p>' + '</div>div>', 41.758635, -72.741714];
+  
   
   var itn14 = ['<div id="marker-label">' + 
       '<h2><a href="http://brooklinecan.org/">Brookline Community Aging Network</a></h2>' + 
@@ -307,13 +307,19 @@ console.log('beg js script ');
       '</div>', 32.518487, -93.731678];
       
       
-  var locations = [];
-  for (i = 1; i < 56; i++) {  
-    console.log('each loc is ', i);
-    locations.push(eval('itn'+i))
+  var locationsAffiliates = [];
+  var locationsTTP = [];
+  
+  for (i = 1; i < 14; i++) {  
+    // console.log('each loc is ', i);
+    locationsAffiliates.push(eval('itn'+i))
   }
-console.log('locations are ', locations);
-
+  for (i = 14; i < 56; i++) {  
+    // console.log('each loc is ', i);
+    locationsTTP.push(eval('itn'+i))
+  }
+  
+// console.log('locations are ', locations);
   // var locations = [
   //   ['itn1', 43.676373, -70.366664],
   //   ['itn2', 36.579623, -121.819117],
@@ -323,31 +329,51 @@ console.log('locations are ', locations);
   // ];
 
   function initMap() {
-  var myLatLng = {lat: 43.676373, lng: -70.366664};
+    var myLatLng = {lat: 43.676373, lng: -70.366664};
 
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: myLatLng
-    });
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: myLatLng
+      });
 
 
-  var infowindow = new google.maps.InfoWindow();
+    var infowindow = new google.maps.InfoWindow();
 
-  var marker, i;
+    var marker, i;
 
-  for (i = 0; i < locations.length; i++) {  
-    marker = new google.maps.Marker({
-      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-      map: map
-    });
 
-    google.maps.event.addListener(marker, 'click', (function(marker, i) {
-      return function() {
-        infowindow.setContent(locations[i][0]);
-        infowindow.open(map, marker);
-      }
-    })(marker, i));
-  }
+    for (i = 0; i < locationsAffiliates.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locationsAffiliates[i][1], locationsAffiliates[i][2]),
+        map: map,
+        icon: 'assets/images/icons/blue_pointer.png'
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locationsAffiliates[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    };
+    
+    
+    for (i = 0; i < locationsTTP.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locationsTTP[i][1], locationsTTP[i][2]),
+        map: map,
+        icon: 'assets/images/icons/orange_pointer.png'
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locationsTTP[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    };
+    
+    
   }
 </script>
 
