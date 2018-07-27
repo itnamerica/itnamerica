@@ -1527,6 +1527,42 @@ form textarea.form-control {font-size:25px}
 .find-your-itn #affiliates ul li a {
   color:inherit;
 }
+
+.mrc #first-hero-mrc {
+  background-image: url('../images/dark/itnmemphis-men.jpg') !important;
+  background-attachment: fixed;
+  background-position: center top !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  height: 400px !important;
+}
+
+.mrc #first-hero-mrc h1, .mrc #first-hero-mrc h3{
+  color:white !important;
+  text-shadow: 2px 2px #529ba8;
+  margin-top:170px !important;
+  margin-left: 5% !important;
+}
+
+.mrc p {
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.mrc img {
+  height: 350px;
+  margin-bottom: 50px;
+}
+
+.mrc iframe {
+  display:block;
+  margin:auto;
+  margin-top:50px;
+}
+.mrc figcaption {
+  text-align: center;
+  font-style: italic;
+}
     
 #footer {
     width:100%;
@@ -2042,9 +2078,6 @@ h2,h3 {line-height:1.7}
   }
 
   #footer .search {display:none}
-  
-  
-}
 
 
 .dropdown:hover .dropdown-menu {

@@ -13,61 +13,9 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/',
             templateUrl: viewsPath + 'home.html'
         })
-        .state('become-member', {
-            url: '/become-member',
-            templateUrl: viewsPath + 'become-member.html'
-        })
-        .state('community', {
-            url: '/community',
-            templateUrl: viewsPath + 'community.html'
-        })
         .state('contact', {
             url: '/contact',
             templateUrl: viewsPath + 'contact.html'
-        })
-        .state('donate', {
-            url: '/donate',
-            templateUrl: viewsPath + 'donate.html'
-        })
-        .state('faces', {
-            url: '/faces-of-our-members',
-            templateUrl: viewsPath + 'faces.html'
-        })
-        .state('family', {
-            url: '/family-involvement',
-            templateUrl: viewsPath + 'family.html'
-        })
-        .state('faq', {
-            url: '/faq',
-            templateUrl: viewsPath + 'faq.html'
-        })
-        .state('member-app', {
-            url: '/member-app',
-            templateUrl: viewsPath + 'member-app.html'
-        })
-        .state('member-programs', {
-            url: '/member-programs',
-            templateUrl: viewsPath + 'member-programs.html'
-        })
-        .state('news', {
-            url: '/news',
-            templateUrl: viewsPath + 'news.html'
-        })
-        .state('non-rider-member', {
-            url: '/non-rider-member',
-            templateUrl: viewsPath + 'non-rider-member.html'
-        })
-        .state('organization', {
-            url: '/organization',
-            templateUrl: viewsPath + 'organization.html'
-        })
-        .state('pay-online', {
-            url: '/pay-online',
-            templateUrl: viewsPath + 'pay-online.html'
-        })
-        .state('rider-stories', {
-            url: '/rider-stories',
-            templateUrl: viewsPath + 'rider-stories.html'
         })
         .state('what-we-do', {
             url: '/what-we-do',
@@ -75,29 +23,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             params: {
               anchor: null
             }
-        })
-        .state('corporate', {
-            url: '/corporate',
-            templateUrl: viewsPath + 'corporate.html'
-        })
-        .state('volunteer-to-drive', {
-            url: '/volunteer-to-drive',
-            templateUrl: viewsPath + 'volunteer-to-drive.html'
-        })
-        .state('volunteer-app', {
-            url: '/volunteer-app',
-            templateUrl: viewsPath + 'volunteer-app.html'
-        })
-        .state('newsletters', {
-            url: '/newsletters',
-            templateUrl: viewsPath + 'newsletters.html',
-            params: {
-                anchor: null
-            }
-        })
-        .state('add-pta-credit', {
-            url: '/add-pta-credit',
-            templateUrl: viewsPath + 'add-pta-credit.html'
         })
         .state('services-map', {
             url: '/services-map',
@@ -143,9 +68,9 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/ways-to-give',
             templateUrl: viewsPath + 'ways-to-give.html'
         })
-        .state('mrc-photo-album', {
-            url: '/mrc-photo-album',
-            templateUrl: viewsPath + 'mrc-photo-album.html'
+        .state('million-rides-campaign-photo-album', {
+            url: '/million-rides-campaign-photo-album',
+            templateUrl: viewsPath + 'million-rides-campaign-photo-album.html'
         })
         .state('annual-report-2017', {
             url: '/annual-report-2017',
