@@ -1881,6 +1881,12 @@ h2,h3 {line-height:1.7}
   }
 }
 
+@media(max-width: 768px) {
+  #kat-bio {
+    width:100% !important;
+  }
+}
+
 /*if links added to statement*/
 /*@media (max-width: 820px) {
   .carousel-inner .item .carousel-statement {font-size:30px;}
