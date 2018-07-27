@@ -1,5 +1,5 @@
 
-<div class="about" ng-init="catchAnchor()">
+<div class="about" ng-init="catchAnchor()" style="line-height:1.7">
     
   <div class="jumbotron section first-hero" id="first-hero-about">
     <h1>About ITN</h1>
@@ -7,33 +7,263 @@
 
 
   <div class="jumbotron section" id="why">
-    <div class="container">
-      Why
+    <div class="container" style="padding:5%;text-align:justify">
+      <div class="row">
+        <div class="col-sm-9" style="font-weight:bold">
+          <h2>Why We're Here</h2>
+          
+          <p>Everyone has places they need to go, things they have to do — the grocery store, medical appointments, trips to see friends. But for older people the ability to get places is curbed when the normal changes of aging impacts their safe driving. They may rely on friends, neighbors or family members for rides to fill the gap, but they often still find themselves caught without transportation. And asking favors quickly grows old. The loss of freedom that comes with letting go of the keys can take a heavy toll.</p>
+
+          <p>But at ITN<em>America</em>, we believe no one should ever be trapped at home. We offer solutions. Because there is life after driving.</p>
+          
+        </div>
+      </div>
     </div>
   </div>
 
+  
+  <div class="jumbotron section mission" id="mission">
+    <div class="container">
+      <h1 style="font-size: 50px">Mission</h1>
+      <h4>ITN<em>America</em> promotes lifelong mobility for seniors. We support sustainable, community-based transportation by leading a national transportation network grounded in research, policy analysis and education.</h4>
+    </div>
+  </div><!--MISSION-->
+  
   <div class="jumbotron section" id="history">
     <div class="container">
-      History
+      <div class="row">
+        <div class="col-sm-9" style="font-weight:bold">
+          <h2>OUR HISTORY</h2>
+          
+          <p>The ITN model was born out of near disaster: When Katherine Freund's son was three he was seriously injured by an 84-year-old driver. The accident provoked Freund to react, but instead of lashing out at the driver she became angry at a system ill equipped to support aging residents. Crashes caused by older people were not the problem, Freund knew: They were the result of a transportation system incapable of meeting the needs of an aging population. So she decided to change the system.</p>
+
+          <p>Freund earned her master's degree in public policy, concentrating on transportation for older people from every conceivable angle. The ITN model grew out of that work. Soon she found herself focusing on and solving related problems of resources, logistics, technology and policy that all play critical roles in our transportation system. The result was the Independent Transportation Network. What began as one woman's mission has now become a sustainable transportation solution, an antidote for a growing national problem, a lesson in social entrepreneurship and innovation, and an example of what one woman can do if she puts her mind to it.</p>
+
+          <p>The Independent Transportation Network of America now comprises 13 ITN affiliates in 12 states, a nationwide consortium of Trusted Transportation Partners, the Rides in Sight database, the largest and best listing of senior transportation service providers anywhere, and the new ITN<em>Country</em> program, which makes the ITN model accessible to every community in the country.</p>
+        </div>
+        
+        <div class="col-sm-3">
+          <img ng-src="{{assetsPath}}/images/Ryan.jpg" alt="image of Katherine's son ryan and his toddler daughter" style="width: 300px"/>
+        </div>
+        
+      </div>
     </div>
   </div>
 
-  <div class="jumbotron section" id="mission">
-    <div class="container">
-      Mission
-    </div>
-  </div>
-
-  <div class="jumbotron section" id="board">
+  <!-- <div class="jumbotron section" id="board">
     <div class="container">
       Board
     </div>
   </div>
 
-  <div class="jumbotron section" id="council">
+  <div class="juAZmbotron section" id="council">
     <div class="container">
       Council
     </div>
+  </div> -->
+  
+  
+  <div class="organization" style="float:left;width:100%">
+  <div class="section-container">
+  <div class="container itn-green-bg">
+  <section class="org-section" id="board">
+    <h1>Board of Directors</h1>
+    <div class="row mb-50">
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/KatherineFreundHeadshot-1.jpg" alt="Katherine Freund Portrait"/>
+        <h2>Katherine Freund</h2>
+        <p class="title">Founder and President</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio1 = !showBoardBio1">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio1">
+          <p>Katherine has a Master of Arts degree in Public Policy from the Edmund S. Muskie School of Public Service and a Bachelor of Arts degree in English Literature from the State University of New York at Buffalo.</p>
+
+          <p>She served on the Advisory Committee for the 2005 White House Conference on Aging and National Transit Institute Fellow. Currently, she serves on the Transportation Research Board's Committee on the Safe Mobility of Seniors and chairs TRB's Joint Subcommittee on Transportation Options for Seniors.</p>
+
+          <p>In 2009, Katherine was named an AARP Inspire Award Honoree, and in February 2008, she was featured in the Wall Street Journal as one of "12 People Who Are Changing Your Retirement." Katherine received the 2006 Maxwell Pollack Award from the Gerontological Society of America, a 2006 award for Leadership in Innovative Enterprise Ideas from the Social Enterprise Alliance, the 2004 Archstone Award for Excellence in Program Innovation from the American Public Health Association, and a 1998 Giraffe Hero Commendation, given to people who stick their necks out for the common good.</p>
+
+          <ul>Her publications include:
+            <li>"Aging, Mobility and the Model T: Approaches to Smart Community Transportation," Generations, Journal of the American Society on Aging, pp. 76-81, Freund and Vine, Fall 2010.</li>
+            <li>"Dignified Transportation for Seniors," CCQ Capital Commons Quarterly, pp.13-16, July 2008.</li>
+            <li>"Public and Private Policy Initiatives to Move Seniors Forward," Public Policy and Aging Report, pp.1-5, Staplin and Freund, Spring 2005.</li>
+            <li>"Mobility and Older People," Generations, Journal of the American Society on Aging, pp. 68-69, Summer 2003.</li>
+            <li>"Independent Transportation Network®: The Next Best Thing to Driving," Generations, Journal of the American Society on Aging, pp. 70-71, Summer 2003.</li>
+            <li>"Surviving Without Driving: Policy Options for Safe and Sustainable Transportation for Seniors," Transportation in an Aging Society: A Decade of Experience, Transportation Research Board, pp.114-121, 2004.</li>
+            <li>"Transportation on the Horizon," Mobility and Transportation in the Elderly, pp.145-155. Schaie, Pietrucha, ed., Societal Impact on Aging, Springer Series, 2000.</li>
+            <li>"Independent Transportation Network®, Alternative Transportation for the Elderly," TR News, pp. 3 –12, Jan/Feb 2000.</li>
+            <li>"Transportation Solutions on Horizon," Aging Today, p.10, January/February 1998.</li>
+            <li>"Build it and They Will Come," Transportation, pp.12-15, September/October 1998.</li>
+            <li>"How to Deal with Aging Drivers," Eye on Washington, Maine Sunday Telegram, p.1, Section C, August 2, 1998.</li>
+            <li>In addition to 14 National Transit Institute Workshops, Katherine has participated in more than 150 national and international panels, conference sessions, and speaking engagements on alternative transportation for seniors. Her international speaking engagements have taken her to Australia, Canada, Ireland, England, Germany, Switzerland and Taiwan to present ITN abroad.</li>
+          </ul>
+        
+          <p>To invite Katherine to speak at your next conference, workshop or seminar, please visit <a ui-sref="contact">here.</a></p>
+        </div>
+      </div>
+      
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/melton.jpg" alt="Dave Melton portrait"/>
+        <h2>David F. Melton, CRSP, CDS, CCSP</h2>
+        <p class="title">Board Member</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio2 = !showBoardBio2">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio2">
+          <p>Dave has retired from Liberty International, a business unit of Liberty Mutual Insurance, where he served as Managing Director - Global Road Safety, Liberty International in Hopkinton, MA. He continues to be an advocate for road safety as a volunteer supporting senior mobility, a consultant on motor vehicle safety, and a contributor to articles on transportation safety.</p>
+
+          <p>Dave was responsible for the development and advocacy of a roadway & occupational safety strategy for Liberty International Region operations in Asia, Europe and Latin America. He also participated in transportation related research projects at the Liberty Mutual Research Institute for Safety and was a frequent speaker at national and international conferences.</p>
+
+          <p>He is a past-chairman of the Board of Directors of the Network of Employers for Traffic Safety (NETS) and is a past member of the Board of Directors of the Professional Truck Driver Institute.</p>
+
+          <p>He is a Canadian Registered Safety Professional (CRSP) and also holds two certifications by the North American Transportation Management Institute (NATMI): Certified Director of Safety (CDS) and Certified Cargo Security Professional (CCSP).</p>
+
+          <p>Dave is a retired member of the Permanent Committee on Truck and Bus Safety (ANB70) of the Transportation Research Board, National Academy of Sciences, and is now a Friend of the Committee. He is a past member of the Advisory Council for the Center for Transportation Safety, Texas Transportation Institute, Texas A&M University.</p>
+
+          <p>Dave represented Liberty Mutual on the ANSI Z-15.1 Accredited Standards Committee on Safety Requirements for Motor Vehicle Fleet Operations, and he was a voting member of the ISO 39001 Road Traffic Safety Management Systems committee. He was also the technical consultant and spokesperson to the Liberty Mutual Insurance Teen and Senior Driving initiatives.</p>
+        </div>
+      </div>
+      
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/RickPain.jpg" alt="Richard Pain portrait"/>
+        <h2>Richard F. Pain</h2>
+        <p class="title">Board Secretary</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio3 = !showBoardBio3">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio3">
+          <p>Richard Pain is the retired Transportation Safety Coordinator for the Transportation Research Board, a division of The National Academies of Science, Engineering, and Medicine. In this role he was staff to 19 standing committees and a similar number of active subcommittees focusing on all aspects of highway and other mode safety, human performance, and cycles and pedestrians. He also was staff to committees on visualization, developing countries, statistics, and emergency evacuation. Working through these committees he helped develop the program for the TRB Annual Meeting (11,000 attend), develop specialty workshops, e.g. Roundabouts, Alcohol and Other Drugs in Transportation, Teamwork in Railroad Operations, Visualization, Older Drivers, Commercial Driver Health and Wellness, and identify short and long range research needs.</p>
+
+          <p>Richard is part of the Research Correlation Service program, visiting several state DOTs each year. He moderated the Transportation Safety Planning Working Group. He serves as liaison to relevant NCHRP, NTCRP, SHRP2 Safety, Synthesis and IDEA program projects. Before coming to TRB in 1988 he spent 20 years conducting contract safety and human performance research with several consulting firms. He holds a Ph.D. in Applied Experimental Psychology (human factors) from Michigan State University. He currently performs consulting work for TRB in transit and infrastructure valuation and for the National Committee on Statistics for the National Academies on truck driver fatigue and safety data bases.</p>
+        </div>
+      </div><!--col-sm-4-->
+
+    </div><!--row-->
+    
+    
+    
+    <div class="row mb-50">
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/jack_miles.jpg" alt="Jack Miles Portrait"/>
+        <h2>Jack Miles</h2>
+        <p class="title">Board Member</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio4 = !showBoardBio4">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio4">
+          <p>Jack Miles is a business strategy and operations C-Suite leader with over 30 years experience successfully transforming corporate services, administration and sourcing organizations in leading North American firms and government.</p>
+
+          <p>Florida Governor Rick Scott appointed Jack as the Secretary of the Department of Management Services (DMS), and he served in that role until April of 2012. DMS is a large and diverse state agency with an annual direct operating budget of $2.5 billion and a functional budget of over $9.5 billion, about 14% of the state's $70.0 billion annual budget.</p>
+
+          <p>Functions within DMS include real estate, facilities, procurement and My Florida Marketplace, human resource policy and HR technology, employee benefits, telecommunications including voice, data, emergency 911, mobile, law enforcement interoperability and broadband, retirement services, fleet and vehicle services, private prison monitoring and surplus equipment. DMS also facilitates state term contracts and aggregates statewide public sector spending, which towns, counties, municipalities and other eligible users across Florida are able to utilize.</p>
+
+          <p>Prior to his appointment Jack held C-Suite shared services and Chief Procurement Officer roles at leading North American firms including CIGNA, Canadian Imperial Bank of Commerce (CIBC), American International Group (AIG), Computer Associates (CA), Travelers, Ames Department Stores and Prentice-Hall.</p>
+
+          <p>He serves on the Executive Advisory Board of Coupa Software Inc., DocuSign Inc., PeopleTicker Inc., Incapsulate, SQYGL, and Stamp-Vault/Blue Apricot. He is a mentor at Startup Quest Orlando and Starter Studio, a technology accelerator in Orlando. He also serves on the Board of Trustees of Florida TaxWatch and is a member of the TaxWatch Center for Government Efficiency. In 2015 Jack was appointed to the State of Florida's legislatively mandated Government Efficiency Task Force, where he serves on several committees. Jack also serves as a member of the Board of Directors of Casa Feliz Historic Home and Museum.</p>
+        </div>
+      </div>
+      
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/ClaytonFong.jpg" alt="Clayton Fong portrait"/>
+        <h2>Clayton Fong</h2>
+        <p class="title">Board Member</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio5 = !showBoardBio5">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio5">
+          <p>Clayton Fong has been active in the Asian Pacific American community throughout the nation for the past 15 years, and he was formerly the President/Chief Executive Officer of the National Asian Pacific Center on Aging, a non-profit organization that advocates on behalf of elder Asian American and Pacific Islanders at the national and local levels.</p>
+
+          <p>Previously he served in numerous senior management positions at the White House and with the Governor of California, including White House Presidential Personnel, and Deputy Assistant to the President for Public Liaison, where he managed staff responsible for outreach to women, ethnic groups and numerous business and professional groups. Clayton also served as Deputy Director of the U.S. Office of Consumer Affairs, as well as the Governor of California's liaison to the Asian Pacific American communities.</p>
+
+          <p>He has significant experience in the area of health policy as a fellow with the Institute for Health Policy Studies at the University of California San Francisco, and the Children's Research Institute of California. He earned his Bachelor's Degree in Health, Arts and Sciences from the University of California at Berkeley. He is a former member of the President's Commission on White House Fellows, Chairman of the Asian Pacific American Institute for Congressional Studies, Alzheimer's Association of Western Washington, and the Advisory Board for the University of Washington School of Nursing.</p>
+        </div>
+      </div>
+      
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/BillTurenne.jpg" alt="Bill Turenne portrait"/>
+        <h2>Bill Turenne</h2>
+        <p class="title">Board Member</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio6 = !showBoardBio6">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio6">
+          <p>In 2005 President Bush appointed Bill to serve on the Advisory Committee for the 2005 White House Conference on Aging. Throughout his career Bill has served on many non-profit boards, including The Public Affairs Council, The Multiple Sclerosis Association, and the Tomas Rivera Center, an institute of policy studies affecting Hispanic Americans.</p>
+
+          <p>Bill retired from Eli Lilly and Company in 1995 after 31 years with the company. He then formed a public affairs and business consulting firm that specializes in organizational development, particularly in the integration of strategic business planning with public affairs programs for healthcare client organizations and state and federal government. Since 2001 he has served as a consultant to the U.S. Secretary of Health and Human Services.</p>
+
+          <p>A native of Danvers, Massachusetts, Bill received a Bachelors of Science degree from the University of Connecticut in 1962 and attended Boston College Graduate School of Management (1967 - 1970).</p>
+        </div>
+      </div><!--col-sm-4-->
+
+    </div><!--row-->
+    
+    
+    <div class="row mb-50">
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/eli_peli.jpg" alt="Eli Peli Portrait"/>
+        <h2>Eli Peli, MSc, OD, FAAO</h2>
+        <p class="title">Board Member</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio7 = !showBoardBio7">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio7">
+          <p>Eli Peli, MSc, OD, FAAO is the Moakley Scholar in Aging Eye Research at Schepens Eye Research Institute, Massachusetts Eye and Ear, and Professor of Ophthalmology at Harvard Medical School. He also serves as Adjunct Professor of Ophthalmology at Tufts University School of Medicine and adjunct professor of Optometry at NECO. He is the director of the Vision Rehabilitation Service at Tufts-Medical Center Hospital. Dr. Peli is a Fellow of the AAO, a Fellow of the Optical Society of America, a Fellow of the Society for Information Display, and a Fellow of the International Society of Optical Engineering.</p>
+
+          <p>Dr. Peli's principal research interests are image processing in relation to visual function and clinical psychophysics in low vision rehabilitation, image understanding and evaluation of display-vision interaction. He also maintains an interest in oculomotor control and binocular vision. Dr. Peli is a consultant to many companies in the ophthalmic instrumentation area and to manufacturers of head mounted displays (HMD). He served as a consultant on many national committees, including the National Institutes of Health, NASA AOS, Aviation Operations Systems advisory committee, U.S. Air Force, Department of Veterans Affairs, U.S. Navy Postdoctoral Fellowships Program, U.S. Army Research Labs, and U.S. Department of Transportation, Federal Motor Carrier Safety Administration. Dr. Peli has published more than 200 peer reviewed scientific papers and has been awarded 9 U.S. patents. He edited a book entitled Visual Models for Target Detection with special emphasis on military applications and co-authored a book entitled Driving with Confidence: A Practical Guide to Driving with Low Vision. </p>
+        </div>
+      </div>
+      
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/CarlAugusto.jpg" alt="Carl Augusto portrait"/>
+        <h2>Carl R. Augusto</h2>
+        <p class="title">Board Member</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio8 = !showBoardBio8">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio8">
+          <p>Carl R. Augusto recently retired as President and Chief Executive Officer of the American Foundation for the Blind (AFB), where he served since May 1991. Mr. Augusto is a preeminent leader in the field of blindness and visual impairment, having served in a variety of professional and volunteer capacities since 1971. During his tenure at AFB he guided the organization toward a greater focus in addressing critical issues facing the field of blindness. Under his leadership AFB forged numerous strategic partnerships and alliances with organizations inside and outside of the field that resulted in programmatic and financial synergies and innovative service delivery models.</p>
+
+          <p>From 1985 until his appointment as AFB's President, he served as Executive Director of the Cincinnati Association for the Blind (CAB), a multi-service private agency. His accomplishments included expanding service programs to encompass assistive technology training and early childhood intervention. From 1975 to 1985 Mr. Augusto held several staff and management positions with the National Accreditation Council for Agencies Serving the Blind and Visually Handicapped (NAC) in New York City. Mr. Augusto holds a master's degree in Rehabilitation Counseling from New York University, a bachelor's degree in Psychology from the University of Connecticut, and was awarded a Doctor of Humane Letters degree from Saint Peter's College in New Jersey.</p>
+        </div>
+      </div>
+      
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/michelle_turenne1.jpg" alt="Michelle Turenne portrait"/>
+        <h2>Michelle Turenne</h2>
+        <p class="title">Board Member</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio9 = !showBoardBio9">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio9">
+          <p>After 17 years in the pharmaceutical and biotech industries working in both field sales and brand and portfolio marketing, Michelle joined the staff of the American Thoracic Society in 2007, serving as a liaison between the Society and its industry partners. Her experience launching multi-million dollar products through a comprehensive corporate association strategy as well as working with start-up companies where $500 is a big decision allows her to have conversations with customers at all stages of the product life cycle. Among her many responsibilities, she leads a team of people who manage all interactions with the Society’s industry partners including the ATS Corporate Member program. The team she has built has been recognized three times with Commendations from the ATS President.</p>
+
+          <p>Michelle also serves as staff to the ATS Committee on Drug Device Discovery and Development, which provides a forum within the Society where members discuss the basic, translational and clinical science surrounding the discovery and development of new drugs and devices, regardless of genesis or financial support with a goal of enhancing collaboration among all scientists.</p>
+
+          <p>She is a member of the American Society of Association Executives and the Healthcare Convention Exhibitors Association (HCEA). She was elected to four terms on the HCEA Board of Directors, and she served for four years as co-chair of the Education Committee (chair of the Association Educational Track). She has been a regular speaker at the HCEA Annual Meeting.</p>
+
+          <p>Michelle received a business degree from James Madison University in Harrisonburg, VA, where she was an active member of the marching band and several other ensembles. She is a life member of Kappa Kappa Psi, and in her spare time she flies stunt kites, volunteers serving marching band programs, and with the National Association of Music Parents.</p>
+        </div>
+      </div><!--col-sm-4-->
+
+    </div><!--row-->
+    
+    
+    <div class="row mb-100">
+      <div class="col-sm-4">
+        <img ng-src="{{assetsPath}}/images/board/photo_soon.png" alt="No Portrait"/>
+        <h2>Donald Deibert</h2>
+        <p class="title">Chair of the Affiliate Community Board</p>
+        <button type="button" class="btn btn-lg" ng-click="showBoardBio10 = !showBoardBio10">READ MORE</button>
+        
+        <div class="showBoardBio" ng-show="showBoardBio10">
+          <p>ITNSunCoast Treasurer Don Deibert moved to Lakewood Ranch, Florida, in December 2015. He lived in North Carolina for the previous 28 years, but after his parents passed away, Don moved near his brother and family.</p>
+
+          <p>Don has served on many boards of directors and has served as treasurer. He currently manages a small family private foundation. He also coordinates the Road to Recovery Program in Buncombe County, N.C., which transports cancer patients to their treatment appointments. He was treasurer for a county-wide book reading organization in Buncombe County. He has been involved in many volunteer opportunities in North Carolina and now in Florida.</p>
+
+          <p>Don started out and continues as a volunteer driver for ITNSunCoast. He offered to be on the board of directors and now serves as treasurer. He is committed to his community and wants to give back. He feels that ITN is a wonderful opportunity for seniors who can no longer drive. He lives full time in Florida.</p>
+        </div>
+      </div>
+
+
+    </div><!--row-->
+    
+    
+  </section>
   </div>
+  </div>
+  </div>
+  
+  
 
 </div><!--about-->
