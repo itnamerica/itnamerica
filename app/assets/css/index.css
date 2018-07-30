@@ -240,13 +240,13 @@ nav .dropdown-menu li.divider{
   background-color: #fc6d6d;
   margin:auto;
 }
-.mission {
+.mission, #research {
   text-align: center;
   background-color: #399eaa;
   color: white;
   font-size:50px;
 }
-.mission h4 {
+.mission h4, #research h4 {
   margin-top:25px;
   line-height: 1.7;
   font-size:30px;
@@ -320,7 +320,7 @@ nav .dropdown-menu li.divider{
 /* SERVICES */
 
 .services .jumbotron {padding: 0;}
-.services .section {padding-bottom: 30px !important}
+/* .services .section {padding-bottom: 30px !important} */
 .services .first-hero {
   background-image: url('../images/dark/man_on_bench.jpg');
   background-attachment: fixed;
@@ -335,41 +335,33 @@ nav .dropdown-menu li.divider{
   margin-top:170px;
   margin-left: 5%;
 }
-.services .operate {
-  background: white;
-  color: #9b557e;
-}
-.services .operate h2 {
-  font-weight: bold;
-  margin-top:75px;
-  margin-bottom:75px;
-  text-align:center;
-}
-.services .operate img {
-  height: auto;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  padding: 3%;
-}
-.services .operate h3 {
-  font-weight: bold;
-  text-align: center;
-  margin-top: 4%;
-}
-.services .operate ul {
-  margin-top:20%;
-  list-style-type:none;
-  font-size:20px;
-  font-weight:bold;
-  white-space: nowrap;
+.services .container-fluid {
+  /* width:80%; */
 }
 .services .jumbo-title {
   background-color: #399eaa;
   color: white;
   text-align: center;
   padding: 2%;
+  font-weight: bold;
+  font-size: 30px;
+}
+.services p {
+  font-weight:bold;
+  text-align:justify;
+}
+.services .itn-country {
+  background-image: url('../images/dark/country_dark.png') !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+.services .service-features .icon-wrap, .services .service-features .icon-legend {
+  text-align:center;
+}
+.services .service-features p {
+  padding:5%;
 }
 .service-features {
   background: white;
