@@ -350,6 +350,14 @@ nav .dropdown-menu li.divider{
   font-weight:bold;
   text-align:justify;
 }
+.services p a {color:#fc6d6d}
+#policy, #education, #ashoka, .ris {
+  text-align:justify;
+}
+.services #transportation .jumbo-title, .services #transportation .row {
+  margin-left:-30px;
+  margin-right:-30px;
+}
 .services .itn-country {
   background-image: url('../images/dark/country_dark.png') !important;
   background-position: center center !important;
