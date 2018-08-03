@@ -1921,6 +1921,10 @@ h2,h3 {line-height:1.7}
   #kat-bio {
     width:100% !important;
   }
+  #history img {
+    margin:auto;
+    display:block;
+  }
 }
 
 @media(max-width: 541px) {
