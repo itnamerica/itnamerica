@@ -15,7 +15,7 @@
   <div class="carousel-inner">
     <div class="item active">
       <img ng-src="{{assetsPath}}/images/dark/ss2.png" alt="senior woman blue wall">
-      <h2 class="carousel-statement">
+      <h2 class="carousel-statement" id="statement-woman-blue">
         Dignified transportation <br>
         The only national, non-profit senior transportation network. <br>
         <a ui-sref="what-we-do" class="btn btn-lg"> > Find out more</a>
@@ -50,7 +50,9 @@
     </div>
     
     <div class="item">
-      <a href="https://www.ridesinsight.org/"><img ng-src="{{assetsPath}}/images/dark/latest-ris4.png" alt="rides in sight banner"></a>
+      <a href="https://www.ridesinsight.org/">
+        <img ng-src="{{assetsPath}}/images/dark/latest-ris4.png" alt="rides in sight banner" style="object-fit:cover;width:100%">
+      </a>
     </div>
   </div><!--carousel-inner-->
 
@@ -72,7 +74,7 @@
     
     <p><strong>Life. It’s about going places — shopping, visiting friends, trips to the doctor — but as we get older going places gets harder. Everything from walking up stairs to operating an automobile grows more difficult with age. We might turn to friends, neighbors and family members for help, but once we make the decision to stop driving it’s easy to find ourselves stranded. Life outside the driver’s seat can carry a heavy toll.</strong></p>
     <p><strong>But no one should be trapped because they stop driving. ITNAmerica is dedicated to senior mobility. We ensure outliving the ability to drive safely doesn’t lead to a life of isolation. Because life is about going places, at any age.</strong></p>
-    <img ng-src="{{assetsPath}}/images/what_we_do4.png" alt="itn infographic" style="width:500px;display:block;margin:50px auto"/>
+    <img ng-src="{{assetsPath}}/images/what_we_do4.png" alt="itn infographic" id="itn-infographic" style="width:500px;display:block;margin:50px auto"/>
     
     <a ui-sref="what-we-do" class="btn btn-lg" style="padding:20px 30px;"> > LEARN MORE</a>
     
@@ -118,10 +120,10 @@ ITNAmerica blog posts carousel
   <div class="container section-content">
     <h2>Regeneron and ITN<em>America</em></h2>
     <!-- <div class="row"> -->
-      <div class="col-sm-9 reg-text">
+      <div class="col-md-9 reg-text">
         <strong>ITN<em>America</em> is proud to recognize Regeneron Pharmaceuticals, Inc. as a corporate sponsor committed to helping raise awareness of the challenges associated with vision impairment, low vision, senior mobility issues and the shortage of locally-available transportation options for seniors. As the National Pharmaceutical Eye-care Services Sponsor for ITNAmerica and our affiliate communities, Regeneron Pharmaceuticals is proud to support ITN's mission to promote safe senior mobility. Visit Regeneron at www.regeneron.com.</strong>
       </div>
-      <div class="col-sm-3 reg-img">
+      <div class="col-md-3 reg-img">
         <img ng-src="{{assetsPath}}/images/regeneron_logo.jpg" alt="regeneron logo" style="width: 300px"/>
       </div>
     <!-- </div> -->
