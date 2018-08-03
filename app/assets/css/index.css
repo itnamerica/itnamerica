@@ -351,6 +351,7 @@ nav .dropdown-menu li.divider{
   text-align:justify;
 }
 .services p a {color:#fc6d6d}
+.services p .btn a {color:white}
 #policy, #education, #ashoka, .ris {
   text-align:justify;
 }
@@ -1859,10 +1860,38 @@ h2,h3 {line-height:1.7}
 
 /* RESPONSIVE */
 
+@media (max-width: 1430px) {
+  .ttp img {
+    height:auto;
+    width:100%;
+    margin-top:30%;
+  }
+}
+
+@media (max-width: 1300px) {
+  #programs img {
+    height:auto;
+    width:100%;
+  }
+  #policy img {
+    width:100%;
+  }
+}
+
 
 @media (max-width: 1210px) {
   .carousel-inner .item, .carousel-inner .item img {height:400px;}
   .family #gift-cert-img1, .family #gift-cert-img2 {visibility:hidden;}
+  #transportation img {margin-top:20%}
+}
+
+@media (max-width: 991px) {
+  #programs img, #policy img, .ttp img {
+    width:50%;
+    margin:auto;
+    display:block;
+    margin-top:10%;
+  }
 }
 
 @media (max-width: 768px) {
