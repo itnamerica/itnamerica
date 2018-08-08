@@ -909,11 +909,33 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             })
     };
     
+    $scope.fetchRecentBlogs = function(){
+      console.log('inside fetchrecentblogs func');
+      $http.get('http://blog.itnamerica.org/').then(function(response) {
+        console.log('response ', response.data);
+        $scope.homepageBlogContent = response.data;
+        
+        if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
+          var idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
+          console.log('idx is ', idx,$scope.homepageBlogContent[idx+33]);
+          var storeBlogURLs = [];
+          for (var i=32; i<$scope.homepageBlogContent.length; i++){
+            if ($scope.homepageBlogContent[idx+i] === ' ' && $scope.homepageBlogContent[idx+i+1] === 'r' && $scope.homepageBlogContent[idx+i+2] === 'e' && $scope.homepageBlogContent[idx+i+3] === 'l' && $scope.homepageBlogContent[idx+i+4] === '='){
+              break;
+            }
+            storeBlogURLs.push($scope.homepageBlogContent[idx+i]);
+          }
+          console.log('storeblogurls ', storeBlogURLs);
+          $scope.blogURLs = storeBlogURLs.join('').toString();
+          console.log('entry blog urls are ', $scope.blogsURLs);
+        }
+      })
+    };
     
-    $scope.getBlogContent = function(){
+    
+    $scope.getBlogContent = function(url){
       $http.get('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
           $scope.blogContent = response.data;
-          // console.log('html is ', $scope.blogContent);
           if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
             var idx = $scope.blogContent.indexOf('<h1 class="entry-title">');
             var store = [];
@@ -936,35 +958,13 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               }
               store2.push($scope.blogContent[idx+i]);
             }
-            $scope.entryImg = store2.join('').toString();
-            $scope.entryImg = $scope.entryImg.split("src=").pop();
-            console.log('entry img is ', $scope.entryImg);
-          }
-          
-          
+            $scope.entryImgURL = store2.join('').toString();
+            $scope.entryImgURL = $scope.entryImgURL.split("src=").pop().slice(1,-1).slice(0, -1);
+            console.log('entry img url is ', $scope.entryImgURL);
+          }    
         });
+        
     }
-    
-    // $scope.getBlogContent = function(){
-    //   $http.get('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
-    //       $scope.blogContent = response.data;
-    //       console.log('html is ', $scope.blogContent);
-    // 
-    //       var splat = $scope.blogContent.split(" ");
-    //       console.log('splat is ', splat);
-    //       for (var word in splat){
-    //         console.log('word is ', splat[word]);
-    //       }
-    //   });
-    // }
-    
-    // $scope.getBlogContent = function(){
-    //   console.log('resource obj', $resource);
-    //   $resource('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
-    //       $scope.blogContent = response.data;
-    //       console.log('html is ', $scope.blogContent);
-    //   });
-    // }
 
 }]);
 

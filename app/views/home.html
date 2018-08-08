@@ -110,10 +110,24 @@
   <!--CONTAINER-->
 </div><!-- PROGRESS-->
 
-<div class="jumbotron section rider-stories" ng-init="getBlogContent()">
+<div class="jumbotron section" style="background:pink">
+  <div class="container" ng-init="fetchRecentBlogs()">
+    <h1>Homepage blog content</h1>
+    {{homepageBlogContent}}
+  </div>
+</div>
+
+<div class="jumbotron section" ng-init="getBlogContent()">
   <div class="container section-content">
     <h2>ITNAmerica blog posts carousel</h2>
-    <p>{{blogContent}}</p>
+    <div class="row">
+      <div class="col-md-4 mt-25">
+        <h3 style="text-align:center">{{entryTitle}}</h3>
+          <img ng-src="{{entryImgURL}}" alt="recent blog post thumbnail image" style="width:100%"/>
+      </div>
+      <div class="col-md-4 mt-25"></div>
+      <div class="col-md-4 mt-25"></div>
+    </div>
   </div>
 </div>
 
