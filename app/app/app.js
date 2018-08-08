@@ -913,11 +913,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.getBlogContent = function(){
       $http.get('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
           $scope.blogContent = response.data;
-          console.log('html is ', $scope.blogContent);
+          // console.log('html is ', $scope.blogContent);
           if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
             var idx = $scope.blogContent.indexOf('<h1 class="entry-title">');
-            console.log('idx is ', idx, 'and ', $scope.blogContent[idx+24], $scope.blogContent[idx+25]);
-            
             var store = [];
             for (var i=24; i<$scope.blogContent.length; i++){
               if ($scope.blogContent[idx+i] === '<'){
@@ -925,8 +923,27 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               }
               store.push($scope.blogContent[idx+i]);
             }
-            console.log('store is ', store);
+            // $scope.entryTitle = store.join(' ').toString();
+            $scope.entryTitle = store.join('').toString();
+            console.log('entry title is ', $scope.entryTitle);
           }
+          
+          if ($scope.blogContent.indexOf('<img class=') !== -1){
+            var idx = $scope.blogContent.indexOf('<img class=');
+            // console.log('idx img is ', idx, $scope.blogContent[idx], 'and ', $scope.blogContent[idx+1], $scope.blogContent[idx+2], $scope.blogContent[idx+3]);
+            
+            var store2 = [];
+            for (var i=5; i<$scope.blogContent.length; i++){
+              if ($scope.blogContent[idx+i] === '"'){
+                break;
+              }
+              store2.push($scope.blogContent[idx+i]);
+            }
+            $scope.entryImg = store2.join('').toString();
+            console.log('entry img is ', $scope.entryImg);
+          }
+          
+          
         });
     }
     
