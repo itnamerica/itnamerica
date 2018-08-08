@@ -907,7 +907,22 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                         $scope.base64ToPDF($scope.formType, $scope.formData);
                     });
             })
+    };
+    
+    $scope.getBlogContent = function(){
+      $http.get('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
+          $scope.blogContent = response.data;
+          console.log('html is ', $scope.blogContent);
+      });
     }
+    
+    // $scope.getBlogContent = function(){
+    //   console.log('resource obj', $resource);
+    //   $resource('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
+    //       $scope.blogContent = response.data;
+    //       console.log('html is ', $scope.blogContent);
+    //   });
+    // }
 
 }]);
 

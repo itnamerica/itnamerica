@@ -18,7 +18,15 @@ var db;
 app.use(express.json()); //convert req to json
 app.use(express.static(__dirname + '/app'));
 
-app.use(session({secret: "Sam is awesome"}));
+// app.use(session({secret: "Sam is awesome"}));
+// app.use(function(req, res, next) {
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // next();
+  // res.setHeader('Access-Control-Allow-Origin', 'http://blog.itnamerica.org/life-keeps-going/');
+  // session({secret: "Sam is awesome"})
+// });
+
 
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn'];
 
@@ -211,6 +219,12 @@ app.post('/sendmail', function(req, res){
   });
 
   
+  app.all("http://blog.itnamerica.org/life-keeps-going/", function (req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization,   Content-Type, X-Requested-With");
+      res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+      return next();
+  });
 
 app.listen(process.env.PORT || 13270);
 
