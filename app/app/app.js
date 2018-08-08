@@ -923,23 +923,21 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               }
               store.push($scope.blogContent[idx+i]);
             }
-            // $scope.entryTitle = store.join(' ').toString();
             $scope.entryTitle = store.join('').toString();
             console.log('entry title is ', $scope.entryTitle);
           }
           
           if ($scope.blogContent.indexOf('<img class=') !== -1){
             var idx = $scope.blogContent.indexOf('<img class=');
-            // console.log('idx img is ', idx, $scope.blogContent[idx], 'and ', $scope.blogContent[idx+1], $scope.blogContent[idx+2], $scope.blogContent[idx+3]);
-            
             var store2 = [];
-            for (var i=5; i<$scope.blogContent.length; i++){
-              if ($scope.blogContent[idx+i] === '"'){
+            for (var i=12; i<$scope.blogContent.length; i++){
+              if ($scope.blogContent[idx+i] === 'a' && $scope.blogContent[idx+i+1] === 'l' && $scope.blogContent[idx+i+2] === 't'){
                 break;
               }
               store2.push($scope.blogContent[idx+i]);
             }
             $scope.entryImg = store2.join('').toString();
+            $scope.entryImg = $scope.entryImg.split("src=").pop();
             console.log('entry img is ', $scope.entryImg);
           }
           
