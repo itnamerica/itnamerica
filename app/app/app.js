@@ -918,18 +918,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
           var idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
           console.log('idx is ', idx,$scope.homepageBlogContent[idx+33]);
-          var storeBlogURLs = [];
+          var storeBlogURL = [];
           for (var i=33; i<$scope.homepageBlogContent.length; i++){
             if ($scope.homepageBlogContent[idx+i] === ' ' && $scope.homepageBlogContent[idx+i+1] === 'r' && $scope.homepageBlogContent[idx+i+2] === 'e' && $scope.homepageBlogContent[idx+i+3] === 'l' && $scope.homepageBlogContent[idx+i+4] === '='){
               break;
             }
-            storeBlogURLs.push($scope.homepageBlogContent[idx+i]);
+            storeBlogURL.push($scope.homepageBlogContent[idx+i]);
           }
-          // console.log('storeblogurls ', storeBlogURLs, storeBlogURLs.slice(0, -1));
-          $scope.blogURLs = storeBlogURLs.slice(0, -1);
-          console.log('blog urls ', $scope.blogURLs);
-          $scope.blogURLs = $scope.blogURLs.join('').toString();
-          console.log('entry blog urls are ', $scope.blogsURLs);
+          storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
+          $scope.blogURLs = [];
+          $scope.blogURLs.push(storeBlogURL);
+          console.log('entry blog urls are ', $scope.blogURLs);
         }
       })
     };
