@@ -909,12 +909,39 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             })
     };
     
+    
     $scope.getBlogContent = function(){
       $http.get('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
           $scope.blogContent = response.data;
           console.log('html is ', $scope.blogContent);
-      });
+          if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
+            var idx = $scope.blogContent.indexOf('<h1 class="entry-title">');
+            console.log('idx is ', idx, 'and ', $scope.blogContent[idx+24], $scope.blogContent[idx+25]);
+            
+            var store = [];
+            for (var i=24; i<$scope.blogContent.length; i++){
+              if ($scope.blogContent[idx+i] === '<'){
+                break;
+              }
+              store.push($scope.blogContent[idx+i]);
+            }
+            console.log('store is ', store);
+          }
+        });
     }
+    
+    // $scope.getBlogContent = function(){
+    //   $http.get('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
+    //       $scope.blogContent = response.data;
+    //       console.log('html is ', $scope.blogContent);
+    // 
+    //       var splat = $scope.blogContent.split(" ");
+    //       console.log('splat is ', splat);
+    //       for (var word in splat){
+    //         console.log('word is ', splat[word]);
+    //       }
+    //   });
+    // }
     
     // $scope.getBlogContent = function(){
     //   console.log('resource obj', $resource);
