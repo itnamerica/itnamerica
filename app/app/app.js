@@ -914,24 +914,30 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $http.get('http://blog.itnamerica.org/').then(function(response) {
         console.log('response ', response.data);
         $scope.homepageBlogContent = response.data;
+        $scope.blogURLs = [];
         
         if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
           var idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
+          var idx2 = $scope.homepageBlogContent.slice(1,idx+33)indexOf('<h1 class="entry-title"><a href="');
+          var idx3 = $scope.homepageBlogContent.slice(1,idx2+33)indexOf('<h1 class="entry-title"><a href="');
+          var indexes = [idx,idx2,idx3];
           
-          
-          
-          console.log('idx is ', idx,$scope.homepageBlogContent[idx+33]);
-          var storeBlogURL = [];
-          for (var i=33; i<$scope.homepageBlogContent.length; i++){
-            if ($scope.homepageBlogContent[idx+i] === ' ' && $scope.homepageBlogContent[idx+i+1] === 'r' && $scope.homepageBlogContent[idx+i+2] === 'e' && $scope.homepageBlogContent[idx+i+3] === 'l' && $scope.homepageBlogContent[idx+i+4] === '='){
-              break;
+          for (var x in indexes){
+            console.log('index is ', indexes[x]);
+            
+            var storeBlogURL = [];
+            for (var i=33; i<$scope.homepageBlogContent.slice(1,indexes[x]+33).length; i++){
+              if ($scope.homepageBlogContent[indexes[x]+i] === ' ' && $scope.homepageBlogContent[indexes[x]+i+1] === 'r' && $scope.homepageBlogContent[indexes[x]+i+2] === 'e' && $scope.homepageBlogContent[indexes[x]+i+3] === 'l' && $scope.homepageBlogContent[indexes[x]+i+4] === '='){
+                break;
+              }
+              storeBlogURL.push($scope.homepageBlogContent[indexes[x]+i]);
             }
-            storeBlogURL.push($scope.homepageBlogContent[idx+i]);
+            storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
+            $scope.blogURLs.push(storeBlogURL);
+            console.log('entry blog urls are ', $scope.blogURLs);
+          
           }
-          storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
-          $scope.blogURLs = [];
-          $scope.blogURLs.push(storeBlogURL);
-          console.log('entry blog urls are ', $scope.blogURLs);
+          
         }
       })
     };
