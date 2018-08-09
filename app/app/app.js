@@ -917,6 +917,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         
         if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
           var idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
+          
+          
+          
           console.log('idx is ', idx,$scope.homepageBlogContent[idx+33]);
           var storeBlogURL = [];
           for (var i=33; i<$scope.homepageBlogContent.length; i++){
