@@ -912,21 +912,27 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.fetchRecentBlogs = function(){
       console.log('inside fetchrecentblogs func');
       $http.get('http://blog.itnamerica.org/').then(function(response) {
-        console.log('response ', response.data);
+        // console.log('response ', response.data);
         $scope.homepageBlogContent = response.data;
         $scope.blogURLs = [];
         
         if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
           var idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
-          var idx2 = $scope.homepageBlogContent.slice(1,idx+33)indexOf('<h1 class="entry-title"><a href="');
-          var idx3 = $scope.homepageBlogContent.slice(1,idx2+33)indexOf('<h1 class="entry-title"><a href="');
+          var idx2 = $scope.homepageBlogContent.slice(idx+33).indexOf('<h1 class="entry-title"><a href="');
+          var idx3 = $scope.homepageBlogContent.slice(idx2+33).indexOf('<h1 class="entry-title"><a href="');
           var indexes = [idx,idx2,idx3];
           
-          for (var x in indexes){
+          $scope.homepageBlogContent2 =  $scope.homepageBlogContent.slice(idx+33);
+          $scope.homepageBlogContent3 =  $scope.homepageBlogContent.slice(idx2+33);
+          
+          console.log('indexes are ', indexes);
+          
+          
+          for (var x=0; x<indexes.length; x++){
             console.log('index is ', indexes[x]);
-            
+          
             var storeBlogURL = [];
-            for (var i=33; i<$scope.homepageBlogContent.slice(1,indexes[x]+33).length; i++){
+            for (var i=33; i<$scope.homepageBlogContent.slice(indexes[x]+33).length; i++){
               if ($scope.homepageBlogContent[indexes[x]+i] === ' ' && $scope.homepageBlogContent[indexes[x]+i+1] === 'r' && $scope.homepageBlogContent[indexes[x]+i+2] === 'e' && $scope.homepageBlogContent[indexes[x]+i+3] === 'l' && $scope.homepageBlogContent[indexes[x]+i+4] === '='){
                 break;
               }
