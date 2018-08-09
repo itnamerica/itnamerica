@@ -961,8 +961,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           
           $scope.homepageBlogContent2 =  $scope.homepageBlogContent.slice(idx+33);
           var idx2 = $scope.homepageBlogContent2.indexOf('<h1 class="entry-title"><a href="');
-          console.log('words are ', $scope.homepageBlogContent2[idx2], $scope.homepageBlogContent2[idx2+33], $scope.homepageBlogContent2[idx2+34],$scope.homepageBlogContent2[idx2+35])
-          // $scope.homepageBlogContent3 =  $scope.homepageBlogContent.slice(idx2+33);
+          $scope.homepageBlogContent3 =  $scope.homepageBlogContent2.slice(idx2+33);
+          var idx3 = $scope.homepageBlogContent3.indexOf('<h1 class="entry-title"><a href="');
+          // console.log('words are ', $scope.homepageBlogContent2[idx2], $scope.homepageBlogContent2[idx2+33], $scope.homepageBlogContent2[idx2+34],$scope.homepageBlogContent2[idx2+35]);
           
           
           
@@ -990,6 +991,20 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
           $scope.blogURLs.push(storeBlogURL);
           console.log('entry blog urls are ', $scope.blogURLs);
+          
+          
+          
+          storeBlogURL = [];
+          for (var i=33; i<$scope.homepageBlogContent3.length; i++){
+            if ($scope.homepageBlogContent3[idx3+i] === ' ' && $scope.homepageBlogContent3[idx3+i+1] === 'r' && $scope.homepageBlogContent3[idx3+i+2] === 'e' && $scope.homepageBlogContent3[idx3+i+3] === 'l' && $scope.homepageBlogContent3[idx3+i+4] === '='){
+              break;
+            }
+            storeBlogURL.push($scope.homepageBlogContent3[idx3+i]);
+          }
+          storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
+          $scope.blogURLs.push(storeBlogURL);
+          console.log('entry blog urls are ', $scope.blogURLs);
+          
           
         }
       })
