@@ -937,14 +937,22 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $scope.homepageBlogContent =  $scope.homepageBlogContent.slice(idx+33);
             
           }
-
         }
+        
+        $scope.getContentForRecentBlogs();
+        
       })
     };
     
+    $scope.getContentForRecentBlogs = function(){
+      for (var x = 0; x < $scope.blogURLs.length; x++) {
+        $scope.getBlogContent($scope.blogURLs[x]);
+      }
+    }
+    
     
     $scope.getBlogContent = function(url){
-      $http.get('http://blog.itnamerica.org/life-keeps-going/').then(function(response) {
+      $http.get(url).then(function(response) {
           $scope.blogContent = response.data;
           if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
             var idx = $scope.blogContent.indexOf('<h1 class="entry-title">');
