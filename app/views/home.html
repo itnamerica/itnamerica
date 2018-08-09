@@ -126,17 +126,24 @@
 </div><!-- PROGRESS-->
 
 
-<div class="jumbotron section" ng-init="getBlogContent()">
+<div class="jumbotron section" ng-init="fetchRecentBlogs()">
   <div class="container section-content">
     <h2>ITNAmerica blog posts carousel</h2>
     <div class="row">
+      <div class="col-md-4 mt-25" ng-repeat="entry in blogEntries">
+        <h3 style="text-align:center">{{entry.title}}</h3>
+        <img ng-src="{{entry.imgURL}}" alt="recent blog post thumbnail image" style="width:100%"/>
+      </div>
+    </div>
+    
+    <!-- <div class="row">
       <div class="col-md-4 mt-25">
         <h3 style="text-align:center">{{entryTitle}}</h3>
           <img ng-src="{{entryImgURL}}" alt="recent blog post thumbnail image" style="width:100%"/>
       </div>
       <div class="col-md-4 mt-25"></div>
       <div class="col-md-4 mt-25"></div>
-    </div>
+    </div> -->
   </div>
 </div>
 

@@ -272,6 +272,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     var originalFormData = $scope.formData;
     $scope.showForm = false;
+    $scope.blogEntries = [];
 
 
 
@@ -921,7 +922,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         
         if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
           
-          for (var num=0; num<blogNumber+1; num++){
+          for (var num=0; num<blogNumber; num++){
             idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
             var storeBlogURL = [];
             for (var i=33; i<$scope.homepageBlogContent.length; i++){
@@ -938,20 +939,23 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             
           }
         }
-        
+        console.log('blogurls1 are ', $scope.blogURLs);
         $scope.getContentForRecentBlogs();
         
       })
     };
     
     $scope.getContentForRecentBlogs = function(){
+      console.log('blogurls are ', $scope.blogURLs);
       for (var x = 0; x < $scope.blogURLs.length; x++) {
+        console.log('url abt to enter func is ', $scope.blogURLs[x]);
         $scope.getBlogContent($scope.blogURLs[x]);
       }
     }
     
     
     $scope.getBlogContent = function(url){
+      console.log('url is ', url, 'is type ', typeof(url));
       $http.get(url).then(function(response) {
           $scope.blogContent = response.data;
           if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
@@ -963,6 +967,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               }
               store.push($scope.blogContent[idx+i]);
             }
+            //make array of titles?
             $scope.entryTitle = store.join('').toString();
             console.log('entry title is ', $scope.entryTitle);
           }
@@ -976,10 +981,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               }
               store2.push($scope.blogContent[idx+i]);
             }
+            //make array of img?
             $scope.entryImgURL = store2.join('').toString();
             $scope.entryImgURL = $scope.entryImgURL.split("src=").pop().slice(1,-1).slice(0, -1);
             console.log('entry img url is ', $scope.entryImgURL);
           }    
+          
+          $scope.blogEntries.push({
+            title: $scope.entryTitle,
+            imgURL: $scope.entryImgURL
+          });
+          
         });
         
     }
