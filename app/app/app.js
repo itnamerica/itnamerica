@@ -909,6 +909,46 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             })
     };
     
+    // $scope.fetchRecentBlogs = function(){
+    //   console.log('inside fetchrecentblogs func');
+    //   $http.get('http://blog.itnamerica.org/').then(function(response) {
+    //     // console.log('response ', response.data);
+    //     $scope.homepageBlogContent = response.data;
+    //     $scope.blogURLs = [];
+    // 
+    //     if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
+    //       var idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
+    //       var idx2 = $scope.homepageBlogContent.slice(idx+33).indexOf('<h1 class="entry-title"><a href="');
+    //       var idx3 = $scope.homepageBlogContent.slice(idx2+33).indexOf('<h1 class="entry-title"><a href="');
+    //       var indexes = [idx,idx2,idx3];
+    // 
+    //       $scope.homepageBlogContent2 =  $scope.homepageBlogContent.slice(idx+33);
+    //       $scope.homepageBlogContent3 =  $scope.homepageBlogContent.slice(idx2+33);
+    // 
+    //       console.log('indexes are ', indexes);
+    // 
+    // 
+    //       for (var x=0; x<indexes.length; x++){
+    //         console.log('index is ', indexes[x]);
+    // 
+    //         var storeBlogURL = [];
+    //         for (var i=33; i<$scope.homepageBlogContent.slice(indexes[x]+33).length; i++){
+    //           if ($scope.homepageBlogContent[indexes[x]+i] === ' ' && $scope.homepageBlogContent[indexes[x]+i+1] === 'r' && $scope.homepageBlogContent[indexes[x]+i+2] === 'e' && $scope.homepageBlogContent[indexes[x]+i+3] === 'l' && $scope.homepageBlogContent[indexes[x]+i+4] === '='){
+    //             break;
+    //           }
+    //           storeBlogURL.push($scope.homepageBlogContent[indexes[x]+i]);
+    //         }
+    //         storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
+    //         $scope.blogURLs.push(storeBlogURL);
+    //         console.log('entry blog urls are ', $scope.blogURLs);
+    // 
+    //       }
+    // 
+    //     }
+    //   })
+    // };
+    
+    
     $scope.fetchRecentBlogs = function(){
       console.log('inside fetchrecentblogs func');
       $http.get('http://blog.itnamerica.org/').then(function(response) {
@@ -918,31 +958,38 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         
         if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
           var idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
-          var idx2 = $scope.homepageBlogContent.slice(idx+33).indexOf('<h1 class="entry-title"><a href="');
-          var idx3 = $scope.homepageBlogContent.slice(idx2+33).indexOf('<h1 class="entry-title"><a href="');
-          var indexes = [idx,idx2,idx3];
           
           $scope.homepageBlogContent2 =  $scope.homepageBlogContent.slice(idx+33);
-          $scope.homepageBlogContent3 =  $scope.homepageBlogContent.slice(idx2+33);
+          var idx2 = $scope.homepageBlogContent2.indexOf('<h1 class="entry-title"><a href="');
+          console.log('words are ', $scope.homepageBlogContent2[idx2], $scope.homepageBlogContent2[idx2+33], $scope.homepageBlogContent2[idx2+34],$scope.homepageBlogContent2[idx2+35])
+          // $scope.homepageBlogContent3 =  $scope.homepageBlogContent.slice(idx2+33);
           
-          console.log('indexes are ', indexes);
           
           
-          for (var x=0; x<indexes.length; x++){
-            console.log('index is ', indexes[x]);
-          
-            var storeBlogURL = [];
-            for (var i=33; i<$scope.homepageBlogContent.slice(indexes[x]+33).length; i++){
-              if ($scope.homepageBlogContent[indexes[x]+i] === ' ' && $scope.homepageBlogContent[indexes[x]+i+1] === 'r' && $scope.homepageBlogContent[indexes[x]+i+2] === 'e' && $scope.homepageBlogContent[indexes[x]+i+3] === 'l' && $scope.homepageBlogContent[indexes[x]+i+4] === '='){
-                break;
-              }
-              storeBlogURL.push($scope.homepageBlogContent[indexes[x]+i]);
+          var storeBlogURL = [];
+          for (var i=33; i<$scope.homepageBlogContent.length; i++){
+            if ($scope.homepageBlogContent[idx+i] === ' ' && $scope.homepageBlogContent[idx+i+1] === 'r' && $scope.homepageBlogContent[idx+i+2] === 'e' && $scope.homepageBlogContent[idx+i+3] === 'l' && $scope.homepageBlogContent[idx+i+4] === '='){
+              break;
             }
-            storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
-            $scope.blogURLs.push(storeBlogURL);
-            console.log('entry blog urls are ', $scope.blogURLs);
-          
+            storeBlogURL.push($scope.homepageBlogContent[idx+i]);
           }
+          storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
+          $scope.blogURLs.push(storeBlogURL);
+          console.log('entry blog urls are ', $scope.blogURLs);
+          
+          
+          
+          
+          storeBlogURL = [];
+          for (var i=33; i<$scope.homepageBlogContent2.length; i++){
+            if ($scope.homepageBlogContent2[idx2+i] === ' ' && $scope.homepageBlogContent2[idx2+i+1] === 'r' && $scope.homepageBlogContent2[idx2+i+2] === 'e' && $scope.homepageBlogContent2[idx2+i+3] === 'l' && $scope.homepageBlogContent2[idx2+i+4] === '='){
+              break;
+            }
+            storeBlogURL.push($scope.homepageBlogContent2[idx2+i]);
+          }
+          storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
+          $scope.blogURLs.push(storeBlogURL);
+          console.log('entry blog urls are ', $scope.blogURLs);
           
         }
       })
