@@ -1883,6 +1883,7 @@ h2,h3 {line-height:1.7}
   .carousel-inner .item, .carousel-inner .item img {height:400px;}
   .family #gift-cert-img1, .family #gift-cert-img2 {visibility:hidden;}
   #transportation img {margin-top:20%}
+  #mrc-statement {margin-top:-370px !important}
 }
 
 @media (max-width: 991px) {
