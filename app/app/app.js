@@ -972,39 +972,20 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             var store2 = [];
             var storeUncommonURLs = [];
             for (var i=12; i<$scope.blogContent.length; i++){
-              if ($scope.blogContent[idx+i] === 'a' && $scope.blogContent[idx+i+1] === 'l' && $scope.blogContent[idx+i+2] === 't'){
+              if ($scope.blogContent[idx+i] === 'a' && $scope.blogContent[idx+i+1] === 'l' && $scope.blogContent[idx+i+2] === 't' || $scope.blogContent[idx+i] === '>'){
                 break;
-              } else if ($scope.blogContent[idx+i] === '>'){
-                break
-              } else {
-                  store2.push($scope.blogContent[idx+i]);
               }
+              store2.push($scope.blogContent[idx+i]);
             }
             $scope.entryImgURL = store2.join('').toString();
-            $scope.entryImgURL = $scope.entryImgURL.split("src=").pop().slice(1,-1).slice(0, -1);
-            console.log('entry img url is ', $scope.entryImgURL);
-            //capture the oddball like: https://patimes.org/wp-content/uploads/2016/11/AP.jpg" width="275" height="183"
-            //if img url is atypical, match with other pattern
-            if ($scope.entryImgURL.indexOf(" ") !== -1){
-              console.log('atypical url ', $scope.entryImgURL, typeof($scope.entryImgURL));
-              $scope.entryImgURL = $scope.entryImgURL.match(/\bhttps?:\/\/\S+/gi);
-              console.log('entry img url 2 ', $scope.entryImgURL);
-              $scope.entryImgURL = $scope.entryImgURL.toString().slice(0,-1);
-              console.log('entry img url 3 ', $scope.entryImgURL);
-            }
-            // var str = $scope.blogContent[idx];
-            // console.log('str is ', str);
-            // var url = str.match(/\bhttps?:\/\/\S+/gi);
-            // url = url[0].slice(0,-1)
-            // store2.push(url);
+            $scope.entryImgURL = $scope.entryImgURL.match(/\bhttps?:\/\/\S+/gi);
+            $scope.entryImgURL = $scope.entryImgURL.toString().slice(0,-1);
           }    
-          
           $scope.blogEntries.push({
             title: $scope.entryTitle,
             imgURL: $scope.entryImgURL,
             blogURL: url
           });
-          
         });
         
     }
