@@ -30,11 +30,11 @@ app.use(session({secret: "Sam is awesome"}));
 
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn'];
 
-MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds153700.mlab.com:53700/itnlanier', function(err, client) {
+MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
   if (err) { 
     console.log('db not connecting, but inside mongo block - 1', err);
   };
-  db = client.db('itnlanier');
+  db = client.db('itnamerica-new');
   
   
   app.get('/getMemberApps', function (req,res) {
@@ -75,6 +75,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds153700.mlab.com:53700/itn
   app.get('/getAdmin', function (req,res) {
       db.collection('users').find().toArray(function (err, result) {
         var userInput = JSON.parse(req.query.formData);
+        console.log('user input is ',userInput, 'result from db is ', result);
         if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
           console.log('a match, initializing session');
           req.session.user = userInput;

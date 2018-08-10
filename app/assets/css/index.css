@@ -303,9 +303,10 @@ nav .dropdown-menu li.divider{
 .homepage .rider-stories .rider-stories-text p {
   text-align:center;
 }
-.homepage .itn-blogs h2 a {
+.homepage .itn-blogs h1 a {
   color:black !important;
-  text-decoration:underline;
+  font-size:50px;
+  text-align:center;
 }
 .blog-thumbnail {
   overflow: hidden;
