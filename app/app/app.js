@@ -912,7 +912,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
 
     
     
-    $scope.fetchRecentBlogURLS = function(){
+    $scope.fetchRecentBlogURLs = function(){
       $http.get('http://blog.itnamerica.org/').then(function(response) {
         $scope.homepageBlogContent = response.data;
         $scope.blogURLs = [];

@@ -18,7 +18,7 @@ var db;
 app.use(express.json()); //convert req to json
 app.use(express.static(__dirname + '/app'));
 
-// app.use(session({secret: "Sam is awesome"}));
+app.use(session({secret: "Sam is awesome"}));
 // app.use(function(req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
