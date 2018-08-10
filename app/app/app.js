@@ -943,7 +943,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.getContentForRecentBlogs = function(){
-      console.log('blogurls are ', $scope.blogURLs);
+      // console.log('blogurls are ', $scope.blogURLs);
       for (var x = 0; x < $scope.blogURLs.length; x++) {
         $scope.getBlogContent($scope.blogURLs[x]);
       }
@@ -953,6 +953,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.getBlogContent = function(url){
       $http.get(url).then(function(response) {
           $scope.blogContent = response.data;
+          // console.log('blog content is ', $scope.blogContent);
           if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
             var idx = $scope.blogContent.indexOf('<h1 class="entry-title">');
             var store = [];
@@ -962,7 +963,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               }
               store.push($scope.blogContent[idx+i]);
             }
-            //make array of titles?
             $scope.entryTitle = store.join('').toString();
             console.log('entry title is ', $scope.entryTitle);
           }
@@ -970,16 +970,33 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           if ($scope.blogContent.indexOf('<img class=') !== -1){
             var idx = $scope.blogContent.indexOf('<img class=');
             var store2 = [];
+            var storeUncommonURLs = [];
             for (var i=12; i<$scope.blogContent.length; i++){
               if ($scope.blogContent[idx+i] === 'a' && $scope.blogContent[idx+i+1] === 'l' && $scope.blogContent[idx+i+2] === 't'){
                 break;
+              } else if ($scope.blogContent[idx+i] === '>'){
+                break
+              } else {
+                  store2.push($scope.blogContent[idx+i]);
               }
-              store2.push($scope.blogContent[idx+i]);
             }
-            //make array of img?
             $scope.entryImgURL = store2.join('').toString();
             $scope.entryImgURL = $scope.entryImgURL.split("src=").pop().slice(1,-1).slice(0, -1);
             console.log('entry img url is ', $scope.entryImgURL);
+            //capture the oddball like: https://patimes.org/wp-content/uploads/2016/11/AP.jpg" width="275" height="183"
+            //if img url is atypical, match with other pattern
+            if ($scope.entryImgURL.indexOf(" ") !== -1){
+              console.log('atypical url ', $scope.entryImgURL, typeof($scope.entryImgURL));
+              $scope.entryImgURL = $scope.entryImgURL.match(/\bhttps?:\/\/\S+/gi);
+              console.log('entry img url 2 ', $scope.entryImgURL);
+              $scope.entryImgURL = $scope.entryImgURL.toString().slice(0,-1);
+              console.log('entry img url 3 ', $scope.entryImgURL);
+            }
+            // var str = $scope.blogContent[idx];
+            // console.log('str is ', str);
+            // var url = str.match(/\bhttps?:\/\/\S+/gi);
+            // url = url[0].slice(0,-1)
+            // store2.push(url);
           }    
           
           $scope.blogEntries.push({
