@@ -381,6 +381,9 @@ nav .dropdown-menu li.divider{
   margin-left:-30px;
   margin-right:-30px;
 }
+#itn-infographic {
+  margin-left:50%;
+}
 .services .itn-country {
   background-image: url('../images/dark/country_dark.png') !important;
   background-position: center center !important;
@@ -1916,11 +1919,21 @@ h2,h3 {line-height:1.7}
 }
 
 @media (max-width: 991px) {
+  .services .operate ul {
+    margin-top:0;
+  }
   #programs img, #policy img, .ttp img {
     width:50%;
     margin:auto;
     display:block;
     margin-top:10%;
+  }
+  #itn-infographic {
+    margin-left:10%;
+  }
+  #history img {
+    margin:auto;
+    display:block;
   }
 }
 
@@ -1970,19 +1983,9 @@ h2,h3 {line-height:1.7}
   }
 }
 
-@media(max-width: 991px) {
-  .services .operate ul {
-    margin-top:0;
-  }
-}
-
 @media(max-width: 768px) {
   #kat-bio {
     width:100% !important;
-  }
-  #history img {
-    margin:auto;
-    display:block;
   }
 }
 
