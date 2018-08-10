@@ -373,7 +373,7 @@ nav .dropdown-menu li.divider{
   text-align:justify;
 }
 .services p a {color:#fc6d6d}
-.services p .btn a {color:white}
+.services p .btn {color:white}
 #policy, #education, #ashoka, .ris {
   text-align:justify;
 }
@@ -1510,8 +1510,15 @@ form textarea.form-control {font-size:25px}
 .ways-to-give .service-features img {
   height:200px;
 }
+.ways-to-give .service-features .icon-wrap {
+  text-align:center;
+}
 .ways-to-give .service-features .icon-legend {
   text-align:justify;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 1.4;
+  width: 90%;
 }
 .ways-to-give .service-features .icon-legend h3 {
   text-align:center;

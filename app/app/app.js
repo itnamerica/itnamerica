@@ -912,7 +912,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
 
     
     
-    $scope.fetchRecentBlogs = function(){
+    $scope.fetchRecentBlogURLS = function(){
       $http.get('http://blog.itnamerica.org/').then(function(response) {
         $scope.homepageBlogContent = response.data;
         $scope.blogURLs = [];
@@ -937,12 +937,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             
           }
         }
-        $scope.getContentForRecentBlogs();
+        $scope.getContentForEachBlogURL();
         
       })
     };
     
-    $scope.getContentForRecentBlogs = function(){
+    $scope.getContentForEachBlogURL = function(){
       // console.log('blogurls are ', $scope.blogURLs);
       for (var x = 0; x < $scope.blogURLs.length; x++) {
         $scope.getBlogContent($scope.blogURLs[x]);
