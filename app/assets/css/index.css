@@ -303,6 +303,11 @@ nav .dropdown-menu li.divider{
 .homepage .rider-stories .rider-stories-text p {
   text-align:center;
 }
+.homepage .blog-thumnail {
+  border: 2px solid grey;
+  border-radius: 3px;
+  padding: 5%;
+}
 .regeneron {
   background: white;
   font-size: 20px;

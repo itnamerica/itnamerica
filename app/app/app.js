@@ -913,7 +913,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     
     $scope.fetchRecentBlogs = function(){
-      console.log('inside fetchrecentblogs func');
       $http.get('http://blog.itnamerica.org/').then(function(response) {
         $scope.homepageBlogContent = response.data;
         $scope.blogURLs = [];
@@ -933,13 +932,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             }
             storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
             $scope.blogURLs.push(storeBlogURL);
-            console.log('entry blog urls are ', $scope.blogURLs);
             
             $scope.homepageBlogContent =  $scope.homepageBlogContent.slice(idx+33);
             
           }
         }
-        console.log('blogurls1 are ', $scope.blogURLs);
         $scope.getContentForRecentBlogs();
         
       })
@@ -948,14 +945,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.getContentForRecentBlogs = function(){
       console.log('blogurls are ', $scope.blogURLs);
       for (var x = 0; x < $scope.blogURLs.length; x++) {
-        console.log('url abt to enter func is ', $scope.blogURLs[x]);
         $scope.getBlogContent($scope.blogURLs[x]);
       }
     }
     
     
     $scope.getBlogContent = function(url){
-      console.log('url is ', url, 'is type ', typeof(url));
       $http.get(url).then(function(response) {
           $scope.blogContent = response.data;
           if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
@@ -989,7 +984,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           
           $scope.blogEntries.push({
             title: $scope.entryTitle,
-            imgURL: $scope.entryImgURL
+            imgURL: $scope.entryImgURL,
+            blogURL: url
           });
           
         });
