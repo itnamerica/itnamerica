@@ -34,7 +34,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('login', {
             url: '/login',
-            templateUrl: viewsPath + 'login.html'
+            templateUrl: viewsPath + 'login.html',
+            params: {
+              isStaff: false
+            }
         })
         .state('dashboard', {
             url: '/dashboard',
@@ -82,6 +85,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             params: {
               anchor: null
             }
+        })
+        .state('portal', {
+            url: '/portal',
+            templateUrl: viewsPath + 'portal.html'
+        })
+        .state('login-portal', {
+            url: '/login-portal',
+            templateUrl: viewsPath + 'login-portal.html'
         })
 
     // default fall back route
@@ -532,12 +543,18 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     };
 
-    $scope.login = function() {
+    $scope.login = function(isStaff) {
+      var routeName;
+      if (isStaff){
+        routeName = 'portal';
+      } else {
+        routeName = 'dashboard';
+      }
         FormService.login($scope.formData).then(function(data) {
             console.log('response is ', data);
             if (data) {
                 $scope.session = data;
-                $state.go('dashboard')
+                $state.go(routeName)
             } else {
                 $scope.serverMessage = 'Incorrect login or password';
             }

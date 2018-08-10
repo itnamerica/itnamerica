@@ -181,7 +181,9 @@
           <ul>
             <li>(678) 696-0360</li>
             <li><a ui-sref="contact">Contact Us</a></li>
-            <li ng-hide="session"><a ui-sref="login">Login</a></li>
+            <li ng-hide="session"><a ui-sref="login">Dashboard Login</a></li>
+            <!-- <li ng-hide="session"><a ui-sref="login({isStaff: true})">Portal Login</a></li> -->
+            <li ng-hide="session"><a ui-sref="login-portal">Portal Login</a></li>
             <li ng-show="session"><a ng-click="logout()">Logout</a></li>
             <li ng-show="session"><a ui-sref="dashboard">Admin Portal</a></li>
           </ul>

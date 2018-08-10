@@ -1,8 +1,8 @@
 <div class="container login">
-  <h1>Admin Dashboard Login</h1>
+  <h1>Portal Login for ITN Staff & Affiliates</h1>
   
   <div class="form-area">
-    <form novalidate name="itnForm" ng-model="formData" ng-submit="login()" role="login form" style="border: 5px solid #529ba8;margin:5%;padding:3%;background:#afcace">
+    <form novalidate name="itnForm" ng-model="formData" ng-submit="login('isStaff')" role="login form" style="border: 5px solid #529ba8;margin:5%;padding:3%;background:#afcace">
       
       <div class="form-group ta-center" ng-class="{ 'has-error' : itnForm.username.$invalid && !itnForm.username.$pristine }">
         <label for="username" style="margin-bottom:15px">Username:</label><br>

@@ -28,7 +28,7 @@ app.use(session({secret: "Sam is awesome"}));
 // });
 
 
-var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn'];
+var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal'];
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
   if (err) { 
@@ -156,11 +156,11 @@ app.post('/sendmail', function(req, res){
         transporter.close();
     });
     
-    MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds153700.mlab.com:53700/itnlanier', function(err, client) {
+    MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
       if (err) { 
         console.log('db not connecting, but inside mongo block - 2', err);
       };
-      db = client.db('itnlanier');
+      db = client.db('itnamerica-new');
 
       
       var objWithPDF; var pdfVal;
