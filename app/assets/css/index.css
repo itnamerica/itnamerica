@@ -303,10 +303,14 @@ nav .dropdown-menu li.divider{
 .homepage .rider-stories .rider-stories-text p {
   text-align:center;
 }
-.homepage .blog-thumnail {
+/* .homepage .blog-thumbnail {
   border: 2px solid grey;
   border-radius: 3px;
   padding: 5%;
+} */
+.homepage .itn-blogs h2 a {
+  color:black !important;
+  text-decoration:underline;
 }
 .regeneron {
   background: white;
