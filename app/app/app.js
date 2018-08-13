@@ -550,7 +550,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       } else {
         routeName = 'dashboard';
       }
-        FormService.login($scope.formData).then(function(data) {
+        FormService.login($scope.formData, isStaff).then(function(data) {
             console.log('response is ', data);
             if (data) {
                 $scope.session = data;
@@ -1140,10 +1140,11 @@ myApp.service('FormService', function($http) {
             return data;
         })
     }
-    this.login = function(formData) {
+    this.login = function(formData, isStaff) {
         return $http.get('/getAdmin', {
                 params: {
-                    formData: formData
+                    formData: formData,
+                    isStaff: isStaff
                 }
             })
             .then(function(data) {
