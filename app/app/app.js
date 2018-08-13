@@ -34,10 +34,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('login', {
             url: '/login',
-            templateUrl: viewsPath + 'login.html',
-            params: {
-              isStaff: false
-            }
+            templateUrl: viewsPath + 'login.html'
         })
         .state('dashboard', {
             url: '/dashboard',
