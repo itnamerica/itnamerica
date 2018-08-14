@@ -5,61 +5,129 @@
     
     <div class="row mt-25">
       <div class="col-sm-4">
-        <div class="block">ITN<em>America</em> Website</div>
+        <a href="http://www.itnamerica.org/">
+          <div class="block">
+            <img ng-src="{{assetsPath}}/images/itnamerica-logo.png" alt="itnamerica logo"/>
+            <h3>Official Website</h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
+      <div class="col-sm-4">
+        <a href="http://blog.itnamerica.org/">
+          <div class="block">
+            <img ng-src="{{assetsPath}}/images/itnamerica-blog-screenshot.png" alt="screenshot of itnamerica blog" style="margin-top:0"/>
+            <h3>ITN<em>America</em> Blog</h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
+      <div class="col-sm-4">
+        <a href="http://portal.itnamerica.org/">
+          <div class="block">
+            <img ng-src="{{assetsPath}}/images/itnamerica-portal-logo.png" alt="itnamerica original portal logo" style="max-width:280px"/>
+            <h3>ITN<em>America</em> Original Portal</h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
+    </div><!--row-->
+    
+    <div class="row">
+      <div class="col-sm-4">
+        <a href="http://itncountry.org/">
+          <div class="block">
+            <img ng-src="{{assetsPath}}/images/itncountry-screenshot.png" alt="itncountry screenshot" style="margin-top:0"/>
+            <h3>ITN<em>Country</em></h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
+      <div class="col-sm-4">
+        <a href="">
+          <div class="block">
+            <h3>ITN Affiliate Websites</h3>
+          </div>
+        </a>
       </div>
       <div class="col-sm-4">
-        <div class="block">ITN<em>America</em> Portal</div>
-      </div>
-      <div class="col-sm-4">
-        <div class="block"><em>America</em> Blog</div>
-      </div>
+        <a href="http://pressroom.itnamerica.org/">
+          <div class="block">
+            <img ng-src="{{assetsPath}}/images/itnpressroom-logo.jpg" alt="pressroom logo"/>
+            <h3>Pressroom</h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
     </div>
     
     <div class="row">
       <div class="col-sm-4">
-        <div class="block">Affiliate Websites</div>
-      </div>
+        <a href="https://www.ridesinsight.org/">
+          <div class="block">
+            <img ng-src="{{assetsPath}}/images/ris-lowres-logo.png" alt="rides in sight logo"  style="margin-top:0"/>
+            <h3><em>Rides in Sight</em> Website</h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
       <div class="col-sm-4">
-        <div class="block">ITN<em>Country</em></div>
-      </div>
-      <div class="col-sm-4">
-        <div class="block">Pressroom</div>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="block">Rides In Sight Website</div>
-      </div>
-      <div class="col-sm-4">
-        <div class="block">Rides In Sight Blog</div>
-      </div>
-      <div class="col-sm-4">
-        <div class="block">ITN<em>Rides</em></div>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="block">ITN Services (HR)</div>
-      </div>
+        <a href="http://blog.ridesinsight.org/">
+          <div class="block">
+            <img ng-src="{{assetsPath}}/images/ris-blog-screenshot.png" alt="rides in sight blog screenshot" style="margin-top:0"/>
+            <h3><em>Rides in Sight</em> Blog</h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
       <div class="col-sm-4">
         <div class="block">Social Media presence</div>
       </div>
+    </div>
+    
+    
+    <div class="row">
       <div class="col-sm-4">
-        <div class="block">Learn Online</div>
+        <a href="http://policy.itnamerica.org/">
+          <div class="block">
+            <img ng-src="{{assetsPath}}/images/50state.png" alt="50 state policy project website screenshot" style="margin-top:0"/>
+            <h3><em>50 States Policy Project</em></h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
+      <div class="col-sm-4">
+        <a href="">
+          <div class="block">
+            <h3>ITN Google Drive</h3>
+          </div>
+        </a>
+      </div><!--col-sm-4-->
+      <div class="col-sm-4">
+        <a href="">
+          <div class="block">
+            <h3>Events & Announcements</h3>
+          </div>
+        </a>
       </div>
     </div>
     
     <div class="row">
       <div class="col-sm-4">
-        <div class="block">50 States Policy Project</div>
+        <a href="">
+          <div class="block">
+            <h3>ITN Services (HR)</h3>
+          </div>
+        </a>
       </div>
+
       <div class="col-sm-4">
-        <div class="block">ITN Google Drive</div>
+        <a href="">
+          <div class="block">
+            <h3>Learn Online</h3>
+          </div>
+        </a>
       </div>
+      
       <div class="col-sm-4">
-        <div class="block">Events & Announcements</div>
+        <a href="">
+          <div class="block">
+            <h3>Company-wide Analytics</h3>
+          </div>
+        </a>
+        <!-- <div class="block">ITN<em>Rides</em></div> -->
       </div>
     </div>
 
@@ -75,10 +143,20 @@
 .portal .block {
   height: 250px;
   width: 300px;
-  background: grey;
+  background: white;
+  /* border: 5px solid white; */
+  text-align: center;
   border-radius: 5px;
-  border: 5px solid grey;
   margin: 7%;
+  overflow:hidden;
+}
+/* .portal .block h3 {
+  margin-top: 75px;
+} */
+.portal .block .contained-img, .portal .block img {
+  max-height:250px;
+  max-width:300px;
+  margin-top: 75px;
 }
 
 </style>
