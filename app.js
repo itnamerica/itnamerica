@@ -57,21 +57,22 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   console.log('inside first mongo block');
   
   
-  app.get('/getBlogContent', function(req, res) {
+  app.get('/getBlogContent', function(requ, resu) {
     // console.log('inside getblogcontent');
     request.get('http://blog.itnamerica.org',function(err,res,body){
       console.log('res body is ');
       console.log(res.body);
+      resu.send(res.body)
+      // if(err){console.log('not working')}
+      // if(res.statusCode !== 200 ) {
+      //   console.log('working')
+      //   console.log(res);
+      //   console.log('body is ');
+      //   console.log(body);
+      // }
       
-      if(err){console.log('not working')}
-      
-      if(res.statusCode !== 200 ) {
-        console.log('working')
-        console.log(res);
-        console.log('body is ');
-        console.log(body);
-      }
     });
+    
   });
   
   
