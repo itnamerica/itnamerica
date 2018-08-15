@@ -1520,6 +1520,9 @@ form textarea.form-control {font-size:25px}
 .ways-to-give .service-features img {
   height:200px;
 }
+.ways-to-give .service-features .btn-lg {
+  margin: 10% 0;
+}
 .ways-to-give .service-features .icon-wrap {
   text-align:center;
 }
