@@ -385,6 +385,12 @@ nav .dropdown-menu li.divider{
 #itn-infographic {
   margin-left:50%;
 }
+#pta-infographic {
+  height:500px;
+  width:600px;
+  padding-left:7%;
+  margin-top:10%;
+}
 .services .itn-country {
   background-image: url('../images/dark/country_dark.png') !important;
   background-position: center center !important;
@@ -1891,6 +1897,9 @@ h2,h3 {line-height:1.7}
 }
 
 
+
+
+
 /* RESPONSIVE */
 
 @media (max-width: 1430px) {
@@ -1911,12 +1920,24 @@ h2,h3 {line-height:1.7}
   }
 }
 
+@media (max-width: 1260px) {
+  #pta-infographic {
+    padding-left:0;
+  }
+}
 
 @media (max-width: 1210px) {
   .carousel-inner .item, .carousel-inner .item img {height:400px;}
   .family #gift-cert-img1, .family #gift-cert-img2 {visibility:hidden;}
   #transportation img {margin-top:20%}
   #mrc-statement {margin-top:-370px !important}
+}
+
+@media (min-width: 991px) and (max-width: 1145px) {
+  #pta-infographic {
+    height:400px;
+    width:400px;
+  }
 }
 
 @media (max-width: 991px) {
