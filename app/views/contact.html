@@ -29,8 +29,7 @@
                 </div>
               
                 <div class="form-group" ng-class="{ 'has-error' : itnForm.mobile.$invalid && !itnForm.mobile.$pristine }">
-                  <input type="text" class="form-control" id="mobile" name="mobile" ng-pattern="phonePattern" placeholder="Mobile Number. Example: 617-344-9876" ng-model="formData.phone" required>
-                  <span ng-if="itnForm.mobile.$error.required && !itnForm.mobile.$pristine" class="help-block">{{errorMessages.required}}</span>
+                  <input type="text" class="form-control" id="mobile" name="mobile" ng-pattern="phonePattern" placeholder="Mobile Number (Not Required). Example: 617-344-9876" ng-model="formData.phone">
                   <span ng-if="itnForm.mobile.$error.pattern" class="help-block">{{errorMessages.phone}}</span>
                 </div>
                 

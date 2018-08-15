@@ -1015,9 +1015,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               $(this).find(".btn-lg")[0].innerText = 'Show more';
             }
           }
-      })
-        
-    }
+      })        
+    };
 
 }]);
 

@@ -418,6 +418,10 @@ nav .dropdown-menu li.divider{
 .service-features .col-sm-4 .icon-wrap {
   font-size: 50px;
 }
+.service-features .col-sm-4 .icon-wrap img {
+  height:180px;
+  width:180px;
+}
 .service-features .col-sm-4 .icon-wrap .fa {
   font-size: 70px;
 }
