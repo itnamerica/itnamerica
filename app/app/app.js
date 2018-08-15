@@ -927,7 +927,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     
     $scope.fetchRecentBlogURLs = function(){
-      $http.get('http://blog.itnamerica.org/').then(function(response) {
+      $http.get('/getBlogContent').then(function(response) {
+      // $http.get('http://blog.itnamerica.org/').then(function(response) {
+        console.log('response is ', response);
+        
         $scope.homepageBlogContent = response.data;
         $scope.blogURLs = [];
         var blogNumber = 3;

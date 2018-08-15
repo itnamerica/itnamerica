@@ -12,6 +12,8 @@ var env = require(__dirname + '/env-vars.js');
 var gmail_login = env.gmail_login;
 var gmail_pass = env.gmail_pass;
 var db;
+var http = require('http');
+var request=require('request');
 // var router = express.Router();
 
 app.use(function(req, res, next) {
@@ -38,10 +40,10 @@ app.use(session({secret: "Sam is awesome"}));
 // });
 
 
-app.get('http://blog.itnamerica.org', function (req,res) {
-    console.log('response is ', res);
-    res.send(res);
-}); 
+// app.get('http://blog.itnamerica.org', function (req,res) {
+//     console.log('response is ', res);
+//     res.send(res);
+// }); 
 
 
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal'];
@@ -53,6 +55,29 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   db = client.db('itnamerica-new');
   
   console.log('inside first mongo block');
+  
+  
+  app.get('/getBlogContent', function(req, res) {
+    // console.log('inside getblogcontent');
+    request.get('http://blog.itnamerica.org',function(err,res,body){
+      console.log('res body is ');
+      console.log(res.body);
+      
+      if(err){console.log('not working')}
+      
+      if(res.statusCode !== 200 ) {
+        console.log('working')
+        console.log(res);
+        console.log('body is ');
+        console.log(body);
+      }
+    });
+  });
+  
+  
+  
+
+
   
   app.get('/getContactForms', function (req,res) {
       db.collection('contactform').find().toArray(function (err, result) {
