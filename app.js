@@ -19,6 +19,15 @@ app.use(express.json()); //convert req to json
 app.use(express.static(__dirname + '/app'));
 
 app.use(session({secret: "Sam is awesome"}));
+
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
 // app.use(function(req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -37,27 +46,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   db = client.db('itnamerica-new');
   
   
-  // app.get('/getMemberApps', function (req,res) {
-  //     db.collection('memberapp').find().toArray(function (err, result) {
-  //       console.log('result is ', result);
-  //       res.send(result);
-  //     })
-  // }); // end of /getMemberForms get request
-  // 
-  // app.get('/getVolunteerApps', function (req,res) {
-  //     db.collection('volunteerapp').find().toArray(function (err, result) {
-  //       console.log('result is ', result);
-  //       res.send(result);
-  //     })
-  // }); // end of /getVolunteerForms get request
-  // 
-  // app.get('/getNonRiderApps', function (req,res) {
-  //     db.collection('nonriderapp').find().toArray(function (err, result) {
-  //       console.log('result is ', result);
-  //       res.send(result);
-  //     })
-  // }); // end of /getNonRiderForms get request
-  
   app.get('/getContactForms', function (req,res) {
       db.collection('contactform').find().toArray(function (err, result) {
         console.log('result is ', result);
@@ -72,21 +60,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /getNewsletterForms get request
   
-  // app.get('/getAdmin', function (req,res) {
-  //     db.collection('users').find().toArray(function (err, result) {
-  //       var userInput = JSON.parse(req.query.formData);
-  //       console.log('user input is ',userInput, 'result from db is ', result);
-  //       if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
-  //         console.log('a match, initializing session');
-  //         req.session.user = userInput;
-  //         console.log('new session is ', req.session.user, 'and', req.session);
-  //         res.send(result);
-  //       }
-  //       else {
-  //         res.status(500).send('error')
-  //       }  
-  //     })
-  // }); // end of /getAdmin get request
   
   app.get('/getAdmin', function (req,res) {
     var tableName;
@@ -186,33 +159,7 @@ app.post('/sendmail', function(req, res){
 
       
       var objWithPDF; var pdfVal;
-      // if ((req.body && req.body.pdf) && (req.body.formType === 'membership')) {
-      //   objWithPDF = req.body.text;
-      //   objWithPDF.pdf = req.body.pdf;
-      //   db.collection('memberapp').save(objWithPDF, function(err, result){
-      //     if (err) { return console.log('connecting to db, but not saving obj', err); }
-      //     console.log('member app saved to database', result);
-      //     // res.redirect('/');
-      //   })
-      // }
-      // else if ((req.body && req.body.pdf) && (req.body.formType === 'volunteer')) {
-      //   objWithPDF = req.body.text;
-      //   objWithPDF.pdf = req.body.pdf;
-      //   db.collection('volunteerapp').save(objWithPDF, function(err, result){
-      //     if (err) { return console.log('connecting to db, but not saving obj', err);}
-      //     console.log('volunteer app saved to database', result);
-      //     // res.redirect('/');
-      //   })
-      // }
-      // else if ((req.body && req.body.pdf) && (req.body.formType === 'nonrider')) {
-      //   objWithPDF = req.body.text;
-      //   objWithPDF.pdf = req.body.pdf;
-      //   db.collection('nonriderapp').save(objWithPDF, function(err, result){
-      //     if (err) { return console.log('connecting to db, but not saving obj', err);}
-      //     console.log('nonrider app saved to database', result);
-      //     // res.redirect('/');
-      //   })
-      // }
+
       if ((req.body && req.body.html) && (req.body.formType === 'contact')) {
         db.collection('contactform').save(req.body.text, function(err, result){
           if (err) { return console.log('connecting to db, but not saving obj', err);}
