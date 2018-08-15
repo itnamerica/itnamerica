@@ -755,9 +755,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         if (formType === 'contact' && contactInputsValid) {
             console.log('submitting valid contact form');
             formObj = {
-                from: '"ITNLanier Web User" <donotreply@itnamerica.com>',
+                from: '"ITNAmerica Web User" <donotreply@itnamerica.com>',
                 to: 'itnamerica2018@gmail.com',
-                subject: "ITNLanier Contact Form Submitted",
+                subject: "ITNAmerica Contact Form Submitted",
                 text: $scope.formData,
                 html: "<p><strong>Name:</strong>: " + $scope.formData.name + "</p>\n" +
                     "<p><strong>Email:</strong>: " + $scope.formData.email + "</p>\n " +
@@ -769,9 +769,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         } else if (formType === 'newsletter' && $scope.formData.email) {
             console.log('submitting valid newsletter form');
             formObj = {
-                from: '"ITNLanier Web User" <donotreply@itnamerica.com>',
+                from: '"ITNAmerica Web User" <donotreply@itnamerica.com>',
                 to: 'itnamerica2018@gmail.com',
-                subject: "ITNLanier Request to be added to Newsletter",
+                subject: "ITNAmerica Request to be added to Newsletter",
                 text: $scope.formData,
                 html: "<p><strong>Email:</strong>: " + $scope.formData.email + "</p> ",
                 formType: $scope.formType
@@ -811,10 +811,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                 $(document).ready(function() {
                     $('#pdfVersion').css('display', 'block');
                 })
-                $scope.formSubject = 'ITNLanier - New ' + formType + ' application received';
+                $scope.formSubject = 'ITNAmerica - New ' + formType + ' application received';
                 $scope.generateMultiPagePDF();
             } else if (formType === 'nonrider') {
-                $scope.formSubject = 'ITNLanier - Non-Rider application Form submitted';
+                $scope.formSubject = 'ITNAmerica - Non-Rider application Form submitted';
                 $scope.generatePDF();
             }
         } else {
@@ -842,7 +842,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                 console.log('data is ', data);
                 $scope.dataPDF = data;
                 $http.post('/sendmail', {
-                    from: '"ITNLanier Web User" <donotreply@itnamerica.com>',
+                    from: '"ITNAmerica Web User" <donotreply@itnamerica.com>',
                     to: 'itnamerica2018@gmail.com',
                     subject: $scope.formSubject,
                     text: $scope.formData,
@@ -876,7 +876,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                 console.log('data is ', data);
                 $scope.dataPDF = data;
                 $http.post('/sendmail', {
-                    from: '"ITNLanier Web User" <donotreply@itnamerica.com>',
+                    from: '"ITNAmerica Web User" <donotreply@itnamerica.com>',
                     to: 'itnamerica2018@gmail.com',
                     subject: $scope.formSubject,
                     text: $scope.formData,

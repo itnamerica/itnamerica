@@ -38,6 +38,12 @@ app.use(session({secret: "Sam is awesome"}));
 // });
 
 
+app.get('http://blog.itnamerica.org', function (req,res) {
+    console.log('response is ', res);
+    res.send(res);
+}); 
+
+
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal'];
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
@@ -46,6 +52,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   };
   db = client.db('itnamerica-new');
   
+  console.log('inside first mongo block');
   
   app.get('/getContactForms', function (req,res) {
       db.collection('contactform').find().toArray(function (err, result) {
