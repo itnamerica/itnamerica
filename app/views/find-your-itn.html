@@ -311,28 +311,18 @@ console.log('beg js script ');
   var locationsTTP = [];
   
   for (i = 1; i < 14; i++) {  
-    // console.log('each loc is ', i);
     locationsAffiliates.push(eval('itn'+i))
   }
   for (i = 14; i < 56; i++) {  
-    // console.log('each loc is ', i);
     locationsTTP.push(eval('itn'+i))
   }
-  
-// console.log('locations are ', locations);
-  // var locations = [
-  //   ['itn1', 43.676373, -70.366664],
-  //   ['itn2', 36.579623, -121.819117],
-  //   ['itn3', 35.522804, -97.506028],
-  //   ['itn4', 38.787470, -90.629892],
-  //   ['itn5', 27.348977, -82.546442]
-  // ];
 
   function initMap() {
-    var myLatLng = {lat: 43.676373, lng: -70.366664};
+    // var myLatLng = {lat: 43.676373, lng: -70.366664};
+    var myLatLng = {lat: 41.8781, lng: -87.6298};
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
+      zoom: 4.5,
       center: myLatLng
       });
 
