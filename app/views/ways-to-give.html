@@ -1,4 +1,4 @@
-<div class="ways-to-give">
+<div class="ways-to-give" ng-init="readMoreLess()">
   <div class="jumbotron section .first-hero" id="first-hero-ways">
     <h1>Ways to Give</h1>
   </div><!--first-hero-->
@@ -41,8 +41,8 @@
           <div class="icon-legend">
             <h3 style="color:#3c68b3">Donate Your Car</h3>
             Do you have a car you don’t use? Do you want to support senior mobility? Consider making a tax deductible gift of your vehicle to your local ITN affiliate. They can turn your old car into arm-through-arm, door-through-door service for your local community. Go to the Find Your Affiliate page and click on your local ITN to learn more. <br>
-            <a ng-click="showText1 = !showText1" class="btn btn-lg">Read more</a>
-            <div ng-show="showText1">Or you can donate your car to ITNAmerica to help support our efforts to help older people and their families across the nation. <br>
+            <a ng-click="showText1 = !showText1" class="btn btn-lg">Show more</a>
+            <div ng-show="showText1" class="showText">Or you can donate your car to ITNAmerica to help support our efforts to help older people and their families across the nation. <br>
             <a ui-sref="find-your-itn">Find Your Affiliate</a>
             </div>
           </div><!--icon-legend-->
@@ -56,8 +56,8 @@
           <div class="icon-legend">
             <h3 style="color:#3c68b3">Family Support</h3>
             ITNAmerica makes it easy for family members to stay involved in the lives of their older loved ones, even if they face the difficulty of distance. Want to support a family member who lives hours away? Drive for your local ITN affiliate, and transfer your earned credits to your loved one. <br>
-            <a ng-click="showText2 = !showText2" class="btn btn-lg">Read more</a>
-            <div ng-show="showText2">Or join as a dues paying member, donate a car, make a donation (in cash or in stock) or help with community fundraisers and become part of the senior transportation solution.</div>
+            <a ng-click="showText2 = !showText2" class="btn btn-lg">Show more</a>
+            <div ng-show="showText2" class="showText">Or join as a dues paying member, donate a car, make a donation (in cash or in stock) or help with community fundraisers and become part of the senior transportation solution.</div>
           </div>
         </div>
         
@@ -67,8 +67,8 @@
             <h3 style="color:#3c68b3">Corporate Partners</h3>
             ITNAmerica has a long history of working with companies that share our dedication to older people and supporting their quality of life through mobility. Our current sponsor, Regeneron Pharmaceuticals, Inc., is committed to helping raise awareness of the challenges associated with vision impairment, low vision, senior mobility issues and the shortage of locally-available transportation options for seniors. <br>
             
-            <a ng-click="showText3 = !showText3" class="btn btn-lg">Read more</a>
-            <div ng-show="showText3">We partner with them on the Rides in Sight database and toll free hotline, providing information on more than 15,000 transportation options in all 50 states. This is but one of the corporate opportunities at ITNAmerica. Contact us if your business would like to be part of the senior transportation solution.<br>
+            <a ng-click="showText3 = !showText3" class="btn btn-lg">Show more</a>
+            <div ng-show="showText3" class="showText">We partner with them on the Rides in Sight database and toll free hotline, providing information on more than 15,000 transportation options in all 50 states. This is but one of the corporate opportunities at ITNAmerica. Contact us if your business would like to be part of the senior transportation solution.<br>
             <a ui-sref="contact" style="text-align:left">Contact Us for Corporate Sponsorship Opportunities.</a>
             </div>
           </div>
@@ -79,8 +79,8 @@
           <div class="icon-legend">
             <h3 style="color:#3c68b3">Planned Gifts</h3>
             Create a lasting legacy with ITNAmerica through planned giving. Your will or trust can support our mission and work for years to come. It’s one of the simplest and most lasting ways to make an enduring difference for older people and their families. You can designate all or a portion of your bequest to ITNAmerica, or you can split your support between ITNAmerica and your local ITN affiliate. <br>
-            <a ng-click="showText4 = !showText4" class="btn btn-lg">Read more</a>
-            <div ng-show="showText4">Support the organizations working to support you; make a planned gift to ITN.<br>
+            <a ng-click="showText4 = !showText4" class="btn btn-lg">Show more</a>
+            <div ng-show="showText4" class="showText">Support the organizations working to support you; make a planned gift to ITN.<br>
             <a ui-sref="contact">Contact us to learn more.</a></div>
 
           </div><!--icon-legend-->
@@ -102,5 +102,47 @@
 
     </div><!--jumbo-->
       
-
 </div>
+
+<!-- <script>
+$(document).ready(function() {
+    // Configure/customize these variables.
+    var showChar = 100;  // How many characters are shown by default
+    var ellipsestext = "...";
+    var moretext = "Show more >";
+    var lesstext = "Show less";
+    
+
+    $('.more').each(function() {
+        var content = $(this).html();
+ 
+        if(content.length > showChar) {
+ 
+            var c = content.substr(0, showChar);
+          console.log('c is ', c);
+            // var h = content.substr(showChar, content.length - showChar);
+                      var h = content.substr(showChar, content.length);
+                    console.log('h is ', h);
+ 
+            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+ 
+            $(this).html(html);
+        }
+ 
+    });
+ 
+    $(".morelink").click(function(){
+        if($(this).hasClass("less")) {
+            $(this).removeClass("less");
+            $(this).html(moretext);
+        } else {
+            $(this).addClass("less");
+            $(this).html(lesstext);
+        }
+        $(this).parent().prev().toggle();
+        $(this).prev().toggle();
+        return false;
+    });
+});
+
+</script> -->

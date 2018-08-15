@@ -1002,6 +1002,21 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           });
         });
         
+    };
+
+    $scope.readMoreLess = function(){
+      $('.icon-legend').click(function() {
+          var content = $(this).html();
+          if ($(content).hasClass("btn-lg")){
+            var innerTxt = $(this).find(".btn-lg")[0].innerText
+            if (innerTxt === 'Show more'){
+              $(this).find(".btn-lg")[0].innerText = 'Show less';
+            } else {
+              $(this).find(".btn-lg")[0].innerText = 'Show more';
+            }
+          }
+      })
+        
     }
 
 }]);
