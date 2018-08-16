@@ -927,8 +927,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     
     $scope.fetchRecentBlogURLs = function(){
-      $http.get('/getBlogContent').then(function(response) {
-      // $http.get('http://blog.itnamerica.org/').then(function(response) {
+      $http.get('/getBlogContent', { 
+          params: { 
+            blogURL: 'http://blog.itnamerica.org/'
+          }
+        }).then(function(response) {
         console.log('response is ', response);
         
         $scope.homepageBlogContent = response.data;
@@ -968,7 +971,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     
     $scope.getBlogContent = function(url){
-      $http.get(url).then(function(response) {
+      $http.get('/getBlogContent', { 
+          params: { 
+            blogURL: url
+          }
+        }).then(function(response) {
+      // $http.get(url).then(function(response) {
           $scope.blogContent = response.data;
           // console.log('blog content is ', $scope.blogContent);
           if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
