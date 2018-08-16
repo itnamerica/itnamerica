@@ -976,11 +976,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             blogURL: url
           }
         }).then(function(response) {
-      // $http.get(url).then(function(response) {
           $scope.blogContent = response.data;
           // console.log('blog content is ', $scope.blogContent);
-          if ($scope.blogContent.indexOf('<h1 class="entry-title">') !== -1){
-            var idx = $scope.blogContent.indexOf('<h1 class="entry-title">');
+          if ($scope.blogContent.indexOf('<h1 class="entry-title"') !== -1){
+            var idx = $scope.blogContent.indexOf('<h1 class="entry-title"');
             var store = [];
             for (var i=24; i<$scope.blogContent.length; i++){
               if ($scope.blogContent[idx+i] === '<'){
@@ -988,14 +987,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               }
               store.push($scope.blogContent[idx+i]);
             }
-            $scope.entryTitle = store.join('').toString();
+            store = store.join('').toString();
+            //if title tag has other attr, strip them off
+            $scope.entryTitle = store.substr(store.indexOf(">")+1,store.length)
             console.log('entry title is ', $scope.entryTitle);
           }
           
           if ($scope.blogContent.indexOf('<img class=') !== -1){
             var idx = $scope.blogContent.indexOf('<img class=');
             var store2 = [];
-            var storeUncommonURLs = [];
             for (var i=12; i<$scope.blogContent.length; i++){
               if ($scope.blogContent[idx+i] === 'a' && $scope.blogContent[idx+i+1] === 'l' && $scope.blogContent[idx+i+2] === 't' || $scope.blogContent[idx+i] === '>'){
                 break;
