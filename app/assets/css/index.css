@@ -1654,12 +1654,12 @@ form textarea.form-control {font-size:25px}
   height: 50px;
 }
 
-#footer .container .social-icons i {
+.social-icons i {
   font-size: 25px;
   margin-left:20%;
 }
 
-#footer .container .social-icon-border {
+.social-icon-border {
   border-radius: 100%;
   padding: 10px;
   border: 1px solid blue;
@@ -2071,7 +2071,7 @@ h2,h3 {line-height:1.7}
   }
   .main {padding-bottom:700px;}
   #footer {height:700px;}
-  #footer .social-icons a {
+  .social-icons a {
     display:inline-block;
     margin-left:45%;
     margin-top:5px;

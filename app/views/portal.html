@@ -1,4 +1,4 @@
-<div class="portal" style="background: rgba(128,128,128,0.42)">
+<div class="portal" ng-show="showPortal" ng-init="showPortal = true" style="background: rgba(128,128,128,0.42)">
   <div class="container" style="width:70%;padding:5%">
     
     <h2>ITN Staff Portal</h2>
@@ -40,7 +40,7 @@
         </a>
       </div><!--col-sm-4-->
       <div class="col-sm-4">
-        <a href="">
+        <a ng-click="openAdditionalPage('affiliates')">
           <div class="block">
             <h3>ITN Affiliate Websites</h3>
           </div>
@@ -74,7 +74,11 @@
         </a>
       </div><!--col-sm-4-->
       <div class="col-sm-4">
-        <div class="block">Social Media presence</div>
+        <a ng-click="openAdditionalPage('social')">
+          <div class="block">
+            <h3>Social Media presence</h3>
+          </div>
+        </a>
       </div>
     </div>
     
@@ -96,7 +100,7 @@
         </a>
       </div><!--col-sm-4-->
       <div class="col-sm-4">
-        <a href="">
+        <a ng-click="openAdditionalPage('events')">
           <div class="block">
             <h3>Events & Announcements</h3>
           </div>
@@ -114,7 +118,7 @@
       </div>
 
       <div class="col-sm-4">
-        <a href="">
+        <a ng-click="openAdditionalPage('learn')">
           <div class="block">
             <h3>Learn Online</h3>
           </div>
@@ -122,7 +126,7 @@
       </div>
       
       <div class="col-sm-4">
-        <a href="">
+        <a ng-click="openAdditionalPage('analytics')">
           <div class="block">
             <h3>Company-wide Analytics</h3>
           </div>
@@ -133,6 +137,93 @@
 
   </div><!--end container-->
 </div><!--end portal-->
+
+
+<div class="additional-pages">
+  <div class="container" style="width:70%;font-size:25px !important">
+    
+    
+    <div ng-show='affiliates'>
+      <h2 class="mt-25 mb-50 ta-center">ITN Affiliate Websites</h2>
+      <div class="row">
+        <div class="col-sm-6">
+          <ul style="list-style-type:none;font-weight:bold">
+            <li><a href="http://www.itnbluegrass.com/" target="_blank">ITN<em>Bluegrass</em></a></li>
+            <li><a href="http://www.itncentralct.org/" target="_blank">ITN<em>CentralCT</em></a></li>
+            <li><a href="http://www.itncentraloklahoma.org/" target="_blank">ITN<em>CentralOklahoma</em></a></li>
+            <li><a href="http://www.itnlanier.org/" target="_blank">ITN<em>Lanier</em></a></li>
+            <li><a href="http://www.itnlehighvalley.org/" target="_blank">ITN<em>LehighValley</em></a></li>
+            <li><a href="http://www.itnmemphis.org/" target="_blank">ITN<em>Memphis</em></a></li>
+            <li><a href="http://www.itnmontereycounty.org/" target="_blank">ITN<em>MontereyCounty</em></a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6">
+          <ul style="list-style-type:none;font-weight:bold">
+            <li><a href="http://www.itnnorthjersey.org/" target="_blank">ITN<em>NorthJersey</em></a></li>
+            <li><a href="http://www.itnorlando.org/" target="_blank">ITN<em>Orlando</em></a></li>
+            <li><a href="http://www.itnportland.org/" target="_blank">ITN<em>Portland</em></a></li>
+            <li><a href="http://www.itnsoutherndelaware.org/" target="_blank">ITN<em>SouthernDelaware</em></a></li>
+            <li><a href="http://www.itngateway.org/" target="_blank">ITN<em>Gateway</em></a></li>
+            <li><a href="http://www.itnsuncoast.org/" target="_blank">ITN<em>Suncoast</em></a></li>
+          </ul>
+        </div>
+      </div><!--row-->
+    </div>
+    
+    
+    
+    <div ng-show='social' class="social-icons">
+      <h2 class="mt-25 mb-50 ta-center">Social Presence</h2>
+      <div class="row">
+        <a href="https://www.facebook.com/ITNAmerica/"><div class="col-sm-3 social-icon-border fb">
+          <i class="fa fa-facebook"></i>
+        </div></a>
+        <a href="http://www.twitter.com/itnamerica"><div class="col-sm-3 social-icon-border tw">
+          <i class="fa fa-twitter"></i>
+        </div></a>
+        <a href="http://www.youtube.com/itnamerica"><div class="col-sm-3 social-icon-border yt">
+          <i class="fa fa-youtube"></i>
+        </div></a>
+        <a href="http://www.instagram.com/itnamerica"><div class="col-sm-3 social-icon-border in">
+          <i class="fa fa-instagram"></i>
+        </div></a>
+      </div>
+    </div>
+    
+    
+    
+    <div ng-show='events'>
+      <h2 class="mt-25 mb-50 ta-center">Events & Announcements</h2>
+      <ul style="list-type-type:none">
+        <li>
+          <a href="http://itnretreat.org/"><strong>ITN Retreat 2018: Non-Profit Leadership</strong></a><br>
+          October 17-19 2018, ITN<em>America</em> HQ
+        </li>
+      </ul>
+    </div>
+    
+    
+    
+    <div ng-show='learn'>
+      <h2 class="mt-25 mb-50 ta-center">Learn Online</h2>
+      ??
+    </div>
+    
+    
+    
+    <div ng-show='analytics'>
+      <h2 class="mt-25 mb-50 ta-center">Company-Wide Analytics</h2>
+    </div>
+    
+    
+    
+    <a ng-click="showPortal = true">
+      <h3>Back to Portal</h3>
+    </a>
+    
+  </div>
+</div>
+
 
 
 <style>
