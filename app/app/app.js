@@ -281,8 +281,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     var originalFormData = $scope.formData;
     $scope.showForm = false;
     $scope.blogEntries = [];
-    $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
-
+    // $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
+    $scope.showPortal = true;
 
 
     $transitions.onSuccess({}, function(transition) {
@@ -1030,38 +1030,45 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       })        
     };
     
+    // $scope.openAdditionalPage = function(pageName){
+    //   $scope.showPortal = false;
+    //   var additionalPages = {
+    //     affiliates:false,
+    //     social:false,
+    //     events:false,
+    //     learn:false,
+    //     analytics:false
+    //   };
+    //   console.log('from param, key is ',pageName, 'or with scope ', '$scope.'+pageName, 'value is ', $scope[pageName]);
+    //   var additionalPagesKeys = Object.keys(additionalPages);
+    //   console.log('from array, key is ', additionalPagesKeys[3])
+    //   var additionalPagesValues = Object.values(additionalPages);
+    //   console.log('from array, values is ', additionalPagesValues[3])
+    //   if ($scope[pageName]) { //if page already open, close it
+    //     $scope[pageName] = false;
+    //   } else {
+    //     $scope[pageName] = true;
+    //   }
+    //   for (var i in additionalPages){
+    //     if (i === pageName){
+    //       console.log('a match');
+    //       delete additionalPages[i]
+    //       console.log('additionalpages ', additionalPages);
+    //       break;
+    //     }
+    //     additionalPages[i] = false;
+    //   }
+    // }
+    
     $scope.openAdditionalPage = function(pageName){
-      
-      var additionalPages = {
-        affiliates:false,
-        social:false,
-        events:false,
-        learn:false,
-        analytics:false
-      };
-      
-      for (var i in additionalPages){
-        console.log('i is ', i);
-        console.log('additionalPages[i] is ', additionalPages[i]);
-        
-        if (pageName === i) {
-          console.log('a match!', $scope[pageName]);
-          // var idx = additionalPages.indexOf(additionalPages[i])
-          // console.log('idx is ', idx);
-          // additionalPages.splice(idx,1);
-          delete additionalPages[i];
-          break;
-        }
-
-        additionalPages[i] = false;
-      }
-      if ($scope[pageName]) { //if page already open, close it
-        $scope[pageName] = false;
-      } else {
+      $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
+      if (pageName) {
         $scope[pageName] = true;
+        $scope.showPortal = false;
+      } else {
+        $scope.showPortal = true;
       }
-      
-      console.log('NOW IT IS', $scope[pageName]);
+      console.log('showportal ',$scope.showPortal);
     }
 
 }]);
