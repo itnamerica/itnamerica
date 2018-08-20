@@ -281,6 +281,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     var originalFormData = $scope.formData;
     $scope.showForm = false;
     $scope.blogEntries = [];
+    $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
 
 
 
@@ -1030,16 +1031,28 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.openAdditionalPage = function(pageName){
-      var additionalPages = [$scope.affiliates, $scope.social, $scope.events, $scope.learn, $scope.analytics];
       
-      console.log('page to open is ', pageName, 'value is ', $scope[pageName]);
+      var additionalPages = {
+        affiliates:false,
+        social:false,
+        events:false,
+        learn:false,
+        analytics:false
+      };
       
-      for (var i=0; i<additionalPages.length; i++){
-        if ($scope[pageName] === additionalPages[i]) {
+      for (var i in additionalPages){
+        console.log('i is ', i);
+        console.log('additionalPages[i] is ', additionalPages[i]);
+        
+        if (pageName === i) {
           console.log('a match!', $scope[pageName]);
-          additionalPages.splice(i,1);
-          console.log("new array is ", additionalPages);
+          // var idx = additionalPages.indexOf(additionalPages[i])
+          // console.log('idx is ', idx);
+          // additionalPages.splice(idx,1);
+          delete additionalPages[i];
+          break;
         }
+
         additionalPages[i] = false;
       }
       if ($scope[pageName]) { //if page already open, close it
@@ -1047,12 +1060,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       } else {
         $scope[pageName] = true;
       }
-      // $scope.showPortal = false;
-      // $scope.affiliates = false;
-      // $scope.social = false;
-      // $scope.events = false;
-      // $scope.learn = false;
-      // $scope.analytics = false;
       
       console.log('NOW IT IS', $scope[pageName]);
     }
