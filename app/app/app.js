@@ -979,6 +979,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         }).then(function(response) {
           $scope.blogContent = response.data;
           // console.log('blog content is ', $scope.blogContent);
+          //get title of post for thumnail
           if ($scope.blogContent.indexOf('<h1 class="entry-title"') !== -1){
             var idx = $scope.blogContent.indexOf('<h1 class="entry-title"');
             var store = [];
@@ -993,7 +994,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $scope.entryTitle = store.substr(store.indexOf(">")+1,store.length)
             console.log('entry title is ', $scope.entryTitle);
           }
-          
+          //get img of post for thumnail
           if ($scope.blogContent.indexOf('<img class=') !== -1){
             var idx = $scope.blogContent.indexOf('<img class=');
             var store2 = [];
