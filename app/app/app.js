@@ -91,6 +91,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/login-portal',
             templateUrl: viewsPath + 'login-portal.html'
         })
+        .state('affiliates', {
+            url: '/affiliates',
+            templateUrl: viewsPath + 'affiliates.html'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');
@@ -1033,7 +1037,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
 
     
     $scope.openAdditionalPage = function(pageName){
-      $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
+      $scope.itnamerica = $scope.ris = $scope.other = $$scope.services = scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
       if (pageName) {
         $scope[pageName] = true;
         $scope.showPortal = false;
