@@ -1610,6 +1610,52 @@ form textarea.form-control {font-size:25px}
   text-align: center;
   font-style: italic;
 }
+
+.portal {
+  background-image: url('../images/itnportland-pic.JPG') !important;
+  background-attachment: fixed;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+.portal h2 {
+  font-size:45px;
+  text-align:center;
+  color: rgba(252,109,109,1);
+}
+.portal .block {
+  height: 250px;
+  width: 250px;
+  background: rgba(68,109,116,0.7);
+  border: 7px solid #399eaa;
+  background: rgba(252,109,109,0.3);
+  border: 5px solid rgba(252,109,109,1);
+  text-align: center;
+  border-radius:100%;
+  margin:auto;
+  overflow:hidden;
+}
+.portal .block h3 {
+  margin-top: 90px;
+  color:white;
+  font-size:35px;
+}
+.portal .block h3:hover {
+  color: rgba(252,109,109,1);
+  font-size:50px;
+  text-decoration:none;
+}
+.portal a {
+  margin:3%;
+}
+.portal .block .contained-img, .portal .block img {
+  max-height:250px;
+  max-width:300px;
+  margin-top: 75px;
+}
+
+
+
     
 #footer {
     width:100%;
