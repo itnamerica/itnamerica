@@ -91,6 +91,22 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/login-portal',
             templateUrl: viewsPath + 'login-portal.html'
         })
+        .state('itnamerica', {
+            url: '/itnamerica',
+            templateUrl: viewsPath + 'itnamerica.html'
+        })
+        .state('rides-in-sight', {
+            url: '/rides-in-sight',
+            templateUrl: viewsPath + 'rides-in-sight.html'
+        })
+        .state('itn-services', {
+            url: '/itn-services',
+            templateUrl: viewsPath + 'itn-services.html'
+        })
+        .state('other', {
+            url: '/other',
+            templateUrl: viewsPath + 'other.html'
+        })
         .state('affiliates', {
             url: '/affiliates',
             templateUrl: viewsPath + 'affiliates.html'
@@ -246,7 +262,33 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             name: 'Corporate Partnership',
             state: 'corporate',
             url: $scope.viewsPath + '/corporate.html'
+        },
+        {
+            name: 'ITN Affiliates',
+            state: 'affiliates',
+            url: $scope.viewsPath + '/affiliates.html'
+        },
+        {
+            name: 'ITNAmerica',
+            state: 'itnamerica',
+            url: $scope.viewsPath + '/itnamerica.html'
+        },
+        {
+            name: 'Rides in Sight',
+            state: 'rides-in-sight',
+            url: $scope.viewsPath + '/rides-in-sight.html'
+        },
+        {
+            name: 'Miscellaneous',
+            state: 'other',
+            url: $scope.viewsPath + '/other.html'
+        },
+        {
+            name: 'ITN Services',
+            state: 'itn-services',
+            url: $scope.viewsPath + '/itn-services.html'
         }
+        
     ];
     $scope.formType = '';
     $scope.memberFormData = [];
@@ -1037,7 +1079,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
 
     
     $scope.openAdditionalPage = function(pageName){
-      $scope.itnamerica = $scope.ris = $scope.other = $$scope.services = scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
+      $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
       if (pageName) {
         $scope[pageName] = true;
         $scope.showPortal = false;

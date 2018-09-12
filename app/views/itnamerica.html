@@ -1,0 +1,80 @@
+<div class="portal itnamerica" ng-show="showPortal">
+  <div class="container" style="padding:5% 7%">
+    
+    <h2>ITN<em>America</em></h2>
+    
+    <div class="row mt-100">
+      <div class="col-md-6">
+        <a href="http://www.itnamerica.org">
+          <div class="block" style="background:white">
+            <img ng-src="{{assetsPath}}/images/itnamerica-logo.png" alt="itnamerica logo" style="margin-top:100px"/>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+      <div class="col-md-6">
+        <a href="http://blog.itnamerica.org/">
+          <div class="block" style="background:black">
+            <img ng-src="{{assetsPath}}/images/itnamerica-blog-screenshot.png" alt="screenshot of itnamerica blog" style="margin-top:60px;margin-left:-30px"/>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+    </div><!--row-->
+    
+    <div class="row mb-100">
+      <div class="col-md-6">
+        <a ng-click="openAdditionalPage('social')">
+          <div class="block social-icons">
+            <h3 style="font-size:30px;margin-top:60px">Social Media Presence</h3>
+          </div>
+          </a>
+      </div><!--col-md-6-->
+      <div class="col-md-6">
+        <a ng-click="openAdditionalPage('events')">
+          <div class="block">
+            <h3 style="font-size:30px;margin-top:60px">Events & Announcements</h3>
+          </div>
+          </a>
+      </div><!--col-md-6-->
+    </div>
+  
+  
+    <a ng-click="openAdditionalPage()" ng-hide="showPortal">
+      <h3>Back to Portal</h3>
+    </a>
+
+  </div>
+</div>
+
+
+<div ng-show="social" class="portal social">
+  <div class="container">
+    <h3>Social Media Presence</h3>
+    
+    <div class="row">
+      <a href="https://www.facebook.com/ITNAmerica/"><div class="col-sm-3 social-icon-border fb">
+        <i class="fa fa-facebook"></i>
+      </div></a>
+      <a href="http://www.twitter.com/itnamerica"><div class="col-sm-3 social-icon-border tw">
+        <i class="fa fa-twitter"></i>
+      </div></a>
+      <a href="http://www.youtube.com/itnamerica"><div class="col-sm-3 social-icon-border yt">
+        <i class="fa fa-youtube"></i>
+      </div></a>
+      <a href="http://www.instagram.com/itnamerica"><div class="col-sm-3 social-icon-border in">
+        <i class="fa fa-instagram"></i>
+      </div></a> 
+    </div>
+  </div>
+</div>
+
+<div ng-show="events" class="portal events">
+  <div class="container">
+    <h3>Events & Announcements</h3>
+    <ul style="list-type-type:none">
+      <li>
+        <a href="http://itnretreat.org/"><strong>ITN Retreat 2018: Non-Profit Leadership</strong></a><br>
+        October 17-19 2018, ITN<em>America</em> HQ
+      </li>
+    </ul>
+  </div>
+</div>

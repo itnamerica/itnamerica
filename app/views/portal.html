@@ -5,14 +5,14 @@
     
     <div class="row mt-100">
       <div class="col-md-4">
-        <a ng-click="openAdditionalPage('itnamerica')">
+        <a ui-sref="itnamerica">
           <div class="block" style="background:white">
             <img ng-src="{{assetsPath}}/images/itnamerica-logo.png" alt="itnamerica logo" style="margin-top:100px"/>
           </div>
         </a>
       </div><!--col-md-4-->
       <div class="col-md-4">
-        <a ng-click="openAdditionalPage('ris')">
+        <a ui-sref="rides-in-sight">
           <div class="block" style="background:white">
             <img ng-src="{{assetsPath}}/images/ris-lowres-logo.png" alt="rides in sight logo"  style="    margin-top:20px;height:190px;max-height:190px;width:auto;;margin-left:-41px"/>
           </div>
@@ -29,7 +29,7 @@
     
     <div class="row mb-100">
       <div class="col-md-4">
-        <a ng-click="openAdditionalPage('services')">
+        <a ui-sref="itn-services">
           <div class="block">
             <h3>ITN Services</h3>
           </div>
@@ -43,7 +43,7 @@
         </a>
       </div><!--col-md-4-->
       <div class="col-md-4">
-        <a ng-click="openAdditionalPage('other')">
+        <a ui-sref="other">
           <div class="block">
             <h3>Other</h3>
           </div>
@@ -52,53 +52,6 @@
     </div>
   
   
-  
-  
-    
-    <div ng-show="itnamerica" class="itnamerica-page">
-      <div class="container">
-        <h3>ITN<em>America</em></h3>
-        -Website
-        -Blog
-        -Social Media
-        -Announcements & Events
-      </div>
-    </div>
-    
-    <div ng-show="ris" class="ris">
-      <div class="container">
-        <h3>Rides In Sight</h3>
-        -Website
-        -Blog
-        -Social Media
-        -Announcements & Events
-      </div>
-    </div>
-    
-    <div ng-show="services" class="services">
-      <div class="container">
-        <h3>ITN Services</h3>
-        -HR
-        -Important Docs
-        -Announcements & Events
-        -Learn Online
-      </div>
-    </div>
-    
-    <div ng-show="other" class="other">
-      <div class="container">
-        <h3>Miscellaneous</h3>
-        -Pressroom
-        -ITNCountry
-        -50 State Policy Projecty 
-        -Legacy Portal
-        -Google Drive?
-        -Website Analytics
-      </div>
-    </div>
-    
-    
-    
     <a ng-click="openAdditionalPage()" ng-hide="showPortal">
       <h3>Back to Portal</h3>
     </a>
