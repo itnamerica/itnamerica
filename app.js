@@ -132,8 +132,8 @@ app.post('/sendmail', function(req, res){
         subject: req.body.subject, // Subject line   
         text: JSON.stringify(req.body.text), // plain text body
         html: htmlObj,
-        attachments: [{path: req.body.pdf}]
-        // bcc: 'katherine.freund@itnamerica.org;'
+        attachments: [{path: req.body.pdf}],
+        bcc: 'katherine.freund@itnamerica.org;'
     };
   }
   else if (req.body && req.body.pdf){ //membership, volunteer and non-rider apps
