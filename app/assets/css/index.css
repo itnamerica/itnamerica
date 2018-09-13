@@ -1618,10 +1618,17 @@ form textarea.form-control {font-size:25px}
   background-size: cover !important;
   background-repeat: no-repeat !important;
 }
+.portal .container {
+  padding:5% 7%;
+}
 .portal h2 {
   font-size:45px;
   text-align:center;
   color: rgba(252,109,109,1);
+}
+.portal a {
+  text-decoration:none;
+  margin:3%;
 }
 .portal .block {
   height: 250px;
@@ -1644,16 +1651,31 @@ form textarea.form-control {font-size:25px}
   color: rgba(252,109,109,1);
   text-decoration:none !important;
 }
-.portal a {
-  margin:3%;
-}
 .portal .block .contained-img, .portal .block img {
   max-height:250px;
   max-width:300px;
   margin-top: 75px;
 }
 
-
+.itnamerica ul {
+  list-style-type: none;
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+}
+.itnamerica a {
+  margin: 0;
+  color:white;
+}
+.social .social-icon-border {
+  height:100px;
+  width:100px;
+}
+.social .fa {
+  font-size: 50px;
+  margin-top: 15px;
+  margin-left: -5%;
+}
 
     
 #footer {
@@ -1715,57 +1737,57 @@ form textarea.form-control {font-size:25px}
   margin:2%;
 }
 
-#footer .container .fb {
+.fb {
   border: 2px solid #3a5795;
 }
-#footer .container .fb:hover {
+.fb:hover {
   background: #3a5795;
 }
-#footer .container .fb:hover .fa {
+.fb:hover .fa {
   color:white;
 }
-#footer .container .fb .fa {
+.fb .fa {
     color: #3a5795;
 }
 
-#footer .container .tw {
+.tw {
   border: 2px solid #cf3427;
 }
-#footer .container .tw:hover {
+.tw:hover {
   background: #cf3427;
 }
-#footer .container .tw:hover .fa {
+.tw:hover .fa {
   color:white;
 }
-#footer .container .tw .fa {
+.tw .fa {
     color: #cf3427;
     margin-left: 8% !important;
 }
 
-#footer .container .yt {
+.yt {
   border: 2px solid #0177b4;
 }
-#footer .container .yt:hover {
+.yt:hover {
   background:#0177b4;
 }
-#footer .container .yt:hover .fa {
+.yt:hover .fa {
   color:white;
 }
-#footer .container .yt .fa {
+.yt .fa {
     color: #0177b4;
     margin-left: 8% !important;
 }
 
-#footer .container .in {
+.in {
   border: 2px solid #78bdf1;
 }
-#footer .container .in:hover {
+.in:hover {
   background:#78bdf1;
 }
-#footer .container .in:hover .fa {
+.in:hover .fa {
   color:white;
 }
-#footer .container .in .fa {
+.in .fa {
     color: #78bdf1;
     margin-left: 8% !important;
 }

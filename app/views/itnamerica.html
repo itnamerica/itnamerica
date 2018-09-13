@@ -1,5 +1,5 @@
 <div class="portal itnamerica" ng-show="showPortal">
-  <div class="container" style="padding:5% 7%">
+  <div class="container">
     
     <h2>ITN<em>America</em></h2>
     
@@ -20,7 +20,7 @@
       </div><!--col-md-6-->
     </div><!--row-->
     
-    <div class="row mb-100">
+    <div class="row mt-50 mb-50">
       <div class="col-md-6">
         <a ng-click="openAdditionalPage('social')">
           <div class="block social-icons">
@@ -36,11 +36,7 @@
           </a>
       </div><!--col-md-6-->
     </div>
-  
-  
-    <a ng-click="openAdditionalPage()" ng-hide="showPortal">
-      <h3>Back to Portal</h3>
-    </a>
+
 
   </div>
 </div>
@@ -48,9 +44,9 @@
 
 <div ng-show="social" class="portal social">
   <div class="container">
-    <h3>Social Media Presence</h3>
+    <h2>Social Media Presence</h2>
     
-    <div class="row">
+    <div class="row mt-50 mb-25 ta-center">
       <a href="https://www.facebook.com/ITNAmerica/"><div class="col-sm-3 social-icon-border fb">
         <i class="fa fa-facebook"></i>
       </div></a>
@@ -69,7 +65,7 @@
 
 <div ng-show="events" class="portal events">
   <div class="container">
-    <h3>Events & Announcements</h3>
+    <h2>Events & Announcements</h2>
     <ul style="list-type-type:none">
       <li>
         <a href="http://itnretreat.org/"><strong>ITN Retreat 2018: Non-Profit Leadership</strong></a><br>
@@ -78,3 +74,14 @@
     </ul>
   </div>
 </div>
+
+
+<div class="back-btn-wrap">
+  <a ng-click="openAdditionalPage()" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ng-click="openAdditionalPage('portal')" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
+  

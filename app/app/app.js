@@ -1080,7 +1080,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.openAdditionalPage = function(pageName){
       $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
-      if (pageName) {
+      if (pageName && pageName === 'portal'){
+        $state.go('portal');
+      }
+      else if (pageName) {
         $scope[pageName] = true;
         $scope.showPortal = false;
       } else {
