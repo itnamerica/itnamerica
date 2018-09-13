@@ -295,9 +295,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         
     ];
     $scope.formType = '';
-    $scope.memberFormData = [];
-    $scope.volunteerFormData = [];
-    $scope.nonRiderFormData = [];
+    $scope.ndaFormData = [];
     $scope.contactFormData = [];
     $scope.newsletterFormData = [];
     $scope.formObj = {};
@@ -537,17 +535,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
 
     $scope.getApps = function() {
-        FormService.getMemberForms().then(function(data) {
-            $scope.memberFormData = data;
-            $scope.formCount.member = data.length
-        });
-        FormService.getVolunteerForms().then(function(data) {
-            $scope.volunteerFormData = data;
-            $scope.formCount.volunteer = data.length
-        });
-        FormService.getNonRiderForms().then(function(data) {
-            $scope.nonRiderFormData = data;
-            $scope.formCount.nonrider = data.length
+        FormService.getNDAForms().then(function(data) {
+            $scope.ndaFormData = data;
+            $scope.formCount.nda = data.length
         });
         FormService.getContactForms().then(function(data) {
             $scope.contactFormData = data;
@@ -1199,20 +1189,8 @@ myApp.filter('reverse', function() {
 
 
 myApp.service('FormService', function($http) {
-    this.getMemberForms = function() {
-        return $http.get('/getMemberApps').then(function(data) {
-            console.log('data is ', data);
-            return data.data;
-        })
-    };
-    this.getVolunteerForms = function() {
-        return $http.get('/getVolunteerApps').then(function(data) {
-            console.log('data is ', data);
-            return data.data;
-        })
-    };
-    this.getNonRiderForms = function() {
-        return $http.get('/getNonRiderApps').then(function(data) {
+    this.getNDAForms = function() {
+        return $http.get('/getNDAForms').then(function(data) {
             console.log('data is ', data);
             return data.data;
         })

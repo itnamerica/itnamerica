@@ -47,6 +47,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     });
   });
   
+  app.get('/getNDAForms', function (req,res) {
+      db.collection('ndaform').find().toArray(function (err, result) {
+        console.log('result is ', result);
+        res.send(result);
+      })
+  }); // end of /getContactForms get request
+  
   app.get('/getContactForms', function (req,res) {
       db.collection('contactform').find().toArray(function (err, result) {
         console.log('result is ', result);
