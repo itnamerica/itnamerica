@@ -1154,12 +1154,7 @@ myApp.filter('filterLongObj', function($filter) {
 myApp.filter('newlines', function($sce) {
     return function(formObj) {
         if (formObj) {
-            if (formObj.constructor === Boolean && formObj){
-              console.log('formobj type inside newlines filter is ', typeof(formObj));
-              return formObj = 'Yes'
-            } else {
-                return $sce.trustAsHtml(formObj.replace(/,/g, '<br>'));
-            }
+          return $sce.trustAsHtml(formObj.replace(/,/g, '<br>'));
         }
     }
 });
