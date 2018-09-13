@@ -1677,6 +1677,9 @@ form textarea.form-control {font-size:25px}
   margin-left: -5%;
 }
 
+.nda p {
+  margin-top:20px;
+}
     
 #footer {
     width:100%;

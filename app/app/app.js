@@ -111,6 +111,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/affiliates',
             templateUrl: viewsPath + 'affiliates.html'
         })
+        .state('nda', {
+            url: '/nda2018xyz',
+            templateUrl: viewsPath + 'nda.html'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');
@@ -853,15 +857,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                 return $scope.serverMessage;
                 // return $scope.serverMessage = 'Please complete all required fields.';
             }
-
+            
+            $scope.formSubject = 'ITNAmerica - New ' + formType + ' application received';
             if (formType === 'membership' || formType === 'volunteer') {
                 $(document).ready(function() {
                     $('#pdfVersion').css('display', 'block');
                 })
-                $scope.formSubject = 'ITNAmerica - New ' + formType + ' application received';
                 $scope.generateMultiPagePDF();
-            } else if (formType === 'nonrider') {
-                $scope.formSubject = 'ITNAmerica - Non-Rider application Form submitted';
+            } else if (formType === 'nonrider' || formType === 'NDA') {
                 $scope.generatePDF();
             }
         } else {
@@ -887,6 +890,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             })
             .done(function(data) {
                 console.log('data is ', data);
+                var ndaForm = null;
+                if ($scope.formType === 'NDA') {
+                  $('#name').val($scope.formData.name);
+                  $('#itnAffiliate').val($scope.formData.itnAffiliate);
+                  ndaForm = $('#ndaForm').html();
+                }
                 $scope.dataPDF = data;
                 $http.post('/sendmail', {
                     from: '"ITNAmerica Web User" <donotreply@itnamerica.com>',
@@ -894,6 +903,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                     subject: $scope.formSubject,
                     text: $scope.formData,
                     pdf: $scope.dataPDF,
+                    html: ndaForm,
                     formType: $scope.formType
                 }).then(function(res) {
                     $scope.loading = false;

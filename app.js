@@ -30,23 +30,7 @@ app.use(session({secret: "Sam is awesome"}));
 
 
 
-
-// app.use(function(req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  // next();
-  // res.setHeader('Access-Control-Allow-Origin', 'http://blog.itnamerica.org/life-keeps-going/');
-  // session({secret: "Sam is awesome"})
-// });
-
-
-// app.get('http://blog.itnamerica.org', function (req,res) {
-//     console.log('response is ', res);
-//     res.send(res);
-// }); 
-
-
-var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-services','/other','/rides-in-sight'];
+var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-services','/other','/rides-in-sight','/nda2018xyz'];
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
   if (err) { 
@@ -127,7 +111,25 @@ app.post('/sendmail', function(req, res){
   )
   
   let mailOptions = {};
-  if (req.body && req.body.pdf){
+  if (req.body && req.body.pdf && req.body.formType === 'NDA'){ //NDA forms
+    console.log('sending email with pdf, NDA form is ', req.body.formType === 'NDA');
+    var htmlObj = "<p><strong>Name</strong>: " + req.body.text.name + "</p>\n" +
+        "<p><strong>Email</strong>: " + req.body.text.email + "</p>\n " +
+        "<p><strong>Signature</strong>: " + req.body.text.signature + "</p>\n " +
+        "<p><strong>Date</strong>: " + req.body.text.date + "</p>\n " +
+        "<p><strong>User Consented</strong>: " + req.body.text.agree + "</p>\n ";
+        var htmlObj = req.body.html + htmlObj;
+    mailOptions = {
+        from: req.body.from, // sender address
+        to: req.body.to, // list of receivers
+        subject: req.body.subject, // Subject line   
+        text: JSON.stringify(req.body.text), // plain text body
+        html: htmlObj,
+        attachments: [{path: req.body.pdf}]
+        // bcc: 'katherine.freund@itnamerica.org;'
+    };
+  }
+  else if (req.body && req.body.pdf){ //membership, volunteer and non-rider apps
     console.log('sending email with pdf, membership, volunteer or non-rider forms');
     mailOptions = {
         from: req.body.from, // sender address
@@ -138,7 +140,7 @@ app.post('/sendmail', function(req, res){
         bcc: 'info@itnamerica.org;morgan.jameson@itnamerica.org'
     };
   }
-  else if (req.body && req.body.html){
+  else if (req.body && req.body.html){ //contact forms
     console.log('sending email without pdf, contact form');
     mailOptions = {
         from: req.body.from, // sender address
@@ -148,7 +150,7 @@ app.post('/sendmail', function(req, res){
         html: req.body.html, // html body
         bcc: 'info@itnamerica.org;morgan.jameson@itnamerica.org'
     };
-  } else {
+  } else { //all else
     console.log('sending email with neither');
     mailOptions = {
         from: req.body.from, // sender address
@@ -189,6 +191,22 @@ app.post('/sendmail', function(req, res){
         db.collection('newsletterform').save(req.body.text, function(err, result){
           if (err) { return console.log('connecting to db, but not saving obj', err);}
           console.log('newsletter form saved to database', result);
+          // res.redirect('/');
+        })
+      }
+      else if (req.body && (req.body.formType === 'NDA')) {
+        console.log('inside nda backend block', req.body.formType); 
+        var ndaObj = {
+          name: req.body.text.name,
+          signature: req.body.text.signature,
+          date: req.body.text.date,
+          email: req.body.text.email,
+          affiliate: req.body.text.itnAffiliate,
+          agree: req.body.text.agree
+        };
+        db.collection('ndaform').save(ndaObj, function(err, result){
+          if (err) { return console.log('connecting to db, but not saving obj', err);}
+          console.log('nda form saved to database', result);
           // res.redirect('/');
         })
       }
