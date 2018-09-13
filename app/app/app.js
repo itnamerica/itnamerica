@@ -773,15 +773,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
 
 
     $scope.removeIfEmpty = function(formField) {
-        console.log('form field is ', formField, 'type is ', typeof(formField), 'length is ', formField.length)
+        // console.log('form field is ', formField, 'type is ', typeof(formField), 'length is ', formField.length)
         if ((formField.constructor === Object) && (Object.keys(formField).length < 1)) {
             console.log('false1');
             return false;
         } else if ((formField.constructor === String) && (formField.length < 1)) {
             console.log('false2');
             return false;
+        }  else if ((formField.constructor === Boolean) && formField) {
+            console.log('yes');
+            return true;
         } else {
-            console.log('true');
             return true;
         }
     };
@@ -1152,7 +1154,12 @@ myApp.filter('filterLongObj', function($filter) {
 myApp.filter('newlines', function($sce) {
     return function(formObj) {
         if (formObj) {
-            return $sce.trustAsHtml(formObj.replace(/,/g, '<br>'));
+            if (formObj.constructor === Boolean && formObj){
+              console.log('formobj type inside newlines filter is ', typeof(formObj));
+              return formObj = 'Yes'
+            } else {
+                return $sce.trustAsHtml(formObj.replace(/,/g, '<br>'));
+            }
         }
     }
 });
