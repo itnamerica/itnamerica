@@ -892,8 +892,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                 console.log('data is ', data);
                 var ndaForm = null;
                 if ($scope.formType === 'NDA') {
-                  $('#name').val($scope.formData.name);
-                  $('#itnAffiliate').val($scope.formData.itnAffiliate);
+                  $("#ndaForm input#name").replaceWith(function () {
+                      return $("<span>"+ $scope.formData.name +"</span>");
+                  });
+                  $("#ndaForm input#itnAffiliate").replaceWith(function () {
+                      return $("<span>"+ $scope.formData.itnAffiliate +"</span>");
+                  });
                   ndaForm = $('#ndaForm').html();
                 }
                 $scope.dataPDF = data;
