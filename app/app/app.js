@@ -503,6 +503,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
 
     $scope.base64ToPDF = function(formType, formObj) {
         console.log('inside base64 func');
+        console.log('form type is ', formType, 'form obj is ', formObj);
         if (formObj && formObj.pdf) {
             var base64 = formObj.pdf;
             base64 = base64.replace("data:application/pdf;base64,", "");

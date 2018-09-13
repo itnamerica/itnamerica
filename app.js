@@ -202,14 +202,15 @@ app.post('/sendmail', function(req, res){
         })
       }
       else if (req.body && (req.body.formType === 'NDA')) {
-        console.log('inside nda backend block', req.body.formType); 
+        console.log('inside nda backend block', req.body.text); 
         var ndaObj = {
           name: req.body.text.name,
           signature: req.body.text.signature,
           date: req.body.text.date,
           email: req.body.text.email,
           affiliate: req.body.text.itnAffiliate,
-          agree: req.body.text.agree
+          agree: req.body.text.agree,
+          pdf: req.body.pdf
         };
         db.collection('ndaform').save(ndaObj, function(err, result){
           if (err) { return console.log('connecting to db, but not saving obj', err);}
