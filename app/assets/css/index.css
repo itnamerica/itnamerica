@@ -1610,6 +1610,12 @@ form textarea.form-control {font-size:25px}
   text-align: center;
   font-style: italic;
 }
+.back-btn-wrap {
+  margin: -10% 0 2% 2%;
+}
+.back-btn-wrap a {
+  color: white;
+}
 
 .portal {
   background-image: url('../images/itnportland-pic.JPG') !important;
@@ -1617,6 +1623,7 @@ form textarea.form-control {font-size:25px}
   background-position: center center !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
+  padding-bottom:10%;
 }
 .portal .container {
   padding:5% 7%;
@@ -1676,6 +1683,7 @@ form textarea.form-control {font-size:25px}
   margin-top: 15px;
   margin-left: -5%;
 }
+.social .fa {margin-left:0 !important}
 
 .nda p {
   margin-top:20px;
