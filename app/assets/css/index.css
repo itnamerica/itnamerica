@@ -1694,7 +1694,17 @@ form textarea.form-control {font-size:25px}
   color:white;
 }
 .ris img {
-  max-width:1500px;
+  max-width:1500px !important;
+}
+#ris-blog-img {
+  margin-top: 30px;
+  margin-left: -70px;
+  height: 150px;
+}
+.ris h5 {
+  color: #fc6f6d;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .nda p {
