@@ -1624,6 +1624,9 @@ form textarea.form-control {font-size:25px}
   background-size: cover !important;
   background-repeat: no-repeat !important;
   padding-bottom:10%;
+  font-size:25px;
+  color:white;
+  font-weight:bold;
 }
 .portal .container {
   padding:5% 7%;

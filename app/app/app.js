@@ -109,7 +109,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('affiliates', {
             url: '/affiliates',
-            templateUrl: viewsPath + 'affiliates.html'
+            templateUrl: viewsPath + 'affiliates.html',
+            params : {
+              affiliateName: '',
+              test: 'apple'
+            }
         })
         .state('nda', {
             url: '/nda2018xyz',
@@ -332,6 +336,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.blogEntries = [];
     // $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
     $scope.showPortal = true;
+    $scope.affiliateName = '';
 
 
     $transitions.onSuccess({}, function(transition) {
@@ -1087,18 +1092,26 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
 
     
     $scope.openAdditionalPage = function(pageName){
+      var affiliateName;
+      console.log('inside openadditionalpage ', pageName);
+      console.log('stateparams is ', $stateParams)
       $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = $scope.affiliateLanding = false;
       if (pageName && pageName === 'portal'){
         $state.go('portal');
       }
       else if (pageName) {
         $scope[pageName] = true;
-        console.log('this page is now showing: ', $scope[pageName]);
         $scope.showPortal = false;
       } else {
         $scope.showPortal = true;
       }
     };
+    
+    $scope.bindParamToVar = function(pageName){
+      if (pageName === 'affiliates') {
+        $scope.affiliateName = $stateParams.affiliateName;
+      }
+    }
 
 }]);
 
