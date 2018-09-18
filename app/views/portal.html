@@ -19,7 +19,7 @@
         </a>
       </div><!--col-md-4-->
       <div class="col-md-4">
-        <a ui-sref="affiliates">
+        <a ng-click="openAdditionalPage('affiliateLanding')">
           <div class="block">
             <h3>ITN Affiliates</h3>
           </div>
@@ -36,7 +36,7 @@
         </a>
       </div><!--col-md-4-->
       <div class="col-md-4">
-        <a ng-click="" ng-disabled="true" style="pointer-events:none;display:inline-blockx">
+        <a ng-click="" ng-disabled="true" style="pointer-events:none;display:inline-block">
           <div class="block">
             <h3 style="color:grey">ITN Rides</h3>
           </div>
@@ -50,11 +50,29 @@
         </a>
       </div>
     </div>
-  
-  
-    <a ng-click="openAdditionalPage()" ng-hide="showPortal" class="back-btn">
-      <h3>Back to Portal</h3>
-    </a>
-
+    
   </div>
+</div>
+
+
+
+<div class="portal affiliateLanding" ng-show="affiliateLanding">
+  <div class="container">
+    <h2>ITN Affiliates</h2>
+    
+    <ul>
+      <li ng-repeat="affiliate in affiliateList">
+        <a ui-sref="affiliate({affiliate: {{affiliate}}})">ITN<em>{{affiliate}}</em></a>
+      </li>
+    </ul>
+    
+  </div>
+</div>
+
+
+
+<div class="back-btn-wrap">
+  <a ng-click="openAdditionalPage()" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
 </div>

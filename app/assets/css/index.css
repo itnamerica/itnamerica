@@ -1710,6 +1710,10 @@ form textarea.form-control {font-size:25px}
   font-size: 25px;
   font-weight: bold;
 }
+.affiliateLanding ul li a {
+  color:white;
+  font-weight:bold;
+}
 
 .nda p {
   margin-top:20px;

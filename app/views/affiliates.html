@@ -1,1 +1,69 @@
-affiliate page
+<!-- affiliate page
+
+
+for each affiliate (make page dynamic)
+
+-link to website
+-link to dashboard
+-rides data
+-analytics (embed?)
+-comment section (directive?) -->
+
+<div class="portal affiliates" ng-show="showPortal">
+  <div class="container">
+    
+    <h2>ITN Affiliate</h2>
+
+    <div class="row mt-50 mb-25">
+      <div class="col-md-6">
+        <h4>Official Website:</h4>
+        <a ng-href="https://www.itn{{affiliate}}.org">{{www.itn{{affiliate}}.org</a>
+      </div>
+      <div class="col-md-6 mb-25">
+        <h4>Admin Dashboard:</h4>
+        <h5><em>for accessing membership & volunteer applications</em></h5>
+        <a ng-href="https://www.itn{{affiliate}}.org/login">{{www.itn{{affiliate}}.org/login</a>
+        <em>*Be sure to email support@itnamerica.org if you do not have the login credentials</em>
+      </div>
+    </div>
+    
+    <div class="row mb-25">
+      <div class="col-md-6">
+        <h4>Monthly Rides Data</h4>
+        (api calls to data page)
+      </div>
+      <div class="col-md-6 mb-25">
+        <h4>Website Analytics</h4>
+
+        <a href="#">Look at the Google page for more details about the analytics for this website.</a>
+        <em>*Be sure to email support@itnamerica.org if you do not have the login credentials</em>
+      </div>
+    </div>
+    
+    <div class="row mt-25 mb-50">
+      <div class="col-md-3"></div>
+      
+      <div class="col-md-6">
+        <h4>Announcements & Comments</h4>
+        (api GET call to website comments)
+        (api ADD and DELETE call for website comments)
+      </div>
+      
+      <div class="col-md-3"></div>
+    </div>
+
+
+  </div><!--container-->
+</div><!--affiliates-->
+
+
+
+<div class="back-btn-wrap">
+  <a ng-click="openAdditionalPage()" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ng-click="openAdditionalPage('portal')" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
+  

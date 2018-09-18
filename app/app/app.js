@@ -187,6 +187,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.keyword = '';
     $scope.keywordPages = '';
     $scope.urlsWithKeyword = [];
+    $scope.affiliateList = ['Lanier','Gateway','MontereyCounty','Orlando','Memphis','LehighValley','Bluegrass','SouthernDelaware','CentralCT','CentralOklahoma','Portland','NorthJersey','Suncoast'];
     $scope.listOfUrls = [{
             name: 'Home',
             state: 'home',
@@ -1086,17 +1087,18 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
 
     
     $scope.openAdditionalPage = function(pageName){
-      $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
+      $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = $scope.affiliateLanding = false;
       if (pageName && pageName === 'portal'){
         $state.go('portal');
       }
       else if (pageName) {
         $scope[pageName] = true;
+        console.log('this page is now showing: ', $scope[pageName]);
         $scope.showPortal = false;
       } else {
         $scope.showPortal = true;
       }
-    }
+    };
 
 }]);
 
