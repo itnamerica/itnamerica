@@ -1664,6 +1664,10 @@ form textarea.form-control {font-size:25px}
   max-width:300px;
   margin-top: 75px;
 }
+.portal img {
+  max-height:1500px !important;
+  max-width:1500px !important;
+}
 .portal ul {
   list-style-type: none;
   font-size: 25px;
@@ -1701,7 +1705,7 @@ form textarea.form-control {font-size:25px}
   margin-left: -70px;
   height: 150px;
 }
-.ris h5 {
+.portal h5 {
   color: #fc6f6d;
   font-size: 25px;
   font-weight: bold;
