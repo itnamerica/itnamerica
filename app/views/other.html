@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="other">
   <div class="container">
     <h3>Miscellaneous</h3>
@@ -7,6 +7,88 @@
     -50 State Policy Projecty 
     -Legacy Portal
     -Google Drive?
-    -Website Analytics
+    -Website Analytics (add email to request access)
+  </div>
+</div> -->
+
+<div class="portal other" ng-show="showPortal">
+  <div class="container">
+    
+    <h2>Other/Miscellaneous</h2>
+    
+    <div class="row mt-50 mb-25">
+      <div class="col-md-6">
+        <a href="http://www.itncountry.org">
+          <div class="block" style="background:white">
+            <img ng-src="{{assetsPath}}/images/itnCountryLogo.png" alt="itncountry logo" style="margin-top:100px"/>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+      <div class="col-md-6">
+        <a href="http://pressroom.itnamerica.org/">
+          <div class="block" style="background:white">
+            <img ng-src="{{assetsPath}}/images/pressLogo.jpg" alt="itn pressroom logo" style=""/>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+    </div><!--row-->
+    
+    
+    <div class="row mt-25 mb-25">
+      <div class="col-md-6">
+        <a href="http://policy.itnamerica.org/">
+          <div class="block" style="background:white">
+            <img ng-src="{{assetsPath}}/images/50state.png" alt="50 state policy project website screenshot" style="height:350px;width:100%;margin-top:20%;object-fit:contain"/>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+      <div class="col-md-6">
+        <a href="http://pressroom.itnamerica.org/">
+          <div class="block" style="background:white">
+            <img ng-src="{{assetsPath}}/images/itnamerica-portal-logo.png" alt="itnamerica original portal logo" style="max-width:280px"/>
+            <h5>ITN<em>America</em> Original Portal</h5>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+    </div><!--row-->
+    
+    
+    <div class="row mt-25 mb-50">
+      <div class="col-md-6">
+        <a href="#">
+          <div class="block">
+            <h3>Google Drive</h3>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+      <div class="col-md-6">
+        <a href="#">
+          <div class="block">
+            <h3>Websites Analytics</h3>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+    </div><!--row-->
+    
+    
+    
+    
+    
+    
+
+
+
   </div>
 </div>
+
+
+
+<div class="back-btn-wrap">
+  <a ng-click="openAdditionalPage()" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ng-click="openAdditionalPage('portal')" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
+  
