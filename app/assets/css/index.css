@@ -1632,6 +1632,7 @@ form textarea.form-control {font-size:25px}
   font-size:45px;
   text-align:center;
   color: rgba(252,109,109,1);
+  margin-bottom:50px;
 }
 .portal a {
   text-decoration:none;
@@ -1663,11 +1664,15 @@ form textarea.form-control {font-size:25px}
   max-width:300px;
   margin-top: 75px;
 }
-
-.itnamerica ul {
+.portal ul {
   list-style-type: none;
   font-size: 25px;
   color: white;
+}
+.portal ul li {
+  margin-top:10px;
+}
+.itnamerica ul {
   font-weight: bold;
 }
 .itnamerica a {
@@ -1684,10 +1689,15 @@ form textarea.form-control {font-size:25px}
   margin-left: -5%;
 }
 .social .fa {margin-left:0 !important}
+.events a {
+  margin:0;
+  color:white;
+}
 
 .nda p {
   margin-top:20px;
 }
+
     
 #footer {
     width:100%;
