@@ -2008,6 +2008,7 @@ h2,h3 {line-height:1.7}
   .family #gift-cert-img1, .family #gift-cert-img2 {visibility:hidden;}
   #transportation img {margin-top:20%}
   #mrc-statement {margin-top:-370px !important}
+  .reg-img img {width:auto !important}
 }
 
 @media (min-width: 991px) and (max-width: 1145px) {
@@ -2049,6 +2050,10 @@ h2,h3 {line-height:1.7}
   .navbar-collapse {margin-top:0;}
   .carousel-inner .item .carousel-statement {font-size:30px;}
   .homepage .progress {height: 500px;}
+  .reg-img img {
+    margin:10% auto !important;
+    display: block !important;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1533px) {
