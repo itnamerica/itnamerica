@@ -1637,6 +1637,9 @@ form textarea.form-control {font-size:25px}
   color: rgba(252,109,109,1);
   margin-bottom:50px;
 }
+.portal h6 {
+  font-size:16px;
+}
 .portal a {
   text-decoration:none;
   margin:3%;
@@ -1720,9 +1723,16 @@ form textarea.form-control {font-size:25px}
 .affiliates {
   font-size:20px;
 }
-.portal h6 {
-  font-size:16px;
+.rides .container {
+  padding: 3% 0;
 }
+.rides input {
+  color:black;
+}
+.editableColumnsStyle {
+  color:red;
+}
+
 .nda p {
   margin-top:20px;
 }

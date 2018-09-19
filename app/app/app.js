@@ -339,6 +339,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.blogEntries = [];
     $scope.showPortal = true;
     $scope.affiliateName = '';
+    $scope.selected = {};
 
     // alternative to ng-init, functions that trigger on state/page changes.
     $transitions.onSuccess({}, function(transition) {
@@ -1121,15 +1122,30 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         })
     };
     
-    $scope.editRidesData = function(row){
-      // $('.editValues').click(function () {
-        $('#rides-edit-btn').parents('tr').find('td.editableColumns').each(function() {
-          var html = $(this).html();
-          var input = $('<input class="editableColumnsStyle" type="text" />');
-          input.val(html);
-          $(this).html(input);
-        });
-      // });
+    // $scope.editRidesData = function(row){
+    //   // $('.editValues').click(function () {
+    //     $('#rides-edit-btn').parents('tr').find('td.editableColumns').each(function() {
+    //       var html = $(this).html();
+    //       var input = $('<input class="editableColumnsStyle" type="text" />');
+    //       input.val(html);
+    //       $(this).html(input);
+    //     });
+    //   // });
+    // };
+    
+    $scope.getTemplate = function (row) {
+      if (row.affiliateName === $scope.selected.affiliateName) return 'edit';
+      else return 'display';
+    };
+
+    $scope.editRidesData = function (affiliateName) {
+      $scope.selected = angular.copy(affiliateName);
+    };
+
+    $scope.saveRidesData = function (idx) {
+      console.log("Saving obj");
+      $scope.ridesData[idx] = angular.copy($scope.selected);
+      $scope.selected = {};
     };
 
 }]);

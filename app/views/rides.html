@@ -3,7 +3,7 @@
     
     <h2>Monthly Rides Data</h2>
 
-    <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold">
+    <!-- <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold">
       <thead>
         <tr>
           <th>Affiliate Name</th>
@@ -26,8 +26,47 @@
           </td>
         </tr>
       </tbody>
+    </table> -->
+    
+    
+    <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold">
+      <thead>
+        <tr>
+          <th>Affiliate Name</th>
+          <th>Total Rides Given</th>
+          <th>Total Miles Driven</th>
+          <th>Current Members</th>
+          <th>Edit Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="affiliateData in ridesData" ng-include="getTemplate(affiliateData)"></tr>
+      </tbody>
     </table>
     
     
   </div>
 </div>
+
+<script type="text/ng-template" id="display">
+    <td>ITN<em>{{affiliateData.affiliateName}}</em></td>
+    <td class="editableColumns">{{affiliateData.totalRideCount}}</td>
+    <td class="editableColumns">{{affiliateData.totalMiles}}</td>
+    <td class="editableColumns">{{affiliateData.totalActiveMembers}}</td>
+    <td>
+      <button type="button" ng-click="editRidesData(affiliateData)" class="btn btn-info btn-sm">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>
+    </td>
+</script>
+
+<script type="text/ng-template" id="edit">
+    <td>ITN<em>{{affiliateData.affiliateName}}</em></td>
+    <td><input type="text" ng-model="selected.totalRideCount" /></td>
+    <td><input type="text" ng-model="selected.totalMiles" /></td>
+    <td><input type="text" ng-model="selected.totalActiveMembers" /></td>
+    <td>
+        <button ng-click="saveRidesData($index)">Save</button>
+        <button ng-click="selected = {}">Cancel</button>
+    </td>
+</script>
