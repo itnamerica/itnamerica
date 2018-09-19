@@ -1108,8 +1108,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.bindParamToVar = function(pageName){
+      console.log('inside bindparanm func ', $stateParams.affiliateName, $stateParams[affiliateName]);
       if (pageName === 'affiliates') {
         $scope.affiliateName = $stateParams.affiliateName;
+        console.log('inside if statement ', $scope.affiliateName);
       }
     }
 
