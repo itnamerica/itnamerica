@@ -108,7 +108,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: viewsPath + 'other.html'
         })
         .state('affiliates', {
-            url: '/affiliates',
+            url: '/affiliates/:affiliateName',
             templateUrl: viewsPath + 'affiliates.html',
             params : {
               affiliateName: 'none'
@@ -117,6 +117,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('nda', {
             url: '/nda2018xyz',
             templateUrl: viewsPath + 'nda.html'
+        })
+        .state('rides', {
+            url: '/rides',
+            templateUrl: viewsPath + 'rides.html'
         })
 
     // default fall back route
