@@ -351,9 +351,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         if (!$stateParams.anchor) {
             $scope.scrollToTop();
         }
-        if ($stateParams.affiliateName && $stateParams.affiliateName !== 'none') {
-            console.log('the affiliatename in transitions is ', $stateParams.affiliateName);
-        }
     });
 
     //use this function instead of ng-href as ng-href is not compatible with html5mode
@@ -1094,8 +1091,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.openAdditionalPage = function(pageName){
       var affiliateName;
-      console.log('inside openadditionalpage ', pageName);
-      console.log('stateparams is ', $stateParams)
+      console.log('inside openadditionalpage ', pageName)
       $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = $scope.affiliateLanding = false;
       if (pageName && pageName === 'portal'){
         $state.go('portal');
@@ -1112,7 +1108,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       if (pageName === 'affiliates') {
         $scope.affiliateName = $stateParams.affiliateName;
       }
-      console.log('aff is ', $scope.affiliateName);
     };
 
 }]);
