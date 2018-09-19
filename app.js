@@ -68,6 +68,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /getNewsletterForms get request
   
+  app.get('/getAllRides', function (req,res) {
+      db.collection('ridesdatamonthly').find().toArray(function (err, result) {
+        console.log('result is ', result);
+        res.send(result);
+      })
+  }); // end of /getRidesData get request
+  
   
   app.get('/getAdmin', function (req,res) {
     var tableName;

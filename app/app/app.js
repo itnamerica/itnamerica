@@ -145,7 +145,7 @@ myApp.run(['$rootScope', '$location', '$window', '$state', '$stateParams',
     }
 ]);
 
-myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce) {
+myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'RidesDataService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, RidesDataService) {
     console.log('inside main controller');
 
     $scope.assetsPath = "assets";
@@ -1113,6 +1113,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $scope.affiliateName = $stateParams.affiliateName;
       }
     };
+    
+    $scope.getRidesData = function(affiliateName){
+      if (affiliateName){
+        return "Not yet"
+      } else {
+        RidesDataService.getAllRides().then(function(data){
+          console.log('rides data from func is ', data);
+          $scope.ridesData = data;
+        })
+      }
+    }
 
 }]);
 
@@ -1249,6 +1260,16 @@ myApp.service('FormService', function($http) {
                 console.log('service, unable to login', error);
             })
     }
+});
+
+
+myApp.service('RidesDataService', function($http){
+  this.getAllRides = function(){
+    return $http.get('/getAllRides').then(function(data){
+      console.log('rides data is ', data);
+      return data;
+    })
+  };
 });
 
 
