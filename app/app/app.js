@@ -1120,6 +1120,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           $scope.ridesData = data.data;
         })
     };
+    
+    $scope.editRidesData = function(row){
+      // $('.editValues').click(function () {
+        $('#rides-edit-btn').parents('tr').find('td.editableColumns').each(function() {
+          var html = $(this).html();
+          var input = $('<input class="editableColumnsStyle" type="text" />');
+          input.val(html);
+          $(this).html(input);
+        });
+      // });
+    };
 
 }]);
 

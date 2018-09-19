@@ -3,23 +3,27 @@
     
     <h2>Monthly Rides Data</h2>
 
-    <table class="table table-responsive" style="font-size:25px;font-weight:bold">
+    <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold">
       <thead>
         <tr>
           <th>Affiliate Name</th>
           <th>Total Rides Given</th>
           <th>Total Miles Driven</th>
           <th>Current Members</th>
+          <th>Edit Data</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="affiliateData in ridesData">
           <td>ITN<em>{{affiliateData.affiliateName}}</em></td>
-          <td>{{affiliateData.totalRideCount}}</td>
-          <td>{{affiliateData.totalMiles}}</td>
-          <td>{{affiliateData.totalActiveMembers}}</td>
-          <td></td>
-          <td></td>
+          <td class="editableColumns">{{affiliateData.totalRideCount}}</td>
+          <td class="editableColumns">{{affiliateData.totalMiles}}</td>
+          <td class="editableColumns">{{affiliateData.totalActiveMembers}}</td>
+          <td>
+            <button type="button" ng-click="editRidesData(affiliateData)" id="rides-edit-btn" class="btn btn-info btn-sm">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
