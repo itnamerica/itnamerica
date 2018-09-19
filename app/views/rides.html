@@ -2,8 +2,28 @@
   <div class="container">
     
     <h2>Monthly Rides Data</h2>
+
     
-    {{ridesData}}
+    <table class="table table-responsive" style="font-size:25px;font-weight:bold">
+      <thead>
+        <tr>
+          <th>Affiliate Name</th>
+          <th>Total Rides Given</th>
+          <th>Total Miles Driven</th>
+          <th>Current Members</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="affiliateData in ridesData">
+          <td>{{affiliateData.affiliateName}}</td>
+          <td>{{affiliateData.totalRideCount}}</td>
+          <td>{{affiliateData.totalMiles}}</td>
+          <td>{{affiliateData.totalActiveMembers}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
     
     
   </div>
