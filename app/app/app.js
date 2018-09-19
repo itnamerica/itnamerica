@@ -111,7 +111,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/affiliates',
             templateUrl: viewsPath + 'affiliates.html',
             params : {
-              affiliateName: '',
+              affiliateName: 'none',
               test: 'apple'
             }
         })
@@ -334,11 +334,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     var originalFormData = $scope.formData;
     $scope.showForm = false;
     $scope.blogEntries = [];
-    // $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = false;
     $scope.showPortal = true;
     $scope.affiliateName = '';
 
-
+    // alternative to ng-init, functions that trigger on state/page changes.
     $transitions.onSuccess({}, function(transition) {
         if (transition.from().name !== 'dashboard') {
             $scope.resetFormData();
@@ -352,6 +351,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         }
         if (!$stateParams.anchor) {
             $scope.scrollToTop();
+        }
+        if ($stateParams.affiliateName && $stateParams.affiliateName !== 'none') {
+            console.log('the affiliatename in transitions is ', $stateParams.affiliateName);
         }
     });
 
@@ -1108,12 +1110,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.bindParamToVar = function(pageName){
-      console.log('inside bindparanm func ', $stateParams.affiliateName, $stateParams[affiliateName]);
-      if (pageName === 'affiliates') {
-        $scope.affiliateName = $stateParams.affiliateName;
-        console.log('inside if statement ', $scope.affiliateName);
-      }
-    }
+      // $timeout(function(){
+      //   console.log('inside bindparanm func ', $stateParams.affiliateName);
+      //   if (pageName === 'affiliates') {
+      //     $scope.affiliateName = $stateParams.affiliateName;
+      //     console.log('inside if statement ', $scope.affiliateName);
+      //   }
+      // },500)
+      
+      console.log('stateparam is ', $stateParams);
+      console.log('stateparam val is ', $stateParams.affiliateName);
+    };
 
 }]);
 
