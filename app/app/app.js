@@ -111,8 +111,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/affiliates',
             templateUrl: viewsPath + 'affiliates.html',
             params : {
-              affiliateName: 'none',
-              test: 'apple'
+              affiliateName: 'none'
             }
         })
         .state('nda', {
@@ -1110,16 +1109,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.bindParamToVar = function(pageName){
-      // $timeout(function(){
-      //   console.log('inside bindparanm func ', $stateParams.affiliateName);
-      //   if (pageName === 'affiliates') {
-      //     $scope.affiliateName = $stateParams.affiliateName;
-      //     console.log('inside if statement ', $scope.affiliateName);
-      //   }
-      // },500)
-      
-      console.log('stateparam is ', $stateParams);
-      console.log('stateparam val is ', $stateParams.affiliateName);
+      if (pageName === 'affiliates') {
+        $scope.affiliateName = $stateParams.affiliateName;
+      }
+      console.log('aff is ', $scope.affiliateName);
     };
 
 }]);
