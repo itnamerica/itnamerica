@@ -1,9 +1,10 @@
-<div class="portal affiliates ta-center" ng-init="bindParamToVar('affiliates')">
-  <div class="container">
+<div class="portal affiliates ta-center" ng-init="bindParamToVar('affiliates');getRidesData()">
+  <div class="container" style="width:90%">
     
     <h2>ITN {{affiliateName}}</h2>
 
     <div class="row mt-50 mb-25">
+      
       <div class="col-md-6">
         <h5>Official Website</h5>
         <a ng-href="https://www.itn{{affiliateName}}.org" target="_blank">www.itn{{affiliateName | lowercase}}.org</a>
@@ -13,25 +14,50 @@
         <h5>Admin Dashboard</h5>
         <h6><em>for accessing membership & volunteer applications</em></h6>
         <h6><em>*Be sure to email support@itnamerica.org if you do not have the login credentials</em></h6>
-        
-        <a ng-href="https://www.itn{{affiliateName}}.org/login" target="_blank">www.itn{{affiliateName | lowercase}}.org/login</a>
-        
-        
+        <a ng-href="https://www.itn{{affiliateName}}.org/login" target="_blank">www.itn{{affiliateName | lowercase}}.org/login</a>  
       </div><!--col-md-6-->
       
     </div><!--row-->
     
+    
+    
     <div class="row mb-25">
+      
       <div class="col-md-6">
         <h5>Monthly Rides Data</h5>
-        (api calls to data page)
+        
+        <table class="table table-responsive" style="font-size:25px;font-weight:bold">
+          <thead>
+            <tr>
+              <th>Total Rides Given</th>
+              <th>Total Miles Driven</th>
+              <th>Current Members</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="affiliateData in ridesData | filter: {affiliateName: affiliateName}">
+              <td>{{affiliateData.totalRideCount}}</td>
+              <td>{{affiliateData.totalMiles}}</td>
+              <td>{{affiliateData.totalActiveMembers}}</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        
       </div><!--col-md-6-->
+      
+      
+      
       <div class="col-md-6 mb-25">
         <h5>Website Analytics</h5>
 
         Check out our <a href="#">Google page</a> for more details about the analytics for this website.
       </div><!--col-md-6-->
     </div><!--row-->
+    
+    
     
     <div class="row mt-25 mb-50">
       <div class="col-md-2"></div>
@@ -44,6 +70,7 @@
       
       <div class="col-md-2"></div>
     </div><!--row-->
+
 
 
   </div><!--container-->

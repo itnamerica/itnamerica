@@ -1114,16 +1114,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       }
     };
     
-    $scope.getRidesData = function(affiliateName){
-      if (affiliateName){
-        return "Not yet"
-      } else {
+    $scope.getRidesData = function(){
         RidesDataService.getAllRides().then(function(data){
           console.log('rides data from func is ', data);
           $scope.ridesData = data.data;
         })
-      }
-    }
+    };
 
 }]);
 
