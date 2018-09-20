@@ -78,8 +78,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   app.put('/updateAffiliateRidesData', function(req,res) {
     console.log('req body is is ', req.body);
     // db.collection('ridesdatamonthly').update({_id: req.query.affiliate._id}, req.query.affiliate);
-    
-    db.collection('ridesdatamonthly').update({_id: req.body._id}, req.body.affiliate, function(err, result){
+    db.collection('ridesdatamonthly').updateOne({_id: req.body._id}, new mongo.ObjectId(req.body.affiliate), function(err, result){
       console.log('record has been updated, i think');
       res.send(result);
     });
