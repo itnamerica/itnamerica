@@ -1122,6 +1122,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       if (row.affiliateName === $scope.selected.affiliateName) return 'edit';
       else return 'display';
     };
+    
+    $scope.switchTemplates = function(template) {
+      if (template) {
+        return template
+      } else {
+        return 'display'
+      }
+    }
 
     $scope.editRidesData = function (affiliateName) {
       $scope.selected = angular.copy(affiliateName);
@@ -1137,6 +1145,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       
       $scope.selected = {};
     };
+    
+    
     
 }]);
 

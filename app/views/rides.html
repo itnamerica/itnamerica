@@ -3,7 +3,7 @@
     
     <h2>Monthly Rides Data</h2>
 
-    <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold">
+    <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
       <thead>
         <tr>
           <th>Affiliate Name</th>
@@ -39,7 +39,7 @@
 </script>
 
 
-<script type="text/ng-template" id="edit">
+<script type="text/ng-template" ng-include="switchTemplates()" id="edit">
     <td>ITN<em>{{affiliateData.affiliateName}}</em></td>
     <td><input type="text" ng-model="selected.totalRideCount" /></td>
     <td><input type="text" ng-model="selected.totalMiles" /></td>
@@ -47,6 +47,7 @@
     <td><input type="text" ng-model="selected.totalActiveVolunteers" /></td>
     <td style="min-width:200px;text-align:center">
         <button ng-click="saveRidesData($index)" class="btn btn-success">Save</button>
-        <button ng-click="selected = {}" class="btn btn-danger">Cancel</button>
+        <button ng-click="selected = {}" class="btn btn-info">Reset</button>
+        <!-- <button ng-click="switchTemplates('edit')" class="btn btn-danger">Cancel</button> -->
     </td>
 </script>
