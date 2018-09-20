@@ -1737,8 +1737,13 @@ form textarea.form-control {font-size:25px}
   background: #fc6f6d;
   border-color: #fc6f6d;
 }
+.rides table thead tr th {
+  text-align:center;
+  padding:1%;
+}
 .rides table tr td {
-  text-align:center
+  font-size:20px;
+  font-weight:normal;
 }
 .rides table tbody tr:hover {
   color: #fc6f6d;
