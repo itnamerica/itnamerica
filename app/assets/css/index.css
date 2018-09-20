@@ -1726,12 +1726,12 @@ form textarea.form-control {font-size:25px}
 .rides .container {
   padding: 3% 0;
 }
-.rides table button {
+.rides table .edit-btn {
   background: #fc6f6d;
   border-color: #fc6f6d;
 }
 .rides table tbody tr:hover {
-  background: #fc6f6d;
+  color: #fc6f6d;
 }
 .rides input {
   color:black;

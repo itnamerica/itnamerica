@@ -25,11 +25,11 @@
 
 <script type="text/ng-template" id="display">
     <td>ITN<em>{{affiliateData.affiliateName}}</em></td>
-    <td class="editableColumns">{{affiliateData.totalRideCount}}</td>
-    <td class="editableColumns">{{affiliateData.totalMiles}}</td>
-    <td class="editableColumns">{{affiliateData.totalActiveMembers}}</td>
+    <td>{{affiliateData.totalRideCount}}</td>
+    <td>{{affiliateData.totalMiles}}</td>
+    <td>{{affiliateData.totalActiveMembers}}</td>
     <td class="ta-center">
-      <button type="button" ng-click="editRidesData(affiliateData)" class="btn btn-info btn-sm">
+      <button type="button" ng-click="editRidesData(affiliateData)" class="btn edit-btn btn-sm">
         <span class="glyphicon glyphicon-pencil"></span>
       </button>
     </td>

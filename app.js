@@ -77,15 +77,12 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   
   app.put('/updateAffiliateRidesData', function(req,res) {
     console.log('req body is is ', req.body);
-    console.log('req params is ', req.params);
-    console.log('req query input is ', req.query);
-    console.log('req query input 2 is ', req.query.affiliate);
     // db.collection('ridesdatamonthly').update({_id: req.query.affiliate._id}, req.query.affiliate);
     
-    // db.collection('ridesdatamonthly').update({_id: req.query.affiliate._id}, req.query.affiliate, function(err, result){
-    //   console.log('record has been updated, i think');
-    //   res.send(result);
-    // });
+    db.collection('ridesdatamonthly').update({_id: req.body._id}, req.body.affiliate, function(err, result){
+      console.log('record has been updated, i think');
+      res.send(result);
+    });
   }); // end of /updateAffiliateRidesData edit request
   
   
