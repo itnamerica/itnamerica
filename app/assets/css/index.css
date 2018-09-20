@@ -1637,12 +1637,29 @@ form textarea.form-control {font-size:25px}
   color: rgba(252,109,109,1);
   margin-bottom:50px;
 }
+.portal h5 {
+  color: #fc6f6d;
+  font-size: 25px;
+  font-weight: bold;
+}
 .portal h6 {
-  font-size:16px;
+  font-size:12px;
 }
 .portal a {
   text-decoration:none;
   margin:3%;
+}
+.portal img {
+  max-height:1500px !important;
+  max-width:1500px !important;
+}
+.portal ul {
+  list-style-type: none;
+  font-size: 25px;
+  color: white;
+}
+.portal ul li {
+  margin-top:10px;
 }
 .portal .block {
   height: 250px;
@@ -1669,18 +1686,6 @@ form textarea.form-control {font-size:25px}
   max-height:250px;
   max-width:300px;
   margin-top: 75px;
-}
-.portal img {
-  max-height:1500px !important;
-  max-width:1500px !important;
-}
-.portal ul {
-  list-style-type: none;
-  font-size: 25px;
-  color: white;
-}
-.portal ul li {
-  margin-top:10px;
 }
 .itnamerica ul {
   font-weight: bold;
@@ -1711,17 +1716,19 @@ form textarea.form-control {font-size:25px}
   margin-left: -70px;
   height: 150px;
 }
-.portal h5 {
-  color: #fc6f6d;
-  font-size: 25px;
-  font-weight: bold;
-}
 .affiliateLanding ul li a {
   color:white;
   font-weight:bold;
 }
 .affiliates {
   font-size:20px;
+}
+.affiliates .row {
+  border-bottom: 3px solid white;
+  padding: 10px 0;
+}
+.affiliates .row:nth-last-of-type(1) {
+  border:none;
 }
 .rides .container {
   padding: 3% 0;

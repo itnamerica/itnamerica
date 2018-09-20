@@ -12,9 +12,11 @@
       
       <div class="col-md-6 mb-25">
         <h5>Admin Dashboard</h5>
-        <h6><em>for accessing membership & volunteer applications</em></h6>
-        <h6><em>*Be sure to email support@itnamerica.org if you do not have the login credentials</em></h6>
         <a ng-href="https://www.itn{{affiliateName}}.org/login" target="_blank">www.itn{{affiliateName | lowercase}}.org/login</a>  
+        <div style="border:1px solid white">
+          <h6><em>for accessing membership & volunteer applications.<br>
+            *Be sure to email support@itnamerica.org if you do not have the login credentials</em></h6>
+        </div>
       </div><!--col-md-6-->
       
     </div><!--row-->
@@ -23,10 +25,10 @@
     
     <div class="row mb-25">
       
-      <div class="col-md-6">
+      <div class="col-md-6 ta-center">
         <h5>Monthly Rides Data</h5>
         
-        <table class="table table-responsive" style="font-size:25px;font-weight:bold">
+        <table class="table table-responsive table-bordered ta-center" style="font-size:18px;font-weight:bold">
           <thead>
             <tr>
               <th>Total Rides Given</th>
@@ -39,12 +41,13 @@
               <td>{{affiliateData.totalRideCount}}</td>
               <td>{{affiliateData.totalMiles}}</td>
               <td>{{affiliateData.totalActiveMembers}}</td>
-              <td></td>
-              <td></td>
             </tr>
           </tbody>
         </table>
         
+        <button type="button" ui-sref="rides" class="btn edit-btn btn-sm">
+          <span class="glyphicon glyphicon-pencil">Edit Data</span>
+        </button>
         
       </div><!--col-md-6-->
       
