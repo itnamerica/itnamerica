@@ -76,9 +76,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /getRidesData get request
   
   app.put('/updateAffiliateRidesData', function(req,res) {
-    console.log('req body is is ', req.body);
-    // db.collection('ridesdatamonthly').update({_id: req.query.affiliate._id}, req.query.affiliate);
-    db.collection('ridesdatamonthly').updateOne({_id: req.body._id}, new mongo.ObjectId(req.body.affiliate), function(err, result){
+    console.log('req body is ', req.body);
+    var myQuery = {_id: new mongo.ObjectId(req.body._id)};
+    var newValues = {$set: {affiliateName: req.body.affiliateName, totalRideCount: req.body.totalRideCount, totalMiles: req.body.totalMiles  } };
+    //add extra param if object is itnamerica and has extra voluteer ride count, so newValues obj must be modified.
+    db.collection('ridesdatamonthly').updateOne(myQuery, newValues, { upsert: true }, function(err, result){
+      if (err) { 
+        console.log('db not updating: ', err);
+      };
       console.log('record has been updated, i think');
       res.send(result);
     });
