@@ -31,16 +31,18 @@
         <table class="table table-responsive table-bordered ta-center" style="font-size:18px;font-weight:bold">
           <thead>
             <tr>
-              <th>Total Rides Given</th>
-              <th>Total Miles Driven</th>
+              <th>Total Rides</th>
+              <th ng-if="affiliateName !== 'America'">Total Miles</th>
               <th>Current Members</th>
+              <th ng-if="affiliateName === 'America'">Current Volunteers</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="affiliateData in ridesData | filter: {affiliateName: affiliateName}">
               <td>{{affiliateData.totalRideCount}}</td>
-              <td>{{affiliateData.totalMiles}}</td>
+              <td ng-if="affiliateName !== 'America'">{{affiliateData.totalMiles}}</td>
               <td>{{affiliateData.totalActiveMembers}}</td>
+              <th ng-if="affiliateName === 'America'">{{affiliateData.totalActiveVolunteers}}</th>
             </tr>
           </tbody>
         </table>
