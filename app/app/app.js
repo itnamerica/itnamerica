@@ -24,10 +24,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
               anchor: null
             }
         })
-        .state('services-map', {
-            url: '/services-map',
-            templateUrl: viewsPath + 'services-map.html'
-        })
         .state('keyword-pages', {
             url: '/keyword-pages',
             templateUrl: viewsPath + 'keyword-pages.html'
@@ -1121,18 +1117,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           $scope.ridesData = data.data;
         })
     };
-    
-    // $scope.editRidesData = function(row){
-    //   // $('.editValues').click(function () {
-    //     $('#rides-edit-btn').parents('tr').find('td.editableColumns').each(function() {
-    //       var html = $(this).html();
-    //       var input = $('<input class="editableColumnsStyle" type="text" />');
-    //       input.val(html);
-    //       $(this).html(input);
-    //     });
-    //   // });
-    // };
-    
+
     $scope.getTemplate = function (row) {
       if (row.affiliateName === $scope.selected.affiliateName) return 'edit';
       else return 'display';
@@ -1145,9 +1130,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.saveRidesData = function (idx) {
       console.log("Saving obj");
       $scope.ridesData[idx] = angular.copy($scope.selected);
+      RidesDataService.updateAffiliateRidesData($scope.selected).then(function(data){
+        console.log('rides after updated in db is ', data);
+        // $scope.ridesData = data.data;
+      })
+      
       $scope.selected = {};
     };
-
+    
 }]);
 
 
@@ -1293,6 +1283,14 @@ myApp.service('RidesDataService', function($http){
       return data;
     })
   };
+  this.updateAffiliateRidesData = function(affiliateName){
+    console.log('affiliate is ', affiliateName);
+    // return $http.put('/updateAffiliateRidesData', {affiliate: affiliateName}).then(function(data){
+    return $http.put('/updateAffiliateRidesData', affiliateName, {params: {affiliate: affiliateName}}).then(function(data){
+      console.log('rides data is update and now ', data);
+      return data;
+    })
+  }
 });
 
 
