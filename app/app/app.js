@@ -1286,7 +1286,6 @@ myApp.service('RidesDataService', function($http){
   this.updateAffiliateRidesData = function(affiliateName){
     console.log('affiliate is ', affiliateName);
     return $http.put('/updateAffiliateRidesData', affiliateName).then(function(data){
-      console.log('rides data is updated and is now ', data);
       return data;
     })
   }

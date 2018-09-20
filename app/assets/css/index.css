@@ -1737,6 +1737,9 @@ form textarea.form-control {font-size:25px}
   background: #fc6f6d;
   border-color: #fc6f6d;
 }
+.rides table tr td {
+  text-align:center
+}
 .rides table tbody tr:hover {
   color: #fc6f6d;
 }
