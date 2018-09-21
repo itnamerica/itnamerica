@@ -26,7 +26,11 @@
     <div class="row mb-25">
       
       <div class="col-md-6 ta-center">
-        <h5>Monthly Rides Data</h5>
+        <h5>Monthly Rides Data           
+          <button type="button" ui-sref="rides" class="btn edit-btn btn-sm itn-orange-bg" style="color:white;margin-left:2%">
+            <span class="glyphicon glyphicon-pencil"> Edit</span>
+          </button>
+        </h5>
         
         <table class="table table-responsive table-bordered ta-center" style="font-size:18px;font-weight:bold">
           <thead>
@@ -47,9 +51,7 @@
           </tbody>
         </table>
         
-        <button type="button" ui-sref="rides" class="btn edit-btn btn-sm itn-orange-bg">
-          <span class="glyphicon glyphicon-pencil"> Edit</span>
-        </button>
+
         
       </div><!--col-md-6-->
       
@@ -59,10 +61,12 @@
         <h5>Website Analytics</h5>
 
         <div class="ga-wrap" style="display:block;width:80%;margin:auto">
-          <section id="auth-button"></section>
-          <section id="view-selector"></section>
-          <section id="timeline"></section>
+          <section id="auth-button" class="mt-25"></section>
+          <section id="view-selector" class="mt-25"></section>
+          <section id="timeline" class="mt-25"></section>
         </div>
+        
+        <button onclick="getProperty()" class="btn btn-lg itn-orange-bg mt-25">See Bluegrass property</button>
 
       </div><!--col-md-6-->
     </div><!--row-->
@@ -112,6 +116,16 @@
 </script>
 
 <script>
+
+function getProperty() {
+  var request = gapi.client.analytics.management.webproperties.get({
+    'accountId': '4084855',
+    'webPropertyId': 'UA-4084855-3',
+  });
+  request.execute(function (response) { // Handle the response. 
+  });
+}
+
 gapi.analytics.ready(function() {
 
   // Step 3: Authorize the user.
@@ -159,17 +173,9 @@ gapi.analytics.ready(function() {
     }
     timeline.set(newIds).execute();
   });
-});
-</script>
-
-
-<!-- affiliate page
-
-for each affiliate (make page dynamic)
-
--link to website
--link to dashboard
--rides data
--analytics (embed?)
--comment section (directive?) -->
   
+  getProperty();
+  
+});
+
+</script>
