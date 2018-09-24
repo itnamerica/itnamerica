@@ -135,8 +135,10 @@ gapi.analytics.ready(function() {
 
   // Step 5: Create the timeline chart.
 
-  var gaViewCode = document.querySelector("#gaViewCode").val();
-  console.log('gaviewcodeis ',gaViewCode);
+  // var gaViewCode = document.querySelector("#gaViewCode");
+  // console.log('gaviewcodeis ',gaViewCode);
+  var gaViewCode = document.getElementById("gaViewCode").innerText;
+  console.log('gaviewcode2is ',gaViewCode);
   
   var timeline = new gapi.analytics.googleCharts.DataChart({
     reportType: 'ga',
