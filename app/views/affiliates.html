@@ -1,6 +1,5 @@
 <div class="portal affiliates ta-center" ng-init="bindParamToVar('affiliates'); getRidesData()">
   <div class="container" style="width:90%">
-    {{itnAffiliate}}
     <h2>ITN{{itnAffiliate.name}}</h2>
 
     <div class="row mt-50 mb-25">
@@ -59,7 +58,7 @@
       
       <div class="col-md-6 mb-25">
         <h5>Website Analytics</h5>
-        Ga view code: <span id="gaViewCode">{{itnAffiliate.gaViewCode}}</span>
+        <small><em>Google Analytics view code: <span id="gaViewCode">{{itnAffiliate.gaViewCode}}</span></em></small>
 
         <div class="ga-wrap" style="display:block;width:80%;margin:auto">
           <section id="auth-button" class="mt-25"></section>
@@ -136,7 +135,7 @@ gapi.analytics.ready(function() {
 
   // Step 5: Create the timeline chart.
 
-  var gaViewCode = document.querySelector("#gaViewCode");
+  var gaViewCode = document.querySelector("#gaViewCode").val();
   console.log('gaviewcodeis ',gaViewCode);
   
   var timeline = new gapi.analytics.googleCharts.DataChart({
