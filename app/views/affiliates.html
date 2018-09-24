@@ -66,7 +66,7 @@
           <section id="timeline" class="mt-25"></section>
         </div>
         
-        <button onclick="getProperty()" class="btn btn-lg itn-orange-bg mt-25">See Bluegrass property</button>
+        <!-- <button onclick="getProperty()" class="btn btn-lg itn-orange-bg mt-25">See Bluegrass property</button> -->
 
       </div><!--col-md-6-->
     </div><!--row-->
@@ -116,16 +116,6 @@
 </script>
 
 <script>
-
-function getProperty() {
-  var request = gapi.client.analytics.management.webproperties.get({
-    'accountId': '4084855',
-    'webPropertyId': 'UA-4084855-3',
-  });
-  request.execute(function (response) { // Handle the response. 
-  });
-}
-
 gapi.analytics.ready(function() {
 
   // Step 3: Authorize the user.
@@ -139,15 +129,16 @@ gapi.analytics.ready(function() {
 
   // Step 4: Create the view selector.
 
-  var viewSelector = new gapi.analytics.ViewSelector({
-    container: 'view-selector'
-  });
+  // var viewSelector = new gapi.analytics.ViewSelector({
+  //   container: 'view-selector'
+  // });
 
   // Step 5: Create the timeline chart.
 
   var timeline = new gapi.analytics.googleCharts.DataChart({
     reportType: 'ga',
     query: {
+      'ids': 'ga:8437134',
       'dimensions': 'ga:date',
       'metrics': 'ga:sessions',
       'start-date': '30daysAgo',
@@ -158,24 +149,22 @@ gapi.analytics.ready(function() {
       container: 'timeline'
     }
   });
+  
+  timeline.execute();
 
   // Step 6: Hook up the components to work together.
 
-  gapi.analytics.auth.on('success', function(response) {
-    viewSelector.execute();
-  });
+  // gapi.analytics.auth.on('success', function(response) {
+  //   viewSelector.execute();
+  // });
 
-  viewSelector.on('change', function(ids) {
-    var newIds = {
-      query: {
-        ids: ids
-      }
-    }
-    timeline.set(newIds).execute();
-  });
-  
-  getProperty();
-  
+  // viewSelector.on('change', function(ids) {
+  //   var newIds = {
+  //     query: {
+  //       ids: ids
+  //     }
+  //   }
+  //   timeline.set(newIds).execute();
+  // });
 });
-
-</script>
+</script>  
