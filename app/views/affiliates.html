@@ -1,18 +1,18 @@
-<div class="portal affiliates ta-center" ng-init="bindParamToVar('affiliates');getRidesData()">
+<div class="portal affiliates ta-center" ng-init="bindParamToVar('affiliates'); getRidesData()">
   <div class="container" style="width:90%">
-    
-    <h2>ITN {{affiliateName}}</h2>
+    {{itnAffiliate}}
+    <h2>ITN{{itnAffiliate.name}}</h2>
 
     <div class="row mt-50 mb-25">
       
       <div class="col-md-6">
         <h5>Official Website</h5>
-        <a ng-href="https://www.itn{{affiliateName}}.org" target="_blank">www.itn{{affiliateName | lowercase}}.org</a>
+        <a ng-href="https://www.itn{{itnAffiliate.name}}.org" target="_blank">www.itn{{itnAffiliate.name | lowercase}}.org</a>
       </div><!--col-md-6-->
       
       <div class="col-md-6 mb-25">
         <h5>Admin Dashboard</h5>
-        <a ng-href="https://www.itn{{affiliateName}}.org/login" target="_blank">www.itn{{affiliateName | lowercase}}.org/login</a>  
+        <a ng-href="https://www.itn{{itnAffiliate.name}}.org/login" target="_blank">www.itn{{itnAffiliate.name | lowercase}}.org/login</a>  
         <div class="note-wrap">
           <h6><em>For accessing applications.<br>
              Email support@itnamerica.org for login info.</em></h6>
@@ -36,17 +36,17 @@
           <thead>
             <tr>
               <th>Total Rides</th>
-              <th ng-if="affiliateName !== 'America'">Total Miles</th>
+              <th ng-if="itnAffiliate.name !== 'America'">Total Miles</th>
               <th>Current Members</th>
-              <th ng-if="affiliateName === 'America'">Current Volunteers</th>
+              <th ng-if="itnAffiliate.name === 'America'">Current Volunteers</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="affiliateData in ridesData | filter: {affiliateName: affiliateName}">
+            <tr ng-repeat="affiliateData in ridesData | filter: {affiliateName: itnAffiliate.name}">
               <td>{{affiliateData.totalRideCount}}</td>
-              <td ng-if="affiliateName !== 'America'">{{affiliateData.totalMiles}}</td>
+              <td ng-if="itnAffiliate.name !== 'America'">{{affiliateData.totalMiles}}</td>
               <td>{{affiliateData.totalActiveMembers}}</td>
-              <th ng-if="affiliateName === 'America'">{{affiliateData.totalActiveVolunteers}}</th>
+              <th ng-if="itnAffiliate.name === 'America'">{{affiliateData.totalActiveVolunteers}}</th>
             </tr>
           </tbody>
         </table>
@@ -59,6 +59,7 @@
       
       <div class="col-md-6 mb-25">
         <h5>Website Analytics</h5>
+        Ga view code: <span id="gaViewCode">{{itnAffiliate.gaViewCode}}</span>
 
         <div class="ga-wrap" style="display:block;width:80%;margin:auto">
           <section id="auth-button" class="mt-25"></section>
@@ -135,10 +136,13 @@ gapi.analytics.ready(function() {
 
   // Step 5: Create the timeline chart.
 
+  var gaViewCode = document.querySelector("#gaViewCode");
+  console.log('gaviewcodeis ',gaViewCode);
+  
   var timeline = new gapi.analytics.googleCharts.DataChart({
     reportType: 'ga',
     query: {
-      'ids': 'ga:8437134',
+      'ids': 'ga:'+gaViewCode+'',
       'dimensions': 'ga:date',
       'metrics': 'ga:sessions',
       'start-date': '30daysAgo',

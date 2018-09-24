@@ -104,10 +104,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: viewsPath + 'other.html'
         })
         .state('affiliates', {
-            url: '/affiliates/:affiliateName',
+            url: '/affiliates/:name',
             templateUrl: viewsPath + 'affiliates.html',
             params : {
-              affiliateName: 'none'
+              name: 'none',
+              gaViewCode: 0,
             }
         })
         .state('nda', {
@@ -190,7 +191,61 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.keyword = '';
     $scope.keywordPages = '';
     $scope.urlsWithKeyword = [];
-    $scope.affiliateList = ['Lanier','Gateway','MontereyCounty','Orlando','Memphis','LehighValley','Bluegrass','SouthernDelaware','CentralCT','CentralOklahoma','Portland','NorthJersey','Suncoast'];
+    // $scope.affiliateList = ['Lanier','Gateway','MontereyCounty','Orlando','Memphis','LehighValley','Bluegrass','SouthernDelaware','CentralCT','CentralOklahoma','Portland','NorthJersey','Suncoast'];
+    $scope.affiliateList = [
+      {
+        name: 'Lanier',
+        gaViewCode: 89470158
+      },
+      {
+        name: 'Gateway',
+        gaViewCode: 171669720
+      },
+      {
+        name: 'MontereyCounty',
+        gaViewCode: 52125007
+      },
+      {
+        name: 'Orlando',
+        gaViewCode: 8439088
+      },
+      {
+        name: 'Memphis',
+        gaViewCode: 41748788
+      },
+      {
+        name: 'LehighValley',
+        gaViewCode: 75254537
+      },
+      {
+        name: 'Bluegrass',
+        gaViewCode: 8437134
+      },
+      {
+        name: 'SouthernDelaware',
+        gaViewCode: 96015351
+      },
+      {
+        name: 'CentralCT',
+        gaViewCode: 8437187
+      },
+      {
+        name: 'CentralOklahoma',
+        gaViewCode: 71615872
+      },
+      {
+        name: 'Portland',
+        gaViewCode: 8439116
+      },
+      {
+        name: 'NorthJersey',
+        gaViewCode: 60671208
+      },
+      {
+        name: 'Suncoast',
+        gaViewCode: 171748983
+      }
+    ];
     $scope.listOfUrls = [{
             name: 'Home',
             state: 'home',
@@ -334,7 +389,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.showForm = false;
     $scope.blogEntries = [];
     $scope.showPortal = true;
-    $scope.affiliateName = '';
+    $scope.itnAffiliate = {
+      name: '',
+      gaViewCode: ''
+    };
     $scope.selected = {};
 
     // alternative to ng-init, functions that trigger on state/page changes.
@@ -1106,8 +1164,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.bindParamToVar = function(pageName){
+      console.log('stateparams are ', $stateParams);
       if (pageName === 'affiliates') {
-        $scope.affiliateName = $stateParams.affiliateName;
+        $scope.itnAffiliate.name = $stateParams.name;
+        $scope.itnAffiliate.gaViewCode = $stateParams.gaViewCode;
+        
+        console.log("itn affiliate is ", $scope.itnAffiliate);
       }
     };
     

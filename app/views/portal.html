@@ -61,8 +61,8 @@
     <h2>ITN Affiliates</h2>
     
     <ul>
-      <li ng-repeat="affiliateName in affiliateList">
-        <a ui-sref="affiliates({affiliateName: affiliateName })">ITN<em>{{affiliateName}}</em></a>
+      <li ng-repeat="itnAffiliate in affiliateList">
+        <a ui-sref="affiliates({name: itnAffiliate.name, gaViewCode: itnAffiliate.gaViewCode })">ITN<em>{{itnAffiliate.name}}</em></a>
       </li>
     </ul>
     
