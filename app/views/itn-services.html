@@ -1,11 +1,69 @@
-
-<div class="services">
+<div class="portal itn-services" ng-show="showPortal">
   <div class="container">
-    <h3>ITN Services</h3>
-    -HR (inside will be import doc, also KT manual?) (router page - difficult)
-    -(Important Docs)
-    -Announcements/Comments (ngshow page - easy)
-    -Events/Calendar (router page - medium)
-    -Learn Online (external link - easy)
+    
+    <h2>ITN Services</h2>
+    
+    <div class="row mt-50 mb-25">
+      
+      <div class="col-md-6">
+        <a ui-sref="human-resources">
+          <div class="block">
+            <h3 style="margin-top:70px">Human Resources</h3>
+            <!-- file import, important doc, kt manual -->
+          </div>
+        </a>
+      </div>
+      
+      <div class="col-md-6">
+        <a ng-click="openAdditionalPage('allComments')">
+          <div class="block">
+            <h3 style="margin-top:80px;font-size:30px">Company-wide Announcements</h3>
+          </div>
+        </a>
+      </div>
+      
+    </div><!--row-->
+    
+    
+    <div class="row mt-25 mb-25">
+      
+      <div class="col-md-6">
+        <a ui-sref="calendar">
+          <div class="block">
+            <h3 style="margin-top:70px">Calendar & Events</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="col-md-6">
+        <a href="#">
+          <div class="block">
+            <h3>Learn Online</h3>
+          </div>
+        </a>
+      </div>
+      
+    </div><!--row-->
+
+    
   </div>
 </div>
+
+<div class="portal comments" ng-show="allComments">
+  <div class="container ta-center">
+    <h2>Company-wide Comments & Announcements</h2>
+
+  </div>
+</div>
+
+
+
+<div class="back-btn-wrap">
+  <a ng-click="openAdditionalPage()" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ng-click="openAdditionalPage('portal')" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
+

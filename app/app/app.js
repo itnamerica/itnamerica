@@ -119,6 +119,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/rides',
             templateUrl: viewsPath + 'rides.html'
         })
+        .state('human-resources', {
+            url: '/human-resources',
+            templateUrl: viewsPath + 'human-resources.html'
+        })
+        .state('calendar', {
+            url: '/calendar',
+            templateUrl: viewsPath + 'calendar.html'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');
@@ -1151,7 +1159,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.openAdditionalPage = function(pageName){
       var affiliateName;
       console.log('inside openadditionalpage ', pageName)
-      $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = $scope.affiliateLanding = false;
+      $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = $scope.affiliateLanding = $scope.allComments = false;
       if (pageName && pageName === 'portal'){
         $state.go('portal');
       }
