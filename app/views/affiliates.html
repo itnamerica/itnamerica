@@ -70,23 +70,50 @@
       <div class="col-md-2"></div>
       
       <div class="col-md-8">
-        <h5>Comments</h5>
+        <h5 class="mb-25">Comments & Announcements</h5>
         <!-- {{ commentsPhoto}} -->
-    
-        <table class="table table-responsive table-bordered table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: itnAffiliate.name }" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
+    <!-- 
+        <table class="table table-responsive table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: itnAffiliate.name }" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
           <thead>
             <tr>
               <th>Comment</th>
               <th>Author</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style="font-size:20px">
             <tr ng-repeat="comment in commentPhoto.comments">
               <td>{{comment.message}}</td>
               <td>{{comment.author}}</td>
             </tr>
           </tbody>
+        </table> -->
+        
+        
+        <table class="table table-responsive table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: itnAffiliate.name }" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
+          <thead>
+            <tr>
+              <th>Comments
+              </th>
+              <th>Author
+              </th>
+              <th>Operations</th>
+            </tr>
+          </thead>
+          commentPhoto:{{commentPhoto}}
+          <tbody style="font-size:20px">
+            <tr dir-paginate="comment in commentPhoto.comments|orderBy:sortKey:reverse|itemsPerPage:10" pagination-id="comments">
+              <td>{{comment.message}}</td>
+              <td>{{comment.author}}</td>
+              <td></td>
+            </tr>
+          </tbody>
         </table>
+        <dir-pagination-controls
+          pagination-id="comments"
+           max-size="5"
+           direction-links="true"
+           boundary-links="true" >
+        </dir-pagination-controls>
         
       </div>
       
