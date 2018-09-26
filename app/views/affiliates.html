@@ -73,23 +73,20 @@
         <h5>Comments</h5>
         <!-- {{ commentsPhoto}} -->
     
-        <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
+        <table class="table table-responsive table-bordered table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: itnAffiliate.name }" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
           <thead>
             <tr>
-              <th>Affiliate Name</th>
               <th>Comment</th>
               <th>Author</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="commentPhoto in commentsPhoto">
-              <td>{{commentPhoto.name}}</td>
-              <td>{{commentPhoto.comments[0].message}}</td>
-              <td>{{commentPhoto.comments[0].author}}</td>
+            <tr ng-repeat="comment in commentPhoto.comments">
+              <td>{{comment.message}}</td>
+              <td>{{comment.author}}</td>
             </tr>
           </tbody>
         </table>
-        
         
       </div>
       
