@@ -150,7 +150,7 @@ myApp.run(['$rootScope', '$location', '$window', '$state', '$stateParams',
     }
 ]);
 
-myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'RidesDataService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, RidesDataService) {
+myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService) {
     console.log('inside main controller');
 
     $scope.assetsPath = "assets";
@@ -1182,7 +1182,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.getRidesData = function(){
-        RidesDataService.getAllRides().then(function(data){
+        DataService.getAllRides().then(function(data){
           console.log('rides data from func is ', data);
           $scope.ridesData = data.data;
         })
@@ -1208,13 +1208,20 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.saveRidesData = function (idx) {
       console.log("Saving obj");
       $scope.ridesData[idx] = angular.copy($scope.selected);
-      RidesDataService.updateAffiliateRidesData($scope.selected).then(function(data){
+      DataService.updateAffiliateRidesData($scope.selected).then(function(data){
         console.log('rides after updated in db is ', data);
         // $scope.ridesData = data.data;
       })
       
       $scope.selected = {};
     };
+    
+    $scope.getCommentsPhoto = function (affiliateName) {
+      DataService.getCommentsPhoto(affiliateName).then(function(data){
+        console.log('data returned from func is ', data);
+        $scope.commentsPhoto = data.data
+      })
+    }
     
     
     
@@ -1356,7 +1363,7 @@ myApp.service('FormService', function($http) {
 });
 
 
-myApp.service('RidesDataService', function($http){
+myApp.service('DataService', function($http){
   this.getAllRides = function(){
     return $http.get('/getAllRides').then(function(data){
       console.log('rides data is ', data);
@@ -1366,6 +1373,13 @@ myApp.service('RidesDataService', function($http){
   this.updateAffiliateRidesData = function(affiliateName){
     console.log('affiliate is ', affiliateName);
     return $http.put('/updateAffiliateRidesData', affiliateName).then(function(data){
+      return data;
+    })
+  };
+  this.getCommentsPhoto = function(affiliateName){
+    // console.log('inside getcommentsphoto, affiliate name is ', affiliateName);
+    console.log('inside getcommentsphoto');
+    return $http.get('/getCommentsPhoto').then(function(data){
       return data;
     })
   }

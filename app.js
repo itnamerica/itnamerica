@@ -75,6 +75,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /getRidesData get request
   
+  app.get('/getCommentsPhoto', function (req,res) {
+    db.collection('commentsphoto').find().toArray(function (err, result) {
+      console.log('result is ', result);
+      res.send(result);
+    })
+  }); // end of /getRidesData get request
+
+  
   app.put('/updateAffiliateRidesData', function(req,res) {
     console.log('req body is ', req.body);
     var myQuery = {_id: new mongo.ObjectId(req.body._id)};
