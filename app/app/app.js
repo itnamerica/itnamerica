@@ -891,6 +891,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                 html: "<p><strong>Email:</strong>: " + $scope.formData.email + "</p> ",
                 formType: $scope.formType
             }
+        } else if (formType === 'comment' && $scope.formData.messageBody) {
+            console.log('submitting valid newsletter form');
+            formObj = {
+                from: '"ITNAmerica Web User" <donotreply@itnamerica.com>',
+                to: 'itnamerica2018@gmail.com',
+                subject: "ITNAmerica Staff Comment",
+                text: $scope.formData,
+                html: "<p><strong>Message:</strong>: " + $scope.formData.messageBody + "</p> " +
+                    "<p><strong>Author:</strong>: " + $scope.formData.author + "</p>\n ",
+                formType: $scope.formType
+            }
         } else {
             return $scope.serverMessage = "Please fill in all required fields before submitting."
         }
@@ -1221,6 +1232,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         console.log('data returned from func is ', data);
         $scope.commentsPhoto = data.data
       })
+    };
+    
+    $scope.addComment = function (content, affiliate) {
+      console.log('inside add comment func, affiliate is ', affiliate, 'content is ', content);
+      DataService.addComment(content, affiliate).then(function(data){
+        console.log("data returned is ", data);
+        // replace updated data with commentPhoto
+        $scope.commentsPhoto = data.data
+      })
     }
     
     
@@ -1382,6 +1402,11 @@ myApp.service('DataService', function($http){
     // console.log('inside getcommentsphoto, affiliate name is ', affiliateName);
     console.log('inside getcommentsphoto');
     return $http.get('/getCommentsPhoto').then(function(data){
+      return data;
+    })
+  };
+  this.addComment = function(content, affiliate){
+    return $http.post('addComment', {content: content, affiliate: affiliate}).then(function(data){
       return data;
     })
   }

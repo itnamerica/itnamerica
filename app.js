@@ -256,6 +256,42 @@ app.post('/sendmail', function(req, res){
 
 
 
+
+  app.post('/addComment', function(req, res){
+    console.log('post req', req.body);
+    console.log('content is ', req.body.content);
+    console.log('affiliate is ', req.body.affiliate);
+    
+//     {
+//     "name": "Lanier",
+//     "avatar": "",
+//     "comments" : [
+//         {
+//         "message": "comment 1",
+//         "author": "sam"
+//         },
+//         {
+//         "message": "comment 2",
+//         "author": "melanie"
+//         }
+//     ],
+//     "fileuploads": []
+// }
+    
+    // MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
+    //   if (err) { 
+    //     console.log('db not connecting, but inside mongo block - 2', err);
+    //   };
+    //   db = client.db('itnamerica-new');
+    // 
+    //   db.collection('commentsphoto').save(ndaObj, function(err, result){
+    //     if (err) { throw err }
+    //     console.log('comment form saved to database', result);
+    //   })
+    // 
+    // res.end();
+  })
+
   
   app.use(allPages, function(req, res){
     res.sendFile(__dirname + '/app/index.html');
