@@ -656,14 +656,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $scope.getApps();
         })
     };
-    
-    $scope.deleteComment = function() {
-      console.log('content is ', $scope.commentToDelete, 'affiliate is ', $scope.affiliateToDelete);
-      DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
-        console.log('data return from delete is ', data);
-        
-      })
-    }
 
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
@@ -1250,14 +1242,20 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.addComment = function (content, affiliate) {
-      // console.log('inside add comment func, affiliate is ', affiliate, 'content is ', content);
       DataService.addComment(content, affiliate).then(function(data){
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if (affiliate.name === $scope.commentsPhoto[i].name){
-            // $scope.commentsPhoto[i].comments.push({message: content.messageBody, author: content.name});
             $scope.commentsPhoto[i].comments.push({message: content.message, author: content.author});
           }
         }
+      })
+    };
+    
+    $scope.deleteComment = function() {
+      console.log('content is ', $scope.commentToDelete, 'affiliate is ', $scope.affiliateToDelete);
+      DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
+        console.log('data return from delete is ', data);
+        
       })
     };
     
