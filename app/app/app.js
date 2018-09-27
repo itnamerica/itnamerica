@@ -402,6 +402,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       gaViewCode: ''
     };
     $scope.selected = {};
+    $scope.showCommentInput = false;
 
     // alternative to ng-init, functions that trigger on state/page changes.
     $transitions.onSuccess({}, function(transition) {
@@ -1239,11 +1240,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if (affiliate.name === $scope.commentsPhoto[i].name){
             console.log('matching');
-            $scope.commentsPhoto[i].comments.push({message: content.messageBody, name: content.author})
+            $scope.commentsPhoto[i].comments.push({message: content.messageBody, author: content.author});
+            $scope.showCommentInput = false;
+            
+            console.log('comment photo obj is ', $scope.commentsPhoto[i].comments)
           }
         }
         // $scope.commentsPhoto = data.data
-        $scope.showCommentInput = false;
+    
       })
     }
     
