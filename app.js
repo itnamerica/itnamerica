@@ -102,11 +102,11 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     //   res.send(result);
     // });
     
-    db.collection('commentsphoto').find({name: req.body.affiliate.name}, function(err, result){
+    db.collection('commentsphoto').find({name: req.body.affiliate.name}).toArray(function (err, result) {
       console.log('record has been found, i think');
-      console.log('result is ', result);
+      console.log('result commentsphoto is ', result);
       res.send(result);
-    })
+    });
     
     // db.collection('commentsphoto').update(
     //    { _id: 1 },
