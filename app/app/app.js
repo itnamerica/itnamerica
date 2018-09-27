@@ -1221,7 +1221,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $scope.ridesData[idx] = angular.copy($scope.selected);
       DataService.updateAffiliateRidesData($scope.selected).then(function(data){
         console.log('rides after updated in db is ', data);
-        // $scope.ridesData = data.data;
       })
       
       $scope.selected = {};
@@ -1229,7 +1228,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.getCommentsPhoto = function (affiliateName) {
       DataService.getCommentsPhoto(affiliateName).then(function(data){
-        console.log('data returned from func is ', data);
         $scope.commentsPhoto = data.data
       })
     };
@@ -1237,9 +1235,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.addComment = function (content, affiliate) {
       console.log('inside add comment func, affiliate is ', affiliate, 'content is ', content);
       DataService.addComment(content, affiliate).then(function(data){
-        console.log("data returned is ", data);
-        // replace updated data with commentPhoto
-        $scope.commentsPhoto = data.data
+        console.log("data returned from func is ", data);
+        for (var i=0; i < $scope.commentsPhoto.length; i++){
+          if (affiliate.name === $scope.commentsPhoto[i].name){
+            console.log('matching');
+            $scope.commentsPhoto[i].comments.push({message: content.messageBody, name: content.author})
+          }
+        }
+        // $scope.commentsPhoto = data.data
+        $scope.showCommentInput = false;
       })
     }
     
@@ -1405,6 +1409,7 @@ myApp.service('DataService', function($http){
   };
   this.addComment = function(content, affiliate){
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate}).then(function(data){
+      console.log('data returned is ', data);
       return data;
     })
   }
