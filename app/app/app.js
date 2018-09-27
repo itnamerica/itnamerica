@@ -1406,7 +1406,10 @@ myApp.service('DataService', function($http){
     })
   };
   this.addComment = function(content, affiliate){
-    return $http.post('addComment', {content: content, affiliate: affiliate}).then(function(data){
+    // return $http.post('addComment', {content: content, affiliate: affiliate}).then(function(data){
+    //   return data;
+    // })
+    return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate}).then(function(data){
       return data;
     })
   }
