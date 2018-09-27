@@ -129,7 +129,7 @@
               <td>{{comment.message}}</td>
               <td>{{comment.author}}</td>
               <td>
-                <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDelete('comment', comment)" data-toggle="tooltip" title="Delete Comment">
+                <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment(itnAffiliate.name, comment)" data-toggle="tooltip" title="Delete Comment">
                  <span class="glyphicon glyphicon-trash"></span>
                </button>
               </td>
@@ -181,7 +181,7 @@
         </div> 
     </div>
     <div class="modal-footer">
-      <button type="button" ng-click="deleteForm(formType, formData)" class="btn btn-lg btn-danger" style="background:#e05944">Delete</button>
+      <button type="button" ng-click="deleteComment()" class="btn btn-lg btn-danger" style="background:#e05944">Delete</button>
       <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal" aria-label="Cancel">Cancel</button>
     </div>
   </div>

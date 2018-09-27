@@ -102,6 +102,48 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     });
   }); // end of /updateCommentsPhoto get request
+  
+  
+  app.put('/deleteCommentsPhoto', function (req,res) {    
+    console.log('content is ', req.body.content);
+    console.log('affiliate name is ', req.body.affiliate);
+
+    var newComment = {
+      message: req.body.content.messageBody,
+      author: req.body.content.name
+    }
+    
+    db.collection('commentsphoto').find({name: req.body.affiliate}).toArray(function (err, result) {
+      console.log('result commentsphoto is ', result);
+      var recordId = result[0]._id;
+      db.collection('commentsphoto').update(
+         { _id: recordId },
+         { $pull: {comments: newComment} }
+      )
+      res.send(result);
+    });
+  }); // end of /updateCommentsPhoto get request
+  
+  // app.delete('/deleteCommentsPhoto', function (req,res) {
+  //     console.log('author is ', req.body.content.name);
+  //     console.log('msg is ', req.body.content.messageBody);
+  //     console.log('affiliate name is ', req.body.affiliate.name);
+      
+      // db.collection('commentsphoto').find({name: req.body.affiliate.name}).toArray(function (err, result) {
+      //   console.log('result commentsphoto is ', result);
+      //   var recordId = result[0]._id;
+      //   db.collection('commentsphoto').deleteOne({_id: new mongo.ObjectId(recordId)}, function(err2, result2){
+      //     console.log('record has been removed, i think');
+      //     res.send(result2);
+      //   });
+        // res.send(result);
+      // });
+      
+      // db.collection('commentsphoto').deleteOne({_id: new mongo.ObjectId(recordId)}, function(err, result){
+      //   console.log('record has been removed, i think');
+      //   res.send(result);
+      // });
+  // }); // end of delete request
 
   
   app.put('/updateAffiliateRidesData', function(req,res) {

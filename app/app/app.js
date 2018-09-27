@@ -635,6 +635,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $('#deleteAppModal').modal('show');
         })
     }
+    
+    $scope.askBeforeDeleteComment = function(affiliate, comment) {
+        $scope.affiliateToDelete = affiliate;
+        $scope.commentToDelete = comment;
+        $(document).ready(function() {
+            $('#deleteAppModal').modal('show');
+        })
+    }
 
     $scope.deleteForm = function(formType, formObj) {
         console.log('inside deleteform, form type', formType, 'form obj', formObj);
@@ -648,6 +656,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $scope.getApps();
         })
     };
+    
+    $scope.deleteComment = function() {
+      console.log('content is ', $scope.commentToDelete, 'affiliate is ', $scope.affiliateToDelete);
+      DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
+        console.log('data return from delete is ', data);
+        
+      })
+    }
 
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
@@ -1409,7 +1425,14 @@ myApp.service('DataService', function($http){
       console.log('data returned is ', data);
       return data;
     })
-  }
+  };
+  this.deleteComment = function(content, affiliate){
+    console.log('content is ', content, 'affiliate is ', affiliate);
+    return $http.put('/deleteCommentsPhoto', {content: content, affiliate: affiliate}).then(function(data){
+      console.log('data returned is ', data);
+      return data;
+    })
+  };
 });
 
 
