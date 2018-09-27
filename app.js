@@ -91,16 +91,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       message: req.body.content.messageBody,
       author: req.body.content.name
     }
-    // var name = {name: new mongo.ObjectId(req.body.affiliate.name)};
-    // var newValues = {$set: {comments: req.body.affiliateName} };
-    // var newValues = {$addToSet: {comments: newComment} };
-    // db.collection('commentsphoto').findAndModify(name, [['name','asc']], newValues, {}, function(err, result){
-    //   if (err) { 
-    //     console.log('db not updating: ', err);
-    //   };
-    //   console.log('record has been updated, i think');
-    //   res.send(result);
-    // });
     
     db.collection('commentsphoto').find({name: req.body.affiliate.name}).toArray(function (err, result) {
       console.log('result commentsphoto is ', result);
@@ -111,13 +101,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       )
       res.send(result);
     });
-    
-    // db.collection('commentsphoto').update(
-    //    { _id: 1 },
-    //    { $addToSet: {comments: newComment} }
-    // )
-    
-
   }); // end of /updateCommentsPhoto get request
 
   
@@ -291,85 +274,6 @@ app.post('/sendmail', function(req, res){
     console.log('after mongo block');
     res.end();
   }); // end /sendmail post request
-
-
-
-
-  app.post('/addComment', function(req, res){
-    console.log('author is ', req.body.content.name);
-    console.log('msg is ', req.body.content.messageBody);
-    console.log('affiliate name is ', req.body.affiliate.name);
-    
-    var affiliateName = req.body.affiliate.name;
-    var messageBody = req.body.content.messageBody
-    var author = req.body.content.name;
-    
-    
-    // 1)match affiliate name with document name inside commentsPhoto table
-    // 2)push msgbody and author inside comments section of this document
-    
-    
-    
-    
-    
-    
-    // 
-    // var newCommentPhoto = {
-    //   name: "Lanier",
-    //   avatar: "",
-    //   comments : [
-    //       {
-    //         message: "comment 1",
-    //         author: "sam"
-    //       },
-    //       {
-    //         message: "comment 2",
-    //         author: "melanie"
-    //       }
-    //   ],
-    //   "fileuploads": []
-    // }
-    
-    
-    // MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
-    //   if (err) { 
-    //     console.log('db not connecting, but inside mongo block - 2', err);
-    //   };
-    //   db = client.db('itnamerica-new');
-    // 
-    //   db.collection('commentsphoto').save(ndaObj, function(err, result){
-    //     if (err) { throw err }
-    //     console.log('comment form saved to database', result);
-    //   })
-    // 
-    // res.end();
-  })
-  
-  
-  app.put('/addComment2', function(req, res){
-    console.log('author is ', req.body.content.name);
-    console.log('msg is ', req.body.content.messageBody);
-    console.log('affiliate name is ', req.body.affiliate.name);
-    
-    var affiliateName = req.body.affiliate.name;
-    var messageBody = req.body.content.messageBody
-    var author = req.body.content.name;
-    
-
-    MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
-      if (err) { 
-        console.log('db not connecting, but inside mongo block - 2', err);
-      };
-      db = client.db('itnamerica-new');
-    
-      db.collection('commentsphoto').save(ndaObj, function(err, result){
-        if (err) { throw err }
-        console.log('comment form saved to database', result);
-      })
-    
-      res.end();
-    })
-  });
 
   
   app.use(allPages, function(req, res){

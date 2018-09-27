@@ -1393,22 +1393,17 @@ myApp.service('DataService', function($http){
     })
   };
   this.updateAffiliateRidesData = function(affiliateName){
-    console.log('affiliate is ', affiliateName);
     return $http.put('/updateAffiliateRidesData', affiliateName).then(function(data){
       return data;
     })
   };
   this.getCommentsPhoto = function(affiliateName){
-    // console.log('inside getcommentsphoto, affiliate name is ', affiliateName);
     console.log('inside getcommentsphoto');
     return $http.get('/getCommentsPhoto').then(function(data){
       return data;
     })
   };
   this.addComment = function(content, affiliate){
-    // return $http.post('addComment', {content: content, affiliate: affiliate}).then(function(data){
-    //   return data;
-    // })
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate}).then(function(data){
       return data;
     })
