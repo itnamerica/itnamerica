@@ -1612,6 +1612,8 @@ form textarea.form-control {font-size:25px}
 }
 .back-btn-wrap {
   margin: -10% 0 2% 2%;
+  width: 20%;
+  text-align: left;
 }
 .back-btn-wrap a {
   color: white;

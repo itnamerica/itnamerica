@@ -103,8 +103,12 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     // });
     
     db.collection('commentsphoto').find({name: req.body.affiliate.name}).toArray(function (err, result) {
-      console.log('record has been found, i think');
       console.log('result commentsphoto is ', result);
+      var recordId = result[0]._id;
+      db.collection('commentsphoto').update(
+         { _id: recordId },
+         { $addToSet: {comments: newComment} }
+      )
       res.send(result);
     });
     

@@ -222,16 +222,6 @@ gapi.analytics.ready(function() {
     clientid: CLIENT_ID,
   });
 
-  // Step 4: Create the view selector.
-
-  // var viewSelector = new gapi.analytics.ViewSelector({
-  //   container: 'view-selector'
-  // });
-
-  // Step 5: Create the timeline chart.
-
-  // var gaViewCode = document.querySelector("#gaViewCode");
-  // console.log('gaviewcodeis ',gaViewCode);
   var gaViewCode = document.getElementById("gaViewCode").innerText;
   console.log('gaviewcode2is ',gaViewCode);
   
@@ -252,21 +242,29 @@ gapi.analytics.ready(function() {
   
   timeline.execute();
 
-  // Step 6: Hook up the components to work together.
-
-  // gapi.analytics.auth.on('success', function(response) {
-  //   viewSelector.execute();
-  // });
-
-  // viewSelector.on('change', function(ids) {
-  //   var newIds = {
-  //     query: {
-  //       ids: ids
-  //     }
-  //   }
-  //   timeline.set(newIds).execute();
-  // });
 });
 
 </script>  
+
+<script>
+$(document).ready(function(){ 
+  $('#characterLeft').text('2000 characters left');
+  $('#message').keydown(function () {
+      var max = 2000;
+      var len = $(this).val().length;
+      if (len >= max) {
+          $('#characterLeft').text('You have reached the limit');
+          $('#characterLeft').addClass('text-danger');
+          $('#submit').addClass('disabled');            
+      } 
+      else {
+          var ch = max - len;
+          $('#characterLeft').text(ch + ' characters left');
+          $('#submit').removeClass('disabled');
+          $('#characterLeft').removeClass('red');            
+      }
+  });    
+});
+
+</script>
 
