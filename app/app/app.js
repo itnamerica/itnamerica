@@ -1218,6 +1218,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
 
     $scope.saveRidesData = function (idx) {
+      console.log("Saving obj");
       $scope.ridesData[idx] = angular.copy($scope.selected);
       DataService.updateAffiliateRidesData($scope.selected).then(function(data){
         console.log('rides after updated in db is ', data);
@@ -1237,9 +1238,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       DataService.addComment(content, affiliate).then(function(data){
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if (affiliate.name === $scope.commentsPhoto[i].name){
-            $scope.commentsPhoto[i].comments.push({message: content.messageBody, author: content.author});
-            $scope.showCommentInput = false;
-            console.log('updated comments are ', $scope.commentsPhoto[i].comments);
+            $scope.commentsPhoto[i].comments.push({message: content.messageBody, author: content.name});
           }
         }
       })
@@ -1400,12 +1399,14 @@ myApp.service('DataService', function($http){
     })
   };
   this.getCommentsPhoto = function(affiliateName){
+    console.log('inside getcommentsphoto');
     return $http.get('/getCommentsPhoto').then(function(data){
       return data;
     })
   };
   this.addComment = function(content, affiliate){
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate}).then(function(data){
+      console.log('data returned is ', data);
       return data;
     })
   }
