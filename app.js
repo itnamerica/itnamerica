@@ -258,25 +258,26 @@ app.post('/sendmail', function(req, res){
 
 
   app.post('/addComment', function(req, res){
-    console.log('post req', req.body);
-    console.log('content is ', req.body.content);
-    console.log('affiliate is ', req.body.affiliate);
+    console.log('content name is ', req.body.content.name);
+    console.log('content author is ', req.body.content.author);
+    console.log('affiliate name is ', req.body.affiliate.name);
+    // 
+    // var newCommentPhoto = {
+    //   name: "Lanier",
+    //   avatar: "",
+    //   comments : [
+    //       {
+    //         message: "comment 1",
+    //         author: "sam"
+    //       },
+    //       {
+    //         message: "comment 2",
+    //         author: "melanie"
+    //       }
+    //   ],
+    //   "fileuploads": []
+    // }
     
-//     {
-//     "name": "Lanier",
-//     "avatar": "",
-//     "comments" : [
-//         {
-//         "message": "comment 1",
-//         "author": "sam"
-//         },
-//         {
-//         "message": "comment 2",
-//         "author": "melanie"
-//         }
-//     ],
-//     "fileuploads": []
-// }
     
     // MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
     //   if (err) { 

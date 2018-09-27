@@ -1759,6 +1759,14 @@ form textarea.form-control {font-size:25px}
 .rides input {
   color:black;
 }
+#loading-btn {
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  background: #fc716d;
+  padding: 7px;
+  border-radius: 5px;
+}
 .editableColumnsStyle {
   color:red;
 }

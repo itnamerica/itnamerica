@@ -84,6 +84,8 @@
 <div class="portal company-analytics" ng-show="analytics">
   <div class="container ta-center">
     <h2>Website Analytics</h2>
+    
+    <button id="loading-btn">Loading graph...</button>
 
     <div class="ga-wrap" style="display:block;width:80%;margin:auto">
       <section id="auth-button"></section>
@@ -122,6 +124,8 @@
 
 <script>
 gapi.analytics.ready(function() {
+  
+  $('#loading-btn').css('display','none');
 
   // Step 3: Authorize the user.
 

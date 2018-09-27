@@ -53,6 +53,8 @@
       <div class="col-md-6 mb-25">
         <h5>Website Analytics</h5>
         <em>Code: <span id="gaViewCode">{{itnAffiliate.gaViewCode}}</span></em>
+        
+        <button id="loading-btn">Loading graph...</button>
 
         <div class="ga-wrap" style="display:block;width:80%;margin:auto">
           <section id="auth-button" class="mt-25"></section>
@@ -205,7 +207,11 @@
 </script>
 
 <script>
+
+
 gapi.analytics.ready(function() {
+  
+  $('#loading-btn').css('display','none');
 
   // Step 3: Authorize the user.
 
