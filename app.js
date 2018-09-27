@@ -83,46 +83,60 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /getRidesData get request
   
   app.put('/updateCommentsPhoto', function (req,res) {    
-    console.log('author is ', req.body.content.name);
-    console.log('msg is ', req.body.content.messageBody);
+    // console.log('author is ', req.body.content.name);
+    // console.log('msg is ', req.body.content.messageBody);
+    console.log('author is ', req.body.content.author);
+    console.log('msg is ', req.body.content.message);
     console.log('affiliate name is ', req.body.affiliate.name);
+    console.log('operation is ', req.body.operation);
 
     var newComment = {
-      message: req.body.content.messageBody,
-      author: req.body.content.name
+      message: req.body.content.message,
+      author: req.body.content.author
     }
     
     db.collection('commentsphoto').find({name: req.body.affiliate.name}).toArray(function (err, result) {
       console.log('result commentsphoto is ', result);
+      var operation = req.body.operation;
       var recordId = result[0]._id;
+      var commentObj;
+      console.log('operation: ', operation, 'recordId:', recordId);
+      
+      if (operation === 'add') {
+        commentObj = { $addToSet: {comments: newComment} };
+      } else if (operation === 'delete') {
+        commentObj = { $pull: {comments: newComment} };
+      }
+      
+      console.log("comment obj is ", commentObj);
       db.collection('commentsphoto').update(
          { _id: recordId },
-         { $addToSet: {comments: newComment} }
+         commentObj
       )
       res.send(result);
     });
   }); // end of /updateCommentsPhoto get request
   
   
-  app.put('/deleteCommentsPhoto', function (req,res) {    
-    console.log('content is ', req.body.content);
-    console.log('affiliate name is ', req.body.affiliate);
-
-    var newComment = {
-      message: req.body.content.messageBody,
-      author: req.body.content.name
-    }
-    
-    db.collection('commentsphoto').find({name: req.body.affiliate}).toArray(function (err, result) {
-      console.log('result commentsphoto is ', result);
-      var recordId = result[0]._id;
-      db.collection('commentsphoto').update(
-         { _id: recordId },
-         { $pull: {comments: newComment} }
-      )
-      res.send(result);
-    });
-  }); // end of /updateCommentsPhoto get request
+  // app.put('/deleteCommentsPhoto', function (req,res) {    
+  //   console.log('content is ', req.body.content);
+  //   console.log('affiliate name is ', req.body.affiliate);
+  // 
+  //   var newComment = {
+  //     message: req.body.content.messageBody,
+  //     author: req.body.content.name
+  //   }
+  // 
+  //   db.collection('commentsphoto').find({name: req.body.affiliate}).toArray(function (err, result) {
+  //     console.log('result commentsphoto is ', result);
+  //     var recordId = result[0]._id;
+  //     db.collection('commentsphoto').update(
+  //        { _id: recordId },
+  //        { $pull: {comments: newComment} }
+  //     )
+  //     res.send(result);
+  //   });
+  // }); // end of /updateCommentsPhoto get request
   
   // app.delete('/deleteCommentsPhoto', function (req,res) {
   //     console.log('author is ', req.body.content.name);

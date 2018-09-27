@@ -1254,11 +1254,18 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       DataService.addComment(content, affiliate).then(function(data){
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if (affiliate.name === $scope.commentsPhoto[i].name){
-            $scope.commentsPhoto[i].comments.push({message: content.messageBody, author: content.name});
+            // $scope.commentsPhoto[i].comments.push({message: content.messageBody, author: content.name});
+            $scope.commentsPhoto[i].comments.push({message: content.message, author: content.author});
           }
         }
       })
-    }
+    };
+    
+    $scope.hideModal = function(modalId) {
+      $('.modal').hide();
+      $('#'+modalId).hide();
+      $('.modal-backdrop').css('display','none');
+    };
     
     
     
@@ -1421,14 +1428,14 @@ myApp.service('DataService', function($http){
     })
   };
   this.addComment = function(content, affiliate){
-    return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate}).then(function(data){
+    return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'add'}).then(function(data){
       console.log('data returned is ', data);
       return data;
     })
   };
   this.deleteComment = function(content, affiliate){
     console.log('content is ', content, 'affiliate is ', affiliate);
-    return $http.put('/deleteCommentsPhoto', {content: content, affiliate: affiliate}).then(function(data){
+    return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'delete'}).then(function(data){
       console.log('data returned is ', data);
       return data;
     })
