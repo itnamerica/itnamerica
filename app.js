@@ -91,16 +91,29 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       message: req.body.content.messageBody,
       author: req.body.content.name
     }
-    var name = {name: new mongo.ObjectId(req.body.affiliate.name)};
+    // var name = {name: new mongo.ObjectId(req.body.affiliate.name)};
     // var newValues = {$set: {comments: req.body.affiliateName} };
-    var newValues = {$addToSet: {comments: newComment} };
-    db.collection('commentsphoto').findAndModify(name, [['name','asc']], newValues, {}, function(err, result){
-      if (err) { 
-        console.log('db not updating: ', err);
-      };
-      console.log('record has been updated, i think');
+    // var newValues = {$addToSet: {comments: newComment} };
+    // db.collection('commentsphoto').findAndModify(name, [['name','asc']], newValues, {}, function(err, result){
+    //   if (err) { 
+    //     console.log('db not updating: ', err);
+    //   };
+    //   console.log('record has been updated, i think');
+    //   res.send(result);
+    // });
+    
+    db.collection('commentsphoto').find({name: req.body.affiliate.name}, function(err, result){
+      console.log('record has been found, i think');
+      console.log('result is ', result);
       res.send(result);
-    });
+    })
+    
+    // db.collection('commentsphoto').update(
+    //    { _id: 1 },
+    //    { $addToSet: {comments: newComment} }
+    // )
+    
+
   }); // end of /updateCommentsPhoto get request
 
   
