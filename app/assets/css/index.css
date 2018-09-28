@@ -1743,19 +1743,19 @@ form textarea.form-control {font-size:25px}
 .rides .container {
   padding: 3% 0;
 }
-.rides table .edit-btn {
+.portal table .edit-btn {
   background: #fc6f6d;
   border-color: #fc6f6d;
 }
-.rides table thead tr th, .affiliates table thead tr th {
+.portal table thead tr th, .affiliates table thead tr th {
   text-align:center;
   padding:1%;
 }
-.rides table tr td {
+.portal table tr td {
   font-size:20px;
   font-weight:normal;
 }
-.rides table tbody tr:hover {
+.portal table tbody tr:hover {
   color: #fc6f6d;
 }
 .rides input {
@@ -1769,6 +1769,9 @@ form textarea.form-control {font-size:25px}
   padding: 7px;
   border-radius: 5px;
   cursor:default;
+}
+.comments div.comments-for-each:last-child hr {
+  display:none;
 }
 .editableColumnsStyle {
   color:red;
