@@ -1243,19 +1243,34 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.addComment = function (content, affiliate) {
       DataService.addComment(content, affiliate).then(function(data){
+        //async add for immediate update in page
+        var commentToAdd = {message: content.message, author: content.author};
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if (affiliate.name === $scope.commentsPhoto[i].name){
-            $scope.commentsPhoto[i].comments.push({message: content.message, author: content.author});
+            $scope.commentsPhoto[i].comments.push(commentToAdd);
           }
         }
       })
     };
     
     $scope.deleteComment = function() {
-      console.log('content is ', $scope.commentToDelete, 'affiliate is ', $scope.affiliateToDelete);
       DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
-        console.log('data return from delete is ', data);
-        
+        //async delete for immediate update in page
+        var commentToDelete = {message: $scope.commentToDelete.message, author: $scope.commentToDelete.author};
+        console.log('commenttodelete is ', commentToDelete);
+        console.log('affiliate to delete is ', $scope.affiliateToDelete.name);
+        for (var i=0; i < $scope.commentsPhoto.length; i++){
+          // console.log('commentsphoto i name', $scope.commentsPhoto[i].name);
+          if ($scope.affiliateToDelete.name === $scope.commentsPhoto[i].name){
+            console.log('a match!');
+            var commentsArr = $scope.commentsPhoto[i].comments;
+            var commentToDeleteIndex = commentsArr.indexOf(commentToDelete);
+            console.log('comment to delete index is ', commentToDeleteIndex);
+            $scope.commentsPhoto[i].comments.splice(commentToDeleteIndex, 1);
+            console.log('commentsphoto i', $scope.commentsPhoto[i]);
+          }
+        }
+        console.log('commentsphoto array is ', $scope.commentsPhoto);
       })
     };
     
