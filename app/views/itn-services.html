@@ -50,33 +50,12 @@
 </div>
 
 <div class="portal comments" ng-show="allComments">
-  <div class="container ta-center">
+  <div class="container-fluid ta-center">
     <h2>Company-wide Comments & Announcements</h2>
     
-    <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
-      <thead>
-        <tr>
-          <th class="ta-center">Affiliate Name</th>
-          <th class="ta-center">Comment</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="commentPhoto in commentsPhoto">
-          <td>ITN<em>{{commentPhoto.name}}</em></td>
-          <td>
-            <div ng-repeat="comment in commentPhoto.comments" class="comments-for-each">
-              {{comment.message}}
-              <h6 style="text-align:center;font-size:15px"><em>-by {{comment.author}}</em></h6>
-              <hr style="text-align:center;margin:5px auto" width="30%">
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
     
     
-    
-    <!-- <div class="row mt-50 mb-50">
+    <div class="row mt-50 mb-50">
       <div class="col-md-2"></div>
       
       <div class="col-md-8">
@@ -87,8 +66,9 @@
         <div class="row" ng-show="showCommentInput">
           
               <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
-                <form name="itnForm" novalidate ng-submit="addComment(formData, {name:'ridesinsight'}); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
+                <form name="itnForm" novalidate ng-submit="addComment(formData, {name: affiliateOfComment}); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
                   <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
+                  {{affiliateOfComment}}
                           
                   <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
                     <input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.author" required>
@@ -112,34 +92,39 @@
                   <input type="button" ng-click="formData = {}" value="Reset Form" class="btn btn-lg pull-right itn-green-bg"  style="margin-left:2%;margin-top:-50px">
                 
                 </form>
-              </div> <!-- form-area -->
+              </div> <!-- form-area-->
     
         </div><!--row-->
         
         
         
-        <table class="table table-responsive table-hover" ng-repeat="commentPhoto in commentsPhoto" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
-          <button class="btn btn-sm" ng-click="showCommentInput = true" style="background:#cc6257;float:right;margin-top:10px">Add a Comment</button>
+        <table class="table table-responsive table-bordered table-hover" style="font-size:25px;font-weight:bold;margin:auto">
           <thead>
             <tr>
-              <th ng-click="sort('message')">Comments
-                <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-              </th>
-              <th ng-click="sort('author')">Author
-                <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-              </th>
-              <th></th>
+              <th class="ta-center">Affiliate Name</th>
+              <th class="ta-center">Comment</th>
+              <th>Add Comment</th>
             </tr>
           </thead>
-          
-          <tbody style="font-size:20px">
-            <tr dir-paginate="comment in commentPhoto.comments|orderBy:sortKey:reverse|itemsPerPage:10|reverse" pagination-id="comments">
-              <td>{{comment.message}}</td>
-              <td>{{comment.author}}</td>
+          <tbody>
+            <tr dir-paginate="commentPhoto in commentsPhoto|orderBy:sortKey:reverse|itemsPerPage:10|reverse" pagination-id="comments">
+              <td style="width:20%">ITN<em>{{commentPhoto.name}}</em></td>
               <td>
-                <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment({name:'ridesinsight'}, comment)" data-toggle="tooltip" title="Delete Comment">
-                 <span class="glyphicon glyphicon-trash"></span>
-               </button>
+                
+                <div ng-repeat="comment in commentPhoto.comments" class="comments-for-each">
+                  {{comment.message}}
+                  <button type="button" class="btn btn-danger btn-sm" style="margin-left:5%" ng-click="askBeforeDeleteComment({name:comment}, comment)" data-toggle="tooltip" title="Delete Comment">
+                   <span class="glyphicon glyphicon-trash"></span>
+                 </button>
+                  <h6 style="text-align:center;font-size:15px"><em>-by {{comment.author}}</em></h6>
+                  <hr style="text-align:center;margin:5px auto" width="30%">
+                </div>
+                
+              </td>
+              <td style="width:20%">
+                <button class="btn btn-sm" ng-click="showCommentInput = true; affiliateOfComment =  commentPhoto.name" style="background:#cc6257;float:right;margin-top:10px">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
               </td>
             </tr>
           </tbody>
