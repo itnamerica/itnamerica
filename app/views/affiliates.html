@@ -180,7 +180,7 @@
     </div>
     <div class="modal-body">
         <div class="form-group ta-center">
-          <label for="delete app confirmation" style="margin-bottom:15px">Are you sure you would like to delete this form?</label>
+          <label for="delete app confirmation" style="margin-bottom:15px">Are you sure you would like to delete this comment?</label>
         </div> 
     </div>
     <div class="modal-footer">
@@ -246,6 +246,8 @@ gapi.analytics.ready(function() {
 
 <script>
 $(document).ready(function(){ 
+  $('[data-toggle="tooltip"]').tooltip(); 
+  
   $('#characterLeft').text('2000 characters left');
   $('#message').keydown(function () {
       var max = 2000;
@@ -265,4 +267,3 @@ $(document).ready(function(){
 });
 
 </script>
-

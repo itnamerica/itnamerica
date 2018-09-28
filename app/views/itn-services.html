@@ -103,13 +103,16 @@
             <tr>
               <th class="ta-center">Affiliate Name</th>
               <th class="ta-center">Comment</th>
-              <th>Add Comment</th>
             </tr>
           </thead>
           <tbody>
             <tr dir-paginate="commentPhoto in commentsPhoto|orderBy:sortKey:reverse|itemsPerPage:10|reverse" pagination-id="comments">
               <td style="width:20%">ITN<em>{{commentPhoto.name}}</em></td>
               <td>
+                
+                <button class="btn btn-sm" ng-click="showCommentInput = true; affiliateOfComment =  commentPhoto.name" data-toggle="tooltip" title="Add comment" style="background:#cc6257;float:left">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
                 
                 <div ng-repeat="comment in commentPhoto.comments" class="comments-for-each">
                   {{comment.message}}
@@ -120,11 +123,6 @@
                   <hr style="text-align:center;margin:5px auto" width="30%">
                 </div>
                 
-              </td>
-              <td style="width:20%">
-                <button class="btn btn-sm" ng-click="showCommentInput = true; affiliateOfComment =  commentPhoto.name" style="background:#cc6257;float:right;margin-top:10px">
-                  <span class="glyphicon glyphicon-plus"></span>
-                </button>
               </td>
             </tr>
           </tbody>
@@ -142,13 +140,8 @@
       <div class="col-md-2"></div>
       
     </div><!--row-->
-    
-    
-
   </div>
 </div>
-
-
 
 <div class="back-btn-wrap">
   <a ng-click="openAdditionalPage()" ng-hide="showPortal" class="back-btn">
@@ -175,7 +168,7 @@
     </div>
     <div class="modal-body">
         <div class="form-group ta-center">
-          <label for="delete app confirmation" style="margin-bottom:15px">Are you sure you would like to delete this form?</label>
+          <label for="delete app confirmation" style="margin-bottom:15px">Are you sure you would like to delete this comment?</label>
         </div> 
     </div>
     <div class="modal-footer">
@@ -186,3 +179,8 @@
 </div>
 </div><!--end modal-->
 
+<script>
+  $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip(); 
+  });
+</script>

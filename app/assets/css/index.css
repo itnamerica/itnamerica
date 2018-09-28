@@ -1770,6 +1770,9 @@ form textarea.form-control {font-size:25px}
   border-radius: 5px;
   cursor:default;
 }
+.comments div.comments-for-each {
+  clear:both;
+}
 .comments div.comments-for-each:last-child hr {
   display:none;
 }
