@@ -1253,59 +1253,23 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       })
     };
     
-    // $scope.deleteComment = function() {
-    //   DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
-    //     //async delete for immediate update in page
-    //     var commentToDelete = {message: $scope.commentToDelete.message, author: $scope.commentToDelete.author};
-    //     console.log('commenttodelete is ', commentToDelete, 'affiliate to delete is ', $scope.affiliateToDelete.name);
-    //     for (var i=0; i < $scope.commentsPhoto.length; i++){
-    //       if ($scope.affiliateToDelete.name === $scope.commentsPhoto[i].name){
-    //         var commentsArr = $scope.commentsPhoto[i].comments;
-    //         console.log("a match, comments arr is ", commentsArr);
-    //         var commentToDeleteIndex = commentsArr.indexOf(commentToDelete);
-    //         console.log('comment to delete index is ', commentToDeleteIndex);
-    //         $scope.commentsPhoto[i].comments.splice(commentToDeleteIndex, 1);
-    //         console.log('commentsphoto i', $scope.commentsPhoto[i]);
-    //       }
-    //     }
-    //     console.log('commentsphoto array is ', $scope.commentsPhoto);
-    //   })
-    // };
-    
     $scope.deleteComment = function() {
       DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
         //async delete for immediate update in page
-        console.log('scope.commentToDelete is ', $scope.commentToDelete);
         var commentToDelete = {message: $scope.commentToDelete.message, author: $scope.commentToDelete.author};
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if ($scope.affiliateToDelete.name === $scope.commentsPhoto[i].name){
             var commentsArr = $scope.commentsPhoto[i].comments;
-            console.log('a match, obj with comments is ', commentsArr);
-            
             for (key in commentsArr) {
               if (commentsArr.hasOwnProperty(key)) {
-                console.log('key is ', key, 'value is ', commentsArr[key]);
                 if (commentToDelete.message === commentsArr[key].message) {
-                  console.log('matching the obj in array');
-                  // var commentToDeleteIndex =  $scope.commentsPhoto[i].comments.indexOf()
                   var commentToDeleteIndex = key;
                   $scope.commentsPhoto[i].comments.splice(commentToDeleteIndex, 1);
                 }
               }
             }
-            
-            
-            // for (var x=0; x < commentsArr.values; x++) {
-            //   console.log('all values in commentsArr are ', commentsArr.values[x]);
-            // }
-            
-            // var commentToDeleteIndex = commentsArr.indexOf(commentToDelete);
-            // console.log('comment to delete index is ', commentToDeleteIndex);
-            // $scope.commentsPhoto[i].comments.splice(commentToDeleteIndex, 1);
-            // console.log('commentsphoto i', $scope.commentsPhoto[i]);
           }
         }
-        console.log('commentsphoto array is ', $scope.commentsPhoto);
       })
     };
     
