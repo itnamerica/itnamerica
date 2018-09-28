@@ -61,9 +61,6 @@
       <div class="col-md-8">
         <h5 class="mb-25" style="display:inline-block">Comments</h5>
         
-        affiliate comment: {{affiliateOfComment}}
-        showcommentinput = {{showCommentInput}}
-        
         <div class="row" ng-show="showCommentInput">
               <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
                 <form name="itnForm" novalidate ng-submit="addComment(formData, {name: affiliateOfComment}); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
@@ -115,7 +112,7 @@
                 
                 <div dir-paginate="comment in commentPhoto.comments|orderBy:sortKey:reverse|itemsPerPage:5|reverse" pagination-id="comments" class="comments-for-each">
                   {{comment.message}}
-                  <button type="button" class="btn btn-danger btn-sm" style="margin-left:5%" ng-click="askBeforeDeleteComment({name:comment}, comment)" data-toggle="tooltip" title="Delete Comment">
+                  <button type="button" class="btn btn-danger btn-sm" style="margin-left:5%" ng-click="askBeforeDeleteComment({name:commentPhoto.name}, comment)" data-toggle="tooltip" title="Delete Comment">
                    <span class="glyphicon glyphicon-trash"></span>
                  </button>
                   <h6 style="text-align:center;font-size:15px"><em>-by {{comment.author}}</em></h6>

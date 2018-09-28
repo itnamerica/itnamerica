@@ -1257,13 +1257,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       })
     };
     
-    $scope.addCommentFromAllComments = function(affiliateOfComment) {
-      console.log("inside add from all comments func, affiliate to comment is ",affiliateOfComment);
-      $scope.showCommentInput = true;
-      $scope.affiliateOfComment = affiliateOfComment;
-    }
     
     $scope.deleteComment = function() {
+      console.log('affiliate to delete is ', $scope.affiliateToDelete);
+      
       DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
         //async delete for immediate update in page
         var commentToDelete = {message: $scope.commentToDelete.message, author: $scope.commentToDelete.author};
@@ -1282,6 +1279,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         }
       })
     };
+    
+    $scope.addCommentFromAllComments = function(affiliateOfComment) {
+      console.log("inside add from all comments func, affiliate to comment is ",affiliateOfComment);
+      $scope.showCommentInput = true;
+      $scope.affiliateOfComment = affiliateOfComment;
+    }
     
     $scope.hideModal = function(modalId) {
       $('.modal').hide();
