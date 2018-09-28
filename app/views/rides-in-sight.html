@@ -64,7 +64,7 @@
   </div>
 </div>
 
-<div ng-show="events" class="portal events ta-center">
+<div ng-show="events" ng-init="getCommentsPhoto()" class="portal events ta-center">
   <div class="container">
     <h2>Events & Announcements</h2>
     <ul>
@@ -72,6 +72,93 @@
         <a href="http://itnretreat.org/"><strong>October 17-19 2018 - ITN Retreat 2018: Non-Profit Leadership</strong></a><br>
         ITN<em>America</em> HQ, Westbrook, ME
       </li> -->
+      
+      
+      
+      <div class="row mt-50 mb-50">
+        <div class="col-md-2"></div>
+        
+        <div class="col-md-8">
+          <h5 class="mb-25" style="display:inline-block">Comments</h5>
+          
+          
+          
+          <div class="row" ng-show="showCommentInput">
+            
+                <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
+                  <form name="itnForm" novalidate ng-submit="addComment(formData, {name:'ridesinsight'}); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
+                    <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
+                            
+                    <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.author" required>
+                      <span ng-if="itnForm.name.$error.required && !itnForm.name.$pristine" class="help-block">{{errorMessages.required}}</span>
+                      <span ng-if="itnForm.name.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
+                      <span ng-if="itnForm.name.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+                    </div>
+                    
+                    <div class="form-group" ng-class="{ 'has-error' : itnForm.message.$invalid && !itnForm.message.$pristine }">
+                      <textarea class="form-control" type="textarea" name="message" id="message" placeholder="Message" maxlength="2000" rows="7" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="formData.message" required></textarea>
+                      <span ng-if="itnForm.message.$error.required && !itnForm.message.$pristine" class="help-block">{{errorMessages.required}}</span>
+                      <span ng-if="itnForm.message.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
+                      <span ng-if="itnForm.message.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
+                    </div>
+                    
+                    <p ng-if="loading"><em>Loading. Please wait</em></p>
+                    <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
+                      
+                    <input type="submit" id="submit" class="btn btn-lg btn-primary pull-right itn-green-bg" value="Send" style="margin-left:2%;margin-top:-50px">
+                    <input type="button" ng-click="formData = {}" value="Reset Form" class="btn btn-lg pull-right itn-green-bg"  style="margin-left:2%;margin-top:-50px">
+                  
+                  </form>
+                </div><!--form-area-->
+      
+          </div><!--row-->
+          
+          
+          
+          <table class="table table-responsive table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: 'ridesinsight' }" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
+            <button class="btn btn-sm" ng-click="showCommentInput = true" style="background:#cc6257;float:right;margin-top:10px">Add a Comment</button>
+            <thead>
+              <tr>
+                <th ng-click="sort('message')">Comments
+                  <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+                <th ng-click="sort('author')">Author
+                  <span class="glyphicon sort-icon" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+                <th></th>
+              </tr>
+            </thead>
+            
+            <tbody style="font-size:20px">
+              <tr dir-paginate="comment in commentPhoto.comments|orderBy:sortKey:reverse|itemsPerPage:10|reverse" pagination-id="comments">
+                <td>{{comment.message}}</td>
+                <td>{{comment.author}}</td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment({name:'ridesinsight'}, comment)" data-toggle="tooltip" title="Delete Comment">
+                   <span class="glyphicon glyphicon-trash"></span>
+                 </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <dir-pagination-controls
+            pagination-id="comments"
+             max-size="5"
+             direction-links="true"
+             boundary-links="true" >
+          </dir-pagination-controls>
+          
+        </div><!--col-md-8-->
+        
+        <div class="col-md-2"></div>
+        
+      </div><!--row-->
+      
+      
+      
     </ul>
   </div>
 </div>
