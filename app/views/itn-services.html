@@ -61,14 +61,13 @@
       <div class="col-md-8">
         <h5 class="mb-25" style="display:inline-block">Comments</h5>
         
-        
+        affiliate comment: {{affiliateOfComment}}
+        showcommentinput = {{showCommentInput}}
         
         <div class="row" ng-show="showCommentInput">
-          
               <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
                 <form name="itnForm" novalidate ng-submit="addComment(formData, {name: affiliateOfComment}); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
                   <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
-                  {{affiliateOfComment}}
                           
                   <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
                     <input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.author" required>
@@ -110,7 +109,7 @@
               <td style="width:20%">ITN<em>{{commentPhoto.name}}</em></td>
               <td>
                 
-                <button class="btn btn-sm" ng-click="showCommentInput = true; affiliateOfComment =  commentPhoto.name" data-toggle="tooltip" title="Add comment" style="background:#cc6257;float:left">
+                <button class="btn btn-sm" ng-click="addCommentFromAllComments(commentPhoto.name)" data-toggle="tooltip" title="Add comment" style="background:#cc6257;float:left">
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
                 

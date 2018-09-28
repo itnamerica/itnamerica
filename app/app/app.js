@@ -403,6 +403,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     $scope.selected = {};
     $scope.showCommentInput = false;
+    $scope.affiliateOfComment = null;
 
     // alternative to ng-init, functions that trigger on state/page changes.
     $transitions.onSuccess({}, function(transition) {
@@ -1242,6 +1243,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.addComment = function (content, affiliate) {
+      console.log('inside add comment, content is', content, 'affiliate is ', affiliate);
+      
       DataService.addComment(content, affiliate).then(function(data){
         //async add for immediate update in page
         var commentToAdd = {message: content.message, author: content.author};
@@ -1250,8 +1253,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $scope.commentsPhoto[i].comments.push(commentToAdd);
           }
         }
+        $scope.showCommentInput = false;
       })
     };
+    
+    $scope.addCommentFromAllComments = function(affiliateOfComment) {
+      console.log("inside add from all comments func, affiliate to comment is ",affiliateOfComment);
+      $scope.showCommentInput = true;
+      $scope.affiliateOfComment = affiliateOfComment;
+    }
     
     $scope.deleteComment = function() {
       DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
