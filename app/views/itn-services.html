@@ -106,7 +106,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr dir-paginate="commentPhoto in commentsPhoto|orderBy:sortKey:reverse|itemsPerPage:10|reverse" pagination-id="comments">
+            <tr ng-repeat="commentPhoto in commentsPhoto">
               <td style="width:20%">ITN<em>{{commentPhoto.name}}</em></td>
               <td>
                 
@@ -114,26 +114,24 @@
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
                 
-                <div ng-repeat="comment in commentPhoto.comments" class="comments-for-each">
+                <div dir-paginate="comment in commentPhoto.comments|orderBy:sortKey:reverse|itemsPerPage:5|reverse" pagination-id="comments" class="comments-for-each">
                   {{comment.message}}
                   <button type="button" class="btn btn-danger btn-sm" style="margin-left:5%" ng-click="askBeforeDeleteComment({name:comment}, comment)" data-toggle="tooltip" title="Delete Comment">
                    <span class="glyphicon glyphicon-trash"></span>
                  </button>
                   <h6 style="text-align:center;font-size:15px"><em>-by {{comment.author}}</em></h6>
-                  <hr style="text-align:center;margin:5px auto" width="30%">
+                  <hr ng-if="!$last" style="text-align:center;margin:5px auto" width="30%">
                 </div>
-                
+                <dir-pagination-controls
+                  pagination-id="comments"
+                   max-size="5"
+                   direction-links="true"
+                   boundary-links="true" >
+                </dir-pagination-controls>
               </td>
             </tr>
           </tbody>
         </table>
-        
-        <dir-pagination-controls
-          pagination-id="comments"
-           max-size="5"
-           direction-links="true"
-           boundary-links="true" >
-        </dir-pagination-controls>
         
       </div><!--col-md-8-->
       
