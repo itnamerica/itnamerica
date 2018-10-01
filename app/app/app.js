@@ -1322,21 +1322,23 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $('#calendarModal').css('display','none');
       $('#calendar').fullCalendar({
         dayClick: function(event) {
+          $scope.eventInBrowser = event;
           $scope.dayClicked = event._d;
-          console.log('a day has been clicked! event is ', $scope.dayClicked, typeof($scope.dayClicked));
+          console.log('a day has been clicked! event is ', $scope.dayClicked);
           $('#calendarModal').modal('show');
         }
       });
     };
     
     $scope.addCalendarEvent = function(){
-      $scope.eventObj.day = $scope.dayClicked;
+      $scope.eventObj.day = $scope.dayClicked + 1;
       console.log('inside addcalendarevent func, event obj is ', $scope.eventObj);
       //save event to database
       DataService.addCalendarEvent($scope.eventObj).then(function(data){
-        console.log('data returned from func is ', data);
+        console.log('data returned from func is ', data.config.data);
         $('#calendarModal').modal('hide');
-        $scope.serverMessage = "Your event has been succesfully added."
+        $scope.serverMessage = "Your event has been succesfully added.";
+        console.log('event in browser is again ', $scope.eventInBrowser);
       })
     };
     
