@@ -1318,6 +1318,27 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $('.modal-backdrop').css('display','none');
     };
     
+    $scope.initCalendar = function() {
+      $('#calendarModal').css('display','none');
+      $('#calendar').fullCalendar({
+        dayClick: function(event) {
+          $scope.dayClicked = event._d;
+          console.log('a day has been clicked! event is ', $scope.dayClicked, typeof($scope.dayClicked));
+          $('#calendarModal').modal('show');
+        }
+      });
+    };
+    
+    $scope.addCalendarEvent = function(){
+      $scope.eventObj.day = $scope.dayClicked;
+      console.log('inside addcalendarevent func, event obj is ', $scope.eventObj);
+      //save event to database
+      DataService.addCalendarEvent($scope.eventObj).then(function(data){
+        console.log('data returned from func is ', data);
+        $('#calendarModal').modal('hide');
+        $scope.serverMessage = "Your event has been succesfully added."
+      })
+    };
     
     
 }]);
@@ -1491,6 +1512,13 @@ myApp.service('DataService', function($http){
       return data;
     })
   };
+  this.addCalendarEvent = function(newEvent){
+    console.log('event is ', newEvent);
+    return $http.post('/addCalendarEvent', {newEvent: newEvent}).then(function(data){
+      console.log('data returned is ', data);
+      return data;
+    })
+  }
 });
 
 
