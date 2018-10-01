@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination']);
+var myApp = angular.module('myApp', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'ui.calendar']);
 
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     console.log('inside of config block');
@@ -404,6 +404,22 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.selected = {};
     $scope.showCommentInput = false;
     $scope.affiliateOfComment = null;
+    $scope.eventSources = [];
+    /* config object */
+    $scope.uiConfig = {
+      calendar:{
+        height: 450,
+        editable: true,
+        header:{
+          left: 'month basicWeek basicDay agendaWeek agendaDay',
+          center: 'title',
+          right: 'today prev,next'
+        },
+        eventClick: $scope.alertEventOnClick,
+        eventDrop: $scope.alertOnDrop,
+        eventResize: $scope.alertOnResize
+      }
+    };
 
     // alternative to ng-init, functions that trigger on state/page changes.
     $transitions.onSuccess({}, function(transition) {

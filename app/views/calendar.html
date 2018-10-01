@@ -1,1 +1,16 @@
-calendar page (kendo)
+<div class="portal calendar">
+  <div class="container">
+    <h2>Calendar</h2>
+    <div ui-calendar ng-model="eventSources"></div>
+  </div>
+</div>
+
+
+<div class="back-btn-wrap">
+  <a ui-sref="itn-services" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ui-sref="portal" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
