@@ -1331,7 +1331,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.addCalendarEvent = function(){
-      $scope.eventObj.day = $scope.dayClicked + 1;
+      // $scope.eventObj.day = $scope.dayClicked;
+      //selects previous day by default, so need to adjust
+      var followingDay = new Date($scope.dayClicked.getTime() + 86400000);
+      $scope.eventObj.day = followingDay;
       console.log('inside addcalendarevent func, event obj is ', $scope.eventObj);
       //save event to database
       DataService.addCalendarEvent($scope.eventObj).then(function(data){
