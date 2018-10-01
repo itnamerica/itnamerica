@@ -1,8 +1,8 @@
 <div class="portal calendar">
   <div class="container">
     <h2>Calendar</h2>
-    <!-- <div ui-calendar ng-model="eventSources" calendar-watch-event="extraEventSignature(event)"></div> -->
-    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div> 
+    <!-- <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>  -->
+    <div id='calendar'></div>
     
   </div>
 </div>
@@ -25,46 +25,14 @@
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-
+    
     $('#calendar').fullCalendar({
-        eventClick: function(calEvent, jsEvent) {
-            var title = prompt('Event Title:', calEvent.title, {
-                buttons: {
-                    Ok: true,
-                    Cancel: false
-                }
-            });
-
-            if (title) {
-                calEvent.title = title;
-                $('#calendar').fullCalendar('updateEvent', calEvent);
-            }
-        },
-      defaultView: 'agendaDay',
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        editable: true,
-        events: [
-        {
-            id: 999,
-            title: 'Some Title',
-            start: '2016-03-29T09:00:00',
-            end: '2016-03-29T10:00:00',
-            allDay: false,
-            status: 'checked in'
-        }
-        ]
+      dayClick: function() {
+        alert('a day has been clicked!');
+      }
+      // weekends: false // will hide Saturdays and Sundays
     });
 
-    $('button.tt').click(function() {
-      var item = $("#calendar").fullCalendar( 'clientEvents', 999 );
-      console.log(item[0].title);
-      item.status = 'checked out';
-      $('#calendar').fullCalendar('updateEvent',item);
-    });
     
   })
   

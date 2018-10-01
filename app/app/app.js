@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination', 'ui.calendar']);
+var myApp = angular.module('myApp', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination']);
 
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     console.log('inside of config block');
@@ -149,7 +149,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('calendar', {
             url: '/calendar',
-            controller: 'CalendarCtrl',
+            controller: 'MainController',
             templateUrl: viewsPath + 'calendar.html'
         })
 
@@ -429,47 +429,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.selected = {};
     $scope.showCommentInput = false;
     $scope.affiliateOfComment = null;
-    $scope.eventSources = [];
 
-    
-    $scope.alertEventOnClick = function(event){
-      console.log('inside alert event on click func');
-    };
-    
-    $scope.alertOnDrop = function(event){
-      console.log('inside alert on drop func');
-    };
-    
-    $scope.alertOnResize = function(event){
-      console.log('inside alert on resize func');
-    };
-    
-    $scope.extraEventSignature = function(event) {
-       // returns "" + event.price;
-       console.log('event is ', event);
-    };
-    
-    
-    /* config object */
-    $scope.uiConfig = {
-      calendar:{
-        height: 450,
-        editable: true,
-        header:{
-          left: 'month basicWeek basicDay agendaWeek agendaDay',
-          center: 'title',
-          right: 'today prev,next'
-        },
-        eventClick: $scope.alertEventOnClick,
-        eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize
-      }
-    };
-    
-    
-    
-    
-    
 
     // alternative to ng-init, functions that trigger on state/page changes.
     $transitions.onSuccess({}, function(transition) {
