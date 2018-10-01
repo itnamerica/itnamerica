@@ -1,7 +1,7 @@
 <div class="portal calendar">
   <div class="container">
     <h2>Calendar</h2>
-    <div ui-calendar ng-model="eventSources"></div>
+    <div ui-calendar ng-model="eventSources" calendar-watch-event="extraEventSignature(event)"></div>
   </div>
 </div>
 
@@ -14,3 +14,21 @@
     <h3>Back to Portal</h3>
   </a>
 </div>
+
+<script>
+  $(document).ready(function(){
+    console.log("inside jquery");
+    
+    $('.fc-day').on('click', function(event){
+      console.log('clicked on calendar day tab', event);
+    });
+    
+    $('.fc-day').click(function(event){
+      console.log('clicked on calendar day tab2', event);
+    });
+    $('.fc-day').hover(function(event){
+      console.log('hover on calendar day tab2', event);
+    });
+  })
+  
+</script>

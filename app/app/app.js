@@ -405,6 +405,26 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.showCommentInput = false;
     $scope.affiliateOfComment = null;
     $scope.eventSources = [];
+
+    
+    $scope.alertEventOnClick = function(event){
+      console.log('inside alert event on click func');
+    };
+    
+    $scope.alertOnDrop = function(event){
+      console.log('inside alert on drop func');
+    };
+    
+    $scope.alertOnResize = function(event){
+      console.log('inside alert on resize func');
+    };
+    
+    $scope.extraEventSignature = function(event) {
+       // returns "" + event.price;
+       console.log('event is ', event);
+    };
+    
+    
     /* config object */
     $scope.uiConfig = {
       calendar:{
@@ -420,6 +440,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         eventResize: $scope.alertOnResize
       }
     };
+    
+    
+    
+    
+    
 
     // alternative to ng-init, functions that trigger on state/page changes.
     $transitions.onSuccess({}, function(transition) {
