@@ -1383,11 +1383,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         var tabDate = $(this).context.dataset.date;
         console.log('each tab date is ', tabDate);
         for (event in $scope.calendarEvents){
-          var eventDate = $scope.calendarEvents[event].day;
-          var eventDateShort = eventDate.slice(0,10);
+          var event = $scope.calendarEvents[event];
+          var eventDateShort = event.day.slice(0,10);
           console.log('event date short is ', eventDateShort);
           if (eventDateShort === tabDate){
-            console.log('a match!', eventDate, tabDate);
+            console.log('a match!', eventDateShort, tabDate);
+            //draw event on relevant tab
+            console.log('context of matching tab is ', $(this));
+            $(this).context.innerHTML = '<a href="">' + event.title + '</a>';
           }
         }
       })
