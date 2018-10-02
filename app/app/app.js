@@ -1358,20 +1358,20 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     //place events on their respective day tabs
     $scope.drawEventsOnCalendar = function(){
       for (event in $scope.calendarEvents){
-        // console.log('each event is ', $scope.calendarEvents[event])
+        console.log('each event is ', $scope.calendarEvents[event]);
         var eventDate = $scope.calendarEvents[event].day;
-        // console.log('the event date is ', eventDate);
+        // console.log('each event is ', eventDate);
+        var eventDateShort = eventDate.slice(0,9)
+        // console.log("event date is ", eventDate, 'shorterned is ', eventDateShort);
+        // eventDate = eventDate.toISOString().split('T')[0];
         //grab event-date attrib on each tab in calendar DOM
         $('.fc-day').each(function(){
           // console.log('this is ', $(this));
           var tabDate = $(this).context.dataset.date;
-          // console.log('tabdate is ', tabDate);
-          // console.log('dataset ', $(this).context.dataset, 'attribs ', $(this).context.attributes);
-          tabDate = tabDate.toISOString().split('T')[0]
-          console.log('tabdate in date format is ', tabDate, 'event date is ', eventDate);
+          // console.log('tabdate is ', tabDate, typeof(tabDate), 'event date is ', eventDate, typeof(eventDate));
           //   //match tab event-tab with date from each event in arr);
-            if (eventDate === tabDate){
-              console.log('a match!');
+            if (eventDateShort === tabDate){
+              console.log('a match!', eventDate, tabDate);
             }
         })
       }
