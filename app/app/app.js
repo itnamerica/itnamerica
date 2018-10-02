@@ -1356,40 +1356,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     //place events on their respective day tabs
-    // $scope.drawEventsOnCalendar = function(){
-    //   for (event in $scope.calendarEvents){
-    //     console.log('each event is ', $scope.calendarEvents[event]);
-    //     var eventDate = $scope.calendarEvents[event].day;
-    //     // console.log('each event is ', eventDate);
-    //     var eventDateShort = eventDate.slice(0,9)
-    //     // console.log("event date is ", eventDate, 'shorterned is ', eventDateShort);
-    //     // eventDate = eventDate.toISOString().split('T')[0];
-    //     //grab event-date attrib on each tab in calendar DOM
-    //     $('.fc-day').each(function(){
-    //       // console.log('this is ', $(this));
-    //       var tabDate = $(this).context.dataset.date;
-    //       // console.log('tabdate is ', tabDate, typeof(tabDate), 'event date is ', eventDate, typeof(eventDate));
-    //       //   //match tab event-tab with date from each event in arr);
-    //         if (eventDateShort === tabDate){
-    //           console.log('a match!', eventDate, tabDate);
-    //         }
-    //     })
-    //   }
-    // };
-    
-    //place events on their respective day tabs
     $scope.drawEventsOnCalendar = function(){
       $('.fc-day').each(function(){
         var tabDate = $(this).context.dataset.date;
-        console.log('each tab date is ', tabDate);
         for (event in $scope.calendarEvents){
           var event = $scope.calendarEvents[event];
           var eventDateShort = event.day.slice(0,10);
-          console.log('event date short is ', eventDateShort);
           if (eventDateShort === tabDate){
             console.log('a match!', eventDateShort, tabDate);
             //draw event on relevant tab
-            console.log('context of matching tab is ', $(this));
             $(this).context.innerHTML = '<a href="">' + event.title + '</a>';
           }
         }
