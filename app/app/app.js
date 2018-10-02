@@ -1384,7 +1384,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         console.log('each tab date is ', tabDate);
         for (event in $scope.calendarEvents){
           var eventDate = $scope.calendarEvents[event].day;
-          var eventDateShort = eventDate.slice(0,9);
+          var eventDateShort = eventDate.slice(0,10);
+          console.log('event date short is ', eventDateShort);
           if (eventDateShort === tabDate){
             console.log('a match!', eventDate, tabDate);
           }
