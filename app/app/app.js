@@ -1351,12 +1351,30 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       DataService.viewCalendarEvents().then(function(data){
         console.log('data returned from db is ', data);
         $scope.calendarEvents = data.data;
-        //place events on their respective day tabs
-        for (event in $scope.calendarEvents){
-          console.log('each event is ', $scope.calendarEvents[event])
-        }
+        $scope.drawEventsOnCalendar();
       })
-    }
+    };
+    
+    //place events on their respective day tabs
+    $scope.drawEventsOnCalendar = function(){
+      for (event in $scope.calendarEvents){
+        console.log('each event is ', $scope.calendarEvents[event])
+        var eventDate = $scope.calendarEvents[event].day;
+        console.log('the event date is ', eventDate);
+        //grab event-date attrib on each tab in calendar DOM
+        $('.fc-day').each(function(){
+          console.log('this is ', $(this));
+          var tabDate = $(this).context;
+          console.log('dataset ', $(this).context.dataset, 'attribs ', $(this).context.attributes);
+          
+          // var tabDateConverted = new Date(tabDate);
+          //   //match tab event-tab with date from each event in arr);
+          //   if (eventDate === tabDate){
+          //     console.log('a match!');
+          //   }
+        })
+      }
+    };
     
     
 }]);
