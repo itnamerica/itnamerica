@@ -82,6 +82,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   }); // end of /getRidesData get request
   
+  app.get('/viewCalendarEvents', function (req,res) {
+    db.collection('calendar').find().toArray(function (err, result) {
+      console.log('result is ', result);
+      res.send(result);
+    })
+  }); // end of /viewCalendarEvents get request
+  
   app.post('/addCalendarEvent', function (req,res) {
     db.collection('calendar').save(req.body.newEvent, function(err, result){
       if (err) { return console.log('connecting to db, but not saving obj', err);}

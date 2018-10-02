@@ -1345,6 +1345,19 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       })
     };
     
+    $scope.viewCalendarEvents = function(){
+      console.log('inside view calendar events function');
+      //call to database
+      DataService.viewCalendarEvents().then(function(data){
+        console.log('data returned from db is ', data);
+        $scope.calendarEvents = data.data;
+        //place events on their respective day tabs
+        for (event in $scope.calendarEvents){
+          console.log('each event is ', $scope.calendarEvents[event])
+        }
+      })
+    }
+    
     
 }]);
 
@@ -1523,7 +1536,13 @@ myApp.service('DataService', function($http){
       console.log('data returned is ', data);
       return data;
     })
-  }
+  };
+  this.viewCalendarEvents = function(){
+    return $http.get('/viewCalendarEvents').then(function(data){
+      console.log('data returned is ', data);
+      return data;
+    })
+  };
 });
 
 
