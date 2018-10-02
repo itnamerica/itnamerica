@@ -1,8 +1,11 @@
-<div class="portal calendar" ng-init="initCalendar('month');viewCalendarEvents()">
+<div class="portal agenda" ng-init="initCalendar('day');retrieveFromSelectedEvent()">
   <div class="container">
     <h2>Calendar</h2>
     {{serverMessage}}
     <div id='calendar'></div>
+    
+    {{selectedEventDate}}
+    
   </div>
 </div>
 
@@ -100,3 +103,17 @@
     });    
   });
 </script>
+
+
+
+<!-- <script>
+  $(document).ready(function(){
+    console.log("inside jquery");
+    
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+  })
+  
+</script> -->

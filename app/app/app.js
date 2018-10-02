@@ -152,6 +152,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'MainController',
             templateUrl: viewsPath + 'calendar.html'
         })
+        .state('agenda', {
+            url: '/agenda',
+            controller: 'MainController',
+            templateUrl: viewsPath + 'agenda.html',
+            params: {
+              selectedEventDate: null
+            }
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');
@@ -952,7 +960,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
 
 
-
     //for membership, volunteer and non-rider forms
     $scope.submitFormWithPDF = function(formType) {
         console.log('submitForm PDF, formData is ', $scope.formData);
@@ -1028,7 +1035,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                     $scope.serverMessage = 'There was an error submitting your form. Please contact us, or consider submitting your form by paper instead.';
                 });
             });
-    }
+    };
 
     $scope.generateMultiPagePDF = function() {
         console.log('inside multipage');
@@ -1097,50 +1104,40 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
 
     
-    
     $scope.fetchRecentBlogURLs = function(){
       $http.get('/getBlogContent', { 
           params: { 
             blogURL: 'http://blog.itnamerica.org/'
           }
         }).then(function(response) {
-        console.log('response is ', response);
-        
-        $scope.homepageBlogContent = response.data;
-        $scope.blogURLs = [];
-        var blogNumber = 3;
-        var idx;
-        
-        if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
-          
-          for (var num=0; num<blogNumber; num++){
-            idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
-            var storeBlogURL = [];
-            for (var i=33; i<$scope.homepageBlogContent.length; i++){
-              if ($scope.homepageBlogContent[idx+i] === ' ' && $scope.homepageBlogContent[idx+i+1] === 'r' && $scope.homepageBlogContent[idx+i+2] === 'e' && $scope.homepageBlogContent[idx+i+3] === 'l' && $scope.homepageBlogContent[idx+i+4] === '='){
-                break;
+            $scope.homepageBlogContent = response.data;
+            $scope.blogURLs = [];
+            var blogNumber = 3;
+            var idx;
+            if ($scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="') !== -1){
+              for (var num=0; num<blogNumber; num++){
+                idx = $scope.homepageBlogContent.indexOf('<h1 class="entry-title"><a href="');
+                var storeBlogURL = [];
+                for (var i=33; i<$scope.homepageBlogContent.length; i++){
+                  if ($scope.homepageBlogContent[idx+i] === ' ' && $scope.homepageBlogContent[idx+i+1] === 'r' && $scope.homepageBlogContent[idx+i+2] === 'e' && $scope.homepageBlogContent[idx+i+3] === 'l' && $scope.homepageBlogContent[idx+i+4] === '='){
+                    break;
+                  }
+                  storeBlogURL.push($scope.homepageBlogContent[idx+i]);
+                }
+                storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
+                $scope.blogURLs.push(storeBlogURL);
+                $scope.homepageBlogContent =  $scope.homepageBlogContent.slice(idx+33);
               }
-              storeBlogURL.push($scope.homepageBlogContent[idx+i]);
             }
-            storeBlogURL = storeBlogURL.slice(0, -1).join('').toString();
-            $scope.blogURLs.push(storeBlogURL);
-            
-            $scope.homepageBlogContent =  $scope.homepageBlogContent.slice(idx+33);
-            
-          }
-        }
-        $scope.getContentForEachBlogURL();
-        
+            $scope.getContentForEachBlogURL();
       })
     };
     
     $scope.getContentForEachBlogURL = function(){
-      // console.log('blogurls are ', $scope.blogURLs);
       for (var x = 0; x < $scope.blogURLs.length; x++) {
         $scope.getBlogContent($scope.blogURLs[x]);
       }
-    }
-    
+    };
     
     $scope.getBlogContent = function(url){
       $http.get('/getBlogContent', { 
@@ -1149,8 +1146,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           }
         }).then(function(response) {
           $scope.blogContent = response.data;
-          // console.log('blog content is ', $scope.blogContent);
-          //get title of post for thumnail
+          //get title of post for thumbnail
           if ($scope.blogContent.indexOf('<h1 class="entry-title"') !== -1){
             var idx = $scope.blogContent.indexOf('<h1 class="entry-title"');
             var store = [];
@@ -1246,7 +1242,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       } else {
         return 'display'
       }
-    }
+    };
 
     $scope.editRidesData = function (affiliateName) {
       $scope.selected = angular.copy(affiliateName);
@@ -1285,8 +1281,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     
     $scope.deleteComment = function() {
-      console.log('affiliate to delete is ', $scope.affiliateToDelete);
-      
       DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
         //async delete for immediate update in page
         var commentToDelete = {message: $scope.commentToDelete.message, author: $scope.commentToDelete.author};
@@ -1307,10 +1301,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.addCommentFromAllComments = function(affiliateOfComment) {
-      console.log("inside add from all comments func, affiliate to comment is ",affiliateOfComment);
       $scope.showCommentInput = true;
       $scope.affiliateOfComment = affiliateOfComment;
-    }
+    };
     
     $scope.hideModal = function(modalId) {
       $('.modal').hide();
@@ -1318,36 +1311,59 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $('.modal-backdrop').css('display','none');
     };
     
-    $scope.initCalendar = function() {
+    $scope.initCalendar = function(calendarType) {
       $('#calendarModal').css('display','none');
-      $('#calendar').fullCalendar({
-        dayClick: function(event) {
-          $scope.eventInBrowser = event;
-          $scope.dayClicked = event._d;
-          console.log('a day has been clicked! event is ', $scope.dayClicked);
-          $('#calendarModal').modal('show');
-        }
-      });
+      if (calendarType === 'day') {
+        $('#calendar').fullCalendar({
+          // header: {
+          //     left: 'prev,next today',
+          //     center: 'title',
+          //     right: 'month,basicWeek,basicDay'
+          // },
+          defaultView: 'basicDay',
+          dayClick: function(event) {
+            $scope.dayClicked = event._d;
+            console.log('a day has been clicked! event is ', $scope.dayClicked);
+            $('#calendarModal').modal('show');
+          }
+        })
+      }
+      else if (calendarType === 'month') {
+        $('#calendar').fullCalendar({
+          dayClick: function(event) {
+            $scope.dayClicked = event._d;
+            console.log('a day has been clicked! event is ', $scope.dayClicked);
+            $('#calendarModal').modal('show');
+          }
+        });
+      }
     };
     
     $scope.addCalendarEvent = function(){
-      // $scope.eventObj.day = $scope.dayClicked;
       //selects previous day by default, so need to adjust
-      var followingDay = new Date($scope.dayClicked.getTime() + 86400000);
-      $scope.eventObj.day = followingDay;
-      console.log('inside addcalendarevent func, event obj is ', $scope.eventObj);
+      $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
       //save event to database
       DataService.addCalendarEvent($scope.eventObj).then(function(data){
-        console.log('data returned from func is ', data.config.data);
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully added.";
-        console.log('event in browser is again ', $scope.eventInBrowser);
+        //updates events on DOM
+        $scope.viewCalendarEvents();
+      })
+    };
+    
+    $scope.deleteCalendarEvent = function(){
+      //calendar library selects previous day by default, so we need to adjust
+      $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
+      //delent event from database
+      DataService.deleteCalendarEvent($scope.eventObj).then(function(data){
+        $('#calendarModal').modal('hide');
+        $scope.serverMessage = "Your event has been succesfully deleted.";
+        $scope.viewCalendarEvents();
       })
     };
     
     $scope.viewCalendarEvents = function(){
-      console.log('inside view calendar events function');
-      //call to database
+      //get events from database
       DataService.viewCalendarEvents().then(function(data){
         console.log('data returned from db is ', data);
         $scope.calendarEvents = data.data;
@@ -1363,13 +1379,16 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var event = $scope.calendarEvents[event];
           var eventDateShort = event.day.slice(0,10);
           if (eventDateShort === tabDate){
-            console.log('a match!', eventDateShort, tabDate);
-            //draw event on relevant tab
-            $(this).context.innerHTML = '<a href="">' + event.title + '</a>';
+            // console.log('a match!', eventDateShort, tabDate);
+            $(this).context.innerHTML = '<a ui-sref="agenda({selectedEventDate: event.day})" style="font-size:14px">' + event.title + '</a>';
           }
         }
       })
     };
+    
+    $scope.retrieveFromSelectedEvent = function(){
+      $scope.selectedEventDate = $stateParams.selectedEventDate;
+    }
     
     
 }]);
@@ -1552,6 +1571,14 @@ myApp.service('DataService', function($http){
   };
   this.viewCalendarEvents = function(){
     return $http.get('/viewCalendarEvents').then(function(data){
+      console.log('data returned is ', data);
+      return data;
+    })
+  };
+  this.deleteCalendarEvent = function(calendarEvent){
+    //get calendarEvent param from jquery (this)? or ng?
+    console.log('event is ', calendarEvent);
+    return $http.delete('/deleteCalendarEvent', {calendarEvent: calendarEvent}).then(function(data){
       console.log('data returned is ', data);
       return data;
     })
