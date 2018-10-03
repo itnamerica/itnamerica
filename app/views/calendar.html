@@ -34,7 +34,7 @@
         <form name="itnForm" novalidate ng-submit="addCalendarEvent()" role="comment form" ng-model="eventObj" style="padding:2%;margin:0 5%">
 
           <div class="form-group" ng-class="{ 'has-error' : itnForm.time.$invalid && !itnForm.time.$pristine }">
-            <input type="text" class="form-control" id="time" time="time" placeholder="Event time. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.time" required>
+            <input type="text" class="form-control" id="time" autofocus="autofocus" name="time" placeholder="Event time. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.time" required>
             <span ng-if="itnForm.time.$error.required && !itnForm.time.$pristine" class="help-block">{{errorMessages.required}}</span>
             <span ng-if="itnForm.time.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
             <span ng-if="itnForm.time.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
@@ -97,6 +97,13 @@
             $('#submit').removeClass('disabled');
             $('#characterLeft').removeClass('red');            
         }
-    });    
+    });
+    
+    $('.agenda-link').click(function(event){
+      console.log('inside agenda click event');
+      event.stopPropagation()
+      alert('You just clicked an event! Redirecting to its relevant day agenda');
+    })
+        
   });
 </script>

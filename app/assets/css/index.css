@@ -1779,6 +1779,14 @@ form textarea.form-control {font-size:25px}
 .editableColumnsStyle {
   color:red;
 }
+.agenda-link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.agenda-link:first-of-type {
+  margin-top:30px;
+}
 
 .nda p {
   margin-top:20px;

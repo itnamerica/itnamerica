@@ -37,14 +37,14 @@
         <form name="itnForm" novalidate ng-submit="addCalendarEvent()" role="comment form" ng-model="eventObj" style="padding:2%;margin:0 5%">
 
           <div class="form-group" ng-class="{ 'has-error' : itnForm.time.$invalid && !itnForm.time.$pristine }">
-            <input type="text" class="form-control" id="time" time="time" placeholder="Event time. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.time" required>
+            <input type="text" class="form-control" id="time" name="time" autofocus="autofocus" placeholder="Event time. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.time" required>
             <span ng-if="itnForm.time.$error.required && !itnForm.time.$pristine" class="help-block">{{errorMessages.required}}</span>
             <span ng-if="itnForm.time.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
             <span ng-if="itnForm.time.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
           </div>
                   
           <div class="form-group" ng-class="{ 'has-error' : itnForm.title.$invalid && !itnForm.title.$pristine }">
-            <input type="text" class="form-control" id="title" title="title" placeholder="Event title" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.title" required>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Event title" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.title" required>
             <span ng-if="itnForm.title.$error.required && !itnForm.title.$pristine" class="help-block">{{errorMessages.required}}</span>
             <span ng-if="itnForm.title.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
             <span ng-if="itnForm.title.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
