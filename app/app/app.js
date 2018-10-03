@@ -1311,15 +1311,20 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $('.modal-backdrop').css('display','none');
     };
     
+    $scope.toggleModal = function(modalIdToOpen, modalIdToClose) {
+      if (modalIdToClose) {
+        $('#'+modalIdToClose).modal('hide');
+      }
+      $('#'+modalIdToOpen).modal('show');
+    };
+    
     $scope.initCalendar = function(calendarType) {
-      $('#calendarModal').css('display','none');
+      // $('#calendarModal').css('display','none');
+      // $('#addOrShowModal').modal('hide');
+      $scope.hideModal('calendarModal');
+      $scope.hideModal('addOrShowModal');
       if (calendarType === 'day') {
         $('#calendar').fullCalendar({
-          // header: {
-          //     left: 'prev,next today',
-          //     center: 'title',
-          //     right: 'month,basicWeek,basicDay'
-          // },
           defaultView: 'basicDay',
           dayClick: function(event) {
             $scope.dayClicked = event._d;
@@ -1333,7 +1338,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           dayClick: function(event) {
             $scope.dayClicked = event._d;
             console.log('a day has been clicked! event is ', $scope.dayClicked);
-            $('#calendarModal').modal('show');
+            $('#addOrShowModal').modal('show');
+            // $('#calendarModal').modal('show');
           }
         });
       }

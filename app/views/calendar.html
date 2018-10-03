@@ -67,12 +67,43 @@
             
           <div class="modal-footer">  
             <input type="submit" id="submit" class="btn btn-lg pull-right itn-green-bg pull-right" value="Add event" style="margin-left:2%;background:red">
-            <input type="button" ng-click="formData = {}" value="Reset Form" class="btn btn-lg pull-left itn-green-bg " style="margin-left:2%">
+            <input type="button" ng-click="eventObj = {}" value="Reset Form" class="btn btn-lg pull-left itn-green-bg " style="margin-left:2%">
             <button type="button" class="btn btn-lg btn-secondary pull-left" data-dismiss="modal" aria-label="Cancel">Cancel</button>
           </div>
         
         </form>
       </div> <!-- form-area-->
+      
+    </div>
+  </div>
+</div>
+</div><!--end modal-->
+
+
+<!-- Add or view Modal -->
+<div class="modal fade" id="addOrShowModal" tabindex="-1" role="dialog" aria-labelledby="addShowModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content" style="font-size:25px">
+    <div class="modal-header" style="background:#529ba8;color:white">
+      <h3 class="modal-title" id="addShowModalLabel">Add or View Events?</h3>
+      <button type="button" style="margin-top: -30px" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body mb-25">
+      
+      <h3 class="ta-center mb-50">Would you like to <strong>add an event</strong>, or <strong>view events</strong> for this day?</h3>
+      
+      <div class="row ta-center">
+        <div class="col-md-6">
+          <a ui-sref="agenda({selectedEventDate: dayClicked})"><button class="btn btn-lg">View Events</button></a>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-lg" ng-click="toggleModal('calendarModal','addOrShowModal')">Add Event</button>
+        </div>
+      </div>
+      
+    </div>
       
     </div>
   </div>
