@@ -1321,16 +1321,28 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.initCalendar = function(calendarType) {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
+      console.log('calendar events are ', $scope.calendarEvents);
       
       if (calendarType === 'day') {
         $('#calendar').fullCalendar({
           defaultView: 'basicDay',
+          height: 650,
+          editable: true,
+          selectable: true,
+          eventRender: function(event, element){
+              console.log("rendering " +event.title);
+          },
           dayClick: function(event) {
-            $scope.dayClicked = event._d;
+            $scope.$apply(function() {
+                $scope.dayClicked = event._d;
+            });
             console.log('a day has been clicked! event is ', $scope.dayClicked);
             $('#calendarModal').modal('show');
           }
         })
+        
+        $("#calendar").fullCalendar("renderEvent", {title: "event 1", start: new Date()});
+        
       }
       else if (calendarType === 'month') {
         $('#calendar').fullCalendar({
@@ -1400,11 +1412,13 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $('.fc-day').each(function(){
         $(this).context.innerHTML = ""
       })
-    }
+    };
     
     $scope.retrieveFromSelectedEvent = function(){
       $scope.selectedEventDate = $stateParams.selectedEventDate;
-    }
+      $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
+      console.log('selected event date formatted is ', $scope.selectedEventDateFormatted);
+    };
     
     
 }]);

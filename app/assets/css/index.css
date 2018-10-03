@@ -1787,6 +1787,9 @@ form textarea.form-control {font-size:25px}
 .agenda-link:first-of-type {
   margin-top:30px;
 }
+.agenda .fc-toolbar .fc-left {
+  display:none;
+}
 
 .nda p {
   margin-top:20px;
