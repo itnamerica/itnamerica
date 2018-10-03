@@ -1325,58 +1325,83 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       var promise = $scope.viewCalendarEvents();
       promise.then(function(data){
         console.log('calendar events 1 are ', $scope.calendarEvents);
+        
+        if (calendarType === 'day') {
+          $('#calendar').fullCalendar({
+            defaultView: 'basicDay',
+            height: 650,
+            editable: true,
+            selectable: true,
+            eventRender: function(event, element){
+                console.log("rendering " +event.title);
+            },
+            dayClick: function(event) {
+              $scope.$apply(function() {
+                  $scope.dayClicked = event._d;
+              });
+              console.log('a day has been clicked! event is ', $scope.dayClicked);
+              $('#calendarModal').modal('show');
+            }
+          })
+          
+          $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: new Date()});
+          // $("#calendar").fullCalendar("renderEvent", {title: "event 1", start: new Date()});
+          // $('#calendar').fullCalendar({
+          //   events: [
+          //     {
+          //       title  : 'event1',
+          //       start  : '2010-01-01'
+          //     },
+          //     {
+          //       title  : 'event2',
+          //       start  : '2010-01-05',
+          //       end    : '2010-01-07'
+          //     },
+          //     {
+          //       title  : 'event3',
+          //       start  : '2010-01-09T12:30:00',
+          //       allDay : false // will make the time show
+          //     }
+          //   ]
+          // });
+          
+        }
+        else if (calendarType === 'month') {
+          $('#calendar').fullCalendar({
+            dayClick: function(event) {
+              $scope.$apply(function() {
+                  $scope.dayClicked = event._d;
+              });
+              console.log('a day has been clicked! event is ', $scope.dayClicked);
+              $('#addOrShowModal').modal('show');            
+            }
+          });
+        }
       });
       
-      if (calendarType === 'day') {
-        $('#calendar').fullCalendar({
-          defaultView: 'basicDay',
-          height: 650,
-          editable: true,
-          selectable: true,
-          eventRender: function(event, element){
-              console.log("rendering " +event.title);
-          },
-          dayClick: function(event) {
-            $scope.$apply(function() {
-                $scope.dayClicked = event._d;
-            });
-            console.log('a day has been clicked! event is ', $scope.dayClicked);
-            $('#calendarModal').modal('show');
-          }
-        })
-        
-        // $("#calendar").fullCalendar("renderEvent", {title: "event 1", start: new Date()});
-        $('#calendar').fullCalendar({
-          events: [
-            {
-              title  : 'event1',
-              start  : '2010-01-01'
-            },
-            {
-              title  : 'event2',
-              start  : '2010-01-05',
-              end    : '2010-01-07'
-            },
-            {
-              title  : 'event3',
-              start  : '2010-01-09T12:30:00',
-              allDay : false // will make the time show
-            }
-          ]
-        });
-        
-      }
-      else if (calendarType === 'month') {
-        $('#calendar').fullCalendar({
-          dayClick: function(event) {
-            $scope.$apply(function() {
-                $scope.dayClicked = event._d;
-            });
-            console.log('a day has been clicked! event is ', $scope.dayClicked);
-            $('#addOrShowModal').modal('show');            
-          }
-        });
-      }
+    };
+    
+    $scope.initCalendar2 = function(calendarType){
+      $('#calendar').fullCalendar({
+        dayClick: function(event) {
+          $scope.$apply(function() {
+              $scope.dayClicked = event._d;
+          });
+          console.log('a day has been clicked! event is ', $scope.dayClicked);
+          $('#addOrShowModal').modal('show');            
+        }
+      });
+    };
+    
+    
+    $scope.viewCalendarEvents2 = function(){
+      //get events from database
+      DataService.viewCalendarEvents()
+      .then(function(data){
+        console.log('data returned from db is ', data);
+        $scope.calendarEvents = data.data;
+        $scope.drawEventsOnCalendar();
+      })
     };
     
     $scope.addCalendarEvent = function(){
@@ -1428,7 +1453,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var event = $scope.calendarEvents[event];
           var eventDateShort = event.day.slice(0,10);
           if (eventDateShort === tabDate){
-            console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
+            // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
             $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.title + '</span></h6>';
             
           }
