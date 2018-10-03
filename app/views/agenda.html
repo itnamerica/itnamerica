@@ -1,13 +1,14 @@
 <div class="portal agenda" ng-init="initCalendar('day');retrieveFromSelectedEvent()">
   <div class="container">
     <h2>Calendar</h2>
-    {{serverMessage}}
+    
+    selected event date: {{selectedEventDate}}
+    dayclicked: {{dayClicked}}
+    
     <div id='calendar'></div>
-    
-    {{selectedEventDate}}
-    
-  </div>
-</div>
+
+  </div><!--container-->
+</div><!--agenda-->
 
 
 <div class="back-btn-wrap">

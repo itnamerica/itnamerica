@@ -1304,7 +1304,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $scope.showCommentInput = true;
       $scope.affiliateOfComment = affiliateOfComment;
     };
-    
+  
     $scope.hideModal = function(modalId) {
       $('.modal').hide();
       $('#'+modalId).hide();
@@ -1319,8 +1319,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.initCalendar = function(calendarType) {
-      // $('#calendarModal').css('display','none');
-      // $('#addOrShowModal').modal('hide');
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
       if (calendarType === 'day') {
@@ -1339,7 +1337,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $scope.dayClicked = event._d;
             console.log('a day has been clicked! event is ', $scope.dayClicked);
             $('#addOrShowModal').modal('show');
-            // $('#calendarModal').modal('show');
           }
         });
       }
@@ -1387,7 +1384,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           if (eventDateShort === tabDate){
             // console.log('a match!', eventDateShort, tabDate);
             // $(this).context.innerHTML = '<a ui-sref="agenda({selectedEventDate: event.day})" style="font-size:14px" class="agenda-link">' + event.title + '</a>';
-            $(this).context.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.title + '</span></h6>';
+            $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.title + '</span></h6>';
             
           }
         }
