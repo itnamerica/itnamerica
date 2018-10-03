@@ -1321,6 +1321,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.initCalendar = function(calendarType) {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
+      
       if (calendarType === 'day') {
         $('#calendar').fullCalendar({
           defaultView: 'basicDay',
@@ -1334,9 +1335,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       else if (calendarType === 'month') {
         $('#calendar').fullCalendar({
           dayClick: function(event) {
-            $scope.dayClicked = event._d;
+            $scope.$apply(function() {
+                $scope.dayClicked = event._d;
+            });
             console.log('a day has been clicked! event is ', $scope.dayClicked);
-            $('#addOrShowModal').modal('show');
+            $('#addOrShowModal').modal('show');            
           }
         });
       }
