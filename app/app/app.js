@@ -183,7 +183,7 @@ myApp.run(['$rootScope', '$location', '$window', '$state', '$stateParams',
     }
 ]);
 
-myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService) {
+myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q',  function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q) {
     console.log('inside main controller');
 
     $scope.assetsPath = "assets";
@@ -1321,7 +1321,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.initCalendar = function(calendarType) {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
-      console.log('calendar events are ', $scope.calendarEvents);
+      
+      var promise = $scope.viewCalendarEvents();
+      promise.then(function(data){
+        console.log('calendar events 1 are ', $scope.calendarEvents);
+      });
       
       if (calendarType === 'day') {
         $('#calendar').fullCalendar({
@@ -1341,7 +1345,25 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           }
         })
         
-        $("#calendar").fullCalendar("renderEvent", {title: "event 1", start: new Date()});
+        // $("#calendar").fullCalendar("renderEvent", {title: "event 1", start: new Date()});
+        $('#calendar').fullCalendar({
+          events: [
+            {
+              title  : 'event1',
+              start  : '2010-01-01'
+            },
+            {
+              title  : 'event2',
+              start  : '2010-01-05',
+              end    : '2010-01-07'
+            },
+            {
+              title  : 'event3',
+              start  : '2010-01-09T12:30:00',
+              allDay : false // will make the time show
+            }
+          ]
+        });
         
       }
       else if (calendarType === 'month') {
@@ -1384,12 +1406,18 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.viewCalendarEvents = function(){
+      var deferred = $q.defer();
       //get events from database
-      DataService.viewCalendarEvents().then(function(data){
+      DataService.viewCalendarEvents()
+      .then(function(data){
         console.log('data returned from db is ', data);
         $scope.calendarEvents = data.data;
         $scope.drawEventsOnCalendar();
+        deferred.resolve('Resolved: ', data.data);
+      }).catch(function(err){
+        deferred.resolve('Error: ', err);
       })
+      return deferred.promise;
     };
     
     //place events on their respective day tabs
