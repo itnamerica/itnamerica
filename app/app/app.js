@@ -1344,7 +1344,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.addCalendarEvent = function(){
       //selects previous day by default, so need to adjust
-      $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
+      // $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
+      $scope.eventObj.day = new Date($scope.dayClicked.getTime());
       //save event to database
       DataService.addCalendarEvent($scope.eventObj).then(function(data){
         $('#calendarModal').modal('hide');
@@ -1383,7 +1384,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var eventDateShort = event.day.slice(0,10);
           if (eventDateShort === tabDate){
             // console.log('a match!', eventDateShort, tabDate);
-            // $(this).context.innerHTML = '<a ui-sref="agenda({selectedEventDate: event.day})" style="font-size:14px" class="agenda-link">' + event.title + '</a>';
             $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.title + '</span></h6>';
             
           }
