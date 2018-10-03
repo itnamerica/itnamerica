@@ -1351,6 +1351,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully added.";
         //updates events on DOM
+        $scope.emptyCalendar();
         $scope.viewCalendarEvents();
       })
     };
@@ -1362,6 +1363,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       DataService.deleteCalendarEvent($scope.eventObj).then(function(data){
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully deleted.";
+        $scope.emptyCalendar();
         $scope.viewCalendarEvents();
       })
     };
@@ -1383,13 +1385,19 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var event = $scope.calendarEvents[event];
           var eventDateShort = event.day.slice(0,10);
           if (eventDateShort === tabDate){
-            // console.log('a match!', eventDateShort, tabDate);
+            console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
             $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.title + '</span></h6>';
             
           }
         }
       })
     };
+    
+    $scope.emptyCalendar = function(){
+      $('.fc-day').each(function(){
+        $(this).context.innerHTML = ""
+      })
+    }
     
     $scope.retrieveFromSelectedEvent = function(){
       $scope.selectedEventDate = $stateParams.selectedEventDate;
