@@ -1336,15 +1336,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             slotEventOverlap: true,
             minTime: "08:00:00",
             eventClick: function(calEvent, jsEvent, view) {
-              // console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-              // console.log('View: ' + view.name);
-              console.log(calEvent);
-              // console.log('full event is ', $scope.fullEvent);
-              console.log('description is ', $scope.fullEvent.description);
-              var descr = $scope.fullEvent.description;
-              alert('Title: ' + calEvent.title + ' Description: ', descr);
-              
               $(this).css('border-color', 'red');
+              swal($scope.fullEvent.title, $scope.fullEvent.description);
             },
             eventRender: function(event, element){
                 console.log("rendering " +event.title);
@@ -1377,11 +1370,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
                 startTime: $scope.calendarEvents[calendarEvent].startTime,
                 endTime: $scope.calendarEvents[calendarEvent].endTime,
                 description: $scope.calendarEvents[calendarEvent].description,
-                author: $scope.calendarEvents[calendarEvent].author,
+                author: $scope.calendarEvents[calendarEvent].author
               };
-              // $scope.$apply(function() {
-              //     $scope.dayClicked = event._d;
-              // });
+              
               var st = $scope.calendarEvents[calendarEvent].startTime;
               var adjustedSt = $scope.adjustTimeForCalendar(st);
               var et = $scope.calendarEvents[calendarEvent].endTime;
@@ -1406,9 +1397,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             }
           });
         }//end of else if
-        
       });//end of promise
-      
     };
     
     $scope.adjustTimeForCalendar = function(time) {
