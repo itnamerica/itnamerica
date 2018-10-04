@@ -1327,6 +1327,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         console.log('calendar events 1 are ', $scope.calendarEvents);
         
         if (calendarType === 'day') {
+          
           $('#calendar').fullCalendar({
             defaultView: 'basicDay',
             height: 650,
@@ -1342,49 +1343,26 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               console.log('a day has been clicked! event is ', $scope.dayClicked);
               $('#calendarModal').modal('show');
             }
-          })
+          })//end of calendar config
           
+          //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
           var date = new Date();
           var d = date.getDate();
           var m = date.getMonth();
           var y = date.getFullYear();
-          var st = $scope.calendarEvents[0].startTime;
-          var adjustedSt = $scope.adjustTimeForCalendar(st);
-          var et = $scope.calendarEvents[0].endTime;
-          var adjustedEt = $scope.adjustTimeForCalendar(et);
         
-          var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
-          var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
-          
-          var endTime2 = new Date(y, m, d, 22, 50 );
-          
-          console.log('test is ', startTime);
-          
-          
-          $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: startTime, end: endTime});
-          
-          // $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: new Date()});
-          
-          // $('#calendar').fullCalendar({
-          //   events: [
-          //     {
-          //       title  : 'event1',
-          //       start  : '2010-01-01'
-          //     },
-          //     {
-          //       title  : 'event2',
-          //       start  : '2010-01-05',
-          //       end    : '2010-01-07'
-          //     },
-          //     {
-          //       title  : 'event3',
-          //       start  : '2010-01-09T12:30:00',
-          //       allDay : false // will make the time show
-          //     }
-          //   ]
-          // });
-          
-        }
+          //placing events in day agenda according to start and end times.
+          for (calendarEvent in $scope.calendarEvents) {
+            var st = $scope.calendarEvents[calendarEvent].startTime;
+            var adjustedSt = $scope.adjustTimeForCalendar(st);
+            var et = $scope.calendarEvents[calendarEvent].endTime;
+            var adjustedEt = $scope.adjustTimeForCalendar(et);
+            var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+            var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+            
+            $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime});
+          }
+        }//end of if
         
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
@@ -1396,8 +1374,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               $('#addOrShowModal').modal('show');            
             }
           });
-        }
-      });
+        }//end of else if
+        
+      });//end of promise
       
     };
     
@@ -1427,7 +1406,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       }
       console.log('time adjusted as ', adjustedTime);
       return adjustedTime;
-    }
+    };
+    
     
     $scope.initCalendar2 = function(calendarType){
       $('#calendar').fullCalendar({
