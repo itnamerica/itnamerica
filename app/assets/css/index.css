@@ -1779,6 +1779,10 @@ form textarea.form-control {font-size:25px}
 .editableColumnsStyle {
   color:red;
 }
+.agenda {
+  overflow:auto;
+  height:100vh;
+}
 .agenda-link {
   white-space: nowrap;
   overflow: hidden;
@@ -1788,6 +1792,9 @@ form textarea.form-control {font-size:25px}
   margin-top:30px;
 }
 .agenda .fc-toolbar .fc-left {
+  display:none;
+}
+.agenda table thead tr th {
   display:none;
 }
 

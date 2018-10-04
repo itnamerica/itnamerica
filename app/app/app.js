@@ -1329,11 +1329,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         if (calendarType === 'day') {
           
           $('#calendar').fullCalendar({
-            defaultView: 'basicDay',
+            defaultView: 'agendaDay',
             height: 650,
             editable: true,
             selectable: true,
-            overlap: true,
+            slotEventOverlap: true,
+            minTime: "08:00:00",
             eventRender: function(event, element){
                 console.log("rendering " +event.title);
             },
@@ -1374,6 +1375,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
+            overlap: true,
             dayClick: function(event) {
               $scope.$apply(function() {
                   $scope.dayClicked = event._d;
