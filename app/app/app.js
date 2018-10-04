@@ -1343,9 +1343,23 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               $('#calendarModal').modal('show');
             }
           })
+          // 
+          // var d = $scope.calendarEvents[0].day;
+          // var dd = new Date($scope.calendarEvents[0].day);
           
-          $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: new Date()});
-          // $("#calendar").fullCalendar("renderEvent", {title: "event 1", start: new Date()});
+          var date = new Date();
+          // var date = new Date('2018-10-06');
+          var d = date.getDate();
+          var m = date.getMonth();
+          var y = date.getFullYear();
+          var test = new Date(y, m, d, 12, 5);
+          console.log('test is ', test);
+          
+          
+          $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: test});
+          
+          // $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: new Date()});
+          
           // $('#calendar').fullCalendar({
           //   events: [
           //     {
@@ -1366,6 +1380,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           // });
           
         }
+        
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
             dayClick: function(event) {
@@ -1470,6 +1485,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.retrieveFromSelectedEvent = function(){
       $scope.selectedEventDate = $stateParams.selectedEventDate;
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
+      // $scope.selectedEventDateFormatted2 = new Date($scope.selectedEventDate).toDateString();
+      // $scope.eventObj.day = new Date(scope.selectedEventDate.getTime() + 86400000);
+      
       console.log('selected event date formatted is ', $scope.selectedEventDateFormatted);
     };
     
@@ -1654,7 +1672,6 @@ myApp.service('DataService', function($http){
   };
   this.viewCalendarEvents = function(){
     return $http.get('/viewCalendarEvents').then(function(data){
-      console.log('data returned is ', data);
       return data;
     })
   };
