@@ -1350,15 +1350,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var d = date.getDate();
           var m = date.getMonth();
           var y = date.getFullYear();
-        
-          
+
           for (calendarEvent in $scope.calendarEvents) {
             //only parse events for that day
-            var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).toDateString();
             var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
             calendarEventDay = calendarEventDay.toDateString();
-            console.log("each event date formatted ", calendarEventDay, typeof(calendarEventDay));
-            console.log("selected event date formatted ", $scope.selectedEventDateFormatted);
             
             if (calendarEventDay === $scope.selectedEventDateFormatted) {
               console.log("a match! the match is ", calendarEventDay);
@@ -1374,7 +1370,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             }
           }
         }//end of if
-        
         
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
