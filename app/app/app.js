@@ -1335,6 +1335,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             selectable: true,
             slotEventOverlap: true,
             minTime: "08:00:00",
+            eventClick: function(calEvent, jsEvent, view) {
+              // console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+              // console.log('View: ' + view.name);
+              console.log(calEvent);
+              // console.log('full event is ', $scope.fullEvent);
+              console.log('description is ', $scope.fullEvent.description);
+              var descr = $scope.fullEvent.description;
+              alert('Title: ' + calEvent.title + ' Description: ', descr);
+              
+              $(this).css('border-color', 'red');
+            },
             eventRender: function(event, element){
                 console.log("rendering " +event.title);
             },
@@ -1361,6 +1372,16 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             if (calendarEventDay === $scope.selectedEventDateFormatted) {
               console.log("a match! the match is ", calendarEventDay);
               //placing events in day agenda according to start and end times.
+              $scope.fullEvent = {
+                title: $scope.calendarEvents[calendarEvent].title,
+                startTime: $scope.calendarEvents[calendarEvent].startTime,
+                endTime: $scope.calendarEvents[calendarEvent].endTime,
+                description: $scope.calendarEvents[calendarEvent].description,
+                author: $scope.calendarEvents[calendarEvent].author,
+              };
+              // $scope.$apply(function() {
+              //     $scope.dayClicked = event._d;
+              // });
               var st = $scope.calendarEvents[calendarEvent].startTime;
               var adjustedSt = $scope.adjustTimeForCalendar(st);
               var et = $scope.calendarEvents[calendarEvent].endTime;
@@ -1391,30 +1412,33 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.adjustTimeForCalendar = function(time) {
-      console.log('inside adjust time ', time);
       var time = time.replace(" ", "");
       var adjustedTime = {
         hour: 0,
         min: 0
       };
-      if (time.includes("AM") && time.includes(":")){
-        adjustedTime.hour = time.substr(0,time.indexOf(':'));
-        adjustedTime.min = time.substr(time.indexOf(':'),time.indexOf('AM'));
-        adjustedTime.min = parseInt(adjustedTime.min);
+       if (time.includes("AM") && time.includes(":")){
+          adjustedTime.hour = time.substr(0,time.indexOf(':'));
+          adjustedTime.min = time.substr(time.indexOf(':'),time.indexOf('AM'));
       } else if (time.includes("AM")){
-        adjustedTime.hour = time.substr(0,time.indexOf('AM'));
-        adjustedTime.min = 0;
+          adjustedTime.hour = time.substr(0,time.indexOf('AM'));
+          adjustedTime.min = 0;
       } else if (time.includes("PM") && time.includes(":")){
-        adjustedTime.hour = time.substr(0,time.indexOf(':'));
-        adjustedTime.hour = parseInt(adjustedTime.hour) + 12;
-        adjustedTime.min = time.substr(time.indexOf(':'),time.indexOf('PM'));
-        adjustedTime.min = parseInt(adjustedTime.min);
+          adjustedTime.hour = parseInt(time.substr(0,time.indexOf(':')));
+          if (adjustedTime.hour < 12){
+            adjustedTime.hour = adjustedTime.hour + 12;
+          }
+          adjustedTime.min = time.substr(time.indexOf(':'),time.indexOf('PM'));
       } else if (time.includes("PM")){
-        adjustedTime.hour = time.substr(0,time.indexOf('PM'));
-        adjustedTime.hour = parseInt(adjustedTime.hour) + 12;
-        adjustedTime.min = 0;
+          adjustedTime.hour = parseInt(time.substr(0,time.indexOf('PM')));
+          if (adjustedTime.hour < 12){
+            adjustedTime.hour = adjustedTime.hour + 12;
+          }
+          adjustedTime.min = 0;
       }
-      console.log('time adjusted as ', adjustedTime);
+      adjustedTime.hour = parseInt(adjustedTime.hour);
+      adjustedTime.min = parseInt(adjustedTime.min);
+      // console.log('time adjusted as ', adjustedTime);
       return adjustedTime;
     };
     
