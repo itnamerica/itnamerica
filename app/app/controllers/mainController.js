@@ -2,6 +2,7 @@ var myApp = angular.module('myApp');
 
 myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', '$compile', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, $compile) {
 
+  console.log('inside proto calendar ctrl');
   /* config object */
   var uiCalendarConfig = {}
   uiCalendarConfig.calendars = {

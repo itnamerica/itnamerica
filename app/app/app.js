@@ -1343,25 +1343,25 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               $('#calendarModal').modal('show');
             }
           })
-          // 
-          // var d = $scope.calendarEvents[0].day;
-          // var dd = new Date($scope.calendarEvents[0].day);
           
           var date = new Date();
-          // var date = new Date('2018-10-06');
           var d = date.getDate();
           var m = date.getMonth();
           var y = date.getFullYear();
           var st = $scope.calendarEvents[0].startTime;
-          var st2 = st.replace("AM","");
+          var adjustedSt = $scope.adjustTimeForCalendar(st);
           var et = $scope.calendarEvents[0].endTime;
-          // var test = new Date(y, m, d, 12, 5);
-          var startTime = new Date(y, m, d, st2, 0 );
-          // var endTime = new Date(y, m, d, et2, 0 );
+          var adjustedEt = $scope.adjustTimeForCalendar(et);
+        
+          var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+          var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+          
+          var endTime2 = new Date(y, m, d, 22, 50 );
+          
           console.log('test is ', startTime);
           
           
-          $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: startTime});
+          $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: startTime, end: endTime});
           
           // $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: new Date()});
           
@@ -1400,6 +1400,34 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       });
       
     };
+    
+    $scope.adjustTimeForCalendar = function(time) {
+      console.log('inside adjust time ', time);
+      var time = time.replace(" ", "");
+      var adjustedTime = {
+        hour: 0,
+        min: 0
+      };
+      if (time.includes("AM") && time.includes(":")){
+        adjustedTime.hour = time.substr(0,time.indexOf(':'));
+        adjustedTime.min = time.substr(time.indexOf(':'),time.indexOf('AM'));
+        adjustedTime.min = parseInt(adjustedTime.min);
+      } else if (time.includes("AM")){
+        adjustedTime.hour = time.substr(0,time.indexOf('AM'));
+        adjustedTime.min = 0;
+      } else if (time.includes("PM") && time.includes(":")){
+        adjustedTime.hour = time.substr(0,time.indexOf(':'));
+        adjustedTime.hour = parseInt(adjustedTime.hour) + 12;
+        adjustedTime.min = time.substr(time.indexOf(':'),time.indexOf('PM'));
+        adjustedTime.min = parseInt(adjustedTime.min);
+      } else if (time.includes("PM")){
+        adjustedTime.hour = time.substr(0,time.indexOf('PM'));
+        adjustedTime.hour = parseInt(adjustedTime.hour) + 12;
+        adjustedTime.min = 0;
+      }
+      console.log('time adjusted as ', adjustedTime);
+      return adjustedTime;
+    }
     
     $scope.initCalendar2 = function(calendarType){
       $('#calendar').fullCalendar({

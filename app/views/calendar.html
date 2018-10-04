@@ -35,14 +35,14 @@
 
           <div class="row">
             <div class="form-group" ng-class="{ 'has-error' : itnForm.startTime.$invalid && !itnForm.startTime.$pristine }">
-              <input type="text" class="form-control" id="startTime" autofocus="autofocus" name="startTime" placeholder="Event startTime. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.startTime" required>
+              <input type="text" class="form-control" id="startTime" autofocus="autofocus" name="startTime" placeholder="Start time. Example: 10:00AM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.startTime" required>
               <span ng-if="itnForm.startTime.$error.required && !itnForm.startTime.$pristine" class="help-block">{{errorMessages.required}}</span>
               <span ng-if="itnForm.startTime.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
               <span ng-if="itnForm.startTime.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
             </div>
             
             <div class="form-group" ng-class="{ 'has-error' : itnForm.endTime.$invalid && !itnForm.endTime.$pristine }">
-              <input type="text" class="form-control" id="endTime" autofocus="autofocus" name="endTime" placeholder="Event endTime. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.endTime" required>
+              <input type="text" class="form-control" id="endTime" autofocus="autofocus" name="endTime" placeholder="End time. Example: 2:15PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.endTime" required>
               <span ng-if="itnForm.endTime.$error.required && !itnForm.endTime.$pristine" class="help-block">{{errorMessages.required}}</span>
               <span ng-if="itnForm.endTime.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
               <span ng-if="itnForm.endTime.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
@@ -50,7 +50,7 @@
           </div>
                   
           <div class="form-group" ng-class="{ 'has-error' : itnForm.title.$invalid && !itnForm.title.$pristine }">
-            <input type="text" class="form-control" id="title" title="title" placeholder="Event title" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.title" required>
+            <input type="text" class="form-control" id="title" title="title" placeholder="Event title (keep it short)" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.title" required>
             <span ng-if="itnForm.title.$error.required && !itnForm.title.$pristine" class="help-block">{{errorMessages.required}}</span>
             <span ng-if="itnForm.title.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
             <span ng-if="itnForm.title.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
