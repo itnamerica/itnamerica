@@ -1333,6 +1333,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             height: 650,
             editable: true,
             selectable: true,
+            overlap: true,
             eventRender: function(event, element){
                 console.log("rendering " +event.title);
             },
