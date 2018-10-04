@@ -1351,18 +1351,30 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var m = date.getMonth();
           var y = date.getFullYear();
         
-          //placing events in day agenda according to start and end times.
+          
           for (calendarEvent in $scope.calendarEvents) {
-            var st = $scope.calendarEvents[calendarEvent].startTime;
-            var adjustedSt = $scope.adjustTimeForCalendar(st);
-            var et = $scope.calendarEvents[calendarEvent].endTime;
-            var adjustedEt = $scope.adjustTimeForCalendar(et);
-            var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
-            var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+            //only parse events for that day
+            var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).toDateString();
+            var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
+            calendarEventDay = calendarEventDay.toDateString();
+            console.log("each event date formatted ", calendarEventDay, typeof(calendarEventDay));
+            console.log("selected event date formatted ", $scope.selectedEventDateFormatted);
             
-            $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime});
+            if (calendarEventDay === $scope.selectedEventDateFormatted) {
+              console.log("a match! the match is ", calendarEventDay);
+              //placing events in day agenda according to start and end times.
+              var st = $scope.calendarEvents[calendarEvent].startTime;
+              var adjustedSt = $scope.adjustTimeForCalendar(st);
+              var et = $scope.calendarEvents[calendarEvent].endTime;
+              var adjustedEt = $scope.adjustTimeForCalendar(et);
+              var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+              var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+              //draw on DOM
+              $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime});
+            }
           }
         }//end of if
+        
         
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
@@ -1434,7 +1446,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.addCalendarEvent = function(){
       //selects previous day by default, so need to adjust
-      // $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
       $scope.eventObj.day = new Date($scope.dayClicked.getTime());
       //save event to database
       DataService.addCalendarEvent($scope.eventObj).then(function(data){
@@ -1448,7 +1459,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.deleteCalendarEvent = function(){
       //calendar library selects previous day by default, so we need to adjust
-      $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
+      // $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
+      $scope.eventObj.day = new Date($scope.dayClicked.getTime());
       //delent event from database
       DataService.deleteCalendarEvent($scope.eventObj).then(function(data){
         $('#calendarModal').modal('hide');
@@ -1497,13 +1509,18 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.retrieveFromSelectedEvent = function(){
       $scope.selectedEventDate = $stateParams.selectedEventDate;
+      $scope.selectedEventDate = $scope.selectedEventDate.addDays(1);
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
-      // $scope.selectedEventDateFormatted2 = new Date($scope.selectedEventDate).toDateString();
-      // $scope.eventObj.day = new Date(scope.selectedEventDate.getTime() + 86400000);
-      
       console.log('selected event date formatted is ', $scope.selectedEventDateFormatted);
     };
     
+    
+    
+    Date.prototype.addDays = function(days) {
+      var date = new Date(this.valueOf());
+      date.setDate(date.getDate() + days);
+      return date;
+    };    
     
 }]);
 
