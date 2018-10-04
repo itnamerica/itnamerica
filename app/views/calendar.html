@@ -33,11 +33,20 @@
       <div class="form-area" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
         <form name="itnForm" novalidate ng-submit="addCalendarEvent()" role="comment form" ng-model="eventObj" style="padding:2%;margin:0 5%">
 
-          <div class="form-group" ng-class="{ 'has-error' : itnForm.time.$invalid && !itnForm.time.$pristine }">
-            <input type="text" class="form-control" id="time" autofocus="autofocus" name="time" placeholder="Event time. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.time" required>
-            <span ng-if="itnForm.time.$error.required && !itnForm.time.$pristine" class="help-block">{{errorMessages.required}}</span>
-            <span ng-if="itnForm.time.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
-            <span ng-if="itnForm.time.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+          <div class="row">
+            <div class="form-group" ng-class="{ 'has-error' : itnForm.startTime.$invalid && !itnForm.startTime.$pristine }">
+              <input type="text" class="form-control" id="startTime" autofocus="autofocus" name="startTime" placeholder="Event startTime. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.startTime" required>
+              <span ng-if="itnForm.startTime.$error.required && !itnForm.startTime.$pristine" class="help-block">{{errorMessages.required}}</span>
+              <span ng-if="itnForm.startTime.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
+              <span ng-if="itnForm.startTime.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-error' : itnForm.endTime.$invalid && !itnForm.endTime.$pristine }">
+              <input type="text" class="form-control" id="endTime" autofocus="autofocus" name="endTime" placeholder="Event endTime. Example: 10AM to 12PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.endTime" required>
+              <span ng-if="itnForm.endTime.$error.required && !itnForm.endTime.$pristine" class="help-block">{{errorMessages.required}}</span>
+              <span ng-if="itnForm.endTime.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
+              <span ng-if="itnForm.endTime.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+            </div>
           </div>
                   
           <div class="form-group" ng-class="{ 'has-error' : itnForm.title.$invalid && !itnForm.title.$pristine }">

@@ -1352,11 +1352,16 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var d = date.getDate();
           var m = date.getMonth();
           var y = date.getFullYear();
-          var test = new Date(y, m, d, 12, 5);
-          console.log('test is ', test);
+          var st = $scope.calendarEvents[0].startTime;
+          var st2 = st.replace("AM","");
+          var et = $scope.calendarEvents[0].endTime;
+          // var test = new Date(y, m, d, 12, 5);
+          var startTime = new Date(y, m, d, st2, 0 );
+          // var endTime = new Date(y, m, d, et2, 0 );
+          console.log('test is ', startTime);
           
           
-          $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: test});
+          $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: startTime});
           
           // $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[0].title, start: new Date()});
           
@@ -1676,7 +1681,6 @@ myApp.service('DataService', function($http){
     })
   };
   this.deleteCalendarEvent = function(calendarEvent){
-    //get calendarEvent param from jquery (this)? or ng?
     console.log('event is ', calendarEvent);
     return $http.delete('/deleteCalendarEvent', {calendarEvent: calendarEvent}).then(function(data){
       console.log('data returned is ', data);
