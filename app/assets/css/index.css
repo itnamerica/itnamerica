@@ -1629,6 +1629,7 @@ form textarea.form-control {font-size:25px}
   font-size:25px;
   color:white;
   font-weight:bold;
+  line-height: 1.5;
 }
 .portal .container {
   padding:5% 7%;
@@ -1689,9 +1690,6 @@ form textarea.form-control {font-size:25px}
   max-width:300px;
   margin-top: 75px;
 }
-
-
-
 
 .portal .fb {
   border: 2px solid #3a5795;
