@@ -1397,7 +1397,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime});
             }
           }
-        }//end of if
+        }
         
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
@@ -1541,26 +1541,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             count = ctx.childElementCount;
             if (count > 3) {
               console.log("count is 3");
-              // $(this).children().css( "background-color", "red" );
-              $(this).children().css("display","none");
-              $(this).children().eq(1).css( "background-color", "green" );
-              $(this).children().eq(2).css( "background-color", "red" );
+              $(this).children().eq(1).nextAll().css("display","none");
               
               console.log('inner html ', $(this).context.innerHTML);
               console.log('inner txt ', $(this).context.innerText);
               // console.log('outer txt ', $(this).context.outerText);
             }
-            // $(this).context.outerText;
-            // $(this).context.innerText;
-            // $(this).context.textContent;  
           }
         }
-        
         // if (count > 3) {
-        //   console.log("too many events in one tab")
-        //   console.log('ctx', ctx);
-        //   console.log('this', $(this));
-        //   $(this).removeClass('agenda-link');
         // }
         
       })
