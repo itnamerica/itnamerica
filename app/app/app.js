@@ -160,6 +160,16 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
               selectedEventDate: null
             }
         })
+        .state('ttp', {
+            url: '/ttp',
+            controller: 'MainController',
+            templateUrl: viewsPath + 'ttp.html'
+        })
+        .state('research', {
+            url: '/research',
+            controller: 'MainController',
+            templateUrl: viewsPath + 'research.html'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');
