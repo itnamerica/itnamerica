@@ -1537,7 +1537,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             
             ctx = $(this).context;
             // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
-            $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.title + '</span></h6>';
+            $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>';
             count = ctx.childElementCount;
             if (count > 3) {
               console.log("count is 3");
