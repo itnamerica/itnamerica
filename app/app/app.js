@@ -1542,16 +1542,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             if (count > 3) {
               console.log("count is 3");
               $(this).children().eq(1).nextAll().css("display","none");
-              
-              console.log('inner html ', $(this).context.innerHTML);
-              console.log('inner txt ', $(this).context.innerText);
-              // console.log('outer txt ', $(this).context.outerText);
+              var moreBtn = '<button class="btn btn-sm" style="height:20px;width:70%;margin-top:-230px;font-size:14px;color: black">Show more</button>';
+              $(this).context.innerHTML = $(this).context.innerHTML + moreBtn;
             }
           }
         }
-        // if (count > 3) {
-        // }
-        
       })
     };
     
