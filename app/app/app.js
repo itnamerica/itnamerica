@@ -1339,6 +1339,10 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               $(this).css('border-color', 'red');
               swal($scope.fullEvent.title, $scope.fullEvent.description);
             },
+            eventMouseover: function(calEvent, jsEvent, view) {
+              $(this).css('border-color', 'red');
+              swal($scope.fullEvent.title, $scope.fullEvent.description);
+            },
             eventRender: function(event, element){
                 console.log("rendering " +event.title);
             },
@@ -1388,6 +1392,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
             overlap: true,
+            eventClick: function(calEvent, jsEvent, view) {
+              swal(calEvent.title, calEvent.description);
+              $(this).css('border-color', 'red');
+            },
+            eventMouseover: function(calEvent, jsEvent, view) {
+              $(this).css('border-color', 'red');
+              swal($scope.fullEvent.title, $scope.fullEvent.description);
+            },
             dayClick: function(event) {
               $scope.$apply(function() {
                   $scope.dayClicked = event._d;
