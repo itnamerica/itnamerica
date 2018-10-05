@@ -1392,14 +1392,13 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
             overlap: true,
-            eventClick: function(calEvent, jsEvent, view) {
-              swal(calEvent.title, calEvent.description);
-              $(this).css('border-color', 'red');
+            eventLimit: true, // for all non-agenda views
+            views: {
+              agenda: {
+                eventLimit: 3 // adjust to 6 only for agendaWeek/agendaDay
+              }
             },
-            eventMouseover: function(calEvent, jsEvent, view) {
-              $(this).css('border-color', 'red');
-              swal($scope.fullEvent.title, $scope.fullEvent.description);
-            },
+            eventLimitClick: "popover",
             dayClick: function(event) {
               $scope.$apply(function() {
                   $scope.dayClicked = event._d;
@@ -1467,6 +1466,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       })
     };
     
+    $scope.resetEventObj = function(){
+      $scope.eventObj = {};
+      $scope.serverMessage = "";
+      $scope.fullEvent = {};
+    };
+    
     $scope.addCalendarEvent = function(){
       //selects previous day by default, so need to adjust
       $scope.eventObj.day = new Date($scope.dayClicked.getTime());
@@ -1477,6 +1482,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         //updates events on DOM
         $scope.emptyCalendar();
         $scope.viewCalendarEvents();
+        $scope.resetEventObj();
       })
     };
     
@@ -1512,15 +1518,41 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.drawEventsOnCalendar = function(){
       $('.fc-day').each(function(){
         var tabDate = $(this).context.dataset.date;
+        var count = 0;
+        var ctx;
         for (event in $scope.calendarEvents){
           var event = $scope.calendarEvents[event];
           var eventDateShort = event.day.slice(0,10);
           if (eventDateShort === tabDate){
+            
+            ctx = $(this).context;
             // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
             $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.title + '</span></h6>';
-            
+            count = ctx.childElementCount;
+            if (count > 3) {
+              console.log("count is 3");
+              // $(this).children().css( "background-color", "red" );
+              $(this).children().css("display","none");
+              $(this).children().eq(1).css( "background-color", "green" );
+              $(this).children().eq(2).css( "background-color", "red" );
+              
+              console.log('inner html ', $(this).context.innerHTML);
+              console.log('inner txt ', $(this).context.innerText);
+              // console.log('outer txt ', $(this).context.outerText);
+            }
+            // $(this).context.outerText;
+            // $(this).context.innerText;
+            // $(this).context.textContent;  
           }
         }
+        
+        // if (count > 3) {
+        //   console.log("too many events in one tab")
+        //   console.log('ctx', ctx);
+        //   console.log('this', $(this));
+        //   $(this).removeClass('agenda-link');
+        // }
+        
       })
     };
     

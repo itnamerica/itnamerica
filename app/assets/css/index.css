@@ -1689,6 +1689,42 @@ form textarea.form-control {font-size:25px}
   max-width:300px;
   margin-top: 75px;
 }
+
+
+
+
+.portal .fb {
+  border: 2px solid #3a5795;
+  background: #3a5795;
+}
+.portal .fb .fa {
+  color:white;
+}
+.portal .tw {
+  border: 2px solid #cf3427;
+  background: #cf3427;
+}
+.portal .tw .fa {
+  color:white;
+  margin-left: 8% !important;
+}
+.portal .yt {
+  border: 2px solid #0177b4;
+  background:#0177b4;
+}
+.portal .yt .fa {
+  color:white;
+  margin-left: 8% !important;
+}
+.portal .in {
+  border: 2px solid #78bdf1;
+  background:#78bdf1;
+}
+.portal .in .fa {
+    color:white;
+    margin-left: 8% !important;
+}
+
 .itnamerica ul {
   font-weight: bold;
 }
