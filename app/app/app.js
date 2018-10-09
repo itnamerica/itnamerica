@@ -1513,12 +1513,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             ctx = $(this).context;
             // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
             
-            $scope.isLaterTime(event, $(this).context);
+            var later = $scope.isLaterTime(event, $(this).context);
+            console.log('later time is ', later);
             
-            $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>';
-            
-            
-            
+            if (later){
+              $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>';
+            } else {
+              $(this).context.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>' + $(this).context.innerHTML;
+            }
+
             count = ctx.childElementCount;
             if (count > 3) {
               $(this).children().eq(1).nextAll().css("display","none");
@@ -1534,13 +1537,29 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.isLaterTime = function(theEvent, theContext){
       var numEventsInCell = theContext.children.length;
       console.log('start time ', theEvent.startTime);
-      console.log('children ', theContext.children);
-      console.log('children2 ', theContext.children[theContext.children.length -1]);
+      // console.log('children ', theContext.children);
       
-      if (theEvent.startTime > theContext.children[numEventsInCell]){
-        console.log('bigger');
+      var lastChild = theContext.children[theContext.children.length -1];
+      
+      if (lastChild){
+        // console.log('inner txt', lastChild.innerText);
+        // console.log('testub', lastChild.innerText.slice(0, lastChild.innerText.indexOf('-')));
+        var slicedTime = lastChild.innerText.slice(0, lastChild.innerText.indexOf('-'));
+        
+        var eventAdjustedTime = $scope.adjustTimeForCalendar(theEvent.startTime);
+        var adjustedTime = $scope.adjustTimeForCalendar(slicedTime);
+        
+        console.log('adjusted time ', adjustedTime, 'event adjusted time ', eventAdjustedTime);
+        if (eventAdjustedTime.hour >= adjustedTime.hour){
+          console.log('bigger ', theEvent);
+          // $scope.eventsInFC.push(theEvent);
+          return true
+        } else {
+          return false;
+        }
       }
-    }
+      
+    };
     
     
     function compareNumbers(a, b) {
