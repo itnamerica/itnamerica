@@ -411,7 +411,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.formObj = {};
     $scope.formObjType = {};
     $scope.session = null;
-    console.log('session is ', $scope.session);
+    // console.log('session is ', $scope.session);
     $scope.formCount = {
         member: 0,
         volunteer: 0,
@@ -1345,16 +1345,13 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             selectable: true,
             slotEventOverlap: true,
             minTime: "08:00:00",
+            eventRender: function(event, element){
+                console.log("rendering " +event.title);
+                console.log('elem is ', element);
+            },
             eventClick: function(calEvent, jsEvent, view) {
               $(this).css('border-color', 'red');
               swal($scope.fullEvent.title, $scope.fullEvent.description);
-            },
-            eventMouseover: function(calEvent, jsEvent, view) {
-              $(this).css('border-color', 'red');
-              swal($scope.fullEvent.title, $scope.fullEvent.description);
-            },
-            eventRender: function(event, element){
-                console.log("rendering " +event.title);
             },
             dayClick: function(event) {
               $scope.$apply(function() {
@@ -1377,7 +1374,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             calendarEventDay = calendarEventDay.toDateString();
             
             if (calendarEventDay === $scope.selectedEventDateFormatted) {
-              console.log("a match! the match is ", calendarEventDay);
+              console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
               //placing events in day agenda according to start and end times.
               $scope.fullEvent = {
                 title: $scope.calendarEvents[calendarEvent].title,
@@ -1394,21 +1391,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
               var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
               //draw on DOM
-              $("#calendar").fullCalendar("renderEvent", {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime});
+              var theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime};
+              console.log('the event is ', theEvent);
+              $("#calendar").fullCalendar("renderEvent", theEvent);
             }
           }
         }
         
         else if (calendarType === 'month') {
           $('#calendar').fullCalendar({
-            overlap: true,
-            eventLimit: true, // for all non-agenda views
-            views: {
-              agenda: {
-                eventLimit: 3 // adjust to 6 only for agendaWeek/agendaDay
-              }
-            },
-            eventLimitClick: "popover",
             dayClick: function(event) {
               $scope.$apply(function() {
                   $scope.dayClicked = event._d;
@@ -1423,6 +1414,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     $scope.adjustTimeForCalendar = function(time) {
       var time = time.replace(" ", "");
+      time = time.toUpperCase();
       var adjustedTime = {
         hour: 0,
         min: 0
@@ -1540,7 +1532,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>';
             count = ctx.childElementCount;
             if (count > 3) {
-              console.log("count is 3");
               $(this).children().eq(1).nextAll().css("display","none");
               var moreBtn = '<button class="btn btn-sm" style="height:20px;width:70%;margin-top:-230px;font-size:14px;color: black">Show more</button>';
               $(this).context.innerHTML = $(this).context.innerHTML + moreBtn;
@@ -1560,7 +1551,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $scope.selectedEventDate = $stateParams.selectedEventDate;
       $scope.selectedEventDate = $scope.selectedEventDate.addDays(1);
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
-      console.log('selected event date formatted is ', $scope.selectedEventDateFormatted);
     };
     
     
