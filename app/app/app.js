@@ -1497,19 +1497,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       })
       return deferred.promise;
     };
-    
-    // $scope.viewCalendarEvents2 = function(){
-    //   //get events from database
-    //   DataService.viewCalendarEvents()
-    //   .then(function(data){
-    //     console.log('data returned from db is ', data);
-    //     $scope.calendarEvents = data.data;
-    //     $scope.drawEventsOnCalendar();
-    //   })
-    // };
-    
+
+
     //place events on their respective day tabs
     $scope.drawEventsOnCalendar = function(){
+      $scope.eventsinFC = [];
       $('.fc-day').each(function(){
         var tabDate = $(this).context.dataset.date;
         var count = 0;
@@ -1518,10 +1510,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var event = $scope.calendarEvents[event];
           var eventDateShort = event.day.slice(0,10);
           if (eventDateShort === tabDate){
-            
             ctx = $(this).context;
             // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
+            
+            $scope.isLaterTime(event, $(this).context);
+            
             $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>';
+            
+            
+            
             count = ctx.childElementCount;
             if (count > 3) {
               $(this).children().eq(1).nextAll().css("display","none");
@@ -1530,14 +1527,50 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             }
           }
         }
+        // $scope.sortEventsByTime($(this).context.children);
       })
     };
+    
+    $scope.isLaterTime = function(theEvent, theContext){
+      var numEventsInCell = theContext.children.length;
+      console.log('start time ', theEvent.startTime);
+      console.log('children ', theContext.children);
+      console.log('children2 ', theContext.children[theContext.children.length -1]);
+      
+      if (theEvent.startTime > theContext.children[numEventsInCell]){
+        console.log('bigger');
+      }
+    }
+    
+    
+    function compareNumbers(a, b) {
+      return a - b;
+    } //numArray.sort(compareNumbers)
+    
+    
+    $scope.sortEventsByTime = function(self) {
+      var children = self;
+      for (var i=0; i < children.length;i++){
+        console.log('i is ', children[i].innerText );
+        
+        var startTimeForSort = children[i].innerText.slice(0, children[i].innerText.indexOf('-'));
+        console.log('innetxt is ', startTimeForSort );
+        var adjustedTime = $scope.adjustTimeForCalendar(startTimeForSort);
+        console.log('adjusted time ', adjustedTime);
+        
+        if (adjustedTime.hour > $scope.eventsInFC[$scope.eventsInFC.length-1]){
+          $scope.eventsInFC.push(adjustedTime.hour)
+        }
+      }
+    };
+    
     
     $scope.emptyCalendar = function(){
       $('.fc-day').each(function(){
         $(this).context.innerHTML = ""
       })
     };
+    
     
     $scope.retrieveFromSelectedEvent = function(){
       $scope.selectedEventDate = $stateParams.selectedEventDate;
