@@ -1347,20 +1347,16 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             eventRender: function(event, element){
                 console.log("rendering " +event.title, 'elem is ', element);
             },
-            eventAfterAllRender: function(event){
-                console.log("rendering all");
-            },
             eventClick: function(calEvent, jsEvent, view) {
               $(this).css('border-color', 'red');
-              console.log('this is ', calEvent);
               var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
-              swal(reconstructEvent.title, reconstructEvent.description);
+              swal(reconstructEvent.title, reconstructEvent.description + ' (by ' + reconstructEvent.author + ')');
             },
             dayClick: function(event) {
               $scope.$apply(function() {
                   $scope.dayClicked = event._d;
               });
-              console.log('a day has been clicked! event is ', $scope.dayClicked);
+              // console.log('a day has been clicked! event is ', $scope.dayClicked);
               $('#calendarModal').modal('show');
             }
           })//end of calendar config
@@ -1410,8 +1406,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     $scope.reconstructEventObjByTitle = function(calEvent) {
-      console.log('the event is ', calEvent);
-      console.log('events arr is ', $scope.eventsArr);
       var fullEvent = {};
       for (var i in $scope.eventsArr){
         if ($scope.eventsArr[i].title === calEvent.title){
@@ -1420,7 +1414,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           fullEvent.endTime = $scope.eventsArr[i].endTime;
           fullEvent.description = $scope.eventsArr[i].description;
           fullEvent.author = $scope.eventsArr[i].author;
-          console.log('fullevent is ', fullEvent);
           return fullEvent;
         }
       }
