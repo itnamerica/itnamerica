@@ -1328,80 +1328,66 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $('#'+modalIdToOpen).modal('show');
     };
     
-    $scope.initCalendar = function(calendarType) {
+    $scope.initDayCalendar = function() {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
       
-      var promise = $scope.viewCalendarEvents();
+      var promise = $scope.viewCalendarEventsPromise();
       promise.then(function(data){
         // console.log('calendar events are ', $scope.calendarEvents);
-        if (calendarType === 'day') {
-          
-          $('#calendar').fullCalendar({
-            defaultView: 'agendaDay',
-            height: 650,
-            editable: true,
-            selectable: true,
-            slotEventOverlap: true,
-            minTime: "08:00:00",
-            eventRender: function(event, element){
-                console.log("rendering " +event.title, 'elem is ', element);
-            },
-            eventClick: function(calEvent, jsEvent, view) {
-              $(this).css('border-color', 'red');
-              var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
-              swal(reconstructEvent.title, reconstructEvent.description + ' (by ' + reconstructEvent.author + ')');
-            },
-            dayClick: function(event) {
-              $scope.$apply(function() {
-                  $scope.dayClicked = event._d;
-              });
-              // console.log('a day has been clicked! event is ', $scope.dayClicked);
-              $('#calendarModal').modal('show');
-            }
-          })//end of calendar config
-          
-          //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
-          var date = new Date();
-          var d = date.getDate();
-          var m = date.getMonth();
-          var y = date.getFullYear();
-          var theEvent = {};
-          $scope.eventsArr = [];
+        
+        $('#calendar').fullCalendar({
+          defaultView: 'agendaDay',
+          height: 650,
+          editable: true,
+          selectable: true,
+          slotEventOverlap: true,
+          minTime: "08:00:00",
+          eventRender: function(event, element){
+              console.log("rendering " +event.title, 'elem is ', element);
+          },
+          eventClick: function(calEvent, jsEvent, view) {
+            $(this).css('border-color', 'red');
+            var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
+            swal(reconstructEvent.title, reconstructEvent.description + ' (by ' + reconstructEvent.author + ')');
+          },
+          dayClick: function(event) {
+            $scope.$apply(function() {
+                $scope.dayClicked = event._d;
+            });
+            // console.log('a day has been clicked! event is ', $scope.dayClicked);
+            $('#calendarModal').modal('show');
+          }
+        })//end of calendar config
+        
+        //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+        var theEvent = {};
+        $scope.eventsArr = [];
 
-          for (calendarEvent in $scope.calendarEvents) {
-            //only parse events for that day
-            var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
-            calendarEventDay = calendarEventDay.toDateString();
-            
-            if (calendarEventDay === $scope.selectedEventDateFormatted) {
-              console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
-              //placing events in day agenda according to start and end times.
-              var st = $scope.calendarEvents[calendarEvent].startTime;
-              var adjustedSt = $scope.adjustTimeForCalendar(st);
-              var et = $scope.calendarEvents[calendarEvent].endTime;
-              var adjustedEt = $scope.adjustTimeForCalendar(et);
-              var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
-              var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
-              //draw on DOM
-              theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
-              $("#calendar").fullCalendar("renderEvent", theEvent);
-              $scope.eventsArr.push(theEvent);
-            }
+        for (calendarEvent in $scope.calendarEvents) {
+          //only parse events for that day
+          var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
+          calendarEventDay = calendarEventDay.toDateString();
+          
+          if (calendarEventDay === $scope.selectedEventDateFormatted) {
+            console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
+            //placing events in day agenda according to start and end times.
+            var st = $scope.calendarEvents[calendarEvent].startTime;
+            var adjustedSt = $scope.adjustTimeForCalendar(st);
+            var et = $scope.calendarEvents[calendarEvent].endTime;
+            var adjustedEt = $scope.adjustTimeForCalendar(et);
+            var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+            var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+            //draw on DOM
+            theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
+            $("#calendar").fullCalendar("renderEvent", theEvent);
+            $scope.eventsArr.push(theEvent);
           }
         }
-        
-        else if (calendarType === 'month') {
-          $('#calendar').fullCalendar({
-            dayClick: function(event) {
-              $scope.$apply(function() {
-                  $scope.dayClicked = event._d;
-              });
-              console.log('a day has been clicked! event is ', $scope.dayClicked);
-              $('#addOrShowModal').modal('show');            
-            }
-          });
-        }//end of else if
       });//end of promise
     };
     
@@ -1452,7 +1438,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     
-    $scope.initCalendar2 = function(calendarType){
+    $scope.initMonthCalendar = function(){
       $('#calendar').fullCalendar({
         dayClick: function(event) {
           $scope.$apply(function() {
@@ -1465,20 +1451,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     
-    $scope.viewCalendarEvents2 = function(){
-      //get events from database
-      DataService.viewCalendarEvents()
-      .then(function(data){
-        console.log('data returned from db is ', data);
-        $scope.calendarEvents = data.data;
-        $scope.drawEventsOnCalendar();
-      })
-    };
-    
     $scope.resetEventObj = function(){
       $scope.eventObj = {};
       $scope.serverMessage = "";
-      // $scope.fullEvent = {};
     };
     
     $scope.addCalendarEvent = function(){
@@ -1490,7 +1465,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $scope.serverMessage = "Your event has been succesfully added.";
         //updates events on DOM
         $scope.emptyCalendar();
-        $scope.viewCalendarEvents();
+        $scope.viewCalendarEventsPromise();
         $scope.resetEventObj();
       })
     };
@@ -1504,11 +1479,11 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully deleted.";
         $scope.emptyCalendar();
-        $scope.viewCalendarEvents();
+        $scope.viewCalendarEventsPromise();
       })
     };
     
-    $scope.viewCalendarEvents = function(){
+    $scope.viewCalendarEventsPromise = function(){
       var deferred = $q.defer();
       //get events from database
       DataService.viewCalendarEvents()
@@ -1522,6 +1497,16 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       })
       return deferred.promise;
     };
+    
+    // $scope.viewCalendarEvents2 = function(){
+    //   //get events from database
+    //   DataService.viewCalendarEvents()
+    //   .then(function(data){
+    //     console.log('data returned from db is ', data);
+    //     $scope.calendarEvents = data.data;
+    //     $scope.drawEventsOnCalendar();
+    //   })
+    // };
     
     //place events on their respective day tabs
     $scope.drawEventsOnCalendar = function(){
