@@ -1367,6 +1367,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var d = date.getDate();
           var m = date.getMonth();
           var y = date.getFullYear();
+          var eventsArr = [];
 
           for (calendarEvent in $scope.calendarEvents) {
             //only parse events for that day
@@ -1392,10 +1393,13 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
               //draw on DOM
               var theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime};
-              console.log('the event is ', theEvent);
-              $("#calendar").fullCalendar("renderEvent", theEvent);
+              // console.log('the event is ', theEvent);
+              eventsArr.push(theEvent);
+              // $("#calendar").fullCalendar("renderEvent", theEvent);
             }
           }
+          console.log('events array is ', eventsArr);
+          $("#calendar").fullCalendar("renderEvents", eventsArr);
         }
         
         else if (calendarType === 'month') {
