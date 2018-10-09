@@ -1409,6 +1409,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
               var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
               //draw on DOM
+              console.log('adjusted st is ', adjustedSt, 'adjusted et is ', adjustedEt);
+              console.log('start time is ', startTime, 'endTime is ', endTime);
               theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime};
             
               // $scope.$apply(function() {
@@ -1418,8 +1420,12 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               // $("#calendar").fullCalendar("renderEvent", theEvent);
             }
           }
-          console.log('events array is ', eventsArr);
-          $("#calendar").fullCalendar("renderEvents", eventsArr);
+          // console.log('events array is ', eventsArr);
+          for (i in eventsArr){
+            console.log('each event is ', eventsArr[i]);
+              $("#calendar").fullCalendar("renderEvent", eventsArr[i]);
+          }
+          // $("#calendar").fullCalendar("renderEvent", eventsArr);
 
         }
         
@@ -1437,8 +1443,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       });//end of promise
     };
     
-    $scope.adjustTimeForCalendar = function(time) {
-      var time = time.replace(" ", "");
+    $scope.adjustTimeForCalendar = function(theTime) {
+      var time = theTime.replace(" ", "");
       time = time.toUpperCase();
       var adjustedTime = {
         hour: 0,
@@ -1446,7 +1452,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       };
        if (time.includes("AM") && time.includes(":")){
           adjustedTime.hour = time.substr(0,time.indexOf(':'));
-          adjustedTime.min = time.substr(time.indexOf(':'),time.indexOf('AM'));
+          adjustedTime.min = time.substr(time.indexOf(':')+1,time.indexOf('AM')-2);
       } else if (time.includes("AM")){
           adjustedTime.hour = time.substr(0,time.indexOf('AM'));
           adjustedTime.min = 0;
@@ -1455,7 +1461,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           if (adjustedTime.hour < 12){
             adjustedTime.hour = adjustedTime.hour + 12;
           }
-          adjustedTime.min = time.substr(time.indexOf(':'),time.indexOf('PM'));
+          adjustedTime.min = time.substr(time.indexOf(':')+1,time.indexOf('PM')-2);
       } else if (time.includes("PM")){
           adjustedTime.hour = parseInt(time.substr(0,time.indexOf('PM')));
           if (adjustedTime.hour < 12){
