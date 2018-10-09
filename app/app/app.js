@@ -1352,7 +1352,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             },
             eventClick: function(calEvent, jsEvent, view) {
               $(this).css('border-color', 'red');
-              swal($scope.fullEvent.title, $scope.fullEvent.description);
+              console.log('this is ', calEvent);
+              var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
+              swal(reconstructEvent.title, reconstructEvent.description);
             },
             dayClick: function(event) {
               $scope.$apply(function() {
@@ -1369,7 +1371,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var m = date.getMonth();
           var y = date.getFullYear();
           var theEvent = {};
-          var eventsArr = [];
+          $scope.eventsArr = [];
 
           for (calendarEvent in $scope.calendarEvents) {
             //only parse events for that day
@@ -1379,14 +1381,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             if (calendarEventDay === $scope.selectedEventDateFormatted) {
               console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
               //placing events in day agenda according to start and end times.
-              $scope.fullEvent = {
-                title: $scope.calendarEvents[calendarEvent].title,
-                startTime: $scope.calendarEvents[calendarEvent].startTime,
-                endTime: $scope.calendarEvents[calendarEvent].endTime,
-                description: $scope.calendarEvents[calendarEvent].description,
-                author: $scope.calendarEvents[calendarEvent].author
-              };
-              
               var st = $scope.calendarEvents[calendarEvent].startTime;
               var adjustedSt = $scope.adjustTimeForCalendar(st);
               var et = $scope.calendarEvents[calendarEvent].endTime;
@@ -1394,9 +1388,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
               var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
               //draw on DOM
-              theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime};              
+              theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
               $("#calendar").fullCalendar("renderEvent", theEvent);
-              eventsArr.push(theEvent);
+              $scope.eventsArr.push(theEvent);
             }
           }
         }
@@ -1413,6 +1407,23 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           });
         }//end of else if
       });//end of promise
+    };
+    
+    $scope.reconstructEventObjByTitle = function(calEvent) {
+      console.log('the event is ', calEvent);
+      console.log('events arr is ', $scope.eventsArr);
+      var fullEvent = {};
+      for (var i in $scope.eventsArr){
+        if ($scope.eventsArr[i].title === calEvent.title){
+          fullEvent.title = calEvent.title;
+          fullEvent.startTime = $scope.eventsArr[i].startTime;
+          fullEvent.endTime = $scope.eventsArr[i].endTime;
+          fullEvent.description = $scope.eventsArr[i].description;
+          fullEvent.author = $scope.eventsArr[i].author;
+          console.log('fullevent is ', fullEvent);
+          return fullEvent;
+        }
+      }
     };
     
     $scope.adjustTimeForCalendar = function(theTime) {
@@ -1474,7 +1485,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.resetEventObj = function(){
       $scope.eventObj = {};
       $scope.serverMessage = "";
-      $scope.fullEvent = {};
+      // $scope.fullEvent = {};
     };
     
     $scope.addCalendarEvent = function(){
