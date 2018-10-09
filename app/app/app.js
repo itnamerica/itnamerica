@@ -1345,9 +1345,25 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             selectable: true,
             slotEventOverlap: true,
             minTime: "08:00:00",
+            // events: [
+            //   {
+            //     title: 'My Event 1',
+            //     start: '2010-01-01',
+            //     description: 'This is a cool event'
+            //   },
+            //   {
+            //     title: 'My Event 2',
+            //     start: '2010-01-01',
+            //     description: 'This is a cool event'
+            //   }
+            //   // more events here
+            // ],
             eventRender: function(event, element){
                 console.log("rendering " +event.title);
                 console.log('elem is ', element);
+            },
+            eventAfterAllRender: function(event){
+                console.log("rendering all");
             },
             eventClick: function(calEvent, jsEvent, view) {
               $(this).css('border-color', 'red');
@@ -1367,6 +1383,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           var d = date.getDate();
           var m = date.getMonth();
           var y = date.getFullYear();
+          var theEvent = {};
           var eventsArr = [];
 
           for (calendarEvent in $scope.calendarEvents) {
@@ -1392,14 +1409,18 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
               var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
               var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
               //draw on DOM
-              var theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime};
-              // console.log('the event is ', theEvent);
+              theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime};
+            
+              // $scope.$apply(function() {
+              //     theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime};
+              // });
               eventsArr.push(theEvent);
               // $("#calendar").fullCalendar("renderEvent", theEvent);
             }
           }
           console.log('events array is ', eventsArr);
           $("#calendar").fullCalendar("renderEvents", eventsArr);
+
         }
         
         else if (calendarType === 'month') {
