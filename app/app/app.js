@@ -1542,10 +1542,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     // };
     
     $scope.deleteAgendaEvent = function(eventToDelete){
-      //calendar library selects previous day by default, so we need to adjust
-
       //delent event from database
-      DataService.deleteCalendarEvent(eventToDelete).then(function(data){
+      DataService.deleteAgendaEvent(eventToDelete).then(function(data){
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully deleted.";
         // $scope.emptyCalendar();
@@ -1832,11 +1830,11 @@ myApp.service('DataService', function($http){
       return data;
     })
   };
-  this.deleteCalendarEvent = function(calendarEvent){
-    console.log('event is ', calendarEvent);
-    return $http.delete('/deleteCalendarEvent', {
+  this.deleteAgendaEvent = function(agendaEvent){
+    console.log('event is ', agendaEvent);
+    return $http.delete('/deleteAgendaEvent', {
         params: {
-            calendarEvent: calendarEvent
+            agendaEvent: agendaEvent
         }
     }).then(function(data){
       console.log('data returned is ', data);
