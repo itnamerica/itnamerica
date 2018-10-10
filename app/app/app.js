@@ -1328,7 +1328,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       $('#'+modalIdToOpen).modal('show');
     };
     
-    $scope.initDayCalendar = function() {
+    $scope.initAgenda = function() {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
       
@@ -1459,6 +1459,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.addCalendarEvent = function(){
       //selects previous day by default, so need to adjust
       $scope.eventObj.day = new Date($scope.dayClicked.getTime());
+      console.log('event obj is ', $scope.eventObj);
       //save event to database
       DataService.addCalendarEvent($scope.eventObj).then(function(data){
         $('#calendarModal').modal('hide');
@@ -1469,6 +1470,25 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $scope.resetEventObj();
       })
     };
+    
+    
+    $scope.addAgendaEvent = function(){
+      //selects previous day by default, so need to adjust
+      console.log('day clicked is ', $scope.dayClicked);
+      // $scope.eventObj.day = new Date($scope.dayClicked.getTime());
+      $scope.eventObj.day = $scope.selectedEventDate;
+      console.log('event obj2 is ', $scope.eventObj);
+      //save event to database
+      DataService.addCalendarEvent($scope.eventObj).then(function(data){
+        $('#calendarModal').modal('hide');
+        $scope.serverMessage = "Your event has been succesfully added.";
+        // $scope.emptyCalendar();
+        // $scope.initAgenda();
+        // $scope.retrieveFromSelectedEvent();
+        $scope.resetEventObj();
+      })
+    };
+    
     
     $scope.deleteCalendarEvent = function(){
       //calendar library selects previous day by default, so we need to adjust
@@ -1488,7 +1508,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       //get events from database
       DataService.viewCalendarEvents()
       .then(function(data){
-        console.log('data returned from db is ', data);
+        // console.log('data returned from db is ', data);
         $scope.calendarEvents = data.data;
         $scope.drawEventsOnCalendar();
         deferred.resolve('Resolved: ', data.data);
@@ -1542,7 +1562,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         var eventAdjustedTime = $scope.adjustTimeForCalendar(theEvent.startTime);
         var adjustedTime = $scope.adjustTimeForCalendar(slicedTime);
         
-        console.log('adjusted time ', adjustedTime, 'event adjusted time ', eventAdjustedTime);
+        // console.log('adjusted time ', adjustedTime, 'event adjusted time ', eventAdjustedTime);
         if (eventAdjustedTime.hour >= adjustedTime.hour){
           return true
         } else {

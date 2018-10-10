@@ -1,4 +1,4 @@
-<div class="portal agenda" ng-init="initDayCalendar();retrieveFromSelectedEvent()">
+<div class="portal agenda" ng-init="initAgenda();retrieveFromSelectedEvent()">
   <div class="container">
     <h2>Agenda for {{selectedEventDateFormatted}}</h2>
 
@@ -31,7 +31,7 @@
     <div class="modal-body">
       
       <div class="form-area" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
-        <form name="itnForm" novalidate ng-submit="addCalendarEvent()" role="comment form" ng-model="eventObj" style="padding:2%;margin:0 5%">
+        <form name="itnForm" novalidate ng-submit="addAgendaEvent()" role="comment form" ng-model="eventObj" style="padding:2%;margin:0 5%">
 
           <div class="row">
             <div class="form-group" ng-class="{ 'has-error' : itnForm.startTime.$invalid && !itnForm.startTime.$pristine }">
