@@ -1331,11 +1331,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.initAgenda = function() {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
-      
       var promise = $scope.viewCalendarEventsPromise();
       promise.then(function(data){
         // console.log('calendar events are ', $scope.calendarEvents);
-        
         $('#calendar').fullCalendar({
           defaultView: 'agendaDay',
           height: 650,
@@ -1355,11 +1353,9 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             $scope.$apply(function() {
                 $scope.dayClicked = event._d;
             });
-            // console.log('a day has been clicked! event is ', $scope.dayClicked);
             $('#calendarModal').modal('show');
           }
         })//end of calendar config
-        
         //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
         var date = new Date();
         var d = date.getDate();
@@ -1390,6 +1386,38 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         }
       });//end of promise
     };
+    
+    $scope.drawEventsOnAgenda = function(){
+      //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
+      var date = new Date();
+      var d = date.getDate();
+      var m = date.getMonth();
+      var y = date.getFullYear();
+      var theEvent = {};
+      $scope.eventsArr = [];
+
+      for (calendarEvent in $scope.calendarEvents) {
+        //only parse events for that day
+        var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
+        calendarEventDay = calendarEventDay.toDateString();
+        
+        if (calendarEventDay === $scope.selectedEventDateFormatted) {
+          console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
+          //placing events in day agenda according to start and end times.
+          var st = $scope.calendarEvents[calendarEvent].startTime;
+          var adjustedSt = $scope.adjustTimeForCalendar(st);
+          var et = $scope.calendarEvents[calendarEvent].endTime;
+          var adjustedEt = $scope.adjustTimeForCalendar(et);
+          var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+          var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+          //draw on DOM
+          theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
+          $("#calendar").fullCalendar("renderEvent", theEvent);
+          $scope.eventsArr.push(theEvent);
+        }
+      }
+    };
+    
     
     $scope.reconstructEventObjByTitle = function(calEvent) {
       var fullEvent = {};
@@ -1473,18 +1501,14 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     
     $scope.addAgendaEvent = function(){
-      //selects previous day by default, so need to adjust
-      console.log('day clicked is ', $scope.dayClicked);
-      // $scope.eventObj.day = new Date($scope.dayClicked.getTime());
-      $scope.eventObj.day = $scope.selectedEventDate;
+      //selects following day by default, so need to adjust
+      $scope.eventObj.day = $scope.selectedEventDatePrevious;
       console.log('event obj2 is ', $scope.eventObj);
       //save event to database
       DataService.addCalendarEvent($scope.eventObj).then(function(data){
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully added.";
-        // $scope.emptyCalendar();
-        // $scope.initAgenda();
-        // $scope.retrieveFromSelectedEvent();
+        $scope.drawEventsOnAgenda();
         $scope.resetEventObj();
       })
     };
@@ -1533,13 +1557,15 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             ctx = $(this).context;
             // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
             
+            //orders events chronologically for a given day
             var later = $scope.isLaterTime(event, $(this).context);
             if (later){
               $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>';
             } else {
               $(this).context.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>' + $(this).context.innerHTML;
             }
-
+            
+            //if more than 2 events on tab, add the more button to prevent overflow
             count = ctx.childElementCount;
             if (count > 3) {
               $(this).children().eq(1).nextAll().css("display","none");
@@ -1548,7 +1574,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             }
           }
         }
-        // $scope.sortEventsByTime($(this).context.children);
       })
     };
     
@@ -1573,28 +1598,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     };
     
     
-    function compareNumbers(a, b) {
-      return a - b;
-    } //numArray.sort(compareNumbers)
-    
-    
-    $scope.sortEventsByTime = function(self) {
-      var children = self;
-      for (var i=0; i < children.length;i++){
-        console.log('i is ', children[i].innerText );
-        
-        var startTimeForSort = children[i].innerText.slice(0, children[i].innerText.indexOf('-'));
-        console.log('innetxt is ', startTimeForSort );
-        var adjustedTime = $scope.adjustTimeForCalendar(startTimeForSort);
-        console.log('adjusted time ', adjustedTime);
-        
-        if (adjustedTime.hour > $scope.eventsInFC[$scope.eventsInFC.length-1]){
-          $scope.eventsInFC.push(adjustedTime.hour)
-        }
-      }
-    };
-    
-    
     $scope.emptyCalendar = function(){
       $('.fc-day').each(function(){
         $(this).context.innerHTML = ""
@@ -1603,13 +1606,17 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     
     
     $scope.retrieveFromSelectedEvent = function(){
-      $scope.selectedEventDate = $stateParams.selectedEventDate;
-      $scope.selectedEventDate = $scope.selectedEventDate.addDays(1);
+      $scope.selectedEventDatePrevious = $stateParams.selectedEventDate;
+      $scope.selectedEventDate = $scope.selectedEventDatePrevious.addDays(1);
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
     };
     
     
+    function compareNumbers(a, b) {
+      return a - b;
+    } //numArray.sort(compareNumbers)
     
+
     Date.prototype.addDays = function(days) {
       var date = new Date(this.valueOf());
       date.setDate(date.getDate() + days);
