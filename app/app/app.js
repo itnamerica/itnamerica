@@ -1361,7 +1361,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
             }).then(function(eventToDelete){
               if (eventToDelete && eventToDelete.title) {
                 console.log('eventToDelete is ', eventToDelete);
-                $scope.deleteAgendaEvent(eventToDelete);
+                $scope.deleteAgendaEvent(eventToDelete, calEvent);
               }
             })
           },
@@ -1541,13 +1541,16 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     //   })
     // };
     
-    $scope.deleteAgendaEvent = function(eventToDelete){
+    $scope.deleteAgendaEvent = function(eventToDelete, calEventToDelete){
       //delent event from database
       DataService.deleteAgendaEvent(eventToDelete).then(function(data){
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully deleted.";
-        // $scope.emptyCalendar();
-        // $scope.viewCalendarEventsPromise();
+        
+        // $("#calendar").fullCalendar("removeEvents", function(calEventToDelete){
+        //   return true;
+        // });
+        $("#calendar").fullCalendar("removeEvents", calEventToDelete._id);
       })
     };
     
