@@ -1548,8 +1548,8 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       DataService.deleteCalendarEvent(eventToDelete).then(function(data){
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully deleted.";
-        $scope.emptyCalendar();
-        $scope.viewCalendarEventsPromise();
+        // $scope.emptyCalendar();
+        // $scope.viewCalendarEventsPromise();
       })
     };
     
