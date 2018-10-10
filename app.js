@@ -172,9 +172,11 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       });
   }); // end of deleteform request
   
-  app.delete('/deleteCalendarEvent/:calendarEvent', function (req,res) {
-      var calendarEvent = req.params.calendarEvent;
+  app.delete('/deleteCalendarEvent', function (req,res) {
+      var calendarEvent = JSON.parse(req.query.calendarEvent);
+      console.log('obj to delete from backend is ');
       console.log(calendarEvent);
+      console.log(typeof(calendarEvent));
       console.log('title and description', calendarEvent.title, calendarEvent.description);
       
       db.collection('calendar').deleteOne({"title": calendarEvent.title}, function(err, result){

@@ -1834,7 +1834,11 @@ myApp.service('DataService', function($http){
   };
   this.deleteCalendarEvent = function(calendarEvent){
     console.log('event is ', calendarEvent);
-    return $http.delete('/deleteCalendarEvent/' + calendarEvent).then(function(data){
+    return $http.delete('/deleteCalendarEvent', {
+        params: {
+            calendarEvent: calendarEvent
+        }
+    }).then(function(data){
       console.log('data returned is ', data);
       return data;
     })
