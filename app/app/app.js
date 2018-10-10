@@ -1342,7 +1342,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           slotEventOverlap: true,
           minTime: "08:00:00",
           eventRender: function(event, element){
-              console.log("rendering " +event.title, 'elem is ', element);
+              // console.log("rendering " +event.title, 'elem is ', element);
           },
           eventClick: function(calEvent, jsEvent, view) {
             $(this).css('border-color', 'red');
@@ -1386,7 +1386,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           calendarEventDay = calendarEventDay.toDateString();
           
           if (calendarEventDay === $scope.selectedEventDateFormatted) {
-            console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
+            // console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
             //placing events in day agenda according to start and end times.
             var st = $scope.calendarEvents[calendarEvent].startTime;
             var adjustedSt = $scope.adjustTimeForCalendar(st);
@@ -1403,36 +1403,36 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       });//end of promise
     };
     
-    $scope.drawEventsOnAgenda = function(){
-      //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
-      var date = new Date();
-      var d = date.getDate();
-      var m = date.getMonth();
-      var y = date.getFullYear();
-      var theEvent = {};
-      $scope.eventsArr = [];
-
-      for (calendarEvent in $scope.calendarEvents) {
-        //only parse events for that day
-        var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
-        calendarEventDay = calendarEventDay.toDateString();
-        
-        if (calendarEventDay === $scope.selectedEventDateFormatted) {
-          console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
-          //placing events in day agenda according to start and end times.
-          var st = $scope.calendarEvents[calendarEvent].startTime;
-          var adjustedSt = $scope.adjustTimeForCalendar(st);
-          var et = $scope.calendarEvents[calendarEvent].endTime;
-          var adjustedEt = $scope.adjustTimeForCalendar(et);
-          var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
-          var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
-          //draw on DOM
-          theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
-          $("#calendar").fullCalendar("renderEvent", theEvent);
-          $scope.eventsArr.push(theEvent);
-        }
-      }
-    };
+    // $scope.drawEventsOnAgenda = function(){
+    //   //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
+    //   var date = new Date();
+    //   var d = date.getDate();
+    //   var m = date.getMonth();
+    //   var y = date.getFullYear();
+    //   var theEvent = {};
+    //   $scope.eventsArr = [];
+    // 
+    //   for (calendarEvent in $scope.calendarEvents) {
+    //     //only parse events for that day
+    //     var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
+    //     calendarEventDay = calendarEventDay.toDateString();
+    // 
+    //     if (calendarEventDay === $scope.selectedEventDateFormatted) {
+    //       console.log("a match! the match is ", $scope.calendarEvents[calendarEvent]);
+    //       //placing events in day agenda according to start and end times.
+    //       var st = $scope.calendarEvents[calendarEvent].startTime;
+    //       var adjustedSt = $scope.adjustTimeForCalendar(st);
+    //       var et = $scope.calendarEvents[calendarEvent].endTime;
+    //       var adjustedEt = $scope.adjustTimeForCalendar(et);
+    //       var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+    //       var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+    //       //draw on DOM
+    //       theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
+    //       $("#calendar").fullCalendar("renderEvent", theEvent);
+    //       $scope.eventsArr.push(theEvent);
+    //     }
+    //   }
+    // };
     
     
     $scope.reconstructEventObjByTitle = function(calEvent) {
@@ -1522,13 +1522,30 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully added.";
         //updates events on DOM
-        $scope.drawEventsOnAgenda();
+        console.log('data returned from addagendaevent func is ', data);
+        console.log('event obj is ', $scope.eventObj);
+        
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+        var st = $scope.eventObj.startTime;
+        var adjustedSt = $scope.adjustTimeForCalendar(st);
+        var et = $scope.eventObj.endTime;
+        var adjustedEt = $scope.adjustTimeForCalendar(et);
+        var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+        var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+        
+        var theEvent = {title: $scope.eventObj.title, start: startTime, end: endTime, description: $scope.eventObj.description, author: $scope.eventObj.author};   
+        console.log('the event is ', theEvent);           
+        $("#calendar").fullCalendar("renderEvent", theEvent);
+        
         $scope.resetEventObj();
       })
     };
     
     $scope.deleteAgendaEvent = function(eventToDelete, calEventToDelete){
-      //delent event from database
+      //delete event from database
       DataService.deleteAgendaEvent(eventToDelete).then(function(data){
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully deleted.";
@@ -1791,21 +1808,21 @@ myApp.service('DataService', function($http){
   };
   this.addComment = function(content, affiliate){
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'add'}).then(function(data){
-      console.log('data returned is ', data);
+      console.log('data returned from add comment service is ', data);
       return data;
     })
   };
   this.deleteComment = function(content, affiliate){
     console.log('content is ', content, 'affiliate is ', affiliate);
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'delete'}).then(function(data){
-      console.log('data returned is ', data);
+      console.log('data returned from delete comment service is ', data);
       return data;
     })
   };
   this.addCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
     return $http.post('/addCalendarEvent', {newEvent: newEvent}).then(function(data){
-      console.log('data returned is ', data);
+      console.log('data returned from add calendar event service is ', data);
       return data;
     })
   };
