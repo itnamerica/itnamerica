@@ -1347,7 +1347,23 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
           eventClick: function(calEvent, jsEvent, view) {
             $(this).css('border-color', 'red');
             var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
-            swal(reconstructEvent.title, reconstructEvent.description + ' (by ' + reconstructEvent.author + ')');
+            swal({
+              title: reconstructEvent.title,
+              text: reconstructEvent.description + ' (by ' + reconstructEvent.author + ')',
+              buttons: {
+                cancel: true,
+                confirm: true,
+                deleteEvent: {
+                  text: "Delete event",
+                  value: reconstructEvent,
+                },
+              }
+            }).then(function(eventToDelete){
+              if (eventToDelete && eventToDelete.title) {
+                console.log('eventToDelete is ', eventToDelete);
+                $scope.deleteAgendaEvent(eventToDelete);
+              }
+            })
           },
           dayClick: function(event) {
             $scope.$apply(function() {
@@ -1478,7 +1494,6 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       });
     };
     
-    
     $scope.resetEventObj = function(){
       $scope.eventObj = {};
       $scope.serverMessage = "";
@@ -1498,28 +1513,39 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
         $scope.resetEventObj();
       })
     };
-    
-    
+
     $scope.addAgendaEvent = function(){
       //selects following day by default, so need to adjust
       $scope.eventObj.day = $scope.selectedEventDatePrevious;
-      console.log('event obj2 is ', $scope.eventObj);
       //save event to database
       DataService.addCalendarEvent($scope.eventObj).then(function(data){
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully added.";
+        //updates events on DOM
         $scope.drawEventsOnAgenda();
         $scope.resetEventObj();
       })
     };
     
     
-    $scope.deleteCalendarEvent = function(){
+    // $scope.deleteCalendarEvent = function(){
+    //   //calendar library selects previous day by default, so we need to adjust
+    //   // $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
+    //   $scope.eventObj.day = new Date($scope.dayClicked.getTime());
+    //   //delent event from database
+    //   DataService.deleteCalendarEvent($scope.eventObj).then(function(data){
+    //     $('#calendarModal').modal('hide');
+    //     $scope.serverMessage = "Your event has been succesfully deleted.";
+    //     $scope.emptyCalendar();
+    //     $scope.viewCalendarEventsPromise();
+    //   })
+    // };
+    
+    $scope.deleteAgendaEvent = function(eventToDelete){
       //calendar library selects previous day by default, so we need to adjust
-      // $scope.eventObj.day = new Date($scope.dayClicked.getTime() + 86400000);
-      $scope.eventObj.day = new Date($scope.dayClicked.getTime());
+
       //delent event from database
-      DataService.deleteCalendarEvent($scope.eventObj).then(function(data){
+      DataService.deleteCalendarEvent(eventToDelete).then(function(data){
         $('#calendarModal').modal('hide');
         $scope.serverMessage = "Your event has been succesfully deleted.";
         $scope.emptyCalendar();
@@ -1808,7 +1834,7 @@ myApp.service('DataService', function($http){
   };
   this.deleteCalendarEvent = function(calendarEvent){
     console.log('event is ', calendarEvent);
-    return $http.delete('/deleteCalendarEvent', {calendarEvent: calendarEvent}).then(function(data){
+    return $http.delete('/deleteCalendarEvent/' + calendarEvent).then(function(data){
       console.log('data returned is ', data);
       return data;
     })

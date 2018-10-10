@@ -1834,6 +1834,9 @@ form textarea.form-control {font-size:25px}
 .agenda table thead tr th {
   display:none;
 }
+.swal-button--deleteEvent {
+  background:#e05944;
+}
 .back-btn h3 {
   margin-top: -20px;
 }
