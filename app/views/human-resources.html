@@ -1,1 +1,79 @@
-human resources page
+<div class="portal human-resources" ng-show="showPortal">
+  <div class="container">
+    
+    <h2>Human Resources</h2>
+    
+    <div class="row mt-50 mb-25">
+      <div class="col-md-6">
+        <a ui-sref="">
+          <div class="block" style="background:white">
+            <img ng-src="{{assetsPath}}/images/folder-logo.jpg" alt="logo of a folder" style="object-fit:contain;width:200px;margin-top:40px"/>
+            <h5 style="margin-top:-90px">Important Documents</h5>
+          </div>
+        </a>
+      </div><!--col-md-6-->
+      <!-- <div class="col-md-6">
+        <a href="http://blog.itnamerica.org/">
+          <div class="block" style="background:black">
+            <img ng-src="{{assetsPath}}/images/itnamerica-blog-screenshot.png" alt="screenshot of itnamerica blog" style="margin-top:60px;margin-left:-40px;object-fit:contain;height:120px;"/>
+          </div>
+        </a>
+      </div> -->
+    </div>
+    
+    <div class="row mt-25 mb-50">
+      <div class="col-md-6">
+        <a ng-click="openAdditionalPage('social')">
+          <div class="block social-icons">
+            <h3 style="font-size:30px;margin-top:60px">File a HR Ticket</h3>
+          </div>
+          </a>
+      </div><!--col-md-6-->
+      <div class="col-md-6">
+        <a ng-click="openAdditionalPage('events')">
+          <div class="block">
+            <h3 style="font-size:30px;margin-top:60px">Important Documents</h3>
+          </div>
+          </a>
+      </div><!--col-md-6-->
+    </div>
+
+
+  </div>
+</div>
+
+
+
+<div class="back-btn-wrap">
+  <a ng-click="openAdditionalPage()" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ui-sref="portal" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteAppModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content" style="font-size:25px">
+    <div class="modal-header" style="background:#529ba8;color:white">
+      <h3 class="modal-title" id="exampleModalLabel">Delete form submission</h3>
+      <button type="button" style="margin-top: -30px" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group ta-center">
+          <label for="delete app confirmation" style="margin-bottom:15px">Are you sure you would like to delete this form?</label>
+        </div> 
+    </div>
+    <div class="modal-footer">
+      <button type="button" ng-click="deleteComment();hideModal('deleteAppModal')" class="btn btn-lg btn-danger" style="background:#e05944">Delete</button>
+      <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+</div><!--end modal-->
+  
