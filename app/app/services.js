@@ -69,11 +69,23 @@ myApp.service('FileUploadService', ['$http', function ($http) {
          transformRequest: angular.identity,
          headers: {'Content-Type': undefined}
       })
-   
       .success(function(){
       })
-   
       .error(function(){
+      });
+   };
+   this.uploadFileToDB = function(file){
+      var fd = new FormData();
+      fd.append('file', file);
+   
+      $http.post('/uploadFile', {file: fd}, {
+         headers: {'Content-Type': undefined}
+      })
+      .success(function(data){
+        console.log('succesfully uploaded file ', data);
+      })
+      .error(function(err){
+        console.log('erro uploading file ', err);
       });
    }
 }]);
