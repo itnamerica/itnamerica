@@ -1,6 +1,51 @@
 var myApp = angular.module('myApp');
 
 
+myApp.service('FormService', function($http) {
+    this.getNDAForms = function() {
+        return $http.get('/getNDAForms').then(function(data) {
+            console.log('data is ', data);
+            return data.data;
+        })
+    };
+    this.getContactForms = function() {
+        return $http.get('/getContactForms').then(function(data) {
+            console.log('data is ', data);
+            return data.data;
+        })
+    };
+    this.getNewsletterForms = function() {
+        return $http.get('/getNewsletterForms').then(function(data) {
+            console.log('data is ', data);
+            return data.data;
+        })
+    };
+    this.deleteForm = function(formType, formObj) {
+        return $http.delete('/deleteForm/' + formObj._id, {
+            params: {
+                formType: formType
+            }
+        }).then(function(data) {
+            return data;
+        })
+    }
+    this.login = function(formData, isStaff) {
+        return $http.get('/getAdmin', {
+                params: {
+                    formData: formData,
+                    isStaff: isStaff
+                }
+            })
+            .then(function(data) {
+                console.log('response in service is ', data);
+                return data;
+            }).catch(function(error) {
+                console.log('service, unable to login', error);
+            })
+    }
+});
+
+
 myApp.service('DataService', function($http){
   this.getAllRides = function(){
     return $http.get('/getAllRides').then(function(data){
