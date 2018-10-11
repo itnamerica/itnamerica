@@ -2,14 +2,19 @@
   <div class="container">
     <h2>Important Documents</h2>
     
-    <div class="upload-doc">
-      
+    <div class="upload-doc" ng-show="docFilter === 'upload'">
       <input type="file" file-model="myFile"/>
       <button class="btn btn-lg" ng-click="uploadFile()">upload me</button>
-
     </div>
     
-    <div class="all-docs"></div>
+    
+    <div class="all-docs">
+      All docs (ng repeat)
+    </div>
+    
+    <div class="training-docs" ng-show="docFilter === 'training'">
+      Training docs (ng repeat filter)
+    </div>
     
     
   </div>

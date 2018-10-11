@@ -1147,6 +1147,16 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       });
    };
     
+   $scope.catchDocFilter = function() {
+       console.log('stateparam is ', $stateParams.filter);
+       $scope.docFilter = $stateParams.filter;
+       if ($stateParams.filter === 'upload'){
+         console.log('upload filter');
+         
+       } else if ($stateParams.filter === 'training'){
+         
+       } 
+   }
     
     
     
