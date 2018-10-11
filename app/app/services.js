@@ -1,5 +1,6 @@
 var myApp = angular.module('myApp');
 
+
 myApp.service('DataService', function($http){
   this.getAllRides = function(){
     return $http.get('/getAllRides').then(function(data){
@@ -55,3 +56,24 @@ myApp.service('DataService', function($http){
     })
   };
 });
+
+
+
+
+myApp.service('FileUploadService', ['$http', function ($http) {
+   this.uploadFileToUrl = function(file, uploadUrl){
+      var fd = new FormData();
+      fd.append('file', file);
+   
+      $http.post(uploadUrl, fd, {
+         transformRequest: angular.identity,
+         headers: {'Content-Type': undefined}
+      })
+   
+      .success(function(){
+      })
+   
+      .error(function(){
+      });
+   }
+}]);
