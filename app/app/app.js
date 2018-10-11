@@ -13,17 +13,17 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
         .state('home', {
             url: '/',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'home.html'
         })
         .state('contact', {
             url: '/contact',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'contact.html'
         })
         .state('what-we-do', {
             url: '/what-we-do',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'what-we-do.html',
             params: {
               anchor: null
@@ -31,22 +31,22 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('keyword-pages', {
             url: '/keyword-pages',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'keyword-pages.html'
         })
         .state('login', {
             url: '/login',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'login.html'
         })
         .state('dashboard', {
             url: '/dashboard',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'dashboard.html'
         })
         .state('view-form', {
             url: '/view-form',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'view-form.html',
             params: {
                 formObj: null,
@@ -55,42 +55,42 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('backup-pdf', {
             url: '/backup-pdf',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'backup-pdf.html'
         })
         .state('wildcard', {
             url: '/*',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'home.html'
         })
         .state('draft', {
             url: '/draft',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'draft.html'
         })
         .state('find-your-itn', {
             url: '/find-your-itn',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'find-your-itn.html'
         })
         .state('ways-to-give', {
             url: '/ways-to-give',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'ways-to-give.html'
         })
         .state('million-rides-campaign-photo-album', {
             url: '/million-rides-campaign-photo-album',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'million-rides-campaign-photo-album.html'
         })
         .state('annual-report-2017', {
             url: '/annual-report-2017',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'annual-report-2017.html'
         })
         .state('about', {
             url: '/about',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'about.html',
             params: {
               anchor: null
@@ -98,32 +98,32 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('portal', {
             url: '/portal',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'portal.html'
         })
         .state('login-portal', {
             url: '/login-portal',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'login-portal.html'
         })
         .state('itnamerica', {
             url: '/itnamerica',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'itnamerica.html'
         })
         .state('rides-in-sight', {
             url: '/rides-in-sight',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'rides-in-sight.html'
         })
         .state('itn-services', {
             url: '/itn-services',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'itn-services.html'
         })
         .state('other', {
             url: '/other',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'other.html'
         })
         .state('affiliates', {
@@ -136,28 +136,28 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('nda', {
             url: '/nda2018xyz',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'nda.html'
         })
         .state('rides', {
             url: '/rides',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'rides.html'
         })
         .state('human-resources', {
             url: '/human-resources',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'human-resources.html'
         })
         .state('calendar', {
             url: '/calendar',
             controller: 'CalendarCtrl',
-            controllerUrl: appPath + 'controllers/calendarController.js',
+            controllerUrl: appPath + '/calendarController.js',
             templateUrl: viewsPath + 'calendar.html'
         })
         .state('agenda', {
             url: '/agenda',
-            controller: 'CalendarController',
+            controller: 'CalendarCtrl',
             templateUrl: viewsPath + 'agenda.html',
             params: {
               selectedEventDate: null
@@ -165,17 +165,17 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('ttp', {
             url: '/ttp',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'ttp.html'
         })
         .state('research', {
             url: '/research',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'research.html'
         })
         .state('important-docs', {
             url: '/important-docs',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'important-docs.html',
             params: {
               filter: null
@@ -183,7 +183,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('employee-profiles', {
             url: '/employee-profiles',
-            controller: 'MainController',
+            controller: 'MainCtrl',
             templateUrl: viewsPath + 'employee-profiles.html'
         })
 
