@@ -1,4 +1,4 @@
-<div class="important-docs portal">
+<div class="important-docs portal" ng-init="catchDocFilter()">
   <div class="container">
     <h2>Important Documents</h2>
     
@@ -8,7 +8,7 @@
     </div>
     
     
-    <div class="all-docs">
+    <div class="all-docs" ng-show="docFilter === null">
       All docs (ng repeat)
     </div>
     
