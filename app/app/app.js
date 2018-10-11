@@ -170,6 +170,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'MainController',
             templateUrl: viewsPath + 'research.html'
         })
+        .state('important-docs', {
+            url: '/important-docs',
+            controller: 'MainController',
+            templateUrl: viewsPath + 'important-docs.html',
+            params: {
+              filter: null
+            }
+        })
+        .state('employee-profiles', {
+            url: '/employee-profiles',
+            controller: 'MainController',
+            templateUrl: viewsPath + 'employee-profiles.html'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');
