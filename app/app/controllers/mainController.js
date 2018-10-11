@@ -254,6 +254,7 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
     $scope.selected = {};
     $scope.showCommentInput = false;
     $scope.affiliateOfComment = null;
+    $scope.myFile = null;
 
 
     // alternative to ng-init, functions that trigger on state/page changes.
@@ -1134,6 +1135,20 @@ myApp.controller('MainController', ['$scope', '$transitions', '$http', '$anchorS
       }
       $('#'+modalIdToOpen).modal('show');
     };    
+    
+    
+    $scope.uploadFile = function(){
+      var file = $scope.myFile;
+      console.log('file is ' );
+      console.dir(file);
+      
+      FileUploadService.uploadFileToDB(file).then(function(data){
+        console.log('data returned from func for file upload is ', data);
+      });
+   };
+    
+    
+    
     
     function compareNumbers(a, b) {
       return a - b;
