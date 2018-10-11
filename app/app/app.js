@@ -152,7 +152,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('calendar', {
             url: '/calendar',
             controller: 'CalendarCtrl',
-            controllerUrl: appPath + '/calendarController.js',
             templateUrl: viewsPath + 'calendar.html'
         })
         .state('agenda', {
