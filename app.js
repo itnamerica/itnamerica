@@ -7,7 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 var mongo = require('mongodb');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 
 var env = require(__dirname + '/env-vars.js');
 var gmail_login = env.gmail_login;
@@ -25,8 +25,9 @@ app.use(function(req, res, next) {
 app.use(express.json()); //convert req to json
 app.use(express.static(__dirname + '/app'));
 app.use(session({secret: "Sam is awesome"}));
-// app.use(bodyParser.json({limit: '10mb', extended: true}))
-// app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
+// app.use(bodyParser());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-services','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs','/employee-profiles'];
@@ -97,12 +98,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
   
   app.post('/uploadFile', function (req,res) {
-    console.log('file from backend1 is ');
-    console.log(req.body);
+    // console.log('file from backend1 is ');
+    // console.log(req.body);
     console.log('type is ');
-    console.log(typeof(req.body));
-    console.log('with json parse');
-    console.log(JSON.parse(req.body));
+    // console.log(typeof(req.body));
+    // console.log('with json parse');
+    // console.log(JSON.parse(req.body));
+    
     // db.collection('documents').save(req.body.fileObj, function(err, result){
     //   if (err) { return console.log('connecting to db, but not saving obj', err);}
     //   console.log('contact form saved to database', result);
