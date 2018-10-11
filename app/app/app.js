@@ -3,8 +3,10 @@ var myApp = angular.module('myApp', ['ui.router', 'ngAnimate', 'angularUtils.dir
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     console.log('inside of config block');
     var viewsPath = "views/";
+    var appPath = "/";
     if (location.host === "localhost:8080") {
         viewsPath = "app/views/";
+        appPath = "app/";
     };
 
     $stateProvider
@@ -150,7 +152,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('calendar', {
             url: '/calendar',
             controller: 'CalendarController',
-            controllerUrl: 'app/controllers/calendarController.js',
+            controllerUrl: appPath + 'controllers/calendarController.js',
             templateUrl: viewsPath + 'calendar.html'
         })
         .state('agenda', {
