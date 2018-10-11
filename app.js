@@ -97,12 +97,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
   
   app.post('/uploadFile', function (req,res) {
-    console.log('file from backend is ', file);
-    db.collection('documents').save(req.body.file, function(err, result){
-      if (err) { return console.log('connecting to db, but not saving obj', err);}
-      console.log('contact form saved to database', result);
-      res.send(result);
-    })
+    console.log('file from backend1 is ', req.body.fileObj);
+    console.log('file from backend2 is ', req.query);
+    // db.collection('documents').save(req.body.fileObj, function(err, result){
+    //   if (err) { return console.log('connecting to db, but not saving obj', err);}
+    //   console.log('contact form saved to database', result);
+    //   res.send(result);
+    // })
+    res.send(result);
   });
   
   app.put('/updateCommentsPhoto', function (req,res) {    

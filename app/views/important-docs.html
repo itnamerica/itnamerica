@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Important Documents</h2>
     
-    <div class="upload-doc" ng-show="docFilter === 'upload'">
+    <div class="upload-doc" ng-show="docFilter === 'upload' || docFilter === null">
       <input type="file" file-model="myFile"/>
       <button class="btn btn-lg" ng-click="uploadFile()">upload me</button>
     </div>

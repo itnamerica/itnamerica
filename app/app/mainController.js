@@ -1142,7 +1142,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       console.log('file is ' );
       console.dir(file);
       
-      FileUploadService.uploadFileToDB(file).then(function(data){
+      FileUploadService.uploadFileToDB(file)
+      .then(function(data){
         console.log('data returned from func for file upload is ', data);
       });
    };
