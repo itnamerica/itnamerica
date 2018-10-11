@@ -124,8 +124,8 @@ myApp.service('FileUploadService', ['$http', function ($http) {
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
    
-      // $http.post('/uploadFile', {params: {fileObj: fd}})
-      $http.post('/uploadFile', {fileObj: fd})
+      // $http.post('/uploadFile', {fileObj: fd})
+      $http.post('/uploadFile', fd)
       .then(function(data){
         console.log('succesfully uploaded file ', data);
       })
