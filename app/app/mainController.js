@@ -1175,15 +1175,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     // upload on file select or drop
     $scope.upload = function (file) {
-      console.log('about to upload ', file);
-      $scope.username = 'sam test';
+      console.log('about to upload ', $scope.file);
       
       var fd = new FormData();
-      fd.append('file', file);
+      fd.append('file', $scope.file);
       console.log('fd about to be sent is ', fd);
    
       // $http.post('/uploadFile', {fileObj: fd})
-      $http.post('/uploadFile', fd)
+      $http.post('/profile', fd)
       .then(function(data){
         console.log('succesfully uploaded file ', data);
       })
