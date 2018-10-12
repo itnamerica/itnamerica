@@ -121,11 +121,12 @@ myApp.service('FileUploadService', ['$http', function ($http) {
    };
    this.uploadFileToDB = function(file){
       var fd = new FormData();
+      console.log('file is ', file);
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
    
       // $http.post('/uploadFile', {fileObj: fd})
-      $http.post('/uploadFile', fd)
+      $http.post('/uploadFile', file)
       .then(function(data){
         console.log('succesfully uploaded file ', data);
       })

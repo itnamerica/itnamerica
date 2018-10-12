@@ -1138,14 +1138,15 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     
     
     $scope.uploadFile = function(){
+      console.log("my file is ", $scope.myFile);
       var file = $scope.myFile;
       console.log('file is ' );
       console.dir(file);
       
       FileUploadService.uploadFileToDB(file)
-      .then(function(data){
-        console.log('data returned from func for file upload is ', data);
-      });
+      // .then(function(data){
+      //   console.log('data returned from func for file upload is ', data);
+      // });
    };
     
    $scope.catchDocFilter = function() {
