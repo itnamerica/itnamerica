@@ -15,8 +15,11 @@ var gmail_pass = env.gmail_pass;
 var db;
 var http = require('http');
 var request=require('request');
+var _ =require('lodash');
 // var router = express.Router();
 var multer = require('multer');
+var upload = multer({ storage : storage}).single('userPhoto');
+var multipart = require('connect-multiparty');
 
 
 app.use(function(req, res, next) {
@@ -27,10 +30,13 @@ app.use(function(req, res, next) {
 app.use(express.json()); //convert req to json
 app.use(express.static(__dirname + '/app'));
 app.use(session({secret: "Sam is awesome"}));
-// app.use(bodyParser());
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 // app.use(multer({ dest: './tmp/'}));
+
+app.use(multipart({
+	uploadDir: 'app/dist'
+}));
 
 
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-services','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs','/employee-profiles'];
@@ -101,19 +107,23 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
   
   app.post('/uploadFile', function (req,res) {
-    console.log('file from backend1 is ');
+    console.log('file from backend0 is ');
     console.log(req);
     console.log(req.body);
-    // console.log('type is ');
-    // console.log(typeof(req.body));
-    // console.log('with json parse');
-    // console.log(JSON.parse(req.body));
+  });
+  
+  app.post('/uploadTheFile', function (req,res,next) {
+    console.log('file from backend2 is ');
+    console.log(req.data);
+    console.log(req.file);
     
-    // db.collection('documents').save(req.body.fileObj, function(err, result){
-    //   if (err) { return console.log('connecting to db, but not saving obj', err);}
-    //   console.log('contact form saved to database', result);
-    //   res.send(result);
-    // })
+  //   var data = _.pick(req.body, 'type')
+  // 		, uploadPath = path.normalize(cfg.data + '/uploads')
+  // 		, file = req.files.file;
+  // 
+  //   console.log(file.name); //original name (ie: sunset.png)
+  //   console.log(file.path); //tmp path (ie: /tmp/12345-xyaz.png)
+  // 	console.log(uploadPath); //uploads directory: (ie: /home/user/data/uploads)
   });
   
   app.put('/updateCommentsPhoto', function (req,res) {    
