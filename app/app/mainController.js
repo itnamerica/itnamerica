@@ -1180,7 +1180,14 @@ $scope.upload = function (file) {
   
     Upload.upload({
         url: '/uploadFile',
-        data: {file: file, 'username': $scope.username}
+        data: {
+          file: file, 
+          'username': $scope.username
+        }
+        // headers : {
+        //   'Content-Type': file.type
+        // },
+        // data: file
     }).then(function (resp) {
         console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
     }, function (resp) {
