@@ -109,8 +109,8 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   
   app.post('/uploadFile', function (req,res) {
     console.log('file from backend0 is ');
-    console.log(req);
     console.log(req.body);
+    console.log(req.files);
   });
   
   app.post('/uploadTheFile', function (req,res,next) {
