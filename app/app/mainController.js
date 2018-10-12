@@ -1172,48 +1172,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
          
        } 
    };
-   
-   
-   // $scope.onFileSelect = function(image) {
-   //    $scope.uploadInProgress = true;
-   //    $scope.uploadProgress = 0;
-   // 
-   //    if (angular.isArray(image)) {
-   //      image = image[0];
-   //    }
-   // 
-   //    $scope.upload = $upload.upload({
-   //      url: '/api/v1/upload/image',
-   //      method: 'POST',
-   //      data: {
-   //        type: 'profile'
-   //      },
-   //      file: image
-   //    }).progress(function(event) {
-   //      $scope.uploadProgress = Math.floor(event.loaded / event.total);
-   //      $scope.$apply();
-   //    }).success(function(data, status, headers, config) {
-   //      AlertService.success('Photo uploaded!');
-   //    }).error(function(err) {
-   //      $scope.uploadInProgress = false;
-   //      AlertService.error('Error uploading file: ' + err.message || err);
-   //    });
-   //  };
-     
-   
-   // upload later on form submit or something similar
-$scope.submitFile = function() {
-  if ($scope.file) {
-    console.log('submitted file is ', $scope.file);
-    $scope.upload($scope.file);
-  }
-};
 
 // upload on file select or drop
 $scope.upload = function (file) {
   console.log('about to upload ', file);
+  $scope.username = 'sam test';
+  
     Upload.upload({
-        url: 'upload/url',
+        url: '/uploadFile',
         data: {file: file, 'username': $scope.username}
     }).then(function (resp) {
         console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
@@ -1224,17 +1190,6 @@ $scope.upload = function (file) {
         console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
     });
 };
-// for multiple files:
-// $scope.uploadFiles = function (files) {
-//   if (files && files.length) {
-//     for (var i = 0; i < files.length; i++) {
-//       Upload.upload({..., data: {file: files[i]}, ...})...;
-//     }
-//     // or send them all together for HTML5 browsers:
-//     Upload.upload({..., data: {file: files}, ...})...;
-//   }
-// }
-    
-    
+
     
 }]);
