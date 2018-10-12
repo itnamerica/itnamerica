@@ -107,16 +107,22 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   });
   
-  app.post('/uploadFile', function (req,res) {
+  app.post('/upload', upload.single('image'),  function(req, res) {
     console.log('file from backend0 is ');
     console.log(req.body);
     console.log(req.files);
   });
   
-  app.post('/uploadTheFile', function (req,res,next) {
-    console.log('file from backend2 is ');
-    console.log(req.data);
-    console.log(req.file);
+  app.post('/uploadFile', function (req,res) {
+    console.log('file from backend1 is ');
+    console.log(req.body);
+    console.log(req.files);
+  });
+  
+  // app.post('/uploadTheFile', function (req,res,next) {
+  //   console.log('file from backend2 is ');
+  //   console.log(req.data);
+  //   console.log(req.file);
     
   //   var data = _.pick(req.body, 'type')
   // 		, uploadPath = path.normalize(cfg.data + '/uploads')
@@ -125,7 +131,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   //   console.log(file.name); //original name (ie: sunset.png)
   //   console.log(file.path); //tmp path (ie: /tmp/12345-xyaz.png)
   // 	console.log(uploadPath); //uploads directory: (ie: /home/user/data/uploads)
-  });
+  // });
   
   app.put('/updateCommentsPhoto', function (req,res) {    
     var newComment = {

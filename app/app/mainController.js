@@ -1150,6 +1150,18 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };    
     
     
+   $scope.catchDocFilter = function() {
+       console.log('stateparam is ', $stateParams.filter);
+       $scope.docFilter = $stateParams.filter;
+       if ($stateParams.filter === 'upload'){
+         console.log('upload filter');
+         
+       } else if ($stateParams.filter === 'training'){
+         
+       } 
+   };
+   
+    
     $scope.uploadFile = function(){
       console.log("my file is ", $scope.myFile);
       var file = $scope.myFile;
@@ -1161,17 +1173,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       //   console.log('data returned from func for file upload is ', data);
       // });
    };
-    
-   $scope.catchDocFilter = function() {
-       console.log('stateparam is ', $stateParams.filter);
-       $scope.docFilter = $stateParams.filter;
-       if ($stateParams.filter === 'upload'){
-         console.log('upload filter');
-         
-       } else if ($stateParams.filter === 'training'){
-         
-       } 
-   };
+
 
     // upload on file select or drop
     $scope.upload = function (file) {
@@ -1181,7 +1183,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
    
-      $http.post('/uploadFile', {formData: fd, fileObj: file, test: 'test string'})
+      $http.post('/upload', {formData: fd, fileObj: file, test: 'test string'})
       // $http.post('/uploadFile', fd)
       .then(function(data){
         console.log('succesfully uploaded file ', data);
