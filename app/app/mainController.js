@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService) {
+myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload) {
     console.log('inside main controller');
 
     $scope.assetsPath = "assets";
@@ -273,6 +273,19 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             $scope.scrollToTop();
         }
     });
+    
+    
+    function compareNumbers(a, b) {
+      return a - b;
+    } //numArray.sort(compareNumbers)
+    
+
+    Date.prototype.addDays = function(days) {
+      var date = new Date(this.valueOf());
+      date.setDate(date.getDate() + days);
+      return date;
+    };    
+    
 
     //use this function instead of ng-href as ng-href is not compatible with html5mode
     $scope.redirectToURL = function(url) {
@@ -1158,19 +1171,70 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        } else if ($stateParams.filter === 'training'){
          
        } 
-   }
-    
-    
-    
-    function compareNumbers(a, b) {
-      return a - b;
-    } //numArray.sort(compareNumbers)
-    
+   };
+   
+   
+   // $scope.onFileSelect = function(image) {
+   //    $scope.uploadInProgress = true;
+   //    $scope.uploadProgress = 0;
+   // 
+   //    if (angular.isArray(image)) {
+   //      image = image[0];
+   //    }
+   // 
+   //    $scope.upload = $upload.upload({
+   //      url: '/api/v1/upload/image',
+   //      method: 'POST',
+   //      data: {
+   //        type: 'profile'
+   //      },
+   //      file: image
+   //    }).progress(function(event) {
+   //      $scope.uploadProgress = Math.floor(event.loaded / event.total);
+   //      $scope.$apply();
+   //    }).success(function(data, status, headers, config) {
+   //      AlertService.success('Photo uploaded!');
+   //    }).error(function(err) {
+   //      $scope.uploadInProgress = false;
+   //      AlertService.error('Error uploading file: ' + err.message || err);
+   //    });
+   //  };
+     
+   
+   // upload later on form submit or something similar
+$scope.submitFile = function() {
+  if ($scope.file) {
+    console.log('submitted file is ', $scope.file);
+    $scope.upload($scope.file);
+  }
+};
 
-    Date.prototype.addDays = function(days) {
-      var date = new Date(this.valueOf());
-      date.setDate(date.getDate() + days);
-      return date;
-    };    
+// upload on file select or drop
+$scope.upload = function (file) {
+  console.log('about to upload ', file);
+    Upload.upload({
+        url: 'upload/url',
+        data: {file: file, 'username': $scope.username}
+    }).then(function (resp) {
+        console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+    }, function (resp) {
+        console.log('Error status: ' + resp.status);
+    }, function (evt) {
+        var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+        console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+    });
+};
+// for multiple files:
+// $scope.uploadFiles = function (files) {
+//   if (files && files.length) {
+//     for (var i = 0; i < files.length; i++) {
+//       Upload.upload({..., data: {file: files[i]}, ...})...;
+//     }
+//     // or send them all together for HTML5 browsers:
+//     Upload.upload({..., data: {file: files}, ...})...;
+//   }
+// }
+    
+    
     
 }]);

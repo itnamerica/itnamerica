@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination']);
+var myApp = angular.module('myApp', ['ui.router', 'ngAnimate', 'angularUtils.directives.dirPagination','ngFileUpload']);
 
 myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     console.log('inside of config block');
