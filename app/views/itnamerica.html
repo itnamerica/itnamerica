@@ -21,20 +21,25 @@
     </div><!--row-->
     
     <div class="row mt-25 mb-50">
+      
       <div class="col-md-6">
         <a ng-click="openAdditionalPage('social')">
-          <div class="block social-icons">
-            <h3 style="font-size:30px;margin-top:60px">Social Media Presence</h3>
+          <div class="block social-icons" style="background:#fd8567">
+            <img ng-src="{{assetsPath}}/images/social-media-icon.svg" alt="icon of social media" style="object-fit:contain;width:190px;margin-left:0;margin-top:-5%"/>
+            <h5 style="margin-top:-27px;color:white">Social Media Presence</h5>
           </div>
-          </a>
+        </a>
       </div><!--col-md-6-->
+      
       <div class="col-md-6">
         <a ng-click="openAdditionalPage('events')">
-          <div class="block">
-            <h3 style="font-size:30px;margin-top:60px">Events & Announcements</h3>
+          <div class="block" style="background:#90dea7">
+            <img ng-src="{{assetsPath}}/images/speakers2-icon.svg" alt="icon of a speaker" style="object-fit:contain;width:200px;margin-left:0;margin-top:-7%"/>
+            <h5 style="margin-top:-40px;color:white">Comments & Announcements</h5>
           </div>
-          </a>
+        </a>
       </div><!--col-md-6-->
+
     </div>
 
 
