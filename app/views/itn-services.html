@@ -5,16 +5,24 @@
     
     <div class="row mt-50 mb-25">
       
-      <div class="col-md-6">
+      <div class="col-md-4">
         <a ui-sref="human-resources">
           <div class="block" style="background:#3692cd">
             <img ng-src="{{assetsPath}}/images/hr-logo-white.png" alt="logo of a avatars" style="object-fit:contain;width:200px;margin:0"/>
             <h5 style="margin-top:-40px;color:white">Human Resources</h5>
           </div>
         </a>
-      </div><!--col-md-6-->
+      </div><!--col-md-4-->
       
-      <div class="col-md-6">
+      <div class="col-md-4">
+        <a ng-click="openAdditionalPage('analytics')">
+          <div class="block">
+            <h3 style="margin-top:80px;font-size:30px">Company-wide Analytics</h3><!--(add email to request access)-->
+          </div>
+        </a>
+      </div><!--col-md-4-->
+      
+      <div class="col-md-4">
         <a ng-click="openAdditionalPage('allComments')">
           <div class="block">
             <h3 style="margin-top:80px;font-size:30px">Company-wide Announcements</h3>
@@ -27,7 +35,7 @@
     
     <div class="row mt-25 mb-25">
       
-      <div class="col-md-6">
+      <div class="col-md-4">
         <a ui-sref="calendar">
           <div class="block">
             <h3 style="margin-top:70px">Calendar & Events</h3>
@@ -36,6 +44,14 @@
       </div>
       
       <div class="col-md-6">
+        <a ui-sref="rides">
+          <div class="block">
+            <h3>Rides Data</h3>
+          </div>
+        </a>
+      </div>
+      
+      <div class="col-md-4">
         <a href="#">
           <div class="block">
             <h3>Learn Online</h3>
@@ -148,6 +164,21 @@
 
 
 
+<div class="portal company-analytics" ng-show="analytics">
+  <div class="container ta-center">
+    <h2>Website Analytics</h2>
+    
+    <button id="loading-btn">Loading graph...</button>
+
+    <div class="ga-wrap" style="display:block;width:80%;margin:auto">
+      <section id="auth-button"></section>
+      <section id="view-selector"></section>
+      <section id="timeline"></section>
+    </div>
+  </div>
+</div>
+
+
 
 
 <!-- Modal -->
@@ -173,8 +204,76 @@
 </div>
 </div><!--end modal-->
 
+
+
+
 <script>
   $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip(); 
   });
 </script>
+
+
+<!-- Step 2: Load the library. -->
+
+<script>
+(function(w,d,s,g,js,fjs){
+  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(cb){this.q.push(cb)}};
+  js=d.createElement(s);fjs=d.getElementsByTagName(s)[0];
+  js.src='https://apis.google.com/js/platform.js';
+  fjs.parentNode.insertBefore(js,fjs);js.onload=function(){g.load('analytics')};
+}(window,document,'script'));
+</script>
+
+<script>
+gapi.analytics.ready(function() {
+  
+  $('#loading-btn').css('display','none');
+
+  // Step 3: Authorize the user.
+
+  var CLIENT_ID = '633525844243-1r4ea74q27960sf6l7abko81l1o4tvoj.apps.googleusercontent.com';
+
+  gapi.analytics.auth.authorize({
+    container: 'auth-button',
+    clientid: CLIENT_ID,
+  });
+
+  // Step 4: Create the view selector.
+
+  var viewSelector = new gapi.analytics.ViewSelector({
+    container: 'view-selector'
+  });
+
+  // Step 5: Create the timeline chart.
+
+  var timeline = new gapi.analytics.googleCharts.DataChart({
+    reportType: 'ga',
+    query: {
+      'dimensions': 'ga:date',
+      'metrics': 'ga:sessions',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday',
+    },
+    chart: {
+      type: 'LINE',
+      container: 'timeline'
+    }
+  });
+
+  // Step 6: Hook up the components to work together.
+
+  gapi.analytics.auth.on('success', function(response) {
+    viewSelector.execute();
+  });
+
+  viewSelector.on('change', function(ids) {
+    var newIds = {
+      query: {
+        ids: ids
+      }
+    }
+    timeline.set(newIds).execute();
+  });
+});
+</script>  
