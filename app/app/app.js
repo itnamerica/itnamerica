@@ -157,6 +157,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/employee-profiles',
             templateUrl: viewsPath + 'employee-profiles.html'
         })
+        .state('dept-report', {
+            url: '/dept-report',
+            templateUrl: viewsPath + 'dept-report.html'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');
