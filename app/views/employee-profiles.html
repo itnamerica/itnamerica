@@ -10,7 +10,7 @@
   
   <div class="container employee-profile" ng-show="employeeSelected" ng-repeat="employee in employees | filter: {firstName: employeeSelected.firstName}" style="width:70%;border:3px solid white;border-radius:5px" >
     
-    <h3 style="margin-bottom:0">{{employee.firstName}} {{employee.lastName}}</h3>
+    <h2 style="margin:0;font-size:35px">{{employee.firstName}} {{employee.lastName}}</h2>
     <h5 style="text-align:center">{{employee.position}}</h5>
     
     <div class="row mt-50">
@@ -25,10 +25,17 @@
     
     <div class="row mt-50 mb-25">
       <h5>Uploaded Files</h5>
-      <hr>
+      <hr width="30">
       
       
+      <button class="btn btn-lg pull-right" ng-click="emailEmployee(employee)">Contact {{employee.firstName}}</button>
     </div>
     
   </div>
 </div>
+
+
+<!-- -contact email
+-edit profile
+-add/rm employee?
+-how to read imgs -->
