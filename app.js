@@ -91,6 +91,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /getRidesData get request
   
+  app.get('/getEmployees', function (req,res) {
+      db.collection('employees').find().toArray(function (err, result) {
+        console.log('result is ', result);
+        res.send(result);
+      })
+  }); // end of /getEmployees get request
+  
   app.get('/getCommentsPhoto', function (req,res) {
     db.collection('commentsphoto').find().toArray(function (err, result) {
       console.log('result is ', result);

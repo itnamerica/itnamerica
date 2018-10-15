@@ -1150,6 +1150,20 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };    
     
     
+    $scope.toggleEmployee = function(employee) {
+      console.log('employee is ', employee);
+      $scope.employeeSelected = employee;
+    };
+    
+    $scope.getEmployees = function() {
+      DataService.getEmployees().then(function(data){
+        console.log('employees are ', data);
+        $scope.employees = data.data;
+      })
+    }
+    
+    
+    
    $scope.catchDocFilter = function() {
        console.log('stateparam is ', $stateParams.filter);
        $scope.docFilter = $stateParams.filter;

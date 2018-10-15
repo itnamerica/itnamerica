@@ -100,6 +100,11 @@ myApp.service('DataService', function($http){
       return data;
     })
   };
+  this.getEmployees = function(){
+    return $http.get('/getEmployees').then(function(data){
+      return data;
+    })
+  }
 });
 
 
