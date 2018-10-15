@@ -83,7 +83,7 @@
 
 
 <div class="portal affiliateLanding" ng-show="affiliateLanding">
-  <div class="container ta-center">
+  <div class="container-fluid ta-center mb-50">
     <h2>ITN Affiliates</h2>
     
     <ul>
@@ -92,9 +92,14 @@
       </li>
     </ul>
     
+    <div class="container-fluid" style="padding:0">
+      <div id="map" style="height:700px"></div>
+    </div>
+    
+    
+    
   </div>
 </div>
-
 
 
 <div class="back-btn-wrap">
@@ -105,8 +110,103 @@
 
 
 
-<script>
-  $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip(); 
-  });
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+
+console.log('beg js script ');
+
+  var itn1 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnportland.org/">ITN<em>Portland</em></a></h2>' + 
+      '<p>One Westbrook Common, Suite 3 </p><p> Westbrook, Maine 04092</p>' +
+      '<p>(207) 854-0505</p>' + '</div>', 43.676373, -70.366664];
+  var itn2 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnmontereycounty.org/">ITN<em>MontereyCounty</em></a></h2>' + 
+      '<p>5 Harris Court, Building A</p><p>Monterey, CA 93940-5750</p>' +
+      '<p>(831) 233-3447</p>' + '</div>', 36.579623, -121.819117];
+  var itn3 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itncentraloklahoma.org/">ITN<em>CentralOklahoma</em></a></h2>' + 
+      '<p>313 N.E. 50th St. </p><p>Oklahoma City, OK 73105</p>' +
+      '<p>(405) 602-1558</p>' + '</div>', 35.522804, -97.506028];
+  var itn4 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itngateway.org/">ITN<em>Gateway</em></a></h2>' + 
+      '<p>P.O. Box 147</p><p>St. Peters, MO 63376</p>' +
+      '<p>(636) 329-0888</p>' + '</div>', 38.833300, -90.686320];
+  var itn5 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnsuncoast.org/">ITN<em>Suncoast</em></a></h2>' + 
+      '<p>1226 N. Tamiami Trail, Suite 300</p><p>Sarasota, FL 34236</p>' +
+      '<p>(941) 364-7530</p>' + '</div>', 27.349070, -82.546420];
+  var itn6 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnlehighvalley.org/">ITN<em>LehighValley</em></a></h2>' + 
+      '<p>35 E. Elizabeth Ave Suite 20A</p><p>Bethlehem, PA 18018</p>' +
+      '<p>(610) 419-1645</p>' + '</div>', 40.631200, -75.376650];
+  var itn7 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnmemphis.org/">ITN<em>Memphis</em></a></h2>' + 
+      '<p>561 South Prescott Street</p><p>Memphis, TN 38111</p>' +
+      '<p>(901) 833-7666</p>' + '</div>', 35.104670, -89.948774];
+  var itn8 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnnorthjersey.org/">ITN<em>NorthJersey</em></a></h2>' + 
+      '<p>205 Hillcrest Avenue</p><p>Wyckoff, NJ 07841</p>' +
+      '<p>(201) 398-6885</p>' + '</div>', 40.988746, -74.155719];
+  var itn9 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnsoutherndelaware.org/">ITN<em>SouthernDelaware</em></a></h2>' + 
+      '<p>24855 Broadkill Rd.</p><p>Milton, DE 19968</p>' +
+      '<p>302-448-8486</p>' + '</div>', 38.789576, -75.304623];
+  var itn10 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnbluegrass.org/">ITN<em>Bluegrass</em></a></h2>' + 
+      '<p>1206 N Limestone Street</p><p>Lexington, KY 40505</p>' +
+      '<p>(859) 252-8665</p>' + '</div>', 38.061127, -84.475547];
+  var itn11 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnorlando.org/">ITN<em>Orlando</em></a></h2>' + 
+      '<p>988 Woodcock Road Suite 200</p><p>Orlando, FL 32803</p>' +
+      '<p>(407) 228-7761</p>' + '</div>', 28.557534, -81.344281];
+  var itn12 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itnlanier.org/">ITN<em>Lanier</em></a></h2>' + 
+      '<p>PO Box 1183</p><p>Gainesville, GA 30503</p>' +
+      '<p>(678) 696-0360</p>' + '</div>', 34.289510, -83.813800];
+  var itn13 = ['<div id="marker-label">' + 
+      '<h2><a href="http://www.itncentralct.org/">ITN<em>CentralCT</em></a></h2>' + 
+      '<p>50 South Main St.</p><p>West Hartford, CT 06107</p>' +
+      '<p>(860) 346-RIDE (7433)</p>' + '</div>', 41.758635, -72.741714];
+    
+  var locationsAffiliates = [];
+  
+  for (i = 1; i < 14; i++) {  
+    locationsAffiliates.push(eval('itn'+i))
+  }
+  function initMap() {
+    var myLatLng = {lat: 41.8781, lng: -87.6298};
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4.5,
+      center: myLatLng
+      });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locationsAffiliates.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locationsAffiliates[i][1], locationsAffiliates[i][2]),
+        map: map,
+        icon: 'assets/images/icons/blue_pointer.png'
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locationsAffiliates[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    };
+    
+  }
+</script>
+
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPl0CQZe2FpgGzGj0KyFo08JAj-WBKvlc&callback=initMap">
 </script>

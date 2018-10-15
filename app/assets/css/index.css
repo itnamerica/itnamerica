@@ -1639,6 +1639,7 @@ form textarea.form-control {font-size:25px}
   text-align:center;
   color: rgba(252,109,109,1);
   margin-bottom:50px;
+  margin-top:50px;
 }
 .portal h5 {
   color: #fc6f6d;
@@ -1848,8 +1849,23 @@ form textarea.form-control {font-size:25px}
   color: black;
 }
 
+/* Google map */
 
-
+#map {
+  height: 100%;
+}
+.labels {
+  color: red;
+  background-color: white;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  width: 40px;
+  height:20px;
+  border: 2px solid black;
+  white-space: nowrap;
+}
 
 
 .nda p {
