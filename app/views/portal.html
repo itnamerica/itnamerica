@@ -86,17 +86,27 @@
   <div class="container-fluid ta-center mb-50">
     <h2>ITN Affiliates</h2>
     
-    <ul>
-      <li ng-repeat="itnAffiliate in affiliateList">
-        <a ui-sref="affiliates({name: itnAffiliate.name, gaViewCode: itnAffiliate.gaViewCode })">ITN<em>{{itnAffiliate.name}}</em></a>
-      </li>
-    </ul>
+    <div class="row mb-50">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-4">
+        <ul>
+          <li ng-repeat="itnAffiliate in affiliateList" ng-if="$index <= affiliateList.length / 2">
+            <a ui-sref="affiliates({name: itnAffiliate.name, gaViewCode: itnAffiliate.gaViewCode })">ITN<em>{{itnAffiliate.name}}</em></a>
+          </li>
+        </ul>
+        </div>
+        
+        <div class="col-sm-4">
+          <ul>
+            <li ng-repeat="itnAffiliate in affiliateList" ng-if="$index > affiliateList.length / 2">
+              <a ui-sref="affiliates({name: itnAffiliate.name, gaViewCode: itnAffiliate.gaViewCode })">ITN<em>{{itnAffiliate.name}}</em></a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
     
-    <div class="container-fluid" style="padding:0">
-      <div id="map" style="height:700px"></div>
-    </div>
-    
-    
+      <div id="map" style="height:700px;clear:both"></div>
     
   </div>
 </div>
