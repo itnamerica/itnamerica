@@ -43,6 +43,7 @@
     "express": "^4.13.4",
     "express-session": "^1.15.6",
     "font-awesome": "^4.7.0",
+    "formidable": "^1.2.1",
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.2",
     "gulp-uglify": "^3.0.0",

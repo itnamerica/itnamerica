@@ -21,6 +21,7 @@ var multer = require('multer');
 // var upload = multer({ storage : storage}).single('userPhoto');
 var upload = multer({ dest: 'uploads/' })
 var multipart = require('connect-multiparty');
+const formidable = require('formidable')
 
 
 app.use(function(req, res, next) {
@@ -31,13 +32,18 @@ app.use(function(req, res, next) {
 app.use(express.json()); //convert req to json
 app.use(express.static(__dirname + '/app'));
 app.use(session({secret: "Sam is awesome"}));
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-// app.use(multer({ dest: './tmp/'}));
 
-app.use(multipart({
-	uploadDir: 'app/dist'
+// app.use(bodyParser.json({limit: '50mb'}));
+// app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+// app.use(multer({ dest: './tmp/'}));
+app.use(bodyParser.json()); // Configures bodyParser to accept JSON
+app.use(bodyParser.urlencoded({
+    extended: false
 }));
+// 
+// app.use(multipart({
+// 	uploadDir: 'app/dist'
+// }));
 
 
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-services','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs','/employee-profiles'];
@@ -110,14 +116,25 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   app.post('/upload', upload.single('image'),  function(req, res) {
     console.log('file from backend0 is ');
     console.log(req.body);
-    console.log(req.files);
+    console.log(req.body.files);
+    res.end();
   });
   
-  app.post('/uploadFile', function (req,res) {
-    console.log('file from backend1 is ');
-    console.log(req.body);
-    console.log(req.files);
+  app.post('/uploadFiles', function(req, res, next) {
+    console.log('inside uploadfiles backend')
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+        console.log(fields)
+        res.send('NOT IMPLEMENTED: pollsController createPost');
+    })
+    res.end();
   });
+  
+  // app.post('/uploadFile', function (req,res) {
+  //   console.log('file from backend1 is ');
+  //   console.log(req.body);
+  //   console.log(req.files);
+  // });
   
   // app.post('/uploadTheFile', function (req,res,next) {
   //   console.log('file from backend2 is ');
@@ -220,29 +237,29 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of deleteagendaevent request
   
   
-  
-  app.post('/profile', upload.single('avatar'), function (req, res, next) {
-    console.log('inside profile ', req.file);
-    // req.file is the `avatar` file
-    // req.body will hold the text fields, if there were any
-  })
-
-  app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
-    // req.files is array of `photos` files
-    // req.body will contain the text fields, if there were any
-  })
-
-  var cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
-  app.post('/cool-profile', cpUpload, function (req, res, next) {
-    // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
-    //
-    // e.g.
-    //  req.files['avatar'][0] -> File
-    //  req.files['gallery'] -> Array
-    //
-    // req.body will contain the text fields, if there were any
-  })
-  
+// 
+//   app.post('/profile', upload.single('avatar'), function (req, res, next) {
+//     console.log('inside profile ', req.file);
+//     // req.file is the `avatar` file
+//     // req.body will hold the text fields, if there were any
+//   })
+// 
+//   app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
+//     // req.files is array of `photos` files
+//     // req.body will contain the text fields, if there were any
+//   })
+// 
+//   var cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
+//   app.post('/cool-profile', cpUpload, function (req, res, next) {
+//     // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
+//     //
+//     // e.g.
+//     //  req.files['avatar'][0] -> File
+//     //  req.files['gallery'] -> Array
+//     //
+//     // req.body will contain the text fields, if there were any
+//   })
+// 
 });//end of mongoclient
 
 

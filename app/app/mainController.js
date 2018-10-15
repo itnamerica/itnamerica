@@ -1183,7 +1183,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
    
-      $http.post('/upload', {formData: fd, fileObj: file, test: 'test string'})
+      $http.post('/uploadFiles', {formData: fd, fileObj: file, test: 'test string'})
       // $http.post('/uploadFile', fd)
       .then(function(data){
         console.log('succesfully uploaded file ', data);
