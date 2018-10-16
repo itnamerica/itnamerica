@@ -215,6 +215,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.ndaFormData = [];
     $scope.contactFormData = [];
     $scope.newsletterFormData = [];
+    $scope.hrContactFormData = [];
     $scope.formObj = {};
     $scope.formObjType = {};
     $scope.session = null;
@@ -485,6 +486,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         FormService.getNewsletterForms().then(function(data) {
             $scope.newsletterFormData = data;
             $scope.formCount.newsletter = data.length
+        });
+        FormService.getHRContactForms().then(function(data) {
+            $scope.hrContactFormData = data;
+            $scope.formCount.hrContact = data.length
         });
     };
 
@@ -757,6 +762,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         var contactInputsValid = $scope.validateContactInputs();
         console.log('valid contact is ', contactInputsValid);
         var formObj = {};
+        var today = new Date();
         
         $scope.loading = true;
         if (formType) {
@@ -770,6 +776,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 to: 'itnamerica2018@gmail.com',
                 subject: "ITNAmerica Contact Form Submitted",
                 text: $scope.formData,
+                date: today,
                 html: "<p><strong>Name</strong>: " + $scope.formData.name + "</p>\n" +
                     "<p><strong>Email</strong>: " + $scope.formData.email + "</p>\n " +
                     "<p><strong>Mobile</strong>: " + $scope.formData.phone + "</p>\n " +
@@ -784,6 +791,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 to: 'itnamerica2018@gmail.com',
                 subject: "ITNAmerica Request to be added to Newsletter",
                 text: $scope.formData,
+                date: today,
                 html: "<p><strong>Email</strong>: " + $scope.formData.email + "</p> ",
                 formType: $scope.formType
             }
@@ -794,6 +802,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 to: 'itnamerica2018@gmail.com',
                 subject: "ITNAmerica Staff Comment",
                 text: $scope.formData,
+                date: today,
                 html: "<p><strong>Message</strong>: " + $scope.formData.messageBody + "</p> " +
                     "<p><strong>Author</strong>: " + $scope.formData.author + "</p>\n ",
                 formType: $scope.formType
@@ -805,6 +814,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                     to: 'itnamerica2018@gmail.com',
                     subject: "New HR ticket submitted",
                     text: $scope.formData,
+                    date: today,
                     html: "<p><strong>Subject</strong>: " + $scope.formData.subject + "</p> " +
                           "<p><strong>Message</strong>: " + $scope.formData.messageBody + "</p> " +
                           "<p><strong>Sender</strong>: " + $scope.formData.name + "</p>\n " +
@@ -818,6 +828,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                     to: $scope.formType.email,
                     subject: "New message from ITN Staff",
                     text: $scope.formData,
+                    date: today,
                     html: "<p><strong>Subject</strong>: " + $scope.formData.subject + "</p> " +
                           "<p><strong>Message</strong>: " + $scope.formData.messageBody + "</p> " +
                           "<p><strong>Sender</strong>: " + $scope.formData.name + "</p>\n " +
@@ -831,9 +842,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             .then(function(res) {
                 $scope.loading = false;
                 $scope.serverMessage = 'Your form was submitted successfully. You should hear back from us soon.';
+                $scope.contactPerson = null;
             }).catch(function(err) {
                 $scope.loading = false;
                 $scope.serverMessage = 'There was an error submitting your form. Please contact us by phone instead.';
+                $scope.contactPerson = null;
             });
     };
 

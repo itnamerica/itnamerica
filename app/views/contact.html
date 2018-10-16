@@ -16,7 +16,7 @@
               <form name="itnForm" novalidate ng-submit="submitForm()" role="contact form" ng-model="formData">
                 <br style="clear:both">
                 <h3 ng-hide="contactPerson" style="margin-bottom: 25px; text-align: center">Contact ITN<em>{{affiliate}}</em></h3>
-                <h3 ng-show="contactPerson" style="margin-bottom: 25px; text-align: center">Contact {{contactPerson.firstName || contactPerson}} </h3> formtype: {{formType}}
+                <h3 ng-show="contactPerson" style="margin-bottom: 25px; text-align: center">Contact {{contactPerson.firstName || contactPerson}} </h3>
                         
                 <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
                   <input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.name" required>

@@ -77,6 +77,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /getContactForms get request
   
+  app.get('/getHRContactForms', function (req,res) {
+      db.collection('hrcontactform').find().toArray(function (err, result) {
+        console.log('result is ', result);
+        res.send(result);
+      })
+  }); // end of /getHRContactForms get request
+  
   app.get('/getNewsletterForms', function (req,res) {
       db.collection('newsletterform').find().toArray(function (err, result) {
         console.log('result is ', result);
@@ -348,14 +355,21 @@ app.post('/sendmail', function(req, res){
       var objWithPDF; var pdfVal;
 
       if ((req.body && req.body.html) && (req.body.formType === 'contact')) {
-        db.collection('contactform').save(req.body.text, function(err, result){
+        var contactObj = {
+          subject: req.body.text.subject,
+          messageBody: req.body.text.messageBody,
+          name: req.body.text.name,
+          email: req.body.text.email,
+          phone: req.body.text.phone,
+          date: req.body.text.date,
+        };
+        db.collection('contactform').save(contactObj, function(err, result){
           if (err) { return console.log('connecting to db, but not saving obj', err);}
           console.log('contact form saved to database', result);
           // res.redirect('/');
         })
       }
       else if (req.body.text.email && (req.body.formType === 'newsletter')) {
-        console.log('inside newsletter backend block',req.body.text);
         db.collection('newsletterform').save(req.body.text, function(err, result){
           if (err) { return console.log('connecting to db, but not saving obj', err);}
           console.log('newsletter form saved to database', result);
@@ -363,7 +377,6 @@ app.post('/sendmail', function(req, res){
         })
       }
       else if (req.body && (req.body.formType === 'NDA')) {
-        console.log('inside nda backend block', req.body.text); 
         var ndaObj = {
           name: req.body.text.name,
           signature: req.body.text.signature,
@@ -376,6 +389,21 @@ app.post('/sendmail', function(req, res){
         db.collection('ndaform').save(ndaObj, function(err, result){
           if (err) { return console.log('connecting to db, but not saving obj', err);}
           console.log('nda form saved to database', result);
+          // res.redirect('/');
+        })
+      } else if ((req.body && req.body.html) && (req.body.formType === 'HR')) {
+        console.log('inside HR backend block',req.body.html);
+        var contactObj = {
+          subject: req.body.text.subject,
+          messageBody: req.body.text.messageBody,
+          name: req.body.text.name,
+          email: req.body.text.email,
+          phone: req.body.text.phone,
+          date: req.body.text.date,
+        };
+        db.collection('hrcontactform').save(contactObj, function(err, result){
+          if (err) { return console.log('connecting to db, but not saving obj', err);}
+          console.log('newsletter form saved to database', result);
           // res.redirect('/');
         })
       }
