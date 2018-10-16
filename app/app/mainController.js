@@ -735,8 +735,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
     };
     
+    //captures param to know if normal or custom contact form, custom comes from portal (HR or staff)
     $scope.isContactPerson = function(){
-      //capture param to know which contact filter to apply
       if ($stateParams.contact) {
         console.log('contact is ', $stateParams.contact);
         $scope.contactPerson = $stateParams.contact;
@@ -747,6 +747,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         } else if ($scope.contactPerson.email){
           $scope.formType = 'staff';
         }
+      } else {
+        $scope.formType = 'contact'
       }
     };
 
@@ -755,10 +757,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         var contactInputsValid = $scope.validateContactInputs();
         console.log('valid contact is ', contactInputsValid);
         var formObj = {};
+        
+        $scope.loading = true;
         if (formType) {
             $scope.formType = formType;
         } //else $scope.formType is assigned in function above.
-        $scope.loading = true;
+        
         if ($scope.formType === 'contact' && contactInputsValid) {
             console.log('submitting valid contact form');
             formObj = {
@@ -798,7 +802,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 console.log('submitting valid HR ticket');
                 formObj = {
                     from: '"ITNAmerica Staff Member" <donotreply@itnamerica.com>',
-                    to: 'jean.palanza@itnamerica.org',
+                    to: 'itnamerica2018@gmail.com',
                     subject: "New HR ticket submitted",
                     text: $scope.formData,
                     html: "<p><strong>Subject:</strong>: " + $scope.formData.subject + "</p> " +

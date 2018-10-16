@@ -242,31 +242,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
         res.send(result);
       });
   }); // end of deleteagendaevent request
-  
-  
-// 
-//   app.post('/profile', upload.single('avatar'), function (req, res, next) {
-//     console.log('inside profile ', req.file);
-//     // req.file is the `avatar` file
-//     // req.body will hold the text fields, if there were any
-//   })
-// 
-//   app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
-//     // req.files is array of `photos` files
-//     // req.body will contain the text fields, if there were any
-//   })
-// 
-//   var cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
-//   app.post('/cool-profile', cpUpload, function (req, res, next) {
-//     // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
-//     //
-//     // e.g.
-//     //  req.files['avatar'][0] -> File
-//     //  req.files['gallery'] -> Array
-//     //
-//     // req.body will contain the text fields, if there were any
-//   })
-// 
+
 });//end of mongoclient
 
 
@@ -313,13 +289,32 @@ app.post('/sendmail', function(req, res){
         bcc: 'info@itnamerica.org;morgan.jameson@itnamerica.org'
     };
   }
-  else if (req.body && req.body.html){ //contact forms
+  else if (req.body && req.body.formType === 'HR'){ ///private contact form from ITN staff to HR
     console.log('sending email without pdf, contact form');
     mailOptions = {
         from: req.body.from, // sender address
         to: req.body.to, // list of receivers
         subject: req.body.subject, // Subject line   
-        text: JSON.stringify(req.body.text), // plain text body
+        html: req.body.html, // html body
+        bcc: 'jean.palanza@itnamerica.org'
+    };
+  }
+  else if (req.body && req.body.formType.email){ //private contact form from ITN staff to ITN staff
+    console.log('sending email without pdf, contact form');
+    mailOptions = {
+        from: req.body.from, // sender address
+        to: req.body.to, // list of receivers
+        subject: req.body.subject, // Subject line   
+        html: req.body.html, // html body
+        bcc: req.body.formType.email
+    };
+  }
+  else if (req.body && req.body.html){ //regular/public contact forms
+    console.log('sending email without pdf, contact form');
+    mailOptions = {
+        from: req.body.from, // sender address
+        to: req.body.to, // list of receivers
+        subject: req.body.subject, // Subject line   
         html: req.body.html, // html body
         bcc: 'info@itnamerica.org;morgan.jameson@itnamerica.org'
     };

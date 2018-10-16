@@ -13,10 +13,10 @@
         
         <div class="col-sm-12">
             <div class="form-area" style="background: #c7dfe4;border:none"> 
-              <form name="itnForm" novalidate ng-submit="submitForm('contact')" role="contact form" ng-model="formData">
+              <form name="itnForm" novalidate ng-submit="submitForm()" role="contact form" ng-model="formData">
                 <br style="clear:both">
-                <h3 style="margin-bottom: 25px; text-align: center">Contact ITN<em>{{affiliate}}</em></h3>
-                <h3 style="margin-bottom: 25px; text-align: center" ng-show="contactPerson">Contact {{contact.firstName}}</h3>
+                <h3 ng-hide="contactPerson" style="margin-bottom: 25px; text-align: center">Contact ITN<em>{{affiliate}}</em></h3>
+                <h3 ng-show="contactPerson" style="margin-bottom: 25px; text-align: center">Contact {{contactPerson.firstName || contactPerson}} </h3> formtype: {{formType}}
                         
                 <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
                   <input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.name" required>
