@@ -745,7 +745,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             $scope.formType = 'HR';
             //if contacting a staff member (portal)
         } else if ($scope.contactPerson.email){
-          $scope.formType = 'staff';
+          $scope.formType = $scope.contactPerson;
         }
       } else {
         $scope.formType = 'contact'
@@ -770,11 +770,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 to: 'itnamerica2018@gmail.com',
                 subject: "ITNAmerica Contact Form Submitted",
                 text: $scope.formData,
-                html: "<p><strong>Name:</strong>: " + $scope.formData.name + "</p>\n" +
-                    "<p><strong>Email:</strong>: " + $scope.formData.email + "</p>\n " +
-                    "<p><strong>Mobile:</strong>: " + $scope.formData.phone + "</p>\n " +
-                    "<p><strong>Subject:</strong>: " + $scope.formData.subject + "</p>\n " +
-                    "<p><strong>Message Body:</strong>: " + $scope.formData.messageBody + "</p>\n ",
+                html: "<p><strong>Name</strong>: " + $scope.formData.name + "</p>\n" +
+                    "<p><strong>Email</strong>: " + $scope.formData.email + "</p>\n " +
+                    "<p><strong>Mobile</strong>: " + $scope.formData.phone + "</p>\n " +
+                    "<p><strong>Subject</strong>: " + $scope.formData.subject + "</p>\n " +
+                    "<p><strong>Message Body</strong>: " + $scope.formData.messageBody + "</p>\n ",
                 formType: $scope.formType
             }
         } else if ($scope.formType === 'newsletter' && $scope.formData.email) {
@@ -784,18 +784,18 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 to: 'itnamerica2018@gmail.com',
                 subject: "ITNAmerica Request to be added to Newsletter",
                 text: $scope.formData,
-                html: "<p><strong>Email:</strong>: " + $scope.formData.email + "</p> ",
+                html: "<p><strong>Email</strong>: " + $scope.formData.email + "</p> ",
                 formType: $scope.formType
             }
         } else if ($scope.formType === 'comment' && $scope.formData.messageBody) {
-            console.log('submitting valid newsletter form');
+            console.log('submitting valid comment form');
             formObj = {
                 from: '"ITNAmerica Web User" <donotreply@itnamerica.com>',
                 to: 'itnamerica2018@gmail.com',
                 subject: "ITNAmerica Staff Comment",
                 text: $scope.formData,
-                html: "<p><strong>Message:</strong>: " + $scope.formData.messageBody + "</p> " +
-                    "<p><strong>Author:</strong>: " + $scope.formData.author + "</p>\n ",
+                html: "<p><strong>Message</strong>: " + $scope.formData.messageBody + "</p> " +
+                    "<p><strong>Author</strong>: " + $scope.formData.author + "</p>\n ",
                 formType: $scope.formType
             } 
         } else if ($scope.formType === 'HR' && $scope.formData.messageBody) {
@@ -805,9 +805,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                     to: 'itnamerica2018@gmail.com',
                     subject: "New HR ticket submitted",
                     text: $scope.formData,
-                    html: "<p><strong>Subject:</strong>: " + $scope.formData.subject + "</p> " +
-                          "<p><strong>Message:</strong>: " + $scope.formData.messageBody + "</p> " +
-                          "<p><strong>Author:</strong>: " + $scope.formData.author + "</p>\n ",
+                    html: "<p><strong>Subject</strong>: " + $scope.formData.subject + "</p> " +
+                          "<p><strong>Message</strong>: " + $scope.formData.messageBody + "</p> " +
+                          "<p><strong>Sender</strong>: " + $scope.formData.name + "</p>\n " +
+                          "<p><strong>Sender contact</strong>: " + $scope.formData.email + " - " + $scope.formData.phone + "</p>\n ",
                     formType: $scope.formType
                 }
         } else if ($scope.formType.firstName && $scope.formType.email && $scope.formData.messageBody) {
@@ -817,9 +818,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                     to: $scope.formType.email,
                     subject: "New message from ITN Staff",
                     text: $scope.formData,
-                    html: "<p><strong>Subject:</strong>: " + $scope.formData.subject + "</p> " +
-                          "<p><strong>Message:</strong>: " + $scope.formData.messageBody + "</p> " +
-                          "<p><strong>Author:</strong>: " + $scope.formData.author + "</p>\n ",
+                    html: "<p><strong>Subject</strong>: " + $scope.formData.subject + "</p> " +
+                          "<p><strong>Message</strong>: " + $scope.formData.messageBody + "</p> " +
+                          "<p><strong>Sender</strong>: " + $scope.formData.name + "</p>\n " +
+                          "<p><strong>Sender contact</strong>: " + $scope.formData.email + " - " + $scope.formData.phone + "</p>\n ",
                     formType: $scope.formType
                 }
         } else {
