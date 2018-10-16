@@ -1851,6 +1851,9 @@ form textarea.form-control {font-size:25px}
   font-size: 14px;
   color: black;
 }
+.employee ul li a {
+  color:white;
+}
 
 /* Google map */
 
