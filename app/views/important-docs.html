@@ -1,17 +1,18 @@
 <div class="important-docs portal" ng-init="catchDocFilter()">
+
   <div class="container">
     <h2>Important Documents</h2>
     
     <div class="upload-doc" ng-show="docFilter === 'upload' || docFilter === null">
 
 
-      <div class="button" ngf-select="upload($file)">Upload on file select</div>
+      <div class="button" class="btn btn-lg" ngf-select="upload($file)">Upload on file select</div>
 
       Image thumbnail: <img ngf-thumbnail="file">
-      Audio preview: <audio controls ngf-src="file"></audio>
+      <!-- Audio preview: <audio controls ngf-src="file"></audio>
       Video preview: <video controls ngf-src="file"></video>
       
-      Image thumbnail2: <img ngf-thumbnail="$file">
+      Image thumbnail2: <img ngf-thumbnail="$file"> -->
       
       <!-- 
       <form ng-submit="upload()" enctype="multipart/form-data">

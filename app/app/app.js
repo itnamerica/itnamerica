@@ -156,6 +156,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
               filter: null
             }
         })
+        .state('important-docs-landing', {
+            url: '/important-docs-landing',
+            templateUrl: viewsPath + 'important-docs-landing.html',
+        })
         .state('employee-profiles', {
             url: '/employee-profiles',
             templateUrl: viewsPath + 'employee-profiles.html'
@@ -163,6 +167,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('dept-report', {
             url: '/dept-report',
             templateUrl: viewsPath + 'dept-report.html'
+        })
+        .state('hr-tickets', {
+            url: '/hr-tickets',
+            templateUrl: viewsPath + 'hr-tickets.html'
         })
 
     // default fall back route
