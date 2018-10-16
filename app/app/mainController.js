@@ -735,11 +735,19 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
     };
     
-    $scope.isContactSpecial = function(){
+    $scope.isContactPerson = function(){
       //capture param to know which contact filter to apply
       if ($stateParams.contact) {
         console.log('contact is ', $stateParams.contact);
-        $scope.contact = $stateParams.contact;
+        $scope.contactPerson = $stateParams.contact;
+        //if submitting HR ticket (portal)
+        if ($scope.contactPerson === 'HR'){
+            $scope.formData.subject = 'HR ticket submitted'; //make sure doesnt get rewritten at submitform
+            $scope.formType = 'HR';
+            //if contacting a staff member (portal)
+        } else {
+          $scope.formType = 'staff';
+        }
       }
     }
 
@@ -784,7 +792,18 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 html: "<p><strong>Message:</strong>: " + $scope.formData.messageBody + "</p> " +
                     "<p><strong>Author:</strong>: " + $scope.formData.author + "</p>\n ",
                 formType: $scope.formType
-            }
+            } 
+        } else if (formType === 'HR' && $scope.formData.messageBody) {
+                console.log('submitting valid HR ticket');
+                formObj = {
+                    from: '"ITNAmerica Staff Member" <donotreply@itnamerica.com>',
+                    to: 'jean.palanza@itnamerica.org',
+                    subject: "New HR ticket submitted",
+                    text: $scope.formData,
+                    html: "<p><strong>Message:</strong>: " + $scope.formData.messageBody + "</p> " +
+                        "<p><strong>Author:</strong>: " + $scope.formData.author + "</p>\n ",
+                    formType: $scope.formType
+                }
         } else {
             return $scope.serverMessage = "Please fill in all required fields before submitting."
         }
