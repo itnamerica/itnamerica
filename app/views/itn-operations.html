@@ -1,7 +1,7 @@
 <div class="portal itn-services" ng-show="showPortal" ng-init="getCommentsPhoto()">
   <div class="container">
     
-    <h2>ITN Services</h2>
+    <h2>ITN Operations</h2>
     
     <div class="row mt-50 mb-25">
 
@@ -38,7 +38,6 @@
     
     
     <div class="row mt-25 mb-25">
-
       
       <div class="col-md-4">
         <a ui-sref="calendar">
@@ -68,6 +67,23 @@
       </div><!--col-md-4-->
 
     </div><!--row-->
+    
+    <div class="row mt-25 mb-25">
+      
+      <div class="col-md-4"></div>
+    
+      <div class="col-md-4">
+        <a ui-sref="important-docs-landing">
+          <div class="block" style="background:white">
+            <img ng-src="{{assetsPath}}/images/folder-logo.jpg" alt="logo of a folder" style="object-fit:contain;width:200px;margin-top:40px"/>
+            <h5 style="margin-top:-12px">Resources & Documents</h5>
+          </div>
+        </a>
+      </div><!--col-md-4-->
+      
+      <div class="col-md-4"></div>
+      
+    </div>
 
     
   </div>
