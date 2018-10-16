@@ -100,9 +100,9 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/rides-in-sight',
             templateUrl: viewsPath + 'rides-in-sight.html'
         })
-        .state('itn-services', {
-            url: '/itn-services',
-            templateUrl: viewsPath + 'itn-services.html'
+        .state('itn-operations', {
+            url: '/itn-operations',
+            templateUrl: viewsPath + 'itn-operations.html'
         })
         .state('other', {
             url: '/other',

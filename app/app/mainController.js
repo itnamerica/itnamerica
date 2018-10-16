@@ -205,9 +205,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             url: $scope.viewsPath + '/other.html'
         },
         {
-            name: 'ITN Services',
-            state: 'itn-services',
-            url: $scope.viewsPath + '/itn-services.html'
+            name: 'ITN Operations',
+            state: 'itn-operations',
+            url: $scope.viewsPath + '/itn-operations.html'
         }
         
     ];
