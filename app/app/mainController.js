@@ -1235,6 +1235,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        } 
    };
    
+   $scope.showEditProfile = function(){
+     console.log('inside show edit');
+     $sope.showEditProfile = true;
+   }
+   
     
     $scope.uploadFile = function(){
       console.log("my file is ", $scope.myFile);
