@@ -1,4 +1,4 @@
-<div class="contact non-rider">
+<div class="contact non-rider" ng-init="isContactSpecial()">
       
     <div class="jumbotron section first-hero" id="first-hero-contact">
       <h1>Contact Us</h1>
@@ -7,13 +7,14 @@
     <div class="jumbotron section" style="background: #c7dfe4">
       
       <div class="container">
-        <h3>Want to learn more about ITN<em>America</em>, start an ITN affiliate, support us in our work supporting older people and their families? Have questions or comments? Use the form below or call us at (207)857-9001, or mail or visit us at our offices at the Dana Warp Mill, 90 Bridge St, suite 210, Westbrook, Maine, 04092.</h3>
+        <h3 ng-hide="contact">Want to learn more about ITN<em>America</em>, start an ITN affiliate, support us in our work supporting older people and their families? Have questions or comments? Use the form below or call us at (207)857-9001, or mail or visit us at our offices at the Dana Warp Mill, 90 Bridge St, suite 210, Westbrook, Maine, 04092.</h3>
         <hr align="center">
         <div class="col-sm-12">
             <div class="form-area" style="background: #c7dfe4;border:none"> 
               <form name="itnForm" novalidate ng-submit="submitForm('contact')" role="contact form" ng-model="formData">
                 <br style="clear:both">
-                <h3 style="margin-bottom: 25px; text-align: center">Contact ITN<em>{{affiliate}}</em></h3>
+                <h3 style="margin-bottom: 25px; text-align: center" ng-hide="contact">Contact ITN<em>{{affiliate}}</em></h3>
+                <h3 style="margin-bottom: 25px; text-align: center" ng-show="contact">Contact {{contact.firstName}}</h3>
                         
                 <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
                   <input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.name" required>

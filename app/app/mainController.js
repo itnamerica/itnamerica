@@ -734,6 +734,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             return true;
         }
     };
+    
+    $scope.isContactSpecial = function(){
+      //capture param to know which contact filter to apply
+      if ($stateParams.contact) {
+        console.log('contact is ', $stateParams.contact);
+        $scope.contact = $stateParams.contact;
+      }
+    }
 
     //for contact and newsletter forms
     $scope.submitForm = function(formType) {

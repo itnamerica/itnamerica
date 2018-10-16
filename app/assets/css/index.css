@@ -1686,6 +1686,9 @@ form textarea.form-control {font-size:25px}
   color: rgba(252,109,109,1);
   text-decoration:none !important;
 }
+.portal .block img {
+  object-fit: contain;
+}
 .portal .block .contained-img, .portal .block img {
   max-height:250px;
   max-width:300px;

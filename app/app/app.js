@@ -17,7 +17,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('contact', {
             url: '/contact',
-            templateUrl: viewsPath + 'contact.html'
+            templateUrl: viewsPath + 'contact.html',
+            params: {
+              contact: null
+            }
         })
         .state('what-we-do', {
             url: '/what-we-do',
