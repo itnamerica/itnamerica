@@ -93,8 +93,7 @@
                     <textarea class="form-control" type="textarea" name="message" id="message" placeholder="Message" maxlength="2000" rows="7" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="formData.message" required></textarea>
                     <span ng-if="itnForm.message.$error.required && !itnForm.message.$pristine" class="help-block">{{errorMessages.required}}</span>
                     <span ng-if="itnForm.message.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
-                    <span ng-if="itnForm.message.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
-                      <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
+                    <span ng-if="itnForm.message.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>                  
                   </div>
                   
                   <p ng-if="loading"><em>Loading. Please wait</em></p>

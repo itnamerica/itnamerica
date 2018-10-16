@@ -3,12 +3,12 @@
     <h2>Select an Employee</h2>
     
     <ul>
-      <li ng-repeat="employee in employees"><a ng-click="toggleEmployee(employee);employeeSelected = true">{{employee.firstName}} {{employee.lastName}}</a></li>
+      <li ng-repeat="employee in employees"><a ng-click="toggleEmployee(employee)">{{employee.firstName}} {{employee.lastName}}</a></li>
     </ul>
     
   </div>
   
-  <div class="container employee-profile" ng-show="employeeSelected" ng-repeat="employee in employees | filter: {firstName: employeeSelected.firstName}" style="width:70%;border:3px solid white;border-radius:5px" >
+  <div class="container employee-profile" ng-show="employeeSelected && !showEditEmployee" ng-repeat="employee in employees | filter: {firstName: employeeSelected.firstName}" >
     
     <h2 style="margin:0;font-size:35px">{{employee.firstName}} {{employee.lastName}}</h2>
     <h5 style="text-align:center">{{employee.position}}</h5>
@@ -25,17 +25,63 @@
     
     <div class="row mt-50 mb-25">
       <h5>Uploaded Files</h5>
-      <hr width="30">
+      <hr style="width:30%">
       
-      <button class="btn btn-lg pull-right" ui-sref="contact({contact: employee})">Contact {{employee.firstName}}</button>
-      <button class="btn btn-lg pull-right" ng-click="editEmployee(employee)">Edit Profile</button>
+      <button class="btn btn-lg pull-right" style="margin-left:2%" ui-sref="contact({contact: employee})">Contact {{employee.firstName}}</button>
+      <button class="btn btn-lg pull-right" ng-click="showEditEmployee = true">Edit Profile</button>
     </div>
     
   </div>
+  
+  edit: {{showEditEmployee}}
+  
+  
+  <div class="container employee-profile employee-edit" ng-show="employeeSelected">
+    
+    <form name="itnForm" novalidate ng-submit="showEditEmployee = false; editEmployee(employeeSelected)" role="edit profile form" ng-model="formData">
+      <div class="row" style="width:70%;margin:auto">
+        <div class="form-group col-sm-6">
+          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{employeeSelected.firstName}}" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.firstName">
+        </div>
+        <div class="form-group col-sm-6">
+          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="{{employeeSelected.lastName}}" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.lastName">
+        </div>
+      </div>
+      <div class="form-group" style="width:50%;margin:auto;margin-top:-20px">
+        <input type="text" class="form-control" id="position" name="position" placeholder="{{employeeSelected.position}}" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.position">
+      </div>
+      
+      <div class="row mt-50">
+        <div class="col-sm-3" style="height:200px;width:200px;border: 1px solid white">
+          <img ng-src="{{assetsPath}}/images/board/photo_soon.jpg" alt="icon of avatar" style="margin-left: -10%;height:200px;width:200px" class="img-responsive"/>
+          <p><button class="btn btn-lg update-avatar" ng-click="updateEmployeeAvatar(employeeSelected)">Update Avatar</button></p>
+        </div>
+        <div class="col-sm-offset-1 col-sm-8">
+          <p>Bio:</p>
+          <div class="form-group">
+            <textarea class="form-control" type="textarea" id="bio" name="bio" placeholder="{{employeeSelected.bio}}" maxlength="2000" rows="7" ng-model="formData.bio"></textarea>
+          </div>
+        </div>
+      </div><!--row-->
+      
+      <div class="row mt-50 mb-25">
+        <h5>Uploaded Files</h5>
+        <hr style="width:30%">
+
+        <button type="submit" class="btn btn-lg pull-right">Save Profile</button>
+
+      </div>
+    </form>
+    
+  </div>
+
+    
+    
+    
 </div>
 
 
 <!-- -contact email (+hr ticket)
 -edit profile (for person logged in)
--add/rm employee? (for admin-dashboard)
+-add/rm employeeSelected? (for admin-dashboard)
 -how to read imgs -->

@@ -1854,6 +1854,18 @@ form textarea.form-control {font-size:25px}
 .employee ul li a {
   color:white;
 }
+.employee .employee-profile {
+  width:70%;
+  border:3px solid white;
+  border-radius:5px;
+}
+.employee .employee-edit .update-avatar {
+  padding: 10px;
+  font-size: 18px;
+  position: absolute;
+  margin-top: -23%;
+  margin-left: 22%;
+}
 
 /* Google map */
 
