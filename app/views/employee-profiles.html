@@ -3,9 +3,13 @@
   <div class="container">
     <h2>Select an Employee</h2>
     
-    <ul>
-      <li ng-repeat="employee in employees"><a ng-click="toggleEmployee(employee)">{{employee.firstName}} {{employee.lastName}}</a></li>
-    </ul>
+    <div class="dropdown ta-center">
+      <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">ITN Employees
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li ng-repeat="employee in employees"><a ng-click="toggleEmployee(employee)">{{employee.firstName}} {{employee.lastName}}</a></li>
+      </ul>
+    </div>
     
   </div>
 

@@ -1852,7 +1852,13 @@ form textarea.form-control {font-size:25px}
   color: black;
 }
 .employee ul li a {
-  color:white;
+  text-align:left;
+}
+.employee .dropdown-menu {
+  left: 65%;
+  right: auto;
+  text-align: center;
+  transform: translate(-50%, 0);
 }
 .employee .employee-profile, .employee .employee-edit {
   width:70%;
