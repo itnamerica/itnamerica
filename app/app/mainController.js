@@ -1302,10 +1302,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     
     $scope.authWall = function(){
       swal({
-        title: 'Multiple inputs',
+        title: 'Please log in to edit your profile',
         html:
-          '<input id="swal-input1" class="swal2-input">' +
-          '<input id="swal-input2" class="swal2-input">',
+          '<input type="text" id="swal-input1" class="swal2-input" placeholder="username">' +
+          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
         focusConfirm: false,
         preConfirm: function(){
           return [
@@ -1315,11 +1315,19 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
       }).then(function(result){
         if (result.value) {
-          console.log('result is ', result.value);
-          // swal({
-            // title: `${result.value.login}'s avatar`,
-            // imageUrl: result.value.avatar_url
-          // })
+          console.log('creds are ', result.value[0], result.value[1]);
+          $scope.formData.username = result.value[0];
+          $scope.formData.password = result.value[1];
+          return DataService.login($scope.formData, 'employees')
+            .then(function(response){
+              console.log('logged in');
+              $scope.toggleProfileType('edit');
+            })
+            .catch(function(error){
+              swal.showValidationMessage(
+                `Request failed: ${error}`
+              )
+            })
         }
       })
 };  

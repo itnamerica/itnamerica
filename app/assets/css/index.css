@@ -1877,7 +1877,10 @@ form textarea.form-control {font-size:25px}
   margin-top: -23%;
   margin-left: 22%;
 }
-
+.employees .h6 {
+  color: #fc6f6d !important;
+  font-size: 20px !important;
+}
 
 .server-message {
   color:red;

@@ -209,7 +209,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     console.log('employee is ', req.body.employee);
     var employee = req.body.employee;
     var myQuery = {_id: new mongo.ObjectId(employee._id)};
-    var newValues = {$set: {firstName: employee.firstName, lastName: employee.lastName, avatar: employee.avatar, dob: employee.dob, bio: employee.bio, email: employee.email, login: employee.login, password: employee.password, position: employee.position, files: employee.files  } };
+    var newValues = {$set: {firstName: employee.firstName, lastName: employee.lastName, avatar: employee.avatar, dob: employee.dob, bio: employee.bio, email: employee.email, username: employee.username, password: employee.password, position: employee.position, files: employee.files  } };
     db.collection('employees').findAndModify(myQuery, [['_id','asc']], newValues, {}, function(err, result){
       if (err) { throw err };
       console.log('record has been updated, i think');
