@@ -324,7 +324,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.scrollToTop = function() {
         $(window).scrollTop(50);
-    }
+    };
 
     $scope.readMore = function(divId) {
         var content = document.getElementById(divId);
@@ -1237,7 +1237,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         console.log('inside edit profile');
         $scope.showEditProfile = true;
         $scope.showDisplayProfile = false;
-      }
+      };
+      $(window).scrollTop(500);
     };
     
     $scope.editEmployee = function(){
@@ -1247,9 +1248,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           console.log('return from employee put call is ', data);
           $scope.serverMessage = "Your profile was succesfully updated"; 
           //updates data on DOM without reload
-          $scope.getEmployeesPromise().then(function(response){
-            $scope.toggleProfileType('display');
-          })
+          $timeout(function(){
+            $scope.getEmployeesPromise().then(function(response){
+              $scope.toggleProfileType('display');
+            })
+          }, 3000);
         })
         .catch(function(err){
           $scope.serverMessage = "There was an error updating your profile."
