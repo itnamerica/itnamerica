@@ -1300,6 +1300,29 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
     };
     
+    $scope.authWall = function(){
+      swal({
+        title: 'Multiple inputs',
+        html:
+          '<input id="swal-input1" class="swal2-input">' +
+          '<input id="swal-input2" class="swal2-input">',
+        focusConfirm: false,
+        preConfirm: function(){
+          return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value
+          ]
+        }
+      }).then(function(result){
+        if (result.value) {
+          console.log('result is ', result.value);
+          // swal({
+            // title: `${result.value.login}'s avatar`,
+            // imageUrl: result.value.avatar_url
+          // })
+        }
+      })
+};  
     
    $scope.catchDocFilter = function() {
        console.log('stateparam is ', $stateParams.filter);
