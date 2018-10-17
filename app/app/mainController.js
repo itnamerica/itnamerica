@@ -1209,23 +1209,30 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       $('#'+modalIdToOpen).modal('show');
     };    
     
-    
-    $scope.toggleEmployee = function(employee) {
-      console.log('employee is ', employee);
-      $scope.employeeSelected = employee;
-    };
-    
     $scope.getEmployees = function() {
-      $scope.showDisplayProfile = true;
       DataService.getEmployees().then(function(data){
         console.log('employees are ', data);
         $scope.employees = data.data;
       })
     };
     
-    $scope.showEditProfile = function(){
-      console.log('inside show edit');
-      $scope.showEditProfile = true;
+    $scope.toggleEmployee = function(employee) {
+      console.log('employee is ', employee);
+      $scope.employeeSelected = employee;
+      $scope.showEditProfile = false;
+      $scope.showDisplayProfile = true;
+    };
+    
+    $scope.toggleProfileType = function(profile) {
+      if (profile === 'display') {
+        console.log('inside display profile');
+        $scope.showEditProfile = false;
+        $scope.showDisplayProfile = true;
+      } else if (profile === 'edit') {
+        console.log('inside edit profile');
+        $scope.showEditProfile = true;
+        $scope.showDisplayProfile = false;
+      }
     };
     
    $scope.catchDocFilter = function() {
