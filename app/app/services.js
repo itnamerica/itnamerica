@@ -112,9 +112,7 @@ myApp.service('DataService', function($http){
     })
   };
   this.updateEmployee = function(employee){
-    console.log("inside update employee ", employee);
     return $http.put('/updateEmployee', {employee: employee}).then(function(data){
-      // console.log('data returned update employee is ', data);
       return data;
     })
   }

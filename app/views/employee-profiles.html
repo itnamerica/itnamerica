@@ -1,4 +1,4 @@
-<div class="employee portal" ng-init="getEmployees()">
+<div class="employee portal" ng-init="getEmployeesPromise()">
   
   <div class="container">
     <h2>Select an Employee</h2>
@@ -71,6 +71,8 @@
       <div class="row mt-50 mb-25">
         <h5>Uploaded Files</h5>
         <hr style="width:30%">
+        
+        <p class="server-message"><strong>{{serverMessage}}</strong></p>
 
         <button type="submit" class="btn btn-lg pull-right">Save Profile</button>
         <button class="btn btn-lg pull-right" ng-click="toggleProfileType('display')">Cancel Edits</button>

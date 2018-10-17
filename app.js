@@ -196,7 +196,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     console.log('req body is ', req.body);
     var myQuery = {_id: new mongo.ObjectId(req.body._id)};
     var newValues = {$set: {affiliateName: req.body.affiliateName, totalRideCount: req.body.totalRideCount, totalMiles: req.body.totalMiles, totalActiveMembers: req.body.totalActiveMembers  } };
-    
     //add extra param if object is itnamerica and has extra voluteer ride count, so newValues obj must be modified.
     db.collection('ridesdatamonthly').findAndModify(myQuery, [['_id','asc']], newValues, {}, function(err, result){
       if (err) { throw err };
@@ -216,7 +215,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       console.log('record has been updated, i think');
       res.send(result);
     });
-  }); // end of /updateAffiliateRidesData edit request
+  }); // end of /updateEmployee edit request
   
   
   app.get('/getAdmin', function (req,res) {

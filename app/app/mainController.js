@@ -1209,11 +1209,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       $('#'+modalIdToOpen).modal('show');
     };    
     
-    $scope.getEmployees = function() {
+    $scope.getEmployeesPromise = function() {
+      var deferred = $q.defer();
       DataService.getEmployees().then(function(data){
         console.log('employees are ', data);
         $scope.employees = data.data;
+        deferred.resolve('Resolved: ', data.data);
+      }).catch(function(err){
+        deferred.resolve('Error: ', err);
       })
+      return deferred.promise;
     };
     
     $scope.toggleEmployee = function(employee) {
@@ -1240,6 +1245,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       DataService.updateEmployee($scope.employeeSelected)
         .then(function(data){
           console.log('return from employee put call is ', data);
+          $scope.serverMessage = "Your profile was succesfully updated"; 
+          //updates data on DOM without reload
+          $scope.getEmployeesPromise().then(function(response){
+            $scope.toggleProfileType('display');
+          })
+        })
+        .catch(function(err){
+          $scope.serverMessage = "There was an error updating your profile."
         })
       
     };

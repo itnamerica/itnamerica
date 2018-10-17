@@ -1867,6 +1867,13 @@ form textarea.form-control {font-size:25px}
   margin-left: 22%;
 }
 
+
+.server-message {
+  color:red;
+  font-weight: bold;
+  padding 1%;  
+}
+
 /* Google map */
 
 #map {
