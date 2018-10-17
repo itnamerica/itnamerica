@@ -8,10 +8,7 @@
     </ul>
     
   </div>
-  
-  showDisplayProfile is true: <strong>{{showDisplayProfile === true}}</strong> <br>
-  showEditProfile is true: <strong>{{showEditProfile === true}} </strong><br>
-  employeeSelected is <strong>{{employeeSelected}} </strong><br>
+
   
   <div class="container employee-profile" ng-if="employeeSelected && showDisplayProfile" ng-repeat="employee in employees | filter: {firstName: employeeSelected.firstName}" >
     
