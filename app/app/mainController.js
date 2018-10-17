@@ -533,22 +533,25 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     };
 
-    $scope.login = function(isStaff) {
+    $scope.login = function(loginType) {
       var routeName;
-      if (isStaff){
-        routeName = 'portal';
-      } else {
+      if (loginType === 'admins'){
         routeName = 'dashboard';
+      } else if (loginType === 'staffusers'){
+        routeName = 'portal';
       }
-        FormService.login($scope.formData, isStaff).then(function(data) {
-            console.log('response is ', data);
-            if (data) {
-                $scope.session = data;
+      console.log('login creds are ', $scope.formData);
+      DataService.login($scope.formData, loginType).then(function(data) {
+          console.log('response is ', data);
+          if (data) {
+              $scope.session = data;
+              if (loginType !== 'employees'){
                 $state.go(routeName)
-            } else {
-                $scope.serverMessage = 'Incorrect login or password';
-            }
-        });
+              }
+          } else {
+              $scope.serverMessage = 'Incorrect login or password';
+          }
+      });
     };
 
     $scope.logout = function() {
@@ -1259,6 +1262,42 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           $scope.serverMessage = "There was an error updating your profile."
         })
       
+    };
+    
+    $scope.showAuthWall = function(){
+      swal({
+        title: 'Please log in to edit your profile',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Log in',
+        showLoaderOnConfirm: true,
+        preConfirm: (login) => {
+          // return fetch(`//api.github.com/users/${login}`)
+          return DataService.login()
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(response.statusText)
+              }
+              return response.json()
+            })
+            .catch(error => {
+              swal.showValidationMessage(
+                `Request failed: ${error}`
+              )
+            })
+        },
+        allowOutsideClick: () => !swal.isLoading()
+      }).then((result) => {
+        if (result.value) {
+          swal({
+            title: `${result.value.login}'s avatar`,
+            imageUrl: result.value.avatar_url
+          })
+        }
+      })
     };
     
     

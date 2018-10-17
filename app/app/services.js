@@ -35,20 +35,6 @@ myApp.service('FormService', function($http) {
             return data;
         })
     }
-    this.login = function(formData, isStaff) {
-        return $http.get('/getAdmin', {
-                params: {
-                    formData: formData,
-                    isStaff: isStaff
-                }
-            })
-            .then(function(data) {
-                console.log('response in service is ', data);
-                return data;
-            }).catch(function(error) {
-                console.log('service, unable to login', error);
-            })
-    }
 });
 
 
@@ -115,7 +101,21 @@ myApp.service('DataService', function($http){
     return $http.put('/updateEmployee', {employee: employee}).then(function(data){
       return data;
     })
-  }
+  };
+  this.login = function(formData, tableName) {
+      return $http.get('/login', {
+              params: {
+                  formData: formData,
+                  tableName: tableName
+              }
+          })
+          .then(function(data) {
+              console.log('response in service is ', data);
+              return data;
+          }).catch(function(error) {
+              console.log('service, unable to login', error);
+          })
+  };
 });
 
 

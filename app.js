@@ -218,13 +218,8 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /updateEmployee edit request
   
   
-  app.get('/getAdmin', function (req,res) {
-    var tableName;
-      if (req.query.isStaff) {
-        tableName = 'staffusers';
-      } else {
-        tableName = 'users';
-      }
+  app.get('/login', function (req,res) {    
+      var tableName = req.query.tableName;
       db.collection(tableName).find().toArray(function (err, result) {
         var userInput = JSON.parse(req.query.formData);
         console.log('user input is ',userInput, 'result from db is ', result);
