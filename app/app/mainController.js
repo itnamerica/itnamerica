@@ -1232,10 +1232,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        console.log('stateparam is ', $stateParams.filter);
        $scope.docFilter = $stateParams.filter;
        if ($stateParams.filter === 'upload'){
-         console.log('upload filter');
-         
+         console.log('upload filter'); 
        } else if ($stateParams.filter === 'training'){
-         
        } 
    };   
     

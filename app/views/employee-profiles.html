@@ -7,8 +7,8 @@
     </ul>
     
   </div>
-  showedit: {{showEditProfile === true}}
-  <div class="container employee-profile" ng-show="employeeSelected" ng-hide="showEditProfile" ng-repeat="employee in employees | filter: {firstName: employeeSelected.firstName}" >
+  
+  <div class="container employee-profile" ng-show="employeeSelected || showDisplayProfile" ng-hide="showEditProfile" ng-repeat="employee in employees | filter: {firstName: employeeSelected.firstName}" >
     
     <div class="employee-profile-display">
     
@@ -68,7 +68,7 @@
         <hr style="width:30%">
 
         <button type="submit" class="btn btn-lg pull-right">Save Profile</button>
-        <button class="btn btn-lg pull-right" ng-click="showDisplayProfile = true">Cancel Edits</button>
+        <button class="btn btn-lg pull-right" ng-click="showDisplayProfile = true;showEditProfile = false">Cancel Edits</button>
 
       </div>
     </form>

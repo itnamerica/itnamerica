@@ -1854,7 +1854,7 @@ form textarea.form-control {font-size:25px}
 .employee ul li a {
   color:white;
 }
-.employee .employee-profile {
+.employee .employee-profile, .employee .employee-edit {
   width:70%;
   border:3px solid white;
   border-radius:5px;
