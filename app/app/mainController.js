@@ -1216,13 +1216,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
     
     $scope.getEmployees = function() {
+      $scope.showDisplayProfile = true;
       DataService.getEmployees().then(function(data){
         console.log('employees are ', data);
         $scope.employees = data.data;
       })
-    }
+    };
     
-    
+    $scope.showEditProfile = function(){
+      console.log('inside show edit');
+      $scope.showEditProfile = true;
+    };
     
    $scope.catchDocFilter = function() {
        console.log('stateparam is ', $stateParams.filter);
@@ -1233,13 +1237,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        } else if ($stateParams.filter === 'training'){
          
        } 
-   };
-   
-   $scope.showEditProfile = function(){
-     console.log('inside show edit');
-     $sope.showEditProfile = true;
-   }
-   
+   };   
     
     $scope.uploadFile = function(){
       console.log("my file is ", $scope.myFile);
