@@ -1235,6 +1235,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.showDisplayProfile = true;
       } else if (profile === 'edit') {
         console.log('inside edit profile');
+        //ask for credentials
         $scope.showEditProfile = true;
         $scope.showDisplayProfile = false;
       };

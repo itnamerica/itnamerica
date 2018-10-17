@@ -1853,6 +1853,11 @@ form textarea.form-control {font-size:25px}
 }
 .employee ul li a {
   text-align:left;
+  font-size:20px;
+  border-bottom:1px solid #8080803b;
+}
+.no-border {
+  border-bottom:none !Important;
 }
 .employee .dropdown-menu {
   left: 65%;

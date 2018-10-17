@@ -7,7 +7,7 @@
       <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">ITN Employees
       <span class="caret"></span></button>
       <ul class="dropdown-menu">
-        <li ng-repeat="employee in employees"><a ng-click="toggleEmployee(employee)">{{employee.firstName}} {{employee.lastName}}</a></li>
+        <li ng-repeat="employee in employees"><a ng-click="toggleEmployee(employee)" ng-class="{'no-border': $last}">{{employee.firstName}} {{employee.lastName}}</a></li>
       </ul>
     </div>
     
