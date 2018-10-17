@@ -199,9 +199,20 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     
     //add extra param if object is itnamerica and has extra voluteer ride count, so newValues obj must be modified.
     db.collection('ridesdatamonthly').findAndModify(myQuery, [['_id','asc']], newValues, {}, function(err, result){
-      if (err) { 
-        console.log('db not updating: ', err);
-      };
+      if (err) { throw err };
+      console.log('record has been updated, i think');
+      res.send(result);
+    });
+  }); // end of /updateAffiliateRidesData edit request
+  
+  
+  app.put('/updateEmployee', function(req,res) {
+    console.log('employee is ', req.body.employee);
+    var employee = req.body.employee;
+    var myQuery = {_id: new mongo.ObjectId(employee._id)};
+    var newValues = {$set: {firstName: employee.firstName, lastName: employee.lastName, avatar: employee.avatar, dob: employee.dob, bio: employee.bio, email: employee.email, login: employee.login, password: employee.password, position: employee.position, files: employee.files  } };
+    db.collection('employees').findAndModify(myQuery, [['_id','asc']], newValues, {}, function(err, result){
+      if (err) { throw err };
       console.log('record has been updated, i think');
       res.send(result);
     });

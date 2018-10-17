@@ -1235,6 +1235,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       }
     };
     
+    $scope.editEmployee = function(){
+      console.log('updated employee obj before backend is ', $scope.employeeSelected);
+      DataService.updateEmployee($scope.employeeSelected)
+        .then(function(data){
+          console.log('return from employee put call is ', data);
+        })
+      
+    };
+    
+    
    $scope.catchDocFilter = function() {
        console.log('stateparam is ', $stateParams.filter);
        $scope.docFilter = $stateParams.filter;
