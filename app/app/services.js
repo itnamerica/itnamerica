@@ -103,6 +103,7 @@ myApp.service('DataService', function($http){
     })
   };
   this.login = function(formData, tableName) {
+    console.log('inside DataService login');
       return $http.get('/login', {
               params: {
                   formData: formData,
@@ -110,10 +111,9 @@ myApp.service('DataService', function($http){
               }
           })
           .then(function(data) {
-              console.log('response in service is ', data);
               return data;
           }).catch(function(error) {
-              console.log('service, unable to login', error);
+              return error
           })
   };
 });

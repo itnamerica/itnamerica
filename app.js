@@ -218,7 +218,8 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /updateEmployee edit request
   
   
-  app.get('/login', function (req,res) {    
+  app.get('/login', function (req,res) {   
+      console.log('inside backend login'); 
       var tableName = req.query.tableName;
       db.collection(tableName).find().toArray(function (err, result) {
         var userInput = JSON.parse(req.query.formData);
@@ -233,7 +234,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
           res.status(500).send('error')
         }  
       })
-  }); // end of /getAdmin get request
+  }); // end of /login get request
   
   app.delete('/deleteForm/:formId', function (req,res) {
     console.log('req param', req.params.formId, 'req query', req.query.formType);
