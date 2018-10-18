@@ -231,8 +231,8 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   app.get('/loginEmployees', function (req,res) {   
       var userInput = JSON.parse(req.query.formData);
       db.collection('employees').find().toArray(function (err, result) {
-        console.log('user input is ',userInput.username, userInput.password, 'result from db is ', result[0].username, result[0].password);
-        if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
+        console.log('user input is ',userInput.email, userInput.password, 'result from db is ', result[0].email, result[0].password);
+        if ((result[0].email === userInput.email) && (result[0].password === userInput.password)){
           console.log('a match, initializing session');
           req.session.user = userInput;
           console.log('new session is ', req.session.user, 'and', req.session);

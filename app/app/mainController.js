@@ -1304,7 +1304,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       swal({
         title: 'Please log in to edit your profile',
         html:
-          '<input type="text" id="swal-input1" class="swal2-input" placeholder="username">' +
+          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
           '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
         focusConfirm: false,
         preConfirm: function(){
@@ -1316,7 +1316,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       }).then(function(result){
         if (result.value) {
           console.log('creds are ', result.value[0], result.value[1]);
-          $scope.formData.username = result.value[0];
+          $scope.formData.email = result.value[0];
           $scope.formData.password = result.value[1];
           // return DataService.login($scope.formData, 'employees')
           return DataService.loginEmployees($scope.formData)
