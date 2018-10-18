@@ -1286,9 +1286,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           return DataService.loginEmployees($scope.formData, employeeSelected)
             .then(function(response){
               console.log('response is ', response);
-              if (response.status === 500){
-                swal("Login incorrect", "Please login again with the correct credentials")
-              } else if ((response.status === 200)) {
+              if (response.status === 500 && response.data === "error"){
+                swal("Login incorrect", "Please try again with the correct credentials")
+              } else {
                 console.log('response success');
                 $scope.toggleProfileType('edit');
               }

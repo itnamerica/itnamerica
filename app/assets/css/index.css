@@ -1881,7 +1881,9 @@ form textarea.form-control {font-size:25px}
   color: #fc6f6d !important;
   font-size: 20px !important;
 }
-
+.swal2-popup.swal2-modal.swal2-show {
+  font-size: 20px !important;
+}
 .server-message {
   color:red;
   font-weight: bold;
