@@ -22,7 +22,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.ssnPattern = new RegExp(/^\d{3}-?\d{2}-?\d{4}$/);
     $scope.zipPattern = new RegExp(/^\d{5}$/);
     $scope.emailPattern = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/);
-    $scope.datePattern = new RegExp(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    $scope.datePattern = new RegExp(/^(\d{2})\/(\d{2})\/(\d{4})$/); 
     $scope.dobPattern = new RegExp(/^(\d{2})\/(\d{2})\/(\d{4})$/);
     $scope.phonePattern = new RegExp(/^\d{3}[- ]?\d{3}[- ]?\d{4}$/);
     $scope.errorMessages = {
@@ -1264,42 +1264,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       
     };
     
-    $scope.showAuthWall = function(){
-      swal({
-        title: 'Please log in to edit your profile',
-        input: 'text',
-        inputAttributes: {
-          autocapitalize: 'off'
-        },
-        showCancelButton: true,
-        confirmButtonText: 'Log in',
-        showLoaderOnConfirm: true,
-        preConfirm: (login) => {
-          // return fetch(`//api.github.com/users/${login}`)
-          return DataService.login()
-            .then(response => {
-              if (!response.ok) {
-                throw new Error(response.statusText)
-              }
-              return response.json()
-            })
-            .catch(error => {
-              swal.showValidationMessage(
-                `Request failed: ${error}`
-              )
-            })
-        },
-        allowOutsideClick: () => !swal.isLoading()
-      }).then((result) => {
-        if (result.value) {
-          swal({
-            title: `${result.value.login}'s avatar`,
-            imageUrl: result.value.avatar_url
-          })
-        }
-      })
-    };
-    
     $scope.authWall = function(employee){
       var employeeSelected = employee
       swal({
@@ -1319,16 +1283,15 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           console.log('creds are ', result.value[0], result.value[1]);
           $scope.formData.email = result.value[0];
           $scope.formData.password = result.value[1];
-          // return DataService.login($scope.formData, 'employees')
           return DataService.loginEmployees($scope.formData, employeeSelected)
             .then(function(response){
               console.log('response is ', response);
-              $scope.toggleProfileType('edit');
-            })
-            .catch(function(error){
-              swal.showValidationMessage(
-                `Request failed: ${error}`
-              )
+              if (response.status === 500){
+                swal("Login incorrect", "Please login again with the correct credentials")
+              } else if ((response.status === 200)) {
+                console.log('response success');
+                $scope.toggleProfileType('edit');
+              }
             })
         }
       })

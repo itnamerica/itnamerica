@@ -228,25 +228,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /login get request
   
-  // app.get('/loginEmployees', function (req,res) {   
-  //     var userInput = JSON.parse(req.query.formData);
-  //     var employeeSelected = req.query.employeeSelected;
-  //     var myQuery = {_email: new mongo.ObjectId(req.body._email)};
-  //     // db.collection('employees').find().toArray(function (err, result) {
-  //     db.collection('employees').findOne({email: employeeSelected.email}).toArray(function (err, result) {
-  //       console.log('user input is ',userInput.email, userInput.password, 'result from db is ', result[0].email, result[0].password);
-  //       if ((result[0].email === employeeSelected.email) && (result[0].email === userInput.email) && (result[0].password === userInput.password)){
-  //         console.log('a match, initializing session');
-  //         req.session.user = userInput;
-  //         console.log('new session is ', req.session.user, 'and', req.session);
-  //         res.send(result);
-  //       }
-  //       else {
-  //         res.status(500).send('error')
-  //       }  
-  //     })
-  // }); // end of /login get request
-  
   app.get('/loginEmployees', function (req,res) {   
     var userInput = JSON.parse(req.query.formData);
     var employeeSelected = JSON.parse(req.query.employeeSelected);
@@ -254,17 +235,15 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       console.log('result is ', result[0]);
       // console.log('user input ', userInput.email, userInput.password, 'response ', result.email, result.password, 'for relevant email ', employeeSelected.email);
       if ((result[0].email === employeeSelected.email) && (result[0].email === userInput.email) && (result[0].password === userInput.password)){
-        console.log('a match, initializing session');
         req.session.user = userInput;
-        console.log('new session is ', req.session.user, 'and', req.session);
+        // console.log('new session is ', req.session.user, 'and', req.session);
         res.send(result);
       }
       else {
-        console.log('not a match');
         res.status(500).send('error')
       }
     })
-  }); // end of /login get request
+  }); // end of /loginEmployees get request
   
   app.delete('/deleteForm/:formId', function (req,res) {
     console.log('req param', req.params.formId, 'req query', req.query.formType);
