@@ -1318,7 +1318,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           console.log('creds are ', result.value[0], result.value[1]);
           $scope.formData.username = result.value[0];
           $scope.formData.password = result.value[1];
-          return DataService.login($scope.formData, 'employees')
+          // return DataService.login($scope.formData, 'employees')
+          return DataService.loginEmployees($scope.formData)
             .then(function(response){
               console.log('response is ', response);
               $scope.toggleProfileType('edit');

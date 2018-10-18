@@ -65,56 +65,48 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   
   app.get('/getNDAForms', function (req,res) {
       db.collection('ndaform').find().toArray(function (err, result) {
-        console.log('result is ', result);
         res.send(result);
       })
   }); // end of /getContactForms get request
   
   app.get('/getContactForms', function (req,res) {
       db.collection('contactform').find().toArray(function (err, result) {
-        console.log('result is ', result);
         res.send(result);
       })
   }); // end of /getContactForms get request
   
   app.get('/getHRContactForms', function (req,res) {
       db.collection('hrcontactform').find().toArray(function (err, result) {
-        console.log('result is ', result);
         res.send(result);
       })
   }); // end of /getHRContactForms get request
   
   app.get('/getNewsletterForms', function (req,res) {
       db.collection('newsletterform').find().toArray(function (err, result) {
-        console.log('result is ', result);
         res.send(result);
       })
   }); // end of /getNewsletterForms get request
   
   app.get('/getAllRides', function (req,res) {
       db.collection('ridesdatamonthly').find().toArray(function (err, result) {
-        console.log('result is ', result);
         res.send(result);
       })
   }); // end of /getRidesData get request
   
   app.get('/getEmployees', function (req,res) {
       db.collection('employees').find().toArray(function (err, result) {
-        console.log('result is ', result);
         res.send(result);
       })
   }); // end of /getEmployees get request
   
   app.get('/getCommentsPhoto', function (req,res) {
     db.collection('commentsphoto').find().toArray(function (err, result) {
-      console.log('result is ', result);
       res.send(result);
     })
   }); // end of /getRidesData get request
   
   app.get('/viewCalendarEvents', function (req,res) {
     db.collection('calendar').find().toArray(function (err, result) {
-      console.log('result is ', result);
       res.send(result);
     })
   }); // end of /viewCalendarEvents get request
@@ -224,6 +216,22 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       db.collection(tableName).find().toArray(function (err, result) {
         var userInput = JSON.parse(req.query.formData);
         console.log('user input is ',userInput, 'result from db is ', result);
+        if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
+          console.log('a match, initializing session');
+          req.session.user = userInput;
+          console.log('new session is ', req.session.user, 'and', req.session);
+          res.send(result);
+        }
+        else {
+          res.status(500).send('error')
+        }  
+      })
+  }); // end of /login get request
+  
+  app.get('/loginEmployees', function (req,res) {   
+      var userInput = JSON.parse(req.query.formData);
+      db.collection('employees').find().toArray(function (err, result) {
+        console.log('user input is ',userInput.username, userInput.password, 'result from db is ', result[0].username, result[0].password);
         if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
           console.log('a match, initializing session');
           req.session.user = userInput;
