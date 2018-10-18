@@ -247,15 +247,41 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   //     })
   // }); // end of /login get request
   
+  // app.get('/loginEmployee', function (req,res) {   
+  //     var userInput = JSON.parse(req.query.formData);
+  //     var employeeSelected = req.query.employeeSelected;
+  //     db.collection('employees').findOne({'email': employeeSelected.email})
+  //     .then(function(result){
+  //       console.log('test')
+  //       console.log('user input is ',userInput, 'result from db is ', result);
+  //     })   
+  // }); // end of /login get request
+  
+  // app.get('/loginEmployees', function (req,res) {   
+  //     var userInput = JSON.parse(req.query.formData);
+  //     var employeeSelected = req.query.employeeSelected;
+  //     db.collection('employees').find({'email': employeeSelected.email})
+  //     // db.collection('employees').findOne({'_id': '5bc4faffe7179a4377f93e97'})
+  //     .then(function(result){
+  //       if (!result){
+  //           throw new Error('No record found.');
+  //       }
+  //       console.log('test')
+  //       console.log('user input is ',userInput, 'result from db is ', result);
+  //     })   
+  // }); // end of /login get request
+  
   app.get('/loginEmployees', function (req,res) {   
       var userInput = JSON.parse(req.query.formData);
       var employeeSelected = req.query.employeeSelected;
-      db.collection('employees').findOne({email: employeeSelected.email})
-      .then(function(result){
-        console.log('test')
+      var employeeSelected2 = JSON.parse(req.query.employeeSelected);
+      console.log('employee selected ', employeeSelected, 'and', employeeSelected2.email)
+      db.collection('employees').find({'email': employeeSelected.email}).toArray(function (err, result) {
+        if (!result){
+            throw new Error('No record found.');
+        }
         console.log('user input is ',userInput, 'result from db is ', result);
-      })   
-
+      })
   }); // end of /login get request
   
   app.delete('/deleteForm/:formId', function (req,res) {

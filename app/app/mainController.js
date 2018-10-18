@@ -1300,7 +1300,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
     };
     
-    $scope.authWall = function(employeeSelected){
+    $scope.authWall = function(employee){
+      var employeeSelected = employee
       swal({
         title: 'Please log in to edit your profile',
         html:
