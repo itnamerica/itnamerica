@@ -190,7 +190,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     var newValues = {$set: {affiliateName: req.body.affiliateName, totalRideCount: req.body.totalRideCount, totalMiles: req.body.totalMiles, totalActiveMembers: req.body.totalActiveMembers  } };
     //add extra param if object is itnamerica and has extra voluteer ride count, so newValues obj must be modified.
     db.collection('ridesdatamonthly').findAndModify(myQuery, [['_id','asc']], newValues, {}, function(err, result){
-      if (err) { throw err };
+      if (err) { throw new Error('No record found. ', err) };
       console.log('record has been updated, i think');
       res.send(result);
     });
@@ -203,7 +203,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     var myQuery = {_id: new mongo.ObjectId(employee._id)};
     var newValues = {$set: {firstName: employee.firstName, lastName: employee.lastName, avatar: employee.avatar, dob: employee.dob, bio: employee.bio, email: employee.email, username: employee.username, password: employee.password, position: employee.position, files: employee.files  } };
     db.collection('employees').findAndModify(myQuery, [['_id','asc']], newValues, {}, function(err, result){
-      if (err) { throw err };
+      if (err) { throw new Error('No record found. ', err) };
       console.log('record has been updated, i think');
       res.send(result);
     });
@@ -247,41 +247,23 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   //     })
   // }); // end of /login get request
   
-  // app.get('/loginEmployee', function (req,res) {   
-  //     var userInput = JSON.parse(req.query.formData);
-  //     var employeeSelected = req.query.employeeSelected;
-  //     db.collection('employees').findOne({'email': employeeSelected.email})
-  //     .then(function(result){
-  //       console.log('test')
-  //       console.log('user input is ',userInput, 'result from db is ', result);
-  //     })   
-  // }); // end of /login get request
-  
-  // app.get('/loginEmployees', function (req,res) {   
-  //     var userInput = JSON.parse(req.query.formData);
-  //     var employeeSelected = req.query.employeeSelected;
-  //     db.collection('employees').find({'email': employeeSelected.email})
-  //     // db.collection('employees').findOne({'_id': '5bc4faffe7179a4377f93e97'})
-  //     .then(function(result){
-  //       if (!result){
-  //           throw new Error('No record found.');
-  //       }
-  //       console.log('test')
-  //       console.log('user input is ',userInput, 'result from db is ', result);
-  //     })   
-  // }); // end of /login get request
-  
   app.get('/loginEmployees', function (req,res) {   
-      var userInput = JSON.parse(req.query.formData);
-      var employeeSelected = req.query.employeeSelected;
-      var employeeSelected2 = JSON.parse(req.query.employeeSelected);
-      console.log('employee selected ', employeeSelected, 'and', employeeSelected2.email)
-      db.collection('employees').find({'email': employeeSelected.email}).toArray(function (err, result) {
-        if (!result){
-            throw new Error('No record found.');
-        }
-        console.log('user input is ',userInput, 'result from db is ', result);
-      })
+    var userInput = JSON.parse(req.query.formData);
+    var employeeSelected = JSON.parse(req.query.employeeSelected);
+    db.collection('employees').find({'email': employeeSelected.email}).toArray(function (err, result) {
+      console.log('result is ', result[0]);
+      // console.log('user input ', userInput.email, userInput.password, 'response ', result.email, result.password, 'for relevant email ', employeeSelected.email);
+      if ((result[0].email === employeeSelected.email) && (result[0].email === userInput.email) && (result[0].password === userInput.password)){
+        console.log('a match, initializing session');
+        req.session.user = userInput;
+        console.log('new session is ', req.session.user, 'and', req.session);
+        res.send(result);
+      }
+      else {
+        console.log('not a match');
+        res.status(500).send('error')
+      }
+    })
   }); // end of /login get request
   
   app.delete('/deleteForm/:formId', function (req,res) {
