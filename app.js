@@ -119,6 +119,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   });
   
+  app.post('/addEmployee', function (req,res) {
+    db.collection('employees').save(req.body.newEmployee, function(err, result){
+      if (err) { return console.log('connecting to db, but not saving obj', err);}
+      console.log('new employee saved to database', result);
+      res.send(result);
+    })
+  });
+  
   app.post('/upload', upload.single('image'),  function(req, res) {
     console.log('file from backend0 is ');
     console.log(req.body);

@@ -129,6 +129,12 @@ myApp.service('DataService', function($http){
       }).catch(function(error) {
           return error
       })
+  };
+  this.addEmployee = function(newEmployee){
+    return $http.post('/addEmployee', {newEmployee: newEmployee}).then(function(data){
+      console.log('data returned from employee post req ', data);
+      return data;
+    })
   }
 });
 

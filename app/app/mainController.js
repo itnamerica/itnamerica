@@ -1212,6 +1212,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       $('#'+modalIdToOpen).modal('show');
     };    
     
+    
     $scope.getEmployeesPromise = function() {
       var deferred = $q.defer();
       DataService.getEmployees().then(function(data){
@@ -1287,7 +1288,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             .then(function(response){
               console.log('response is ', response);
               if (response.status === 500 && response.data === "error"){
-                swal("Login incorrect", "Please try again with the correct credentials")
+                swal("Login incorrect", "Please try again with the correct credentials", "error")
               } else {
                 console.log('response success');
                 $scope.toggleProfileType('edit');
@@ -1295,7 +1296,58 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             })
         }
       })
-};  
+    };  
+    
+    $scope.addEmployee = function(){
+      //admin auth?
+      //return DataService.login($scope.formData, 'admins')
+      swal({
+        title: 'Add an Employee',
+        html:
+          '<input type="text" id="swal-first-name" class="swal2-input" placeholder="First Name">' +
+          '<input type="text" id="swal-last-name" class="swal2-input" placeholder="Last Name">' +
+          '<input type="text" id="swal-dob" class="swal2-input" placeholder="Date of Birth (optional)">' +
+          '<input type="text" id="swal-position" class="swal2-input" placeholder="Position">' +
+          '<input type="text" id="swal-bio" class="swal2-input" placeholder="Employee Bio">' +
+          '<input type="text" id="swal-email" class="swal2-input" placeholder="Email">' +
+          '<input type="password" id="swal-password" class="swal2-input" placeholder="Password">',
+        focusConfirm: false,
+        preConfirm: function(){
+          return [
+            document.getElementById('swal-first-name').value,
+            document.getElementById('swal-last-name').value,
+            document.getElementById('swal-dob').value,
+            document.getElementById('swal-position').value,
+            document.getElementById('swal-bio').value,
+            document.getElementById('swal-email').value,
+            document.getElementById('swal-password').value,
+          ]
+        }
+      }).then(function(result){
+        if (result.value) {
+          console.log('creds are ', result.value);
+          var newEmployee = {};
+          newEmployee.firstName = result.value[0];
+          newEmployee.lastName = result.value[1];
+          newEmployee.dob = result.value[2];
+          newEmployee.position = result.value[3];
+          newEmployee.bio = result.value[4];
+          newEmployee.email = result.value[5];
+          newEmployee.password = result.value[6];
+          return DataService.addEmployee(newEmployee)
+            .then(function(response){
+              swal("New employee added", "Successfully added new employee.", "success")
+              console.log('response is ', response);
+              if (response.status === 500 && response.data === "error"){
+                console.log('error');
+              } else {
+                console.log('success');
+              }
+            })
+        }
+      })
+    };
+    
     
    $scope.catchDocFilter = function() {
        console.log('stateparam is ', $stateParams.filter);

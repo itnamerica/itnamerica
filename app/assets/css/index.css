@@ -1883,6 +1883,12 @@ form textarea.form-control {font-size:25px}
 }
 .swal2-popup.swal2-modal.swal2-show {
   font-size: 20px !important;
+  padding: 3%;
+}
+.btn-red {
+  font-size:17px;
+  background: #ed7c75;
+  border-color: #ed7c75;
 }
 .server-message {
   color:red;
