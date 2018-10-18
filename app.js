@@ -250,11 +250,12 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   app.get('/loginEmployees', function (req,res) {   
       var userInput = JSON.parse(req.query.formData);
       var employeeSelected = req.query.employeeSelected;
-      // db.collection('employees').findOne({email: employeeSelected.email}, function (err, result) {        
-      db.collection('employees').findOne({$or:[{email: employeeSelected.email}]}, function (err, result) {        
-        console.log('a match');
-        res.send(result);
-      })
+      db.collection('employees').findOne({email: employeeSelected.email})
+      .then(function(result){
+        console.log('test')
+        console.log('user input is ',userInput, 'result from db is ', result);
+      })   
+
   }); // end of /login get request
   
   app.delete('/deleteForm/:formId', function (req,res) {
