@@ -228,19 +228,32 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /login get request
   
+  // app.get('/loginEmployees', function (req,res) {   
+  //     var userInput = JSON.parse(req.query.formData);
+  //     var employeeSelected = req.query.employeeSelected;
+  //     var myQuery = {_email: new mongo.ObjectId(req.body._email)};
+  //     // db.collection('employees').find().toArray(function (err, result) {
+  //     db.collection('employees').findOne({email: employeeSelected.email}).toArray(function (err, result) {
+  //       console.log('user input is ',userInput.email, userInput.password, 'result from db is ', result[0].email, result[0].password);
+  //       if ((result[0].email === employeeSelected.email) && (result[0].email === userInput.email) && (result[0].password === userInput.password)){
+  //         console.log('a match, initializing session');
+  //         req.session.user = userInput;
+  //         console.log('new session is ', req.session.user, 'and', req.session);
+  //         res.send(result);
+  //       }
+  //       else {
+  //         res.status(500).send('error')
+  //       }  
+  //     })
+  // }); // end of /login get request
+  
   app.get('/loginEmployees', function (req,res) {   
       var userInput = JSON.parse(req.query.formData);
-      db.collection('employees').find().toArray(function (err, result) {
-        console.log('user input is ',userInput.email, userInput.password, 'result from db is ', result[0].email, result[0].password);
-        if ((result[0].email === userInput.email) && (result[0].password === userInput.password)){
-          console.log('a match, initializing session');
-          req.session.user = userInput;
-          console.log('new session is ', req.session.user, 'and', req.session);
-          res.send(result);
-        }
-        else {
-          res.status(500).send('error')
-        }  
+      var employeeSelected = req.query.employeeSelected;
+      // db.collection('employees').findOne({email: employeeSelected.email}, function (err, result) {        
+      db.collection('employees').findOne({$or:[{email: employeeSelected.email}]}, function (err, result) {        
+        console.log('a match');
+        res.send(result);
       })
   }); // end of /login get request
   

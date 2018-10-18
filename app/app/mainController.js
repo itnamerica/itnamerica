@@ -1300,7 +1300,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
     };
     
-    $scope.authWall = function(){
+    $scope.authWall = function(employeeSelected){
       swal({
         title: 'Please log in to edit your profile',
         html:
@@ -1319,7 +1319,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           $scope.formData.email = result.value[0];
           $scope.formData.password = result.value[1];
           // return DataService.login($scope.formData, 'employees')
-          return DataService.loginEmployees($scope.formData)
+          return DataService.loginEmployees($scope.formData, employeeSelected)
             .then(function(response){
               console.log('response is ', response);
               $scope.toggleProfileType('edit');

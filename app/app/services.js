@@ -116,11 +116,12 @@ myApp.service('DataService', function($http){
               return error
           })
   };
-  this.loginEmployees = function(formData){
+  this.loginEmployees = function(formData, employeeSelected){
     console.log('inside login employees');
     return $http.get('/loginEmployees', {
             params: {
-                formData: formData
+                formData: formData,
+                employeeSelected: employeeSelected
             }
         })
       .then(function(data){
