@@ -1634,7 +1634,7 @@ form textarea.form-control {font-size:25px}
 .portal .container {
   padding:5% 7%;
 }
-.portal h2 {
+.portal h2, .important-docs h3 {
   font-size:45px;
   text-align:center;
   color: rgba(252,109,109,1);
