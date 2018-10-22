@@ -33,17 +33,17 @@
             <td>{{rider.name}}</td>
             <td>{{rider.affiliate}}</td>
             <td>
-             <a ui-sref="view-form({formObj: {{rider}}, formType: 'NDA'})" class="btn btn-info btn-sm" data-toggle="tooltip" title="View details">
+             <a ui-sref="view-form({formObj: {{rider}}, formType: 'ndaform'})" class="btn btn-info btn-sm" data-toggle="tooltip" title="View details">
                <span class="glyphicon glyphicon-eye-open"></span>
              </a>
-             <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" title="Download PDF" ng-click="base64ToPDF('NDA', rider)">
+             <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" title="Download PDF" ng-click="base64ToPDF('ndaform', rider)">
                <span class="glyphicon glyphicon-download"></span>
              </button>
              <br>
-             <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" title="Generate new PDF" ng-click="regenerateMultiPagePDF(rider, 'NDA')">
+             <button type="button" class="btn btn-success btn-sm" data-toggle="tooltip" title="Generate new PDF" ng-click="regenerateMultiPagePDF(rider, 'ndaform')">
                <span class="glyphicon glyphicon-repeat"></span>
              </button>
-             <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDelete('NDA', rider)" data-toggle="tooltip" title="Delete Form">
+             <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDelete('ndaform', rider)" data-toggle="tooltip" title="Delete Form">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
             </td>

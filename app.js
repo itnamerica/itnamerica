@@ -258,7 +258,8 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       var tableName = req.query.formType;
       var recordId = req.params.formId;
       db.collection(tableName).deleteOne({_id: new mongo.ObjectId(recordId)}, function(err, result){
-        console.log('record has been removed, i think');
+        if (err) { throw new Error('No record found. ', err) };
+        console.log('record has been removed, i think ', result);
         res.send(result);
       });
   }); // end of deleteform request
@@ -290,8 +291,8 @@ app.post('/sendmail', function(req, res){
   )
   
   let mailOptions = {};
-  if (req.body && req.body.pdf && req.body.formType === 'NDA'){ //NDA forms
-    console.log('sending email with pdf, NDA form is ', req.body.formType === 'NDA');
+  if (req.body && req.body.pdf && req.body.formType === 'ndaform'){ //NDA forms
+    console.log('sending email with pdf, NDA form is ', req.body.formType);
     var htmlObj = "<p><strong>Name</strong>: " + req.body.text.name + "</p>\n" +
         "<p><strong>Email</strong>: " + req.body.text.email + "</p>\n " +
         "<p><strong>Signature</strong>: " + req.body.text.signature + "</p>\n " +
@@ -399,7 +400,7 @@ app.post('/sendmail', function(req, res){
           // res.redirect('/');
         })
       }
-      else if (req.body && (req.body.formType === 'NDA')) {
+      else if (req.body && (req.body.formType === 'ndaform')) {
         var ndaObj = {
           name: req.body.text.name,
           signature: req.body.text.signature,

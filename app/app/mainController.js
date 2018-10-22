@@ -876,7 +876,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                     $('#pdfVersion').css('display', 'block');
                 })
                 $scope.generateMultiPagePDF();
-            } else if (formType === 'nonrider' || formType === 'NDA') {
+            } else if (formType === 'nonrider' || formType === 'ndaform') {
                 $scope.generatePDF();
             }
         } else {
@@ -903,7 +903,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             .done(function(data) {
                 console.log('data is ', data);
                 var ndaForm = null;
-                if ($scope.formType === 'NDA') {
+                if ($scope.formType === 'ndaform') {
                   $("#ndaForm input#name").replaceWith(function () {
                       return $("<span>"+ $scope.formData.name +"</span>");
                   });
