@@ -541,10 +541,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         routeName = 'portal';
       }
       console.log('login creds are ', $scope.formData);
-      DataService.login($scope.formData, loginType).then(function(data) {
-          console.log('response is ', data);
-          if (data) {
-              $scope.session = data;
+      DataService.login($scope.formData, loginType).then(function(response) {
+          console.log('response is ', response);
+          if (response.status === 200) {
+              $scope.session = response.data;
               if (loginType !== 'employees'){
                 $state.go(routeName)
               }
@@ -1146,7 +1146,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         swal({
           title: title,
           html:
-            '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
+            '<input type="text" id="swal-input1" class="swal2-input" placeholder="username/email">' +
             '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
           focusConfirm: false,
           preConfirm: function(){
@@ -1160,7 +1160,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           if (result.value) {
             console.log('login inputs are ', result.value[0], result.value[1]);
             var loginCredentials = {};
-            loginCredentials.email = result.value[0]; 
+            loginCredentials.username = result.value[0]; 
             loginCredentials.password = result.value[1];
             return DataService.login(loginCredentials, loginType)
               .then(function(response){
@@ -1398,41 +1398,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
       })
     };  
-
-    
-    $scope.authWall = function(loginType){
-      var title = "Please log in to make changes"
-      swal({
-        title: title,
-        html:
-          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
-          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
-        focusConfirm: false,
-        preConfirm: function(){
-          return [
-            document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
-          ]
-        }
-      }).then(function(result){
-        if (result.value) {
-          console.log('login inputs are ', result.value[0], result.value[1]);
-          var loginCredentials = {};
-          loginCredentials.email = result.value[0]; 
-          loginCredentials.password = result.value[1];
-          return DataService.login(loginCredentials, loginType)
-            .then(function(response){
-              console.log('response is ', response);
-              if (response.status === 500 && response.data === "error"){
-                swal("Login incorrect", "Please try again with the correct credentials", "error")
-              } else {
-                console.log('response success');
-                return true;
-              }
-            })
-        }
-      })
-    }; 
     
    $scope.catchDocFilter = function() {
        console.log('stateparam is ', $stateParams.filter);

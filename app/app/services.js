@@ -104,7 +104,7 @@ myApp.service('DataService', function($http){
   };
   this.login = function(formData, tableName) {
     console.log('inside DataService login ', formData, tableName);
-      return $http.get('/login', {
+      return $http.get('/loginStandard', {
               params: {
                   formData: formData,
                   tableName: tableName

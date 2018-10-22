@@ -218,7 +218,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /updateEmployee edit request
   
   
-  app.get('/login', function (req,res) {   
+  app.get('/loginStandard', function (req,res) {   
       console.log('inside backend login'); 
       var tableName = req.query.tableName;
       db.collection(tableName).find().toArray(function (err, result) {
