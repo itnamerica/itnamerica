@@ -31,7 +31,8 @@
     <td>{{affiliateData.totalActiveMembers}}</td>
     <td>{{affiliateData.totalActiveVolunteers}}</td>
     <td class="ta-center">
-      <button type="button" ng-click="editRidesData(affiliateData)" class="btn edit-btn btn-sm">
+      <!-- <button type="button" ng-click="editRidesData(affiliateData)" class="btn edit-btn btn-sm"> -->
+      <button type="button" ng-click="authWallPopup('admins', affiliateData)" class="btn edit-btn btn-sm">
         <span class="glyphicon glyphicon-pencil"></span>
       </button>
     </td>

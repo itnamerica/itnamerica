@@ -1123,90 +1123,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       else return 'display';
     };
     
-    // $scope.getTemplateWithAuth = function (row) {
-    //   if (row.affiliateName === $scope.selected.affiliateName){
-    //     var authenticated = $scope.authWall('admins');
-    //     console.log("authenticated is ", authenticated);
-    //     if (authenticated){
-    //       return 'edit';
-    //     } else {
-    //       return 'display';  
-    //     }
-    //   } 
-    //   else {
-    //     return 'display';
-    //   }
-    // };
-    
-    $scope.finishedLoading = function() {
-      console.log('finished')
-    }
-    
-    var ngIncludeLoaded = 0;
     $scope.getTemplateWithAuth = function (row) {
       if (row.affiliateName === $scope.selected.affiliateName){
-        if (ngIncludeLoaded >= 1){
-          $scope.authWallPromise('admins').then(function(response){
-            console.log('response ', response);
-          })
-          // console.log('after')
-        } else {
-          ngIncludeLoaded = ngIncludeLoaded + 1;
-        }
-        
-        // $scope.authWallPromise('admins');
-        // console.log('after');
-        // $scope.authWallPromise('admins').then(function(response){
-        //   console.log('response is ', response);
-        //   if (response.status = '200'){
-        //     return 'edit';
-        //   } else {
-        //     return 'display';
-        //   }
-        // })
+        return 'edit';
       } 
       else {
         return 'display';
       }
     };
-    
-    $scope.authWallPromise = function(loginType){
-      var deferred = $q.defer;
-      var title = "Please log in to make changes"
-      swal({
-        title: title,
-        html:
-          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
-          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
-        focusConfirm: false,
-        preConfirm: function(){
-          return [
-            document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
-          ]
-        }
-      }).then(function(result){
-        if (result.value) {
-          console.log('login inputs are ', result.value[0], result.value[1]);
-          var loginCredentials = {};
-          loginCredentials.email = result.value[0]; 
-          loginCredentials.password = result.value[1];
-          return DataService.login(loginCredentials, loginType)
-            .then(function(response){
-              console.log('response is ', response);
-              if (response.status === 500 && response.data === "error"){
-                swal("Login incorrect", "Please try again with the correct credentials", "error");
-                // deferred.resolve('Error: ', response.data);
-              } else {
-                console.log('response success');
-                // deferred.resolve('Resolved: ', response.data);
-              }
-            })
-        }
-      })
-      return deferred.promise;
-    }; 
-    
     
     $scope.switchTemplates = function(template) {
       if (template) {
@@ -1214,6 +1138,44 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       } else {
         return 'display'
       }
+    };
+    
+    $scope.authWallPopup = function(loginType, affiliateName){
+        var theAffiliateName = affiliateName;
+        var title = "Please log in to make changes"
+        swal({
+          title: title,
+          html:
+            '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
+            '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
+          focusConfirm: false,
+          preConfirm: function(){
+            return [
+              document.getElementById('swal-input1').value,
+              document.getElementById('swal-input2').value
+            ]
+          }
+      }).then(function(result){
+        if (result.value) {
+          if (result.value) {
+            console.log('login inputs are ', result.value[0], result.value[1]);
+            var loginCredentials = {};
+            loginCredentials.email = result.value[0]; 
+            loginCredentials.password = result.value[1];
+            return DataService.login(loginCredentials, loginType)
+              .then(function(response){
+                console.log('response is ', response);
+                if (response.status === 500 && response.data === "error"){
+                  swal("Login incorrect", "Please try again with the correct credentials", "error");
+                } else {
+                  console.log('response success');
+                  $scope.editRidesData(theAffiliateName);
+                }
+              })
+          }
+        }
+      })
+      return true;
     };
     
     
@@ -1227,7 +1189,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.editRidesData = function (affiliateName) {
       $scope.selected = angular.copy(affiliateName);
     };
-
+    
     $scope.saveRidesData = function (idx) {
       console.log("Saving obj");
       $scope.ridesData[idx] = angular.copy($scope.selected);
