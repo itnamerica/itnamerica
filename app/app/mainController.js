@@ -1117,13 +1117,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         console.log("itn affiliate is ", $scope.itnAffiliate);
       }
     };
-    
-    $scope.getRidesData = function(){
-        DataService.getAllRides().then(function(data){
-          console.log('rides data from func is ', data);
-          $scope.ridesData = data.data;
-        })
-    };
 
     $scope.getTemplate = function (row) {
       if (row.affiliateName === $scope.selected.affiliateName) return 'edit';
@@ -1145,21 +1138,74 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     //   }
     // };
     
+    $scope.finishedLoading = function() {
+      console.log('finished')
+    }
+    
+    var ngIncludeLoaded = 0;
     $scope.getTemplateWithAuth = function (row) {
       if (row.affiliateName === $scope.selected.affiliateName){
-        $scope.authWallPromise('admins').then(function(response){
-          console.log('response is ', response);
-          if (response.status = '200'){
-            return 'edit';
-          } else {
-            return 'display';
-          }
-        })
+        if (ngIncludeLoaded >= 1){
+          $scope.authWallPromise('admins').then(function(response){
+            console.log('response ', response);
+          })
+          // console.log('after')
+        } else {
+          ngIncludeLoaded = ngIncludeLoaded + 1;
+        }
+        
+        // $scope.authWallPromise('admins');
+        // console.log('after');
+        // $scope.authWallPromise('admins').then(function(response){
+        //   console.log('response is ', response);
+        //   if (response.status = '200'){
+        //     return 'edit';
+        //   } else {
+        //     return 'display';
+        //   }
+        // })
       } 
       else {
         return 'display';
       }
     };
+    
+    $scope.authWallPromise = function(loginType){
+      var deferred = $q.defer;
+      var title = "Please log in to make changes"
+      swal({
+        title: title,
+        html:
+          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
+          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
+        focusConfirm: false,
+        preConfirm: function(){
+          return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value
+          ]
+        }
+      }).then(function(result){
+        if (result.value) {
+          console.log('login inputs are ', result.value[0], result.value[1]);
+          var loginCredentials = {};
+          loginCredentials.email = result.value[0]; 
+          loginCredentials.password = result.value[1];
+          return DataService.login(loginCredentials, loginType)
+            .then(function(response){
+              console.log('response is ', response);
+              if (response.status === 500 && response.data === "error"){
+                swal("Login incorrect", "Please try again with the correct credentials", "error");
+                // deferred.resolve('Error: ', response.data);
+              } else {
+                console.log('response success');
+                // deferred.resolve('Resolved: ', response.data);
+              }
+            })
+        }
+      })
+      return deferred.promise;
+    }; 
     
     
     $scope.switchTemplates = function(template) {
@@ -1168,6 +1214,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       } else {
         return 'display'
       }
+    };
+    
+    
+    $scope.getRidesData = function(){
+        DataService.getAllRides().then(function(data){
+          console.log('rides data from func is ', data);
+          $scope.ridesData = data.data;
+        })
     };
 
     $scope.editRidesData = function (affiliateName) {
@@ -1417,44 +1471,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
       })
     }; 
-    
-    $scope.authWallPromise = function(loginType){
-      var deferred = $q.defer;
-      var title = "Please log in to make changes"
-      swal({
-        title: title,
-        html:
-          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
-          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
-        focusConfirm: false,
-        preConfirm: function(){
-          return [
-            document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
-          ]
-        }
-      }).then(function(result){
-        if (result.value) {
-          console.log('login inputs are ', result.value[0], result.value[1]);
-          var loginCredentials = {};
-          loginCredentials.email = result.value[0]; 
-          loginCredentials.password = result.value[1];
-          return DataService.login(loginCredentials, loginType)
-            .then(function(response){
-              console.log('response is ', response);
-              if (response.status === 500 && response.data === "error"){
-                swal("Login incorrect", "Please try again with the correct credentials", "error");
-                deferred.resolve('Error: ', response.data);
-              } else {
-                console.log('response success');
-                deferred.resolve('Resolved: ', response.data);
-              }
-            })
-        }
-      })
-      return deferred.promise;
-    }; 
-    
     
    $scope.catchDocFilter = function() {
        console.log('stateparam is ', $stateParams.filter);
