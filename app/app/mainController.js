@@ -1130,6 +1130,38 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       else return 'display';
     };
     
+    // $scope.getTemplateWithAuth = function (row) {
+    //   if (row.affiliateName === $scope.selected.affiliateName){
+    //     var authenticated = $scope.authWall('admins');
+    //     console.log("authenticated is ", authenticated);
+    //     if (authenticated){
+    //       return 'edit';
+    //     } else {
+    //       return 'display';  
+    //     }
+    //   } 
+    //   else {
+    //     return 'display';
+    //   }
+    // };
+    
+    $scope.getTemplateWithAuth = function (row) {
+      if (row.affiliateName === $scope.selected.affiliateName){
+        $scope.authWallPromise('admins').then(function(response){
+          console.log('response is ', response);
+          if (response.status = '200'){
+            return 'edit';
+          } else {
+            return 'display';
+          }
+        })
+      } 
+      else {
+        return 'display';
+      }
+    };
+    
+    
     $scope.switchTemplates = function(template) {
       if (template) {
         return template
@@ -1265,38 +1297,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       
     };
     
-    $scope.authWall = function(employee){
-      var employeeSelected = employee
-      swal({
-        title: 'Please log in to edit your profile',
-        html:
-          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
-          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
-        focusConfirm: false,
-        preConfirm: function(){
-          return [
-            document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
-          ]
-        }
-      }).then(function(result){
-        if (result.value) {
-          console.log('creds are ', result.value[0], result.value[1]);
-          $scope.formData.email = result.value[0];
-          $scope.formData.password = result.value[1];
-          return DataService.loginEmployees($scope.formData, employeeSelected)
-            .then(function(response){
-              console.log('response is ', response);
-              if (response.status === 500 && response.data === "error"){
-                swal("Login incorrect", "Please try again with the correct credentials", "error")
-              } else {
-                console.log('response success');
-                $scope.toggleProfileType('edit');
-              }
-            })
-        }
-      })
-    };  
     
     $scope.addEmployee = function(){
       //admin auth?
@@ -1347,6 +1347,113 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
       })
     };
+    
+    
+    $scope.authWallEmployee = function(employee){
+      var employeeSelected = employee
+      swal({
+        title: 'Please log in to edit your profile',
+        html:
+          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
+          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
+        focusConfirm: false,
+        preConfirm: function(){
+          return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value
+          ]
+        }
+      }).then(function(result){
+        if (result.value) {
+          console.log('creds are ', result.value[0], result.value[1]);
+          var loginCredentials = {};
+          loginCredentials.email = result.value[0]; 
+          loginCredentials.password = result.value[1];
+          return DataService.loginEmployees(loginCredentials, employeeSelected)
+            .then(function(response){
+              console.log('response is ', response);
+              if (response.status === 500 && response.data === "error"){
+                swal("Login incorrect", "Please try again with the correct credentials", "error")
+              } else {
+                console.log('response success');
+                $scope.toggleProfileType('edit');
+              }
+            })
+        }
+      })
+    };  
+
+    
+    $scope.authWall = function(loginType){
+      var title = "Please log in to make changes"
+      swal({
+        title: title,
+        html:
+          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
+          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
+        focusConfirm: false,
+        preConfirm: function(){
+          return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value
+          ]
+        }
+      }).then(function(result){
+        if (result.value) {
+          console.log('login inputs are ', result.value[0], result.value[1]);
+          var loginCredentials = {};
+          loginCredentials.email = result.value[0]; 
+          loginCredentials.password = result.value[1];
+          return DataService.login(loginCredentials, loginType)
+            .then(function(response){
+              console.log('response is ', response);
+              if (response.status === 500 && response.data === "error"){
+                swal("Login incorrect", "Please try again with the correct credentials", "error")
+              } else {
+                console.log('response success');
+                return true;
+              }
+            })
+        }
+      })
+    }; 
+    
+    $scope.authWallPromise = function(loginType){
+      var deferred = $q.defer;
+      var title = "Please log in to make changes"
+      swal({
+        title: title,
+        html:
+          '<input type="text" id="swal-input1" class="swal2-input" placeholder="email">' +
+          '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
+        focusConfirm: false,
+        preConfirm: function(){
+          return [
+            document.getElementById('swal-input1').value,
+            document.getElementById('swal-input2').value
+          ]
+        }
+      }).then(function(result){
+        if (result.value) {
+          console.log('login inputs are ', result.value[0], result.value[1]);
+          var loginCredentials = {};
+          loginCredentials.email = result.value[0]; 
+          loginCredentials.password = result.value[1];
+          return DataService.login(loginCredentials, loginType)
+            .then(function(response){
+              console.log('response is ', response);
+              if (response.status === 500 && response.data === "error"){
+                swal("Login incorrect", "Please try again with the correct credentials", "error");
+                deferred.resolve('Error: ', response.data);
+              } else {
+                console.log('response success');
+                deferred.resolve('Resolved: ', response.data);
+              }
+            })
+        }
+      })
+      return deferred.promise;
+    }; 
     
     
    $scope.catchDocFilter = function() {
