@@ -749,8 +749,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         console.log('contact is ', $stateParams.contact);
         $scope.contactPerson = $stateParams.contact;
         //if submitting HR ticket (portal)
-        if ($scope.contactPerson === 'HR'){
-            $scope.formType = 'HR';
+        if ($scope.contactPerson === 'hrcontactform'){
+            $scope.formType = angular.copy($scope.contactPerson);
             //if contacting a staff member (portal)
         } else if ($scope.contactPerson.email){
           $scope.formType = $scope.contactPerson;
@@ -810,7 +810,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                     "<p><strong>Author</strong>: " + $scope.formData.author + "</p>\n ",
                 formType: $scope.formType
             } 
-        } else if ($scope.formType === 'HR' && $scope.formData.messageBody) {
+        } else if ($scope.formType === 'hrcontactform' && $scope.formData.messageBody) {
                 console.log('submitting valid HR ticket');
                 formObj = {
                     from: '"ITNAmerica Staff Member" <donotreply@itnamerica.com>',

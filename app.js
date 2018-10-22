@@ -264,6 +264,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       });
   }); // end of deleteform request
   
+  
   app.delete('/deleteAgendaEvent', function (req,res) {
       var agendaEvent = JSON.parse(req.query.agendaEvent);
       console.log('title and description', agendaEvent.title, agendaEvent.description);
@@ -320,7 +321,7 @@ app.post('/sendmail', function(req, res){
         bcc: 'info@itnamerica.org;morgan.jameson@itnamerica.org'
     };
   }
-  else if (req.body && req.body.formType === 'HR'){ ///private contact form from ITN staff to HR
+  else if (req.body && req.body.formType === 'hrcontactform'){ ///private contact form from ITN staff to HR
     console.log('sending email without pdf, contact form');
     mailOptions = {
         from: req.body.from, // sender address
@@ -415,7 +416,7 @@ app.post('/sendmail', function(req, res){
           console.log('nda form saved to database', result);
           // res.redirect('/');
         })
-      } else if ((req.body && req.body.html) && (req.body.formType === 'HR')) {
+      } else if ((req.body && req.body.html) && (req.body.formType === 'hrcontactform')) {
         console.log('inside HR backend block',req.body.html);
         var contactObj = {
           subject: req.body.text.subject,

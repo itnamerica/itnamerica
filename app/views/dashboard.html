@@ -178,10 +178,10 @@
             <td>{{person.phone}}</td>
             <td><strong>{{person.subject}}</strong></td>
             <td>
-             <a ui-sref="view-form({formObj: {{person}}, formType: 'HR'})" class="btn btn-info btn-sm" data-toggle="tooltip" title="View details">
+             <a ui-sref="view-form({formObj: {{person}}, formType: 'hrcontactform'})" class="btn btn-info btn-sm" data-toggle="tooltip" title="View details">
                <span class="glyphicon glyphicon-eye-open"></span>
              </a>
-             <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDelete('HR', person)" data-toggle="tooltip" title="Delete Form">
+             <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDelete('hrcontactform', person)" data-toggle="tooltip" title="Delete Form">
               <span class="glyphicon glyphicon-trash"></span>
             </button>
             </td>
