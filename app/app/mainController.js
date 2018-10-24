@@ -117,7 +117,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         email: 'info@itnsuncoast.org'
       }
     ];
-    $scope.listOfDepts = [
+    $scope.listOfPrograms = [
       {
         name: 'America',
         gaViewCode: 0000000,
@@ -129,7 +129,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         email: 'mail@ridesinsight.org'
       }
     ];
-    $scope.listOfDeptsObj = {
+    $scope.listOfProgramsObj = {
       'itnAmerica': {
         name: 'America',
         gaViewCode: 0000000,
@@ -1266,6 +1266,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     
     $scope.emailComment = function(content, affiliate) {
       console.log('inside email comment ', content, affiliate);
+      var today = new Date();
       var formObj = {
           from: '"ITNAmerica Staff Member" <donotreply@itnamerica.com>',
           to: affiliate.email,
@@ -1280,7 +1281,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       FormService.sendMail(affiliate, formObj).then(function(response){
         console.log('data returned from sendmail is ', response);
       })
-      
     };
     
     

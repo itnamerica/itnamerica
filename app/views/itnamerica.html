@@ -93,12 +93,12 @@
       <div class="col-md-8">
         <h5 class="mb-25" style="display:inline-block">Comments</h5>
         
-        
+        <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
         
         <div class="row" ng-show="showCommentInput">
           
               <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
-                <form name="itnForm" novalidate ng-submit="addComment(formData, listOfDeptsObj.itnAmerica); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
+                <form name="itnForm" novalidate ng-submit="addComment(formData, listOfProgramsObj.itnAmerica); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
                   <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
                           
                   <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
@@ -148,7 +148,7 @@
               <td>{{comment.message}}</td>
               <td>{{comment.author}}</td>
               <td>
-                <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment(listOfDeptsObj.itnAmerica, comment)" data-toggle="tooltip" title="Delete Comment">
+                <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment(listOfProgramsObj.itnAmerica, comment)" data-toggle="tooltip" title="Delete Comment">
                  <span class="glyphicon glyphicon-trash"></span>
                </button>
               </td>

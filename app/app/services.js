@@ -36,15 +36,17 @@ myApp.service('FormService', function($http) {
         })
     }
     this.sendMail = function(formType, formObj) {
+      var responseMsg = {
+        loading: false,
+        contactPerson: null
+      };
       return $http.post('/sendmail', formObj)
           .then(function(res) {
-              $scope.serverMessage = 'Your comment was submitted successfully and emailed to the relevant staff';
-              $scope.loading = false;
-              $scope.contactPerson = null;
+              responseMsg.serverMessage = 'Your comment was submitted successfully and emailed to the relevant staff';
+              return responseMsg;
           }).catch(function(err) {
-              $scope.serverMessage = 'There was an error submitting your comment.';
-              $scope.loading = false;
-              $scope.contactPerson = null;
+              responseMsg.serverMessage = 'There was an error submitting your comment.';
+              return responseMsg;
           });
     }
 });

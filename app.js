@@ -169,8 +169,10 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       message: req.body.content.message,
       author: req.body.content.author
     }
+    console.log('affiliate is ', req.body.affiliate, 'content is ', req.body.content);
     
     db.collection('commentsphoto').find({name: req.body.affiliate.name}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
       console.log('result commentsphoto is ', result);
       var operation = req.body.operation;
       var recordId = result[0]._id;
