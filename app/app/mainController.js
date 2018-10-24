@@ -1280,6 +1280,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       };
       FormService.sendMail(affiliate, formObj).then(function(response){
         console.log('data returned from sendmail is ', response);
+        $scope.serverMessage = response.serverMessage;
+        $scope.loading = response.loading;
+        scope.contactPerson = response.contactPerson;
       })
     };
     
