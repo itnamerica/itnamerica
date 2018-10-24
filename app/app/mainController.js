@@ -1244,42 +1244,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
     };
     
-    // $scope.addComment = function (content, affiliate) {
-    //   console.log('inside add comment, content is', content, 'affiliate is ', affiliate);
-    //   $scope.serverMessage = "Loading. Please wait.";
-    //   DataService.addComment(content, affiliate).then(function(data){
-    //     //email the affiliate or dept in question
-    //     // $scope.emailComment(content, affiliate).then(function(response){
-    //     //   console.log('after email comment ', response);
-    //     // });
-    //     $scope.emailComment(content, affiliate);
-    // 
-    //     //async add for immediate update in page
-    //     var commentToAdd = {
-    //       message: content.message, 
-    //       author: content.author, 
-    //       email: content.email
-    //     };
-    //     for (var i=0; i < $scope.commentsPhoto.length; i++){
-    //       if (affiliate.name === $scope.commentsPhoto[i].name){
-    //         $scope.commentsPhoto[i].comments.push(commentToAdd);
-    //       }
-    //     }
-    // 
-    //     $scope.showCommentInput = false;
-    //     $timeout(function(){
-    //       $scope.serverMessage = "";
-    //     }, 5000)
-    //   })
-    // };
-    
     $scope.addComment = function (content, affiliate) {
       console.log('inside add comment, content is', content, 'affiliate is ', affiliate);
       $scope.serverMessage = "Loading. Please wait.";
       DataService.addComment(content, affiliate).then(function(data){
         //email the affiliate or dept in question
         $scope.emailCommentAsync(content, affiliate).then(function(response){
-          console.log('after email comment ', response);
           //async add for immediate update in page
           var commentToAdd = {
             message: content.message, 
@@ -1301,7 +1271,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
     
     $scope.emailCommentAsync = function(content, affiliate) {
-      console.log('inside email comment ', content, affiliate);
       var deferred = $q.defer();
       var today = new Date();
       var formObj = {
