@@ -53,55 +53,68 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.affiliateList = [
       {
         name: 'Lanier',
-        gaViewCode: 89470158
+        gaViewCode: 89470158,
+        email: 'info@itnlanier.org'
       },
       {
         name: 'Gateway',
-        gaViewCode: 171669720
+        gaViewCode: 171669720,
+        email: 'info@itngateway.org'
       },
       {
         name: 'MontereyCounty',
-        gaViewCode: 52125007
+        gaViewCode: 52125007,
+        email: 'info@itnmontereycounty.org'
       },
       {
         name: 'Orlando',
-        gaViewCode: 8439088
+        gaViewCode: 8439088,
+        email: 'info@itnorlando.org'
       },
       {
         name: 'Memphis',
-        gaViewCode: 41748788
+        gaViewCode: 41748788,
+        email: 'info@itnmemphis.org'
       },
       {
         name: 'LehighValley',
-        gaViewCode: 75254537
+        gaViewCode: 75254537,
+        email: 'info@itnlehighvalley.org'
       },
       {
         name: 'Bluegrass',
-        gaViewCode: 8437134
+        gaViewCode: 8437134,
+        email: 'info@itnbluegrass.org'
       },
       {
         name: 'SouthernDelaware',
-        gaViewCode: 96015351
+        gaViewCode: 96015351,
+        email: 'info@itnsoutherndelaware.org'
       },
       {
         name: 'CentralCT',
-        gaViewCode: 8437187
+        gaViewCode: 8437187,
+        email: 'info@itncentralct.org'
       },
       {
         name: 'CentralOklahoma',
-        gaViewCode: 71615872
+        gaViewCode: 71615872,
+        email: 'info@itncentraloklahoma.org'
       },
       {
         name: 'Portland',
-        gaViewCode: 8439116
+        gaViewCode: 8439116,
+        email: 'info@itnportland.org'
       },
       {
         name: 'NorthJersey',
-        gaViewCode: 60671208
+        gaViewCode: 60671208,
+        email: 'info@itnnorthjersey.org'
       },
       {
         name: 'Suncoast',
-        gaViewCode: 171748983
+        gaViewCode: 171748983,
+        email: 'info@itnsuncoast.org'
       }
     ];
     $scope.listOfUrls = [{
@@ -1207,9 +1220,15 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
     
     $scope.addComment = function (content, affiliate) {
-      console.log('inside add comment, content is', content, 'affiliate is ', affiliate);
+      console.log('inside add comment, content is', content, 'affiliate is ', affiliate); //formData.message, formData.author
       
       DataService.addComment(content, affiliate).then(function(data){
+        //email the affiliate or dept in question
+        // $scope.emailComment(content, affiliate).then(function(response){
+        //   console.log('after email comment ', response);
+        // });
+        $scope.emailComment(content, affiliate);
+        
         //async add for immediate update in page
         var commentToAdd = {message: content.message, author: content.author};
         for (var i=0; i < $scope.commentsPhoto.length; i++){
@@ -1219,6 +1238,24 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
         $scope.showCommentInput = false;
       })
+    };
+    
+    $scope.emailComment = function(content, affiliate) {
+      console.log('inside email comment ', content, affiliate);
+      $scope.formType.name = affiliate.name;
+      $scope.formType.email = affiliate.email;
+      var formObj = {
+          from: '"ITNAmerica Staff Member" <donotreply@itnamerica.com>',
+          to: $scope.formType.email,
+          subject: "New message from ITN Staff",
+          text: $scope.formData,
+          date: today,
+          html: "<p><strong>Message</strong>: " + $scope.formData.message + "</p> " +
+                "<p><strong>Sender</strong>: " + $scope.formData.author + "</p>\n ",
+                // + "<p><strong>Sender contact</strong>: " + $scope.formData.email + " - " + $scope.formData.phone + "</p>\n ",
+          formType: $scope.formType
+      };
+      
     };
     
     
