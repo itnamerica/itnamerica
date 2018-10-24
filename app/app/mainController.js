@@ -117,6 +117,30 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         email: 'info@itnsuncoast.org'
       }
     ];
+    $scope.listOfDepts = [
+      {
+        name: 'America',
+        gaViewCode: 0000000,
+        email: 'info@itnamerica.org'
+      },
+      {
+        name: 'RidesInSight',
+        gaViewCode: 0000000,
+        email: 'mail@ridesinsight.org'
+      }
+    ];
+    $scope.listOfDeptsObj = {
+      'itnAmerica': {
+        name: 'America',
+        gaViewCode: 0000000,
+        email: 'info@itnamerica.org'
+      },
+      'ridesInSight': {
+        name: 'RidesInSight',
+        gaViewCode: 0000000,
+        email: 'mail@ridesinsight.org'
+      }
+    };
     $scope.listOfUrls = [{
             name: 'Home',
             state: 'home',
@@ -1242,19 +1266,20 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     
     $scope.emailComment = function(content, affiliate) {
       console.log('inside email comment ', content, affiliate);
-      $scope.formType.name = affiliate.name;
-      $scope.formType.email = affiliate.email;
       var formObj = {
           from: '"ITNAmerica Staff Member" <donotreply@itnamerica.com>',
-          to: $scope.formType.email,
+          to: affiliate.email,
           subject: "New message from ITN Staff",
           text: $scope.formData,
           date: today,
           html: "<p><strong>Message</strong>: " + $scope.formData.message + "</p> " +
                 "<p><strong>Sender</strong>: " + $scope.formData.author + "</p>\n ",
                 // + "<p><strong>Sender contact</strong>: " + $scope.formData.email + " - " + $scope.formData.phone + "</p>\n ",
-          formType: $scope.formType
+          formType: affiliate
       };
+      FormService.sendMail(affiliate, formObj).then(function(response){
+        console.log('data returned from sendmail is ', response);
+      })
       
     };
     

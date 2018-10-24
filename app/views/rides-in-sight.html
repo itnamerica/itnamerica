@@ -93,7 +93,7 @@
           <div class="row" ng-show="showCommentInput">
             
                 <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
-                  <form name="itnForm" novalidate ng-submit="addComment(formData, {name:'ridesinsight'}); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
+                  <form name="itnForm" novalidate ng-submit="addComment(formData, listOfDeptsObj.ridesInSight); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
                     <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
                             
                     <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
@@ -124,7 +124,7 @@
           
           
           
-          <table class="table table-responsive table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: 'ridesinsight' }" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
+          <table class="table table-responsive table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: 'ridesinsight', gaViewCode: '', email: 'dispatch@ridesinsight.org' }" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
             <button class="btn btn-sm" ng-click="showCommentInput = true" style="background:#cc6257;float:right;margin-top:10px">Add a Comment</button>
             <thead>
               <tr>
@@ -143,7 +143,7 @@
                 <td>{{comment.message}}</td>
                 <td>{{comment.author}}</td>
                 <td>
-                  <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment({name:'ridesinsight'}, comment)" data-toggle="tooltip" title="Delete Comment">
+                  <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment(listOfDeptsObj.ridesInSight, comment)" data-toggle="tooltip" title="Delete Comment">
                    <span class="glyphicon glyphicon-trash"></span>
                  </button>
                 </td>
