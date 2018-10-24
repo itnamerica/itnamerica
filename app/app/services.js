@@ -185,3 +185,269 @@ myApp.service('FileUploadService', ['$http', function ($http) {
       });
    }
 }]);
+
+
+
+myApp.service('LongVariablesService', ['$http', function ($http) {
+  
+  var assetsPath = "assets";
+  var viewsPath = "../views";
+  // var viewsPath = "../app/views";
+  if (location.host === "localhost:8080") {
+      console.log("localhost server, staging env");
+      assetsPath = "app/assets";
+      viewsPath = "../app/views";
+  } 
+  
+   this.errorMessages  = {
+       required: "This field is required",
+       minlength: "This field needs to be at least 2 characters long",
+       maxlength: "This field needs to be at most 30 characters long",
+       phone: "Please match pattern [+91-036-78658 || 91-036-78658]",
+       zip: "The zipcode should be be 5 digits long",
+       email: "The email should have the format: test@example.com",
+       emailConfirmation: "The email confirmation field should match the email field",
+       date: "The date should have the format: MM/DD/YYYY",
+       dob: "The date of birth should have the format: MM/DD/YYYY",
+       phone: "The phone number should have the format: 111-111-1111",
+       ssn: "The driver license number should have the format: 123-45-6789",
+       mismatchName: "Please match the name you entered above",
+       mismatchSignature: "Please match the signature you entered above",
+       mismatchDate: "Please match the date you entered above"
+   };
+  this.states = [
+    'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+  ];
+  this.itnSources = [
+    'Family', 'Friend', 'Speaker', 'Doctor', 'Radio', 'Television', 'Flier', 'Book', 'Phone', 'Agency on Aging', 'Social Worker', 'Internet', 'Referred by Current Member'
+  ];
+  this.affiliateListArr = [
+    'Lanier','Gateway','MontereyCounty','Orlando','Memphis','LehighValley','Bluegrass','SouthernDelaware','CentralCT','CentralOklahoma','Portland','NorthJersey','Suncoast'
+  ];
+  this.affiliateList = [
+    {
+      name: 'Lanier',
+      gaViewCode: 89470158,
+      email: 'info@itnlanier.org'
+    },
+    {
+      name: 'Gateway',
+      gaViewCode: 171669720,
+      email: 'info@itngateway.org'
+    },
+    {
+      name: 'MontereyCounty',
+      gaViewCode: 52125007,
+      email: 'info@itnmontereycounty.org'
+    },
+    {
+      name: 'Orlando',
+      gaViewCode: 8439088,
+      email: 'info@itnorlando.org'
+    },
+    {
+      name: 'Memphis',
+      gaViewCode: 41748788,
+      email: 'info@itnmemphis.org'
+    },
+    {
+      name: 'LehighValley',
+      gaViewCode: 75254537,
+      email: 'info@itnlehighvalley.org'
+    },
+    {
+      name: 'Bluegrass',
+      gaViewCode: 8437134,
+      email: 'info@itnbluegrass.org'
+    },
+    {
+      name: 'SouthernDelaware',
+      gaViewCode: 96015351,
+      email: 'info@itnsoutherndelaware.org'
+    },
+    {
+      name: 'CentralCT',
+      gaViewCode: 8437187,
+      email: 'info@itncentralct.org'
+    },
+    {
+      name: 'CentralOklahoma',
+      gaViewCode: 71615872,
+      email: 'info@itncentraloklahoma.org'
+    },
+    {
+      name: 'Portland',
+      gaViewCode: 8439116,
+      email: 'info@itnportland.org'
+    },
+    {
+      name: 'NorthJersey',
+      gaViewCode: 60671208,
+      email: 'info@itnnorthjersey.org'
+    },
+    {
+      name: 'Suncoast',
+      gaViewCode: 171748983,
+      email: 'info@itnsuncoast.org'
+    }
+  ];
+  this.listOfPrograms = [
+    {
+      name: 'America',
+      gaViewCode: 0000000,
+      // email: 'info@itnamerica.org'
+      email: 'sguergenenov@itnamerica.org'
+    },
+    {
+      name: 'RidesInSight',
+      gaViewCode: 0000000,
+      email: 'mail@ridesinsight.org'
+    }
+  ];
+  this.listOfProgramsObj = {
+    'itnAmerica': {
+      name: 'America',
+      gaViewCode: 0000000,
+      email: 'info@itnamerica.org'
+    },
+    'ridesInSight': {
+      name: 'RidesInSight',
+      gaViewCode: 0000000,
+      email: 'mail@ridesinsight.org'
+    }
+  };
+  this.formCount = {
+      member: 0,
+      volunteer: 0,
+      nonrider: 0,
+      contact: 0,
+      newsletter: 0
+  };
+  this.formData = {
+      requestDriverRecord: {},
+      requestCriminalRecord: {},
+      vehicleDescription: {},
+      changeOfStatus: {},
+      drivingExperience: {},
+      references: {},
+      firstReference: {},
+      secondReference: {},
+      thirdReference: {},
+      firstEmergencyContact: {},
+      secondEmergencyContact: {},
+      customerInfo: {},
+      drivingInfo: {},
+      agreement: {}
+  };
+  this.itnAffiliate = {
+    name: '',
+    gaViewCode: ''
+  };
+  this.listOfUrls = [{
+          name: 'Home',
+          state: 'home',
+          url: viewsPath + '/home.html'
+      },
+      {
+          name: 'What We Do',
+          state: 'what-we-do',
+          url: viewsPath + '/what-we-do.html'
+      },
+      {
+          name: 'Our Organization',
+          state: 'organization',
+          url: viewsPath + '/organization.html'
+      },
+      {
+          name: 'Faces of our Members',
+          state: 'faces',
+          url: viewsPath + '/faces.html'
+      },
+      {
+          name: 'FAQ',
+          state: 'faq',
+          url: viewsPath + '/faq.html'
+      },
+      {
+          name: 'News',
+          state: 'news',
+          url: viewsPath + '/news.html'
+      },
+      {
+          name: 'Contact Us',
+          state: 'contact',
+          url: viewsPath + '/contact.html'
+      },
+      {
+          name: 'Become a Member',
+          state: 'become-member',
+          url: viewsPath + '/become-member.html'
+      },
+      {
+          name: 'Online Membership Application',
+          state: 'member-app',
+          url: viewsPath + '/member-app.html'
+      },
+      {
+          name: 'Volunteer To Drive',
+          state: 'volunteer-to-drive',
+          url: viewsPath + '/volunteer-to-drive.html'
+      },
+      {
+          name: 'Online Volunteer Application',
+          state: 'volunteer-app',
+          url: viewsPath + '/volunteer-app.html'
+      },
+      {
+          name: 'Family Involvement',
+          state: 'family',
+          url: viewsPath + '/family.html'
+      },
+      {
+          name: 'Member Programs',
+          state: 'member-programs',
+          url: viewsPath + '/member-programs.html'
+      },
+      {
+          name: 'Pay Online',
+          state: 'pay-online',
+          url: viewsPath + '/pay-online.html'
+      },
+      {
+          name: 'Donate',
+          state: 'donate',
+          url: viewsPath + '/donate.html'
+      },
+      {
+          name: 'Corporate Partnership',
+          state: 'corporate',
+          url: viewsPath + '/corporate.html'
+      },
+      {
+          name: 'ITN Affiliates',
+          state: 'affiliates',
+          url: viewsPath + '/affiliates.html'
+      },
+      {
+          name: 'ITNAmerica',
+          state: 'itnamerica',
+          url: viewsPath + '/itnamerica.html'
+      },
+      {
+          name: 'Rides in Sight',
+          state: 'rides-in-sight',
+          url: viewsPath + '/rides-in-sight.html'
+      },
+      {
+          name: 'Miscellaneous',
+          state: 'other',
+          url: viewsPath + '/other.html'
+      },
+      {
+          name: 'ITN Operations',
+          state: 'itn-operations',
+          url: viewsPath + '/itn-operations.html'
+      }
+  ];
+   
+}]);
