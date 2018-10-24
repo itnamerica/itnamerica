@@ -101,16 +101,28 @@
       <div class="col-md-8">
         <h5 class="mb-25" style="display:inline-block">Comments</h5>
         
+        <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
+        
         <div class="row" ng-show="showCommentInput">
               <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
                 <form name="itnForm" novalidate ng-submit="addComment(formData, {name: affiliateOfComment}); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
                   <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
                           
-                  <div class="form-group" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.author" required>
-                    <span ng-if="itnForm.name.$error.required && !itnForm.name.$pristine" class="help-block">{{errorMessages.required}}</span>
-                    <span ng-if="itnForm.name.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
-                    <span ng-if="itnForm.name.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+                  <div class="row">        
+                    <div class="form-group col-sm-6" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.author" required>
+                      <span ng-if="itnForm.name.$error.required && !itnForm.name.$pristine" class="help-block">{{errorMessages.required}}</span>
+                      <span ng-if="itnForm.name.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
+                      <span ng-if="itnForm.name.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+                    </div>
+                    
+                    <div class="form-group col-sm-6" ng-class="{ 'has-error' : itnForm.email.$invalid && !itnForm.email.$pristine }">
+                      <input type="text" class="form-control" id="email" name="email" placeholder="Your Email" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.email" ng-pattern="emailPattern" required>
+                      <span ng-if="itnForm.email.$error.required && !itnForm.email.$pristine" class="help-block">{{errorMessages.required}}</span>
+                      <span ng-if="itnForm.email.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
+                      <span ng-if="itnForm.email.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+                      <span ng-if="itnForm.email.$error.pattern" class="help-block">{{errorMessages.email}}</span>
+                    </div>
                   </div>
                   
                   <div class="form-group" ng-class="{ 'has-error' : itnForm.message.$invalid && !itnForm.message.$pristine }">
@@ -155,7 +167,7 @@
                   <button type="button" class="btn btn-danger btn-sm" style="margin-left:5%" ng-click="askBeforeDeleteComment({name:commentPhoto.name}, comment)" data-toggle="tooltip" title="Delete Comment">
                    <span class="glyphicon glyphicon-trash"></span>
                  </button>
-                  <h6 style="text-align:center;font-size:15px"><em>-by {{comment.author}}</em></h6>
+                  <h6 style="text-align:center;font-size:15px"><em>-by {{comment.author}} <span ng-if="comment.email">( {{comment.email}} )</span></em></h6>
                   <hr ng-if="!$last" style="text-align:center;margin:5px auto" width="30%">
                 </div>
                 <dir-pagination-controls
@@ -301,3 +313,26 @@ gapi.analytics.ready(function() {
   });
 });
 </script>  
+
+
+<script>
+$(document).ready(function(){ 
+  $('#characterLeft').text('2000 characters left');
+  $('#message').keydown(function () {
+      var max = 2000;
+      var len = $(this).val().length;
+      if (len >= max) {
+          $('#characterLeft').text('You have reached the limit');
+          $('#characterLeft').addClass('text-danger');
+          $('#submit').addClass('disabled');            
+      } 
+      else {
+          var ch = max - len;
+          $('#characterLeft').text(ch + ' characters left');
+          $('#submit').removeClass('disabled');
+          $('#characterLeft').removeClass('red');            
+      }
+  });    
+});
+
+</script>

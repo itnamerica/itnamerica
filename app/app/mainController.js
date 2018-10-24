@@ -1244,8 +1244,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
     
     $scope.addComment = function (content, affiliate) {
-      console.log('inside add comment, content is', content, 'affiliate is ', affiliate); //formData.message, formData.author
-      
+      console.log('inside add comment, content is', content, 'affiliate is ', affiliate);
+      $scope.serverMessage = "Loading. Please wait.";
       DataService.addComment(content, affiliate).then(function(data){
         //email the affiliate or dept in question
         // $scope.emailComment(content, affiliate).then(function(response){
@@ -1254,13 +1254,21 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.emailComment(content, affiliate);
         
         //async add for immediate update in page
-        var commentToAdd = {message: content.message, author: content.author};
+        var commentToAdd = {
+          message: content.message, 
+          author: content.author, 
+          email: content.email
+        };
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if (affiliate.name === $scope.commentsPhoto[i].name){
             $scope.commentsPhoto[i].comments.push(commentToAdd);
           }
         }
+        
         $scope.showCommentInput = false;
+        $timeout(function(){
+          $scope.serverMessage = "";
+        }, 5000)
       })
     };
     
@@ -1274,23 +1282,28 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           text: $scope.formData,
           date: today,
           html: "<p><strong>Message</strong>: " + $scope.formData.message + "</p> " +
-                "<p><strong>Sender</strong>: " + $scope.formData.author + "</p>\n ",
-                // + "<p><strong>Sender contact</strong>: " + $scope.formData.email + " - " + $scope.formData.phone + "</p>\n ",
+                "<p><strong>Sender</strong>: " + $scope.formData.author + "</p>\n " +
+                "<p><strong>Sender contact</strong>: " + $scope.formData.email + "</p>\n ",
           formType: affiliate
       };
       FormService.sendMail(affiliate, formObj).then(function(response){
         console.log('data returned from sendmail is ', response);
         $scope.serverMessage = response.serverMessage;
         $scope.loading = response.loading;
-        scope.contactPerson = response.contactPerson;
+        $scope.contactPerson = response.contactPerson;
       })
     };
     
     
     $scope.deleteComment = function() {
+      $scope.serverMessage = "Loading. Please wait.";
       DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
         //async delete for immediate update in page
-        var commentToDelete = {message: $scope.commentToDelete.message, author: $scope.commentToDelete.author};
+        var commentToDelete = {
+          message: $scope.commentToDelete.message, 
+          author: $scope.commentToDelete.author, 
+          email: $scope.commentToDelete.email, 
+          };
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if ($scope.affiliateToDelete.name === $scope.commentsPhoto[i].name){
             var commentsArr = $scope.commentsPhoto[i].comments;
@@ -1304,6 +1317,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             }
           }
         }
+        $timeout(function(){
+          $scope.serverMessage = "";
+        }, 5000)
       })
     };
     
