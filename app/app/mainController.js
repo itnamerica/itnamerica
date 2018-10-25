@@ -338,7 +338,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     };
 
-    $scope.login = function(loginType) {
+    $scope.login = function(loginType, privilegeType, routeType, routeName) {
       var routeName;
       if (loginType === 'admins'){
         routeName = 'dashboard';
@@ -346,7 +346,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         routeName = 'portal';
       }
       console.log('login creds are ', $scope.formData);
-      DataService.login($scope.formData, loginType).then(function(response) {
+      // DataService.login($scope.formData, loginType).then(function(response) {
+      // return DataService.loginPrivilege(loginCredentials, loginType, privilegeType)
+      return DataService.loginPrivilege($scope.formData, loginType, privilegeType).then(function(response) {
           console.log('response is ', response);
           if (response.status === 200) {
               $scope.session = response.data;

@@ -237,14 +237,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
           res.status(500).send('error')
         }  
       })
-  }); // end of /login get request
-  
+  }); // end of /loginPrivilege get request
   
   app.get('/loginStandard', function (req,res) {   
       console.log('inside backend login'); 
       var tableName = req.query.tableName;
+      var userInput = JSON.parse(req.query.formData);
       db.collection(tableName).find().toArray(function (err, result) {
-        var userInput = JSON.parse(req.query.formData);
+        
         console.log('user input is ',userInput, 'result from db is ', result);
         if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
           console.log('a match, initializing session');
@@ -258,6 +258,25 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /login get request
   
+  
+  // app.get('/loginStandard', function (req,res) {   
+  //     console.log('inside backend login'); 
+  //     var tableName = req.query.tableName;
+  //     db.collection(tableName).find().toArray(function (err, result) {
+  //       var userInput = JSON.parse(req.query.formData);
+  //       console.log('user input is ',userInput, 'result from db is ', result);
+  //       if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
+  //         console.log('a match, initializing session');
+  //         req.session.user = userInput;
+  //         console.log('new session is ', req.session.user, 'and', req.session);
+  //         res.send(result);
+  //       }
+  //       else {
+  //         res.status(500).send('error')
+  //       }  
+  //     })
+  // }); // end of /login get request
+  
   app.get('/loginEmployees', function (req,res) {   
     var userInput = JSON.parse(req.query.formData);
     var employeeSelected = JSON.parse(req.query.employeeSelected);
@@ -266,7 +285,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       // console.log('user input ', userInput.email, userInput.password, 'response ', result.email, result.password, 'for relevant email ', employeeSelected.email);
       if ((result[0].email === employeeSelected.email) && (result[0].email === userInput.email) && (result[0].password === userInput.password)){
         req.session.user = userInput;
-        // console.log('new session is ', req.session.user, 'and', req.session);
         res.send(result);
       }
       else {
