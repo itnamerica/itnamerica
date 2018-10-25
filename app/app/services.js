@@ -154,8 +154,10 @@ myApp.service('DataService', function($http){
             }
         })
       .then(function(data){
+        console.log('good is ', data);
         return data;
       }).catch(function(error) {
+        console.log('bad is ', error);
           return error
       })
   };

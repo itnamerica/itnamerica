@@ -238,39 +238,29 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
         }  
       })
   }); // end of /loginPrivilege get request
-  
-  //not sure if this function is still needed since loginPrivilege is more OOP
-  app.get('/loginStandard', function (req,res) {   
-      console.log('inside backend login'); 
-      var tableName = req.query.tableName;
-      var userInput = JSON.parse(req.query.formData);
-      db.collection(tableName).find().toArray(function (err, result) {
-        
-        console.log('user input is ',userInput, 'result from db is ', result);
-        if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
-          console.log('a match, initializing session');
-          req.session.user = userInput;
-          console.log('new session is ', req.session.user, 'and', req.session);
-          res.send(result);
-        }
-        else {
-          res.status(500).send('error')
-        }  
-      })
-  }); // end of /login get request
+
   
   app.get('/loginEmployees', function (req,res) {   
     var userInput = JSON.parse(req.query.formData);
     var employeeSelected = JSON.parse(req.query.employeeSelected);
     db.collection('employees').find({'email': employeeSelected.email}).toArray(function (err, result) {
       console.log('result is ', result[0]);
-      // console.log('user input ', userInput.email, userInput.password, 'response ', result.email, result.password, 'for relevant email ', employeeSelected.email);
       if ((result[0].email === employeeSelected.email) && (result[0].email === userInput.email) && (result[0].password === userInput.password)){
         req.session.user = userInput;
         res.send(result);
       }
       else {
-        res.status(500).send('error')
+        db.collection('admins').find({'username': userInput.email}).toArray(function (err2, result2) {
+          if (err2) { throw new Error('No record found. ', err2) };
+          console.log('result2 is ', result2)
+          if ((result2 && result2[0]) && (result2[0].username === userInput.email) && (result2[0].password === userInput.password) && (result2[0].privilege === 'Master')){
+            res.send(result2);
+          } else {
+            console.log('no match')
+            // if (err2) { throw new Error('No record found. ', err2) };
+            res.status(500).send('error')
+          }
+        })
       }
     })
   }); // end of /loginEmployees get request

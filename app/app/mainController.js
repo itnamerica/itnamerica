@@ -1006,20 +1006,22 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       }).then(function(result){
         if (result.value) {
           if (result.value) {
-            console.log('login inputs are ', result.value[0], result.value[1]);
-            var loginCredentials = {};
-            loginCredentials.username = result.value[0]; 
-            loginCredentials.password = result.value[1];
-            // return DataService.login(loginCredentials, loginType)
+            var loginCredentials = {
+              username: result.value[0],
+              password : result.value[1]
+            };
+            console.log('login creds  are ', loginCredentials);
             return DataService.loginPrivilege(loginCredentials, loginType, privilegeType)
               .then(function(response){
                 console.log('response is ', response);
-                if (response.status === 500 && response.data === "error"){
+                if ( (response.status === 500 && response.data === "error")) {
                   swal("Login incorrect", "Please try again with the correct credentials", "error");
                 } else {
                   console.log('response success');
                   $scope.editRidesData(theAffiliateName);
                 }
+              }).catch(function(error){
+                console.log('err returned from frontend ', error);
               })
           }
         }
@@ -1207,8 +1209,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     
     
     $scope.addEmployee = function(){
-      //admin auth?
-      //return DataService.login($scope.formData, 'admins')
       swal({
         title: 'Add an Employee',
         html:
@@ -1274,18 +1274,21 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       }).then(function(result){
         if (result.value) {
           console.log('creds are ', result.value[0], result.value[1]);
-          var loginCredentials = {};
-          loginCredentials.email = result.value[0]; 
-          loginCredentials.password = result.value[1];
+          var loginCredentials = {
+            email: result.value[0],
+            password: result.value[1]
+          };
           return DataService.loginEmployees(loginCredentials, employeeSelected)
             .then(function(response){
               console.log('response is ', response);
-              if (response.status === 500 && response.data === "error"){
+              if ((response.status === 500 && response.data === "error") || response.data === null){
                 swal("Login incorrect", "Please try again with the correct credentials", "error")
               } else {
                 console.log('response success');
                 $scope.toggleProfileType('edit');
               }
+            }).catch(function(error){
+              console.log('err returned from frontend ', error);
             })
         }
       })
