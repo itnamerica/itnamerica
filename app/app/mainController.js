@@ -346,8 +346,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         routeName = 'portal';
       }
       console.log('login creds are ', $scope.formData);
-      // DataService.login($scope.formData, loginType).then(function(response) {
-      // return DataService.loginPrivilege(loginCredentials, loginType, privilegeType)
       return DataService.loginPrivilege($scope.formData, loginType, privilegeType).then(function(response) {
           console.log('response is ', response);
           if (response.status === 200) {
@@ -947,11 +945,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       }
     };
     
-    // $scope.authAndRedirect = function() {
-    //   var title = "Please log in to access this page";  
-    // };
-    
-    
+
     $scope.authAndRedirect = function(loginType, privilegeType, routeType, routeName){
         var title = "Please log in to access this page";  
         swal({
@@ -985,8 +979,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                   } else if (routeType === 'ng-click') {
                     $scope.openAdditionalPage(routeName);
                   }
-                  // $scope.editRidesData(theAffiliateName);
-                  //go to page
                 }
               })
           }
@@ -996,7 +988,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
     
     
-    $scope.authWallPopup = function(loginType, affiliateName){
+    $scope.authWallPopup = function(loginType, privilegeType, affiliateName){
         var theAffiliateName = affiliateName;
         var title = "Please log in to make changes"
         swal({
@@ -1018,7 +1010,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             var loginCredentials = {};
             loginCredentials.username = result.value[0]; 
             loginCredentials.password = result.value[1];
-            return DataService.login(loginCredentials, loginType)
+            // return DataService.login(loginCredentials, loginType)
+            return DataService.loginPrivilege(loginCredentials, loginType, privilegeType)
               .then(function(response){
                 console.log('response is ', response);
                 if (response.status === 500 && response.data === "error"){

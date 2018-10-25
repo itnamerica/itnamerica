@@ -239,6 +239,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /loginPrivilege get request
   
+  //not sure if this function is still needed since loginPrivilege is more OOP
   app.get('/loginStandard', function (req,res) {   
       console.log('inside backend login'); 
       var tableName = req.query.tableName;
@@ -257,25 +258,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
         }  
       })
   }); // end of /login get request
-  
-  
-  // app.get('/loginStandard', function (req,res) {   
-  //     console.log('inside backend login'); 
-  //     var tableName = req.query.tableName;
-  //     db.collection(tableName).find().toArray(function (err, result) {
-  //       var userInput = JSON.parse(req.query.formData);
-  //       console.log('user input is ',userInput, 'result from db is ', result);
-  //       if ((result[0].username === userInput.username) && (result[0].password === userInput.password)){
-  //         console.log('a match, initializing session');
-  //         req.session.user = userInput;
-  //         console.log('new session is ', req.session.user, 'and', req.session);
-  //         res.send(result);
-  //       }
-  //       else {
-  //         res.status(500).send('error')
-  //       }  
-  //     })
-  // }); // end of /login get request
   
   app.get('/loginEmployees', function (req,res) {   
     var userInput = JSON.parse(req.query.formData);
