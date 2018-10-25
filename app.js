@@ -227,7 +227,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       
       db.collection(tableName).find({username: userInput.username}).toArray(function (err, result) {
         console.log('result from db is ', result[0]);
-        if ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === privilegeType){
+        if ( ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === privilegeType) || ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === 'Master') ){
           console.log('a match, initializing session');
           req.session.user = userInput;
           console.log('new session is ', req.session.user, 'and', req.session);
