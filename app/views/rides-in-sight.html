@@ -33,17 +33,13 @@
       
     </div><!--row-->
     
-    <!-- <div class="row mt-50 mb-50 ta-center" ng-hide="adminSession">
-      <button class="btn btn-lg" ng-click="loginAdmin()">Login as Rides In Sight Admin to view the full page</button>
-    </div> -->
-    
-    
-    <!-- <div class="row mt-25 mb-50" ng-show="adminSession"> -->
+
     <div class="row mt-25 mb-50">
       <h3>Admin Section:</h3>
       
       <div class="col-md-4">
-        <a ng-click="openAdditionalPage('events')">
+        <!-- <a ng-click="openAdditionalPage('events')"> -->
+        <a ng-click="authAndRedirect('admins','RidesInSight','ng-click','events')">
           <div class="block" style="background:#90dea7">
             <img ng-src="{{assetsPath}}/images/speakers2-icon.svg" alt="icon of a speaker" style="object-fit:contain;width:200px;margin-left:0;margin-top:-7%"/>
             <h5 style="margin-top:-40px;color:white">Comments & Announcements</h5>
@@ -52,7 +48,8 @@
       </div><!--col-md-4-->
       
       <div class="col-md-4">
-        <a ui-sref="calendar-ris">
+        <!-- <a ui-sref="calendar-ris"> -->
+        <a ng-click="authAndRedirect('admins','RidesInSight','ui-sref','calendar-ris')">
           <div class="block" style="background:white">
             <img ng-src="{{assetsPath}}/images/calendar-icon.svg" alt="icon of calendar" style="object-fit:contain;width:260px;margin-left:-7%;margin-top:-7%"/>
             <h5 style="margin-top:-65px">Shift Scheduler</h5>
@@ -61,7 +58,8 @@
       </div><!--col-md-4-->
       
       <div class="col-md-4">
-        <a ng-click="openAdditionalPage('popular-apps')">
+        <!-- <a ng-click="openAdditionalPage('popularApps')"> -->
+        <a ng-click="authAndRedirect('admins','RidesInSight','ng-click','popularApps')">
           <div class="block" style="background:#327684">
             <img ng-src="{{assetsPath}}/images/popular-apps2.svg" alt="icon of a speaker" style="object-fit:contain;width:240px;margin-top:0"/>
             <h5 style="margin-top:-65px;">Popular Apps</h5>

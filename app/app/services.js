@@ -130,6 +130,21 @@ myApp.service('DataService', function($http){
               return error
           })
   };
+  this.loginPrivilege = function(formData, tableName, privilegeType) {
+    console.log('inside DataService login ', formData, tableName, privilegeType);
+      return $http.get('/loginPrivilege', {
+              params: {
+                  formData: formData,
+                  tableName: tableName,
+                  privilegeType: privilegeType
+              }
+          })
+          .then(function(data) {
+              return data;
+          }).catch(function(error) {
+              return error
+          })
+  };
   this.loginEmployees = function(formData, employeeSelected){
     console.log('inside login employees' , employeeSelected);
     return $http.get('/loginEmployees', {

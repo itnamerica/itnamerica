@@ -901,7 +901,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.openAdditionalPage = function(pageName){
       var affiliateName;
       console.log('inside openadditionalpage ', pageName)
-      $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = $scope.affiliateLanding = $scope.allComments = false;
+      $scope.itnamerica = $scope.ris = $scope.other = $scope.services = $scope.affiliates = $scope.social = $scope.events = $scope.learn = $scope.analytics = $scope.affiliateLanding = $scope.allComments = $scope.popularApps = false;
       if (pageName && pageName === 'portal'){
         $state.go('portal');
       }
@@ -944,6 +944,55 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         return 'display'
       }
     };
+    
+    // $scope.authAndRedirect = function() {
+    //   var title = "Please log in to access this page";  
+    // };
+    
+    
+    $scope.authAndRedirect = function(loginType, privilegeType, routeType, routeName){
+        var title = "Please log in to access this page";  
+        if (routeType === 'ui-sref') {
+           $state.go(routeName)
+        } else if (routeType === 'ng-click') {
+          $scope.openAdditionalPage(routeName);
+        }
+        swal({
+          title: title,
+          html:
+            '<input type="text" id="swal-input1" class="swal2-input" placeholder="username or email">' +
+            '<input type="password" id="swal-input2" class="swal2-input" placeholder="password">',
+          focusConfirm: false,
+          preConfirm: function(){
+            return [
+              document.getElementById('swal-input1').value,
+              document.getElementById('swal-input2').value
+            ]
+          }
+      }).then(function(result){
+        if (result.value) {
+          if (result.value) {
+            console.log('login inputs are ', result.value[0], result.value[1]);
+            var loginCredentials = {};
+            loginCredentials.username = result.value[0]; 
+            loginCredentials.password = result.value[1];
+            return DataService.loginPrivilege(loginCredentials, loginType, privilegeType)
+              .then(function(response){
+                console.log('response is ', response);
+                if (response.status === 500 && response.data === "error"){
+                  swal("Login incorrect", "Please try again with the correct credentials", "error");
+                } else {
+                  console.log('response success');
+                  // $scope.editRidesData(theAffiliateName);
+                  //go to page
+                }
+              })
+          }
+        }
+      })
+      return true;
+    };
+    
     
     $scope.authWallPopup = function(loginType, affiliateName){
         var theAffiliateName = affiliateName;
