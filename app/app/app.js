@@ -172,6 +172,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/hr-tickets',
             templateUrl: viewsPath + 'hr-tickets.html'
         })
+        .state('calendar-ris', {
+            url: '/calendar-ris',
+            templateUrl: viewsPath + 'calendar-ris.html'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');

@@ -952,11 +952,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     
     $scope.authAndRedirect = function(loginType, privilegeType, routeType, routeName){
         var title = "Please log in to access this page";  
-        if (routeType === 'ui-sref') {
-           $state.go(routeName)
-        } else if (routeType === 'ng-click') {
-          $scope.openAdditionalPage(routeName);
-        }
         swal({
           title: title,
           html:
@@ -982,7 +977,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 if (response.status === 500 && response.data === "error"){
                   swal("Login incorrect", "Please try again with the correct credentials", "error");
                 } else {
-                  console.log('response success');
+                  console.log('response success loginredirect');
+                  if (routeType === 'ui-sref') {
+                     $state.go(routeName)
+                  } else if (routeType === 'ng-click') {
+                    $scope.openAdditionalPage(routeName);
+                  }
                   // $scope.editRidesData(theAffiliateName);
                   //go to page
                 }
