@@ -1887,9 +1887,13 @@ form textarea.form-control {font-size:25px}
 }
 .popular-apps h6 {
   font-size: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   margin-top: 30px;
   font-weight: bold;
+}
+.popular-apps .description {
+  margin-bottom:20px;
+  font-size:20px;
 }
 .swal2-popup.swal2-modal.swal2-show {
   font-size: 20px !important;
