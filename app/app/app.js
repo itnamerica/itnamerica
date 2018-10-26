@@ -174,7 +174,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('calendar-ris', {
             url: '/calendar-ris',
-            templateUrl: viewsPath + 'calendar-ris.html'
+            templateUrl: viewsPath + 'calendar-ris.html',
+            controller: 'CalendarCtrl'
         })
 
     // default fall back route

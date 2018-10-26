@@ -138,6 +138,93 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       });
     };
     
+    $scope.initWeekCalendar = function(){
+      $('#calendar-week').fullCalendar({
+        dayClick: function(event) {
+          $scope.$apply(function() {
+              $scope.dayClicked = event._d;
+          });
+          console.log('a day has been clicked! event is ', $scope.dayClicked);
+          $('#addOrShowModal').modal('show');            
+        }
+      });
+    };
+    
+    $scope.initWeekCalendar2 = function() {
+      $scope.hideModal('calendarModal');
+      $scope.hideModal('addOrShowModal');
+      var promise = $scope.viewCalendarEventsPromise();
+      promise.then(function(data){
+        // console.log('calendar events are ', $scope.calendarEvents);
+        $('#calendar-week').fullCalendar({
+          defaultView: 'agendaWeek',
+          height: 650,
+          editable: true,
+          selectable: true,
+          slotEventOverlap: true,
+          minTime: "08:00:00",
+          eventRender: function(event, element){
+              console.log("rendering " +event.title, 'elem is ', element);
+          },
+          eventClick: function(calEvent, jsEvent, view) {
+            console.log('calEvent is ', calEvent);
+            $(this).css('border-color', 'red');
+            var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
+            swal({
+              title: reconstructEvent.title,
+              text: reconstructEvent.description + ' (by ' + reconstructEvent.author + ')',
+              buttons: {
+                cancel: true,
+                confirm: true,
+                deleteEvent: {
+                  text: "Delete event",
+                  value: reconstructEvent,
+                },
+              }
+            }).then(function(eventToDelete){
+              if (eventToDelete && eventToDelete.title) {
+                console.log('eventToDelete is ', eventToDelete);
+                $scope.deleteAgendaEvent(eventToDelete, calEvent);
+              }
+            })
+          },
+          dayClick: function(event) {
+            $scope.$apply(function() {
+                $scope.dayClicked = event._d;
+            });
+            $('#calendarModal').modal('show');
+          }
+        })//end of calendar config
+        //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+        var theEvent = {};
+        $scope.eventsArr = [];
+
+        for (calendarEvent in $scope.calendarEvents) {
+          //only parse events for that day
+          var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
+          calendarEventDay = calendarEventDay.toDateString();
+          
+          if (calendarEventDay === $scope.selectedEventDateFormatted) {
+            //placing events in day agenda according to start and end times.
+            var st = $scope.calendarEvents[calendarEvent].startTime;
+            var adjustedSt = $scope.adjustTimeForCalendar(st);
+            var et = $scope.calendarEvents[calendarEvent].endTime;
+            var adjustedEt = $scope.adjustTimeForCalendar(et);
+            var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+            var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+            //draw on DOM
+            theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
+            $("#calendar").fullCalendar("renderEvent", theEvent);
+            $scope.eventsArr.push(theEvent);
+          }
+        }
+      });//end of promise
+    };
+    
     $scope.resetEventObj = function(){
       $scope.eventObj = {};
       $scope.serverMessage = "";
