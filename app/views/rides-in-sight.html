@@ -1,10 +1,10 @@
 <div class="portal ris" ng-show="showPortal">
   <div class="container">
-    
+
     <h2>Rides In Sight</h2>
-    
+
     <div class="row mt-50 mb-25">
-      
+
       <div class="col-md-4">
         <a href="https://www.ridesinsight.org/">
           <div class="block" style="background:white">
@@ -12,7 +12,7 @@
           </div>
         </a>
       </div><!--col-md-4-->
-      
+
       <div class="col-md-4">
         <a href="http://blog.ridesinsight.org/">
           <div class="block" style="background:white">
@@ -21,22 +21,22 @@
           </div>
         </a>
       </div><!--col-md-4-->
-      
+
       <div class="col-md-4">
         <a ng-click="openAdditionalPage('social')">
           <div class="block social-icons" style="background:#fd8567">
-            <img ng-src="{{assetsPath}}/images/social-media-icon.svg" alt="icon of social media" style="object-fit:contain;width:190px;margin-left:0;margin-top:-5%"/>
-            <h5 style="margin-top:-27px;color:white">Social Media Presence</h5>
+            <img ng-src="{{assetsPath}}/images/social-media-icon.svg" alt="icon of social media" style="object-fit:contain;width:190px;margin-left:-6%;margin-top:0"/>
+            <h5 style="margin-top:-20px;color:white">Social Media Presence</h5>
           </div>
         </a>
       </div><!--col-md-4-->
-      
+
     </div><!--row-->
-    
+
 
     <div class="row mt-25 mb-50">
       <h3>Admin Section:</h3>
-      
+
       <div class="col-md-4">
         <!-- <a ng-click="openAdditionalPage('events')"> -->
         <a ng-click="authAndRedirect('admins','RidesInSight','ng-click','events')">
@@ -46,7 +46,7 @@
           </div>
         </a>
       </div><!--col-md-4-->
-      
+
       <div class="col-md-4">
         <a ui-sref="calendar-ris">
         <!-- <a ng-click="authAndRedirect('admins','RidesInSight','ui-sref','calendar-ris')"> -->
@@ -56,7 +56,7 @@
           </div>
         </a>
       </div><!--col-md-4-->
-      
+
       <div class="col-md-4">
         <!-- <a ng-click="openAdditionalPage('popularApps')"> -->
         <a ng-click="authAndRedirect('admins','RidesInSight','ng-click','popularApps')">
@@ -66,8 +66,8 @@
           </div>
         </a>
       </div><!--col-md-4-->
-      
-      
+
+
     </div>
 
 
@@ -77,7 +77,7 @@
 <div ng-show="popularApps" class="portal popular-apps">
   <div class="container">
     <h2>Popular Applications for Rides In Sight staff</h2>
-    
+
     <div class="row mt-50 mb-25 ta-center">
 
       <p>
@@ -122,7 +122,7 @@
 <div ng-show="social" class="portal social">
   <div class="container">
     <h2>Social Media Presence</h2>
-    
+
     <div class="row mt-50 mb-25 ta-center">
       <div class="col-sm-3"></div>
       <div class="col-sm-3">
@@ -149,23 +149,23 @@
 
         <div class="col-md-12">
           <h5 class="mb-25" style="display:inline-block">Comments</h5>
-          
+
           <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
-          
+
           <div class="row" ng-show="showCommentInput">
-            
-                <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px"> 
+
+                <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px">
                   <form name="itnForm" novalidate ng-submit="addComment(formData, listOfProgramsObj.ridesInSight); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
                     <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
-                            
-                    <div class="row">        
+
+                    <div class="row">
                       <div class="form-group col-sm-6" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
                         <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.author" required>
                         <span ng-if="itnForm.name.$error.required && !itnForm.name.$pristine" class="help-block">{{errorMessages.required}}</span>
                         <span ng-if="itnForm.name.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
                         <span ng-if="itnForm.name.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
                       </div>
-                      
+
                       <div class="form-group col-sm-6" ng-class="{ 'has-error' : itnForm.email.$invalid && !itnForm.email.$pristine }">
                         <input type="text" class="form-control" id="email" name="email" placeholder="Your Email" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.email" ng-pattern="emailPattern" required>
                         <span ng-if="itnForm.email.$error.required && !itnForm.email.$pristine" class="help-block">{{errorMessages.required}}</span>
@@ -174,28 +174,28 @@
                         <span ng-if="itnForm.email.$error.pattern" class="help-block">{{errorMessages.email}}</span>
                       </div>
                     </div>
-                    
+
                     <div class="form-group" ng-class="{ 'has-error' : itnForm.message.$invalid && !itnForm.message.$pristine }">
                       <textarea class="form-control" type="textarea" name="message" id="message" placeholder="Message" maxlength="2000" rows="7" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="formData.message" required></textarea>
                       <span ng-if="itnForm.message.$error.required && !itnForm.message.$pristine" class="help-block">{{errorMessages.required}}</span>
                       <span ng-if="itnForm.message.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
                       <span ng-if="itnForm.message.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
-                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>                    
+                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>
                     </div>
-                    
+
                     <p ng-if="loading"><em>Loading. Please wait</em></p>
                     <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
-                      
+
                     <input type="submit" id="submit" class="btn btn-lg btn-primary pull-right itn-green-bg" value="Send" style="margin-left:2%;margin-top:-50px">
                     <input type="button" ng-click="formData = {}" value="Reset Form" class="btn btn-lg pull-right itn-green-bg"  style="margin-left:2%;margin-top:-50px">
-                  
+
                   </form>
                 </div><!--form-area-->
-      
+
           </div><!--row-->
-          
-          
-          
+
+
+
           <table class="table table-responsive table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: 'RidesInSight'}" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
             <button class="btn btn-sm" ng-click="showCommentInput = true" style="background:#cc6257;float:right;margin-top:10px">Add a Comment</button>
             <thead>
@@ -209,7 +209,7 @@
                 <th></th>
               </tr>
             </thead>
-            
+
             <tbody style="font-size:20px">
               <tr dir-paginate="comment in commentPhoto.comments|orderBy:sortKey:reverse|itemsPerPage:10|reverse" pagination-id="comments">
                 <td>{{comment.message}}</td>
@@ -224,20 +224,20 @@
               </tr>
             </tbody>
           </table>
-          
+
           <dir-pagination-controls
             pagination-id="comments"
              max-size="5"
              direction-links="true"
              boundary-links="true" >
           </dir-pagination-controls>
-          
+
         </div><!--col-md-12-->
-        
+
       </div><!--row-->
-      
-      
-      
+
+
+
     </ul>
   </div>
 </div>
@@ -251,7 +251,7 @@
     <h3>Back to Portal</h3>
   </a>
 </div>
-  
+
 
 
 
@@ -268,7 +268,7 @@
     <div class="modal-body">
         <div class="form-group ta-center">
           <label for="delete app confirmation" style="margin-bottom:15px">Are you sure you would like to delete this comment?</label>
-        </div> 
+        </div>
     </div>
     <div class="modal-footer">
       <button type="button" ng-click="deleteComment();hideModal('deleteAppModal')" class="btn btn-lg btn-danger" style="background:#e05944">Delete</button>
@@ -280,10 +280,10 @@
 
 
 <script>
-$(document).ready(function(){ 
-  
-  $('[data-toggle="tooltip"]').tooltip(); 
-  
+$(document).ready(function(){
+
+  $('[data-toggle="tooltip"]').tooltip();
+
   $('#characterLeft').text('2000 characters left');
   $('#message').keydown(function () {
       var max = 2000;
@@ -291,15 +291,15 @@ $(document).ready(function(){
       if (len >= max) {
           $('#characterLeft').text('You have reached the limit');
           $('#characterLeft').addClass('text-danger');
-          $('#submit').addClass('disabled');            
-      } 
+          $('#submit').addClass('disabled');
+      }
       else {
           var ch = max - len;
           $('#characterLeft').text(ch + ' characters left');
           $('#submit').removeClass('disabled');
-          $('#characterLeft').removeClass('red');            
+          $('#characterLeft').removeClass('red');
       }
-  });    
+  });
 });
 
 </script>
