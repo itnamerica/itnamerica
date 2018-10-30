@@ -176,7 +176,7 @@ myApp.service('FileUploadService', ['$http', function ($http) {
    this.uploadFileToUrl = function(file, uploadUrl){
       var fd = new FormData();
       fd.append('file', file);
-   
+
       $http.post(uploadUrl, fd, {
          transformRequest: angular.identity,
          headers: {'Content-Type': undefined}
@@ -191,7 +191,7 @@ myApp.service('FileUploadService', ['$http', function ($http) {
       console.log('file is ', file);
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
-   
+
       // $http.post('/uploadFile', {fileObj: fd})
       $http.post('/uploadFile', file)
       .then(function(data){
@@ -206,7 +206,7 @@ myApp.service('FileUploadService', ['$http', function ($http) {
 
 
 myApp.service('LongVariablesService', ['$http', function ($http) {
-  
+
   var assetsPath = "assets";
   var viewsPath = "../views";
   // var viewsPath = "../app/views";
@@ -214,8 +214,8 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
       console.log("localhost server, staging env");
       assetsPath = "app/assets";
       viewsPath = "../app/views";
-  } 
-  
+  }
+
    this.errorMessages  = {
        required: "This field is required",
        minlength: "This field needs to be at least 2 characters long",
@@ -312,13 +312,13 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
     {
       name: 'America',
       gaViewCode: 0000000,
-      // email: 'info@itnamerica.org'
-      email: 'sguergenenov@itnamerica.org'
+      email: 'info@itnamerica.org'
+      // email: 'sguergenenov@itnamerica.org'
     },
     {
       name: 'RidesInSight',
       gaViewCode: 0000000,
-      email: 'mail@ridesinsight.org'
+      email: 'mail@ridesinsight.org;Maria.madden@itnamerica.org;Macy.kelley@itnamerica.org;Rachel.alexander@itnamerica.org'
     }
   ];
   this.listOfProgramsObj = {
@@ -330,7 +330,7 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
     'ridesInSight': {
       name: 'RidesInSight',
       gaViewCode: 0000000,
-      email: 'mail@ridesinsight.org'
+      email: 'mail@ridesinsight.org;Maria.madden@itnamerica.org;Macy.kelley@itnamerica.org;Rachel.alexander@itnamerica.org'
     }
   };
   this.formCount = {
@@ -466,5 +466,5 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
           url: viewsPath + '/itn-operations.html'
       }
   ];
-   
+
 }]);
