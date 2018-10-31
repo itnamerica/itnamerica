@@ -2,6 +2,7 @@ var myApp = angular.module('myApp');
 
 myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q',  function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q) {
     console.log('inside calendar controller');
+    $scope.eventObj = {}
 
     $scope.initAgenda = function() {
       $scope.hideModal('calendarModal');
@@ -137,23 +138,11 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         }
       });
     };
-    //
-    // $scope.initWeekCalendar = function(){
-    //   $('#calendar-week').fullCalendar({
-    //     dayClick: function(event) {
-    //       $scope.$apply(function() {
-    //           $scope.dayClicked = event._d;
-    //       });
-    //       console.log('a day has been clicked! event is ', $scope.dayClicked);
-    //       $('#addOrShowModal').modal('show');
-    //     }
-    //   });
-    // };
 
     $scope.initWeekCalendar = function() {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
-      var promise = $scope.viewCalendarEventsPromise();
+      var promise = $scope.viewRISCalendarEventsPromise();
       promise.then(function(data){
         // console.log('calendar events are ', $scope.calendarEvents);
         $('#calendar-week').fullCalendar({
@@ -192,6 +181,13 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             $scope.$apply(function() {
                 $scope.dayClicked = event._d;
             });
+            console.log('day clicked is ', $scope.dayClicked);
+            console.log('day of month is ', $scope.dayClicked.getDate());
+            console.log(' month is ', $scope.dayClicked.getMonth());
+            console.log('year is ', $scope.dayClicked.getYear() -100 + 2000);
+
+            $scope.eventObj.startTime = $scope.dayClicked.getHours() + 4;
+            console.log('start time is ', $scope.eventObj.startTime);
             $('#calendarModal').modal('show');
           }
         })//end of calendar config
@@ -241,7 +237,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           $scope.serverMessage = "Your event has been succesfully added.";
           //updates events on DOM
           $scope.emptyCalendar();
-          // $scope.viewCalendarEventsPromise();
+          $scope.viewRISCalendarEventsPromise();
           $scope.resetEventObj();
         })
       } else {
@@ -316,12 +312,49 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       .then(function(data){
         $scope.calendarEvents = data.data;
         console.log('RIS calendar events are ', $scope.calendarEvents);
-        $scope.drawEventsOnCalendar();
+        $scope.drawEventsOnRISCalendar();
         deferred.resolve('Resolved: ', data.data);
       }).catch(function(err){
         deferred.resolve('Error: ', err);
       })
       return deferred.promise;
+    };
+
+
+    //place events on their respective day tabs
+    $scope.drawEventsOnRISCalendar = function(){
+      console.log('inside draw events ris');
+      $scope.eventsinFC = [];
+      $('.fc-day').each(function(){
+        console.log('ctx is ', $(this));
+        var tabDate = $(this).context.dataset.date;
+        var count = 0;
+        var ctx;
+        for (event in $scope.calendarEvents){
+          var event = $scope.calendarEvents[event];
+          var eventDateShort = event.day.slice(0,10);
+          if (eventDateShort === tabDate){
+            ctx = $(this).context;
+            console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
+
+            //orders events chronologically for a given day
+            var later = $scope.isLaterTime(event, $(this).context);
+            if (later){
+              $(this).context.innerHTML = $(this).context.innerHTML + '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>';
+            } else {
+              $(this).context.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>' + $(this).context.innerHTML;
+            }
+
+            //if more than 2 events on tab, add the more button to prevent overflow
+            count = ctx.childElementCount;
+            if (count > 3) {
+              $(this).children().eq(1).nextAll().css("display","none");
+              var moreBtn = '<button class="btn btn-sm" style="height:20px;width:70%;margin-top:-230px;font-size:14px;color: black">Show more</button>';
+              $(this).context.innerHTML = $(this).context.innerHTML + moreBtn;
+            }
+          }
+        }
+      })
     };
 
 
@@ -376,7 +409,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           return false;
         }
       }
-
     };
 
 
