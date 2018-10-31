@@ -2,7 +2,7 @@ var myApp = angular.module('myApp');
 
 myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q',  function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q) {
     console.log('inside calendar controller');
-    
+
     $scope.initAgenda = function() {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
@@ -60,7 +60,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           //only parse events for that day
           var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
           calendarEventDay = calendarEventDay.toDateString();
-          
+
           if (calendarEventDay === $scope.selectedEventDateFormatted) {
             //placing events in day agenda according to start and end times.
             var st = $scope.calendarEvents[calendarEvent].startTime;
@@ -70,15 +70,15 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
             var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
             //draw on DOM
-            theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
+            theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};
             $("#calendar").fullCalendar("renderEvent", theEvent);
             $scope.eventsArr.push(theEvent);
           }
         }
       });//end of promise
     };
-    
-    
+
+
     $scope.reconstructEventObjByTitle = function(calEvent) {
       var fullEvent = {};
       for (var i in $scope.eventsArr){
@@ -92,7 +92,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         }
       }
     };
-    
+
     $scope.adjustTimeForCalendar = function(theTime) {
       var time = theTime.replace(" ", "");
       time = time.toUpperCase();
@@ -124,8 +124,8 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       // console.log('time adjusted as ', adjustedTime);
       return adjustedTime;
     };
-    
-    
+
+
     $scope.initMonthCalendar = function(){
       $('#calendar').fullCalendar({
         dayClick: function(event) {
@@ -133,24 +133,24 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
               $scope.dayClicked = event._d;
           });
           console.log('a day has been clicked! event is ', $scope.dayClicked);
-          $('#addOrShowModal').modal('show');            
+          $('#addOrShowModal').modal('show');
         }
       });
     };
-    
-    $scope.initWeekCalendar = function(){
-      $('#calendar-week').fullCalendar({
-        dayClick: function(event) {
-          $scope.$apply(function() {
-              $scope.dayClicked = event._d;
-          });
-          console.log('a day has been clicked! event is ', $scope.dayClicked);
-          $('#addOrShowModal').modal('show');            
-        }
-      });
-    };
-    
-    $scope.initWeekCalendar2 = function() {
+    //
+    // $scope.initWeekCalendar = function(){
+    //   $('#calendar-week').fullCalendar({
+    //     dayClick: function(event) {
+    //       $scope.$apply(function() {
+    //           $scope.dayClicked = event._d;
+    //       });
+    //       console.log('a day has been clicked! event is ', $scope.dayClicked);
+    //       $('#addOrShowModal').modal('show');
+    //     }
+    //   });
+    // };
+
+    $scope.initWeekCalendar = function() {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
       var promise = $scope.viewCalendarEventsPromise();
@@ -207,7 +207,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           //only parse events for that day
           var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
           calendarEventDay = calendarEventDay.toDateString();
-          
+
           if (calendarEventDay === $scope.selectedEventDateFormatted) {
             //placing events in day agenda according to start and end times.
             var st = $scope.calendarEvents[calendarEvent].startTime;
@@ -217,32 +217,43 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
             var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
             //draw on DOM
-            theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};              
+            theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};
             $("#calendar").fullCalendar("renderEvent", theEvent);
             $scope.eventsArr.push(theEvent);
           }
         }
       });//end of promise
     };
-    
+
     $scope.resetEventObj = function(){
       $scope.eventObj = {};
       $scope.serverMessage = "";
     };
-    
-    $scope.addCalendarEvent = function(){
+
+    $scope.addCalendarEvent = function(calendarType){
       //selects previous day by default, so need to adjust
       $scope.eventObj.day = new Date($scope.dayClicked.getTime());
       console.log('event obj is ', $scope.eventObj);
       //save event to database
-      DataService.addCalendarEvent($scope.eventObj).then(function(data){
-        $('#calendarModal').modal('hide');
-        $scope.serverMessage = "Your event has been succesfully added.";
-        //updates events on DOM
-        $scope.emptyCalendar();
-        $scope.viewCalendarEventsPromise();
-        $scope.resetEventObj();
-      })
+      if (calendarType === 'RIS'){
+        DataService.addRISCalendarEvent($scope.eventObj).then(function(data){
+          $('#calendarModal').modal('hide');
+          $scope.serverMessage = "Your event has been succesfully added.";
+          //updates events on DOM
+          $scope.emptyCalendar();
+          // $scope.viewCalendarEventsPromise();
+          $scope.resetEventObj();
+        })
+      } else {
+        DataService.addCalendarEvent($scope.eventObj).then(function(data){
+          $('#calendarModal').modal('hide');
+          $scope.serverMessage = "Your event has been succesfully added.";
+          //updates events on DOM
+          $scope.emptyCalendar();
+          $scope.viewCalendarEventsPromise();
+          $scope.resetEventObj();
+        })
+      }
     };
 
     $scope.addAgendaEvent = function(){
@@ -263,18 +274,18 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         var adjustedEt = $scope.adjustTimeForCalendar(et);
         var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
         var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
-        
-        var theEvent = {title: $scope.eventObj.title, start: startTime, end: endTime, description: $scope.eventObj.description, author: $scope.eventObj.author};   
-        
+
+        var theEvent = {title: $scope.eventObj.title, start: startTime, end: endTime, description: $scope.eventObj.description, author: $scope.eventObj.author};
+
         console.log('event obj is ', $scope.eventObj);
-        console.log('the event is ', theEvent);       
-            
+        console.log('the event is ', theEvent);
+
         $("#calendar").fullCalendar("renderEvent", theEvent);
-        
+
         $scope.resetEventObj();
       })
     };
-    
+
     $scope.deleteAgendaEvent = function(eventToDelete, calEventToDelete){
       //delete event from database
       DataService.deleteAgendaEvent(eventToDelete).then(function(data){
@@ -283,13 +294,28 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         $("#calendar").fullCalendar("removeEvents", calEventToDelete._id);
       })
     };
-    
+
     $scope.viewCalendarEventsPromise = function(){
       var deferred = $q.defer();
       //get events from database
       DataService.viewCalendarEvents()
       .then(function(data){
         $scope.calendarEvents = data.data;
+        $scope.drawEventsOnCalendar();
+        deferred.resolve('Resolved: ', data.data);
+      }).catch(function(err){
+        deferred.resolve('Error: ', err);
+      })
+      return deferred.promise;
+    };
+
+    $scope.viewRISCalendarEventsPromise = function(){
+      var deferred = $q.defer();
+      //get events from database
+      DataService.viewRISCalendarEvents()
+      .then(function(data){
+        $scope.calendarEvents = data.data;
+        console.log('RIS calendar events are ', $scope.calendarEvents);
         $scope.drawEventsOnCalendar();
         deferred.resolve('Resolved: ', data.data);
       }).catch(function(err){
@@ -312,7 +338,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           if (eventDateShort === tabDate){
             ctx = $(this).context;
             // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
-            
+
             //orders events chronologically for a given day
             var later = $scope.isLaterTime(event, $(this).context);
             if (later){
@@ -320,7 +346,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             } else {
               $(this).context.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.startTime + '-' + event.endTime + '<br>' + event.title + '</span></h6>' + $(this).context.innerHTML;
             }
-            
+
             //if more than 2 events on tab, add the more button to prevent overflow
             count = ctx.childElementCount;
             if (count > 3) {
@@ -332,17 +358,17 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         }
       })
     };
-    
+
     $scope.isLaterTime = function(theEvent, theContext){
       var numEventsInCell = theContext.children.length;
       var lastChild = theContext.children[theContext.children.length -1];
-      
+
       if (lastChild){
         var slicedTime = lastChild.innerText.slice(0, lastChild.innerText.indexOf('-'));
-        
+
         var eventAdjustedTime = $scope.adjustTimeForCalendar(theEvent.startTime);
         var adjustedTime = $scope.adjustTimeForCalendar(slicedTime);
-        
+
         // console.log('adjusted time ', adjustedTime, 'event adjusted time ', eventAdjustedTime);
         if (eventAdjustedTime.hour >= adjustedTime.hour){
           return true
@@ -350,33 +376,33 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           return false;
         }
       }
-      
+
     };
-    
-    
+
+
     $scope.emptyCalendar = function(){
       $('.fc-day').each(function(){
         $(this).context.innerHTML = ""
       })
     };
-    
-    
+
+
     $scope.retrieveFromSelectedEvent = function(){
       $scope.selectedEventDatePrevious = $stateParams.selectedEventDate;
       $scope.selectedEventDate = $scope.selectedEventDatePrevious.addDays(1);
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
     };
-    
-    
+
+
     function compareNumbers(a, b) {
       return a - b;
     } //numArray.sort(compareNumbers)
-    
+
 
     Date.prototype.addDays = function(days) {
       var date = new Date(this.valueOf());
       date.setDate(date.getDate() + days);
       return date;
-    };    
-    
+    };
+
 }]);

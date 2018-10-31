@@ -83,10 +83,22 @@ myApp.service('DataService', function($http){
       return data;
     })
   };
+  this.addRISCalendarEvent = function(newEvent){
+    console.log('event is ', newEvent);
+    return $http.post('/addRISCalendarEvent', {newEvent: newEvent}).then(function(data){
+      console.log('data returned from add calendar event service is ', data);
+      return data;
+    })
+  };
   this.addCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
     return $http.post('/addCalendarEvent', {newEvent: newEvent}).then(function(data){
       console.log('data returned from add calendar event service is ', data);
+      return data;
+    })
+  };
+  this.viewRISCalendarEvents = function(){
+    return $http.get('/viewRISCalendarEvents').then(function(data){
       return data;
     })
   };

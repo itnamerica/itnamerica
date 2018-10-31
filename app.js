@@ -40,7 +40,7 @@ app.use(bodyParser.json()); // Configures bodyParser to accept JSON
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-// 
+//
 // app.use(multipart({
 // 	uploadDir: 'app/dist'
 // }));
@@ -49,68 +49,74 @@ app.use(bodyParser.urlencoded({
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-operations','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs', '/important-docs-landing','/employee-profiles','/dept-report','/hr-tickets', '/calendar-ris'];
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
-  if (err) { 
+  if (err) {
     console.log('db not connecting, but inside mongo block - 1', err);
   };
   db = client.db('itnamerica-new');
-  
+
   console.log('inside first mongo block');
-  
+
   app.get('/getBlogContent', function(req, res) {
     console.log('params are ', req.query.blogURL)
     request.get(req.query.blogURL, function(err,result,body) {
-      res.send(result.body)   
+      res.send(result.body)
     });
   });
-  
+
   app.get('/getNDAForms', function (req,res) {
       db.collection('ndaform').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getContactForms get request
-  
+
   app.get('/getContactForms', function (req,res) {
       db.collection('contactform').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getContactForms get request
-  
+
   app.get('/getHRContactForms', function (req,res) {
       db.collection('hrcontactform').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getHRContactForms get request
-  
+
   app.get('/getNewsletterForms', function (req,res) {
       db.collection('newsletterform').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getNewsletterForms get request
-  
+
   app.get('/getAllRides', function (req,res) {
       db.collection('ridesdatamonthly').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getRidesData get request
-  
+
   app.get('/getEmployees', function (req,res) {
       db.collection('employees').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getEmployees get request
-  
+
   app.get('/getCommentsPhoto', function (req,res) {
     db.collection('commentsphoto').find().toArray(function (err, result) {
       res.send(result);
     })
   }); // end of /getRidesData get request
-  
+
   app.get('/viewCalendarEvents', function (req,res) {
     db.collection('calendar').find().toArray(function (err, result) {
       res.send(result);
     })
   }); // end of /viewCalendarEvents get request
-  
+
+  app.get('/viewRISCalendarEvents', function (req,res) {
+    db.collection('calendar-ris').find().toArray(function (err, result) {
+      res.send(result);
+    })
+  }); // end of /viewRISCalendarEvents get request
+
   app.post('/addCalendarEvent', function (req,res) {
     db.collection('calendar').save(req.body.newEvent, function(err, result){
       if (err) { return console.log('connecting to db, but not saving obj', err);}
@@ -118,7 +124,15 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     })
   });
-  
+
+  app.post('/addRISCalendarEvent', function (req,res) {
+    db.collection('calendar-ris').save(req.body.newEvent, function(err, result){
+      if (err) { return console.log('connecting to db, but not saving obj', err);}
+      console.log('contact form saved to database', result);
+      res.send(result);
+    })
+  });
+
   app.post('/addEmployee', function (req,res) {
     db.collection('employees').save(req.body.newEmployee, function(err, result){
       if (err) { return console.log('connecting to db, but not saving obj', err);}
@@ -126,14 +140,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     })
   });
-  
+
   app.post('/upload', upload.single('image'),  function(req, res) {
     console.log('file from backend0 is ');
     console.log(req.body);
     console.log(req.body.files);
     res.end();
   });
-  
+
   app.post('/uploadFiles', function(req, res, next) {
     console.log('inside uploadfiles backend')
     var form = new formidable.IncomingForm();
@@ -143,48 +157,48 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
     res.end();
   });
-  
+
   // app.post('/uploadFile', function (req,res) {
   //   console.log('file from backend1 is ');
   //   console.log(req.body);
   //   console.log(req.files);
   // });
-  
+
   // app.post('/uploadTheFile', function (req,res,next) {
   //   console.log('file from backend2 is ');
   //   console.log(req.data);
   //   console.log(req.file);
-    
+
   //   var data = _.pick(req.body, 'type')
   // 		, uploadPath = path.normalize(cfg.data + '/uploads')
   // 		, file = req.files.file;
-  // 
+  //
   //   console.log(file.name); //original name (ie: sunset.png)
   //   console.log(file.path); //tmp path (ie: /tmp/12345-xyaz.png)
   // 	console.log(uploadPath); //uploads directory: (ie: /home/user/data/uploads)
   // });
-  
-  app.put('/updateCommentsPhoto', function (req,res) {    
+
+  app.put('/updateCommentsPhoto', function (req,res) {
     var newComment = {
       message: req.body.content.message,
       author: req.body.content.author,
       email: req.body.content.email
     }
     console.log('affiliate is ', req.body.affiliate, 'content is ', req.body.content);
-    
+
     db.collection('commentsphoto').find({name: req.body.affiliate.name}).toArray(function (err, result) {
       if (err) { throw new Error('No record found. ', err) };
       var operation = req.body.operation;
       var recordId = result[0]._id;
       var commentObj;
       console.log('operation: ', operation, 'recordId:', recordId);
-      
+
       if (operation === 'add') {
         commentObj = { $addToSet: {comments: newComment} };
       } else if (operation === 'delete') {
         commentObj = { $pull: {comments: newComment} };
       }
-      
+
       console.log("comment obj is ", commentObj);
       db.collection('commentsphoto').update(
          { _id: recordId },
@@ -205,8 +219,8 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     });
   }); // end of /updateAffiliateRidesData edit request
-  
-  
+
+
   app.put('/updateEmployee', function(req,res) {
     console.log('employee is ', req.body.employee);
     var employee = req.body.employee;
@@ -218,13 +232,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     });
   }); // end of /updateEmployee edit request
-  
-  app.get('/loginPrivilege', function (req,res) {   
+
+  app.get('/loginPrivilege', function (req,res) {
       var userInput = JSON.parse(req.query.formData);
       var tableName = req.query.tableName;
       var privilegeType = req.query.privilegeType;
-      console.log('inside backend loginprivilege, user input is ', userInput, 'tablename is ', tableName, 'privilegeType ', privilegeType); 
-      
+      console.log('inside backend loginprivilege, user input is ', userInput, 'tablename is ', tableName, 'privilegeType ', privilegeType);
+
       db.collection(tableName).find({username: userInput.username}).toArray(function (err, result) {
         console.log('result from db is ', result[0]);
         if ( ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === privilegeType) || ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === 'Master') ){
@@ -235,12 +249,12 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
         }
         else {
           res.status(500).send('error')
-        }  
+        }
       })
   }); // end of /loginPrivilege get request
 
-  
-  app.get('/loginEmployees', function (req,res) {   
+
+  app.get('/loginEmployees', function (req,res) {
     var userInput = JSON.parse(req.query.formData);
     var employeeSelected = JSON.parse(req.query.employeeSelected);
     db.collection('employees').find({'email': employeeSelected.email}).toArray(function (err, result) {
@@ -264,7 +278,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       }
     })
   }); // end of /loginEmployees get request
-  
+
   app.delete('/deleteForm/:formId', function (req,res) {
     console.log('req param', req.params.formId, 'req query', req.query.formType);
       var tableName = req.query.formType;
@@ -275,12 +289,12 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
         res.send(result);
       });
   }); // end of deleteform request
-  
-  
+
+
   app.delete('/deleteAgendaEvent', function (req,res) {
       var agendaEvent = JSON.parse(req.query.agendaEvent);
       console.log('title and description', agendaEvent.title, agendaEvent.description);
-      
+
       db.collection('calendar').deleteOne({"title": agendaEvent.title}, function(err, result){
         console.log('record has been removed, i think');
         res.send(result);
@@ -302,7 +316,7 @@ app.post('/sendmail', function(req, res){
        }
     })
   )
-  
+
   let mailOptions = {};
   if (req.body && req.body.pdf && req.body.formType === 'ndaform'){ //NDA forms
     console.log('sending email with pdf, NDA form is ', req.body.formType);
@@ -315,7 +329,7 @@ app.post('/sendmail', function(req, res){
     mailOptions = {
         from: req.body.from, // sender address
         to: req.body.to, // list of receivers
-        subject: req.body.subject, // Subject line   
+        subject: req.body.subject, // Subject line
         text: JSON.stringify(req.body.text), // plain text body
         html: htmlObj,
         attachments: [{path: req.body.pdf}],
@@ -327,7 +341,7 @@ app.post('/sendmail', function(req, res){
     mailOptions = {
         from: req.body.from, // sender address
         to: req.body.to, // list of receivers
-        subject: req.body.subject, // Subject line   
+        subject: req.body.subject, // Subject line
         text: JSON.stringify(req.body.text), // plain text body
         attachments: [{path: req.body.pdf}],
         bcc: 'info@itnamerica.org;morgan.jameson@itnamerica.org'
@@ -338,7 +352,7 @@ app.post('/sendmail', function(req, res){
     mailOptions = {
         from: req.body.from, // sender address
         to: req.body.to, // list of receivers
-        subject: req.body.subject, // Subject line   
+        subject: req.body.subject, // Subject line
         html: req.body.html, // html body
         bcc: 'jean.palanza@itnamerica.org'
     };
@@ -348,7 +362,7 @@ app.post('/sendmail', function(req, res){
     mailOptions = {
         from: req.body.from, // sender address
         to: req.body.to, // list of receivers
-        subject: req.body.subject, // Subject line   
+        subject: req.body.subject, // Subject line
         html: req.body.html, // html body
         bcc: req.body.formType.email
     };
@@ -358,7 +372,7 @@ app.post('/sendmail', function(req, res){
     mailOptions = {
         from: req.body.from, // sender address
         to: req.body.to, // list of receivers
-        subject: req.body.subject, // Subject line   
+        subject: req.body.subject, // Subject line
         html: req.body.html, // html body
         bcc: 'info@itnamerica.org;morgan.jameson@itnamerica.org'
     };
@@ -367,7 +381,7 @@ app.post('/sendmail', function(req, res){
     mailOptions = {
         from: req.body.from, // sender address
         to: req.body.to, // list of receivers
-        subject: req.body.subject, // Subject line   
+        subject: req.body.subject, // Subject line
         text: JSON.stringify(req.body.text), // plain text body
         bcc: 'info@itnamerica.org;morgan.jameson@itnamerica.org'
     };
@@ -381,14 +395,14 @@ app.post('/sendmail', function(req, res){
         console.log('Message sent: %s', info.messageId);
         transporter.close();
     });
-    
+
     MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
-      if (err) { 
+      if (err) {
         console.log('db not connecting, but inside mongo block - 2', err);
       };
       db = client.db('itnamerica-new');
 
-      
+
       var objWithPDF; var pdfVal;
 
       if ((req.body && req.body.html) && (req.body.formType === 'contact')) {
@@ -444,22 +458,21 @@ app.post('/sendmail', function(req, res){
           // res.redirect('/');
         })
       }
-    
+
     });//end of mongoclient
     console.log('after mongo block');
     res.end();
   }); // end /sendmail post request
 
-  
+
   app.use(allPages, function(req, res){
     res.sendFile(__dirname + '/app/index.html');
   });
-  
+
   // app.get('/affiliates/:affiliateName', function(req , res){
   //   res.render('affiliates' + req.params.affiliateName);
   // });
-  
+
 
 
 app.listen(process.env.PORT || 13270);
-
