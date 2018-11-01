@@ -264,14 +264,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       var d = date.getDate();
       var m = date.getMonth();
       var y = date.getFullYear();
-      console.log('d m y', d, m, y);
       var st = $scope.eventObj.startTime;
-      console.log(' st', st);
       var adjustedSt = $scope.adjustTimeForCalendar(st);
-      console.log('adjusted st ', adjustedSt);
       var et = $scope.eventObj.endTime;
       var adjustedEt = $scope.adjustTimeForCalendar(et);
-      console.log('adjusted et ', adjustedEt);
       var startTime = new Date(y, m, d, adjustedSt.hour - 4, adjustedSt.min);
       var endTime = new Date(y, m, d, adjustedEt.hour - 4, adjustedEt.min);
       $scope.eventObj.start = startTime;
@@ -291,9 +287,17 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully added.";
           //updates events on DOM
-          $scope.emptyCalendar();
-          $scope.viewRISCalendarEventsPromise();
-          $scope.resetEventObj();
+          $scope.viewRISCalendarEventsPromise().then(function(response){
+            console.log('response is ', response);
+            $('#calendar-week').fullCalendar('removeEvents');
+            $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
+            $('#calendar-week').fullCalendar('rerenderEvents');
+          })
+          // $('#calendar-week').fullCalendar( 'refetchEvents' );
+
+          // $scope.emptyCalendar();
+
+          // $scope.resetEventObj();
         })
       } else {
         DataService.addCalendarEvent($scope.eventObj).then(function(data){
