@@ -186,7 +186,8 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           },
           dayClick: function(event, jsEvent) {
             console.log('event is ', event, 'wat is ', jsEvent.target);
-            jsEvent.target.innerText = "Helloo"
+            jsEvent.target.innerText = "Helloo";
+            $scope.eventTest = jsEvent.target.innerText;
             $scope.$apply(function() {
                 $scope.dayClicked = event._d;
             });
@@ -198,6 +199,13 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             $scope.eventObj.startTime = $scope.dayClicked.getHours() + 4;
             console.log('start time is ', $scope.eventObj.startTime);
             $('#calendarModal').modal('show');
+            $('#addEventForm').on('submit', function(e){
+            // e.preventDefault();
+            console.log('after submit');
+            console.log('target ',jsEvent.target);
+            jsEvent.target.innerText = "Muffin Cake!"
+            console.log();
+          });
           }
         })//end of calendar config
         //
@@ -205,6 +213,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         // countries[0] = {'title':'España', 'start':new Date(y, m, d+4, 19, 0), url:'http://google.com/'};
         // countries[1] = {'title':'Portugal', 'start':new Date(y, m, 22, 22, 0)};
         // $("#calendar-week").fullCalendar( 'addEventSource', countries )
+        // $("#calendar").fullCalendar("renderEvent", countries[0]);
 
 
         //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
@@ -255,6 +264,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           $scope.emptyCalendar();
           $scope.viewRISCalendarEventsPromise();
           $scope.resetEventObj();
+
+          console.log('event is ', $scope.eventTest);
+          $scope.eventTest = "Goodbye";
+          console.log('event2 is ', $scope.eventTest);
         })
       } else {
         DataService.addCalendarEvent($scope.eventObj).then(function(data){
