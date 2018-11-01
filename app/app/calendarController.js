@@ -182,24 +182,25 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
               console.log("rendering " +event.title, 'elem is ', element);
           },
           eventClick: function(calEvent, jsEvent, view) {
-            console.log('calEvent is ', calEvent);
+            console.log('calEvent is ', calEvent, 'jsevent is ', jsEvent);
+            $scope.theCalEvent = calEvent;
             $(this).css('border-color', 'red');
-            var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
+            // var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
             swal({
-              title: reconstructEvent.title,
-              text: reconstructEvent.description + ' (by ' + reconstructEvent.author + ')',
+              title: 'Delete Event?',
+              text: $scope.theCalEvent.title + $scope.theCalEvent.description + ' (by ' + $scope.theCalEvent.author + ')',
               buttons: {
                 cancel: true,
                 confirm: true,
                 deleteEvent: {
                   text: "Delete event",
-                  value: reconstructEvent,
+                  value: $scope.theCalEvent,
                 },
               }
             }).then(function(eventToDelete){
               if (eventToDelete && eventToDelete.title) {
                 console.log('eventToDelete is ', eventToDelete);
-                $scope.deleteAgendaEvent(eventToDelete, calEvent);
+                // $scope.deleteAgendaEvent(eventToDelete, calEvent);
               }
             })
           },
