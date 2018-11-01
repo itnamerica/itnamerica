@@ -196,15 +196,18 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             console.log(' month is ', $scope.dayClicked.getMonth());
             console.log('year is ', $scope.dayClicked.getYear() -100 + 2000);
 
+            //go through isLaterTime first
             $scope.eventObj.startTime = $scope.dayClicked.getHours() + 4;
             console.log('start time is ', $scope.eventObj.startTime);
+
             $('#calendarModal').modal('show');
+
             $('#addEventForm').on('submit', function(e){
-            // e.preventDefault();
-            console.log('after submit');
-            console.log('target ',jsEvent.target);
-            jsEvent.target.innerText = "Muffin Cake!"
-            console.log();
+              console.log('after submit ', $scope.eventObj, 'target ',jsEvent.target);
+
+              var event = {title: $scope.eventObj.title, start: $scope.eventObj.startTime, end: $scope.eventObj.endTime, description: $scope.eventObj.description, author: $scope.eventObj.author};
+
+              jsEvent.target.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.start + '-' + event.end + '<br>' + event.title + '</span></h6>';
           });
           }
         })//end of calendar config
@@ -341,7 +344,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       .then(function(data){
         $scope.calendarEvents = data.data;
         console.log('RIS calendar events are ', $scope.calendarEvents);
-        $scope.drawEventsOnRISCalendar();
+        // $scope.drawEventsOnRISCalendar();
         deferred.resolve('Resolved: ', data.data);
       }).catch(function(err){
         deferred.resolve('Error: ', err);
