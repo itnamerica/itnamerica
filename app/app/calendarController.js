@@ -216,7 +216,9 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
             //go through isLaterTime first
             $scope.eventObj.startTime = $scope.dayClicked.getHours() + 4;
-            $scope.eventObj.startTime = $scope.convert24ToPm($scope.eventObj.startTime);
+            $scope.$apply(function() {
+                $scope.eventObj.startTime = $scope.convert24ToPm($scope.eventObj.startTime);
+            });
             console.log('start time is ', $scope.eventObj.startTime);
 
             $('#calendarModal').modal('show');
