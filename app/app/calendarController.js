@@ -140,6 +140,22 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
 
 
+    $scope.convert24ToPm = function(time){
+      console.log('time is ', time, typeof(time));
+      var adjustedTime;
+      if ((time > 0) && (time < 12)){
+        console.log('morning');
+        adjustedTime = time + 'AM';
+      } else if ((time >= 13) && (time < 24)){
+        adjustedTime = (time-12) + 'PM';
+      } else {
+        adjustedTime = time + 'PM'
+      }
+      console.log('adjusted time is ', adjustedTime);
+      return adjustedTime;
+    };
+
+
     $scope.initWeekCalendar = function() {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
@@ -200,7 +216,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
             //go through isLaterTime first
             $scope.eventObj.startTime = $scope.dayClicked.getHours() + 4;
-            // $scope.convert24ToPm($scope.eventObj.startTime);
+            $scope.eventObj.startTime = $scope.convert24ToPm($scope.eventObj.startTime);
             console.log('start time is ', $scope.eventObj.startTime);
 
             $('#calendarModal').modal('show');
@@ -242,9 +258,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
     $scope.completeEventObj = function(){
       console.log('event obj before is ', $scope.eventObj);
-      console.log('day clicked is ', $scope.dayClicked);
-      // var date = new Date();
-      // var date =  new Date($scope.dayClicked.getTime());
       var date = $scope.dayClicked;
       var d = date.getDate();
       var m = date.getMonth();
