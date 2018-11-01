@@ -205,49 +205,17 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           },
           dayClick: function(event, jsEvent) {
             console.log('event is ', event, 'wat is ', jsEvent.target);
-            $scope.eventTest = jsEvent.target.innerText;
             $scope.$apply(function() {
                 $scope.dayClicked = event._d;
             });
-            console.log('day clicked is ', $scope.dayClicked);
-            console.log('day of month is ', $scope.dayClicked.getDate());
-            console.log(' month is ', $scope.dayClicked.getMonth());
-            console.log('year is ', $scope.dayClicked.getYear() -100 + 2000);
-
-            //go through isLaterTime first
             $scope.eventObj.startTime = $scope.dayClicked.getHours() + 4;
             $scope.$apply(function() {
                 $scope.eventObj.startTime = $scope.convert24ToPm($scope.eventObj.startTime);
             });
-            console.log('start time is ', $scope.eventObj.startTime);
-
             $('#calendarModal').modal('show');
-
-            $('#addEventForm').on('submit', function(e){
-              console.log('after submit ', $scope.eventObj, 'target ',jsEvent.target);
-              //
-              // var event = {title: $scope.eventObj.title, start: $scope.eventObj.startTime, end: $scope.eventObj.endTime, description: $scope.eventObj.description, author: $scope.eventObj.author};
-
-              jsEvent.target.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + $scope.eventObj.start + '-' + $scope.eventObj.end + '<br>' + $scope.eventObj.title + '</span></h6>';
-          });
         },
         events: $scope.calendarEvents
         })//end of calendar config
-        //
-        // var countries = new Array();
-        // countries[0] = {'title':'España', 'start':new Date(y, m, d+4, 19, 0), url:'http://google.com/'};
-        // countries[1] = {'title':'Portugal', 'start':new Date(y, m, 22, 22, 0)};
-        // $("#calendar-week").fullCalendar( 'addEventSource', countries )
-        // $("#calendar").fullCalendar("renderEvent", countries[0]);
-
-
-        //day agenda only accepts today's date. Agenda has been hacked so we only care about time.
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-        var theEvent = {};
-        $scope.eventsArr = [];
       });//end of promise
     };
 
@@ -293,11 +261,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
             $('#calendar-week').fullCalendar('rerenderEvents');
           })
-          // $('#calendar-week').fullCalendar( 'refetchEvents' );
-
-          // $scope.emptyCalendar();
-
-          // $scope.resetEventObj();
         })
       } else {
         DataService.addCalendarEvent($scope.eventObj).then(function(data){
