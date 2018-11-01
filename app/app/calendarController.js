@@ -144,6 +144,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       $scope.hideModal('addOrShowModal');
       var promise = $scope.viewRISCalendarEventsPromise();
       promise.then(function(data){
+        console.log('ris events are ', $scope.calendarEvents);
         // console.log('calendar events are ', $scope.calendarEvents);
         $('#calendar-week').fullCalendar({
           defaultView: 'agendaWeek',
@@ -198,18 +199,20 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
             //go through isLaterTime first
             $scope.eventObj.startTime = $scope.dayClicked.getHours() + 4;
-            console.log('start time is ', $scope.eventObj.startTime);
+            // $scope.convert24ToPm($scope.eventObj.startTime);
+            console.log('start time is ', $scope.eventObj.start);
 
             $('#calendarModal').modal('show');
 
             $('#addEventForm').on('submit', function(e){
               console.log('after submit ', $scope.eventObj, 'target ',jsEvent.target);
+              //
+              // var event = {title: $scope.eventObj.title, start: $scope.eventObj.startTime, end: $scope.eventObj.endTime, description: $scope.eventObj.description, author: $scope.eventObj.author};
 
-              var event = {title: $scope.eventObj.title, start: $scope.eventObj.startTime, end: $scope.eventObj.endTime, description: $scope.eventObj.description, author: $scope.eventObj.author};
-
-              jsEvent.target.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + event.start + '-' + event.end + '<br>' + event.title + '</span></h6>';
+              jsEvent.target.innerHTML = '<h6 class="agenda-link"><span class="badge badge-secondary">' + $scope.eventObj.start + '-' + $scope.eventObj.end + '<br>' + $scope.eventObj.title + '</span></h6>';
           });
-          }
+        },
+        events: $scope.calendarEvents
         })//end of calendar config
         //
         // var countries = new Array();
@@ -226,26 +229,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         var y = date.getFullYear();
         var theEvent = {};
         $scope.eventsArr = [];
-
-        // for (calendarEvent in $scope.calendarEvents) {
-        //   //only parse events for that day
-        //   var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
-        //   calendarEventDay = calendarEventDay.toDateString();
-        //
-        //   if (calendarEventDay === $scope.selectedEventDateFormatted) {
-        //     //placing events in day agenda according to start and end times.
-        //     var st = $scope.calendarEvents[calendarEvent].startTime;
-        //     var adjustedSt = $scope.adjustTimeForCalendar(st);
-        //     var et = $scope.calendarEvents[calendarEvent].endTime;
-        //     var adjustedEt = $scope.adjustTimeForCalendar(et);
-        //     var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
-        //     var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
-        //     //draw on DOM
-        //     theEvent = {title: $scope.calendarEvents[calendarEvent].title, start: startTime, end: endTime, description: $scope.calendarEvents[calendarEvent].description, author: $scope.calendarEvents[calendarEvent].author};
-        //     $("#calendar").fullCalendar("renderEvent", theEvent);
-        //     $scope.eventsArr.push(theEvent);
-        //   }
-        // }
       });//end of promise
     };
 
@@ -254,12 +237,30 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       $scope.serverMessage = "";
     };
 
+    $scope.completeEventObj = function(){
+      console.log('event obj before is ', $scope.eventObj);
+      var date = new Date();
+      var d = date.getDate();
+      var m = date.getMonth();
+      var y = date.getFullYear();
+      var st = $scope.eventObj.startTime;
+      var adjustedSt = $scope.adjustTimeForCalendar(st);
+      var et = $scope.eventObj.endTime;
+      var adjustedEt = $scope.adjustTimeForCalendar(et);
+      var startTime = new Date(y, m, d, adjustedSt.hour, adjustedSt.min);
+      var endTime = new Date(y, m, d, adjustedEt.hour, adjustedEt.min);
+      $scope.eventObj.start = startTime;
+      $scope.eventObj.end = endTime;
+      console.log('event obj after is ', $scope.eventObj);
+    }
+
     $scope.addCalendarEvent = function(calendarType){
       //selects previous day by default, so need to adjust
       $scope.eventObj.day = new Date($scope.dayClicked.getTime());
       console.log('event obj is ', $scope.eventObj);
       //save event to database
       if (calendarType === 'RIS'){
+        $scope.completeEventObj();
         DataService.addRISCalendarEvent($scope.eventObj).then(function(data){
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully added.";
@@ -345,7 +346,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         $scope.calendarEvents = data.data;
         console.log('RIS calendar events are ', $scope.calendarEvents);
         // $scope.drawEventsOnRISCalendar();
-        deferred.resolve('Resolved: ', data.data);
+        deferred.resolve(data.data);
       }).catch(function(err){
         deferred.resolve('Error: ', err);
       })
