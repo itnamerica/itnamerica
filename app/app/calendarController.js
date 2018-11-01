@@ -242,10 +242,14 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
     $scope.completeEventObj = function(){
       console.log('event obj before is ', $scope.eventObj);
-      var date = new Date();
+      console.log('day clicked is ', $scope.dayClicked);
+      // var date = new Date();
+      // var date =  new Date($scope.dayClicked.getTime());
+      var date = $scope.dayClicked;
       var d = date.getDate();
       var m = date.getMonth();
       var y = date.getFullYear();
+      console.log('d m y', d, m, y);
       var st = $scope.eventObj.startTime;
       console.log(' st', st);
       var adjustedSt = $scope.adjustTimeForCalendar(st);
