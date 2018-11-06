@@ -269,6 +269,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             $('#calendar-week').fullCalendar('removeEvents');
             $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
             $('#calendar-week').fullCalendar('rerenderEvents');
+            $scope.resetEventObj();
           })
         })
       } else {
