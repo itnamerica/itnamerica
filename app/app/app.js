@@ -117,6 +117,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
               gaViewCode: 0,
             }
         })
+        .state('affiliate', {
+            url: '/affiliate/:name',
+            templateUrl: viewsPath + 'affiliate.html',
+            params : {
+              name: 'none',
+              gaViewCode: 0,
+            }
+        })
         .state('nda', {
             url: '/nda2018xyz',
             templateUrl: viewsPath + 'nda.html'
