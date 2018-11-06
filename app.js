@@ -305,6 +305,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       });
   }); // end of deleteagendaevent request
 
+  app.delete('/deleteRISCalendarEvent/:recordId', function (req,res) {
+    var recordId = req.params.recordId;
+    //var agendaEvent = JSON.parse(req.query.agendaEvent);
+    var dbName = req.query.dbName;
+    console.log('inside deleteriscalendarevent backend func' , recordId, dbName);
+
+  }); // end of deleteriscalendarevent request
+
 
 });//end of mongoclient
 

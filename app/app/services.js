@@ -97,17 +97,16 @@ myApp.service('DataService', function($http){
       return data;
     }).catch(function(error){ return error })
   };
-  // this.deleteRISCalendarEvent = function(calendarEvent){
-  //   console.log('RIS event to delete is ', calendarEvent);
-  //   return $http.delete('/deleteRISCalendarEvent', {
-  //       params: {
-  //           calendarEvent: calendarEvent
-  //       }
-  //   }).then(function(data){
-  //     console.log('data returned from ris calendar delete is ', data);
-  //     return data;
-  //   }).catch(function(error){ return error })
-  // };
+  this.deleteRISCalendarEvent = function(agendaEvent, dbName){
+    console.log('event is ', agendaEvent, 'from ', dbName);
+    return $http.delete('/deleteRISCalendarEvent/' + agendaEvent._id, {params: {dbName: dbName}} ).then(function(data){
+      console.log('data returned is ', data);
+      return data;
+    }).catch(function(error){
+      console.log('error is ', error);
+      return error;
+    })
+  };
   this.viewRISCalendarEvents = function(){
     return $http.get('/viewRISCalendarEvents').then(function(data){
       return data;

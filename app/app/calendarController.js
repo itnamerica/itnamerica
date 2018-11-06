@@ -203,7 +203,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             }).then(function(eventToDelete){
               //On confirm, delete event from db
               if (eventToDelete.value){
-                $scope.deleteAgendaEvent(theEvent, theEvent, 'calendar-ris')
+                $scope.deleteRISCalendarEventPromise(theEvent, theEvent, 'calendar-ris')
                   .then(function(response){
                     swal("Deleted!","Your event was deleted.","success");
                   }).catch(function(error){
@@ -315,6 +315,24 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       //delete event from database
       var deferred = $q.defer();
       DataService.deleteAgendaEvent(eventToDelete, dbName)
+        .then(function(data){
+          $('#calendarModal').modal('hide');
+          $scope.serverMessage = "Your event has been succesfully deleted.";
+          $("#calendar").fullCalendar("removeEvents", calEventToDelete._id);
+          $("#calendar-ris").fullCalendar("removeEvents", calEventToDelete._id);
+          deferred.resolve(data);
+        }).catch(function(error){
+          deferred.resolve(error)
+        })
+      return deferred.promise
+    };
+
+    $scope.deleteRISCalendarEventPromise = function(eventToDelete, calEventToDelete, dbName){
+      console.log('event to deletee ', eventToDelete);
+      console.log('calevent to deletee ', calEventToDelete);
+      //delete event from database
+      var deferred = $q.defer();
+      DataService.deleteRISCalendarEvent(eventToDelete, dbName)
         .then(function(data){
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully deleted.";
