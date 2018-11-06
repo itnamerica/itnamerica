@@ -39,9 +39,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
                 $scope.deleteAgendaEventPromise(reconstructEvent, calEvent, 'calendar')
                 .then(function(response){
                     swal("Deleted!","Your event was deleted.","success")
-                    // .then(function(response){
-                    //   $state.go('calendar');
-                    // })
                   }).catch(function(error){
                     swal("Oops!","Your event couldn't be deleted.","error");
                   })
@@ -63,12 +60,21 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         var theEvent = {};
         $scope.eventsArr = [];
 
+        //check if agenda defaults to today, then readjust dateformatted
+        if ($scope.loadAgendaDirectly) {
+          $scope.selectedEventDatePreviousFormatted =  new Date($scope.selectedEventDatePrevious).toDateString();
+          console.log('format ', $scope.selectedEventDatePrevious);
+          console.log('format is now ', $scope.selectedEventDatePreviousFormatted);
+          $scope.selectedEventDateFormatted = $scope.selectedEventDatePreviousFormatted
+        }
+
         for (calendarEvent in $scope.calendarEvents) {
           //only parse events for that day
           var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
           calendarEventDay = calendarEventDay.toDateString();
 
           if (calendarEventDay === $scope.selectedEventDateFormatted) {
+            console.log('a match');
             //placing events in day agenda according to start and end times.
             var st = $scope.calendarEvents[calendarEvent].startTime;
             var adjustedSt = $scope.adjustTimeForCalendar(st);
@@ -443,9 +449,11 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       //if user loads agenda page without parameter, default to today
       if (isValid){
         $scope.selectedEventDatePrevious = new Date($scope.selectedEventDatePrevious);
+        $scope.loadAgendaDirectly = true;
       }
       $scope.selectedEventDate = $scope.selectedEventDatePrevious.addDays(1);
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
+      console.log('date formatted is ', $scope.selectedEventDateFormatted);
 
     };
 
