@@ -25,20 +25,18 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             $(this).css('border-color', 'red');
             var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
             swal({
-              title: reconstructEvent.title,
-              text: reconstructEvent.description + ' (by ' + reconstructEvent.author + ')',
-              buttons: {
-                cancel: true,
-                confirm: true,
-                deleteEvent: {
-                  text: "Delete event",
-                  value: reconstructEvent,
-                },
-              }
+              title: "Event Details",
+              html: "<h2>" + reconstructEvent.title + "</h2><p>" + reconstructEvent.description + "</p> (by " + reconstructEvent.author + ")",
+              showCancelButton: true,
+              showConfirmButton: true,
+              confirmButtonColor: "red",
+              confirmButtonText: "Delete event",
+              type: "warning"
             }).then(function(eventToDelete){
-              if (eventToDelete && eventToDelete.title) {
+              //if user confirms to delete
+              if (eventToDelete.value) {
                 console.log('eventToDelete is ', eventToDelete);
-                $scope.deleteAgendaEvent(eventToDelete, calEvent, 'calendar')
+                $scope.deleteAgendaEventPromise(reconstructEvent, calEvent, 'calendar')
                 .then(function(response){
                     swal("Deleted!","Your event was deleted.","success");
                   }).catch(function(error){
@@ -193,12 +191,12 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             // var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
             var theEvent = calEvent;
             swal({
-              title: "Delete Event?",
+              title: "Event Details",
               html: "<h2>" + $scope.theCalEvent.title + "</h2><p>" + $scope.theCalEvent.description + "</p> (by " + $scope.theCalEvent.author + ")",
               showCancelButton: true,
               showConfirmButton: true,
               confirmButtonColor: "red",
-              confirmButtonText: "Yes, delete event",
+              confirmButtonText: "Delete event",
               type: "warning"
             }).then(function(eventToDelete){
               //On confirm, delete event from db
@@ -309,7 +307,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
 
 
-    $scope.deleteAgendaEvent = function(eventToDelete, calEventToDelete, dbName){
+    $scope.deleteAgendaEventPromise = function(eventToDelete, calEventToDelete, dbName){
       console.log('event to deletee ', eventToDelete);
       console.log('calevent to deletee ', calEventToDelete);
       //delete event from database
