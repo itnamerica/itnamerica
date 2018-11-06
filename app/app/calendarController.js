@@ -35,7 +35,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             }).then(function(eventToDelete){
               //if user confirms to delete
               if (eventToDelete.value) {
-                console.log('eventToDelete is ', eventToDelete);
                 $scope.deleteAgendaEventPromise(reconstructEvent, calEvent, 'calendar')
                 .then(function(response){
                     swal("Deleted!","Your event was deleted.","success")
@@ -149,7 +148,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     $scope.convert24ToPm = function(time){
       var adjustedTime;
       if ((time > 0) && (time < 12)){
-        console.log('morning');
         adjustedTime = time + 'AM';
       } else if ((time >= 13) && (time < 24)){
         adjustedTime = (time-12) + 'PM';
@@ -430,15 +428,12 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       }
       $scope.selectedEventDate = $scope.selectedEventDatePrevious.addDays(1);
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
-      console.log('date formatted is ', $scope.selectedEventDateFormatted);
 
     };
 
     $scope.isAfterStartTime = function(endTime, startTime){
       var adjustedEndTime = $scope.adjustTimeForCalendar(endTime);
       var adjustedStartTime = $scope.adjustTimeForCalendar(startTime);
-      console.log('end time is ',endTime, 'startTime is ', startTime);
-      console.log('adjusted time is finally ', adjustedEndTime, adjustedStartTime);
       if (adjustedEndTime.hour > adjustedStartTime.hour){
         $scope.afterStartTime = false;
         return true;
