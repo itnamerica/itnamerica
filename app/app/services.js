@@ -120,7 +120,7 @@ myApp.service('DataService', function($http){
   };
   this.deleteAgendaEvent = function(agendaEvent, dbName){
     console.log('event is ', agendaEvent, 'from ', dbName);
-    return $http.delete('/deleteAgendaEvent/' + agendaEvent._id, {
+    return $http.delete('/deleteAgendaEvent', {
         params: {
             agendaEvent: agendaEvent,
             dbName: dbName

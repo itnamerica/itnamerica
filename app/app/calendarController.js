@@ -38,7 +38,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
                 console.log('eventToDelete is ', eventToDelete);
                 $scope.deleteAgendaEventPromise(reconstructEvent, calEvent, 'calendar')
                 .then(function(response){
-                    swal("Deleted!","Your event was deleted.","success");
+                    swal("Deleted!","Your event was deleted.","success")
+                    // .then(function(response){
+                    //   $state.go('calendar');
+                    // })
                   }).catch(function(error){
                     swal("Oops!","Your event couldn't be deleted.","error");
                   })
@@ -188,7 +191,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             console.log('calEvent is ', calEvent, 'jsevent is ', jsEvent);
             $scope.theCalEvent = calEvent;
             $(this).css('border-color', 'red');
-            // var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
             var theEvent = calEvent;
             swal({
               title: "Event Details",
@@ -317,7 +319,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully deleted.";
           $("#calendar").fullCalendar("removeEvents", calEventToDelete._id);
-          $("#calendar-ris").fullCalendar("removeEvents", calEventToDelete._id);
           deferred.resolve(data);
         }).catch(function(error){
           deferred.resolve(error)

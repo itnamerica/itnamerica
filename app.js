@@ -290,15 +290,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       });
   }); // end of deleteform request
 
-  app.delete('/deleteAgendaEvent/:recordId', function (req,res) {
-    console.log('inside deleteagendaevent backend func');
+  app.delete('/deleteAgendaEvent', function (req,res) {
       var agendaEvent = JSON.parse(req.query.agendaEvent);
       var dbName = req.query.dbName;
-      var recordId = req.params.recordId;
       console.log('agenda event is ', agendaEvent, 'db name is ', dbName);
       console.log('title and description', agendaEvent.title, agendaEvent.description);
 
-      db.collection(dbName).deleteOne({_id: new mongo.ObjectId(recordId)}, function(err, result){
+      db.collection(dbName).deleteOne({description: agendaEvent.description}, function(err, result){
         if (err) { throw new Error('No record found. ', err) };
         console.log('record has been removed, i think');
         res.send(result);
@@ -308,7 +306,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   app.delete('/deleteRISCalendarEvent/:recordId', function (req,res) {
     var recordId = req.params.recordId;
     var dbName = req.query.dbName;
-    console.log('inside deleteriscalendarevent backend func' , recordId, dbName);
     db.collection(dbName).deleteOne({_id: new mongo.ObjectId(recordId)}, function(err, result){
       if (err) { throw new Error('No record found. ', err) };
       console.log('record has been removed, i think');
