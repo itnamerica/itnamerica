@@ -244,20 +244,21 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
   }
 
    this.errorMessages  = {
-       required: "This field is required",
-       minlength: "This field needs to be at least 2 characters long",
-       maxlength: "This field needs to be at most 30 characters long",
-       phone: "Please match pattern [+91-036-78658 || 91-036-78658]",
-       zip: "The zipcode should be be 5 digits long",
-       email: "The email should have the format: test@example.com",
-       emailConfirmation: "The email confirmation field should match the email field",
-       date: "The date should have the format: MM/DD/YYYY",
-       dob: "The date of birth should have the format: MM/DD/YYYY",
-       phone: "The phone number should have the format: 111-111-1111",
-       ssn: "The driver license number should have the format: 123-45-6789",
-       mismatchName: "Please match the name you entered above",
-       mismatchSignature: "Please match the signature you entered above",
-       mismatchDate: "Please match the date you entered above"
+       required: "This field is required.",
+       minlength: "This field needs to be at least 2 characters lon.g",
+       maxlength: "This field needs to be at most 30 characters long.",
+       phone: "Please match pattern [+91-036-78658 || 91-036-78658].",
+       zip: "The zipcode should be be 5 digits long.",
+       email: "The email should have the format: test@example.com.",
+       emailConfirmation: "The email confirmation field should match the email field.",
+       date: "The date should have the format: MM/DD/YYYY.",
+       dob: "The date of birth should have the format: MM/DD/YYYY.",
+       phone: "The phone number should have the format: 111-111-1111.",
+       ssn: "The driver license number should have the format: 123-45-6789.",
+       mismatchName: "Please match the name you entered above.",
+       mismatchSignature: "Please match the signature you entered above.",
+       mismatchDate: "Please match the date you entered above.",
+       endTime: "The end time must be later than the start time."
    };
   this.states = [
     'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'

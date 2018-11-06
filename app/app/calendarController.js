@@ -449,14 +449,19 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       console.log('end time is ',endTime, 'startTime is ', startTime);
       console.log('adjusted time is finally ', adjustedEndTime, adjustedStartTime);
       if (adjustedEndTime.hour > adjustedStartTime.hour){
+        $scope.afterStartTime = false;
         return true;
       } else if (adjustedEndTime.hour < adjustedStartTime.hour){
+        $scope.afterStartTime = true;
         return false;
       } else if ( (adjustedEndTime.hour === adjustedStartTime.hour) && (adjustedEndTime.min < adjustedStartTime.min) ){
+        $scope.afterStartTime = true;
         return false;
       } else if ( (adjustedEndTime.hour === adjustedStartTime.hour) && (adjustedEndTime.min > adjustedStartTime.min) ){
+        $scope.afterStartTime = false;
         return true;
       } else {
+        $scope.afterStartTime = true;
         return false;
       }
     };

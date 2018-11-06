@@ -43,10 +43,11 @@
             </div>
 
             <div class="form-group" ng-class="{ 'has-error' : itnForm.endTime.$invalid && !itnForm.endTime.$pristine }">
-              <input type="text" class="form-control" id="endTime" autofocus="autofocus" name="endTime" placeholder="End time. Example: 2:15PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.endTime" ng-change="isAfterStartTime(eventObj.endTime, eventObj.startTime)" required>
+              <input type="text" class="form-control" id="endTime" autofocus="autofocus" name="endTime" placeholder="End time. Example: 2:15PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.endTime" ng-blur="isAfterStartTime(eventObj.endTime, eventObj.startTime)" required>
               <span ng-if="itnForm.endTime.$error.required && !itnForm.endTime.$pristine" class="help-block">{{errorMessages.required}}</span>
               <span ng-if="itnForm.endTime.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
               <span ng-if="itnForm.endTime.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+              <span ng-if="afterStartTime" class="help-block">{{errorMessages.endTime}}</span>
             </div>
           </div>
 
