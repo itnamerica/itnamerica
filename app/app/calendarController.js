@@ -26,7 +26,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
             swal({
               title: "Event Details",
-              html: "<h2>" + reconstructEvent.title + "</h2><p>" + reconstructEvent.description + "</p> (by " + reconstructEvent.author + ")",
+              html: "<h2>" + reconstructEvent.title + "</h2><p>" + reconstructEvent.description + "</p> <em>by " + reconstructEvent.author + "</em>",
               showCancelButton: true,
               showConfirmButton: true,
               confirmButtonColor: "red",
@@ -194,7 +194,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             var theEvent = calEvent;
             swal({
               title: "Event Details",
-              html: "<h2>" + $scope.theCalEvent.title + "</h2><p>" + $scope.theCalEvent.description + "</p> (by " + $scope.theCalEvent.author + ")",
+              html: "<h2>" + $scope.theCalEvent.title + "</h2><p>" + $scope.theCalEvent.description + "</p> <em>by " + $scope.theCalEvent.author + "</em>",
               showCancelButton: true,
               showConfirmButton: true,
               confirmButtonColor: "red",
@@ -335,7 +335,8 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         .then(function(data){
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully deleted.";
-          $("#calendar-ris").fullCalendar("removeEvents", calEventToDelete._id);
+          console.log('id to delete ', calEventToDelete._id);
+          $("#calendar-week").fullCalendar("removeEvents", calEventToDelete._id);
           deferred.resolve(data);
         }).catch(function(error){
           deferred.resolve(error)
