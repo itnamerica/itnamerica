@@ -63,18 +63,13 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         //check if agenda defaults to today, then readjust dateformatted
         if ($scope.loadAgendaDirectly) {
           $scope.selectedEventDatePreviousFormatted =  new Date($scope.selectedEventDatePrevious).toDateString();
-          console.log('format ', $scope.selectedEventDatePrevious);
-          console.log('format is now ', $scope.selectedEventDatePreviousFormatted);
-          $scope.selectedEventDateFormatted = $scope.selectedEventDatePreviousFormatted
         }
-
         for (calendarEvent in $scope.calendarEvents) {
           //only parse events for that day
           var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
           calendarEventDay = calendarEventDay.toDateString();
 
           if (calendarEventDay === $scope.selectedEventDateFormatted) {
-            console.log('a match');
             //placing events in day agenda according to start and end times.
             var st = $scope.calendarEvents[calendarEvent].startTime;
             var adjustedSt = $scope.adjustTimeForCalendar(st);
@@ -134,7 +129,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       }
       adjustedTime.hour = parseInt(adjustedTime.hour);
       adjustedTime.min = parseInt(adjustedTime.min);
-      // console.log('time adjusted as ', adjustedTime);
       return adjustedTime;
     };
 
@@ -153,7 +147,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
 
     $scope.convert24ToPm = function(time){
-      console.log('time is ', time, typeof(time));
       var adjustedTime;
       if ((time > 0) && (time < 12)){
         console.log('morning');
@@ -163,7 +156,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       } else {
         adjustedTime = time + 'PM'
       }
-      console.log('adjusted time is ', adjustedTime);
       return adjustedTime;
     };
 
@@ -194,7 +186,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
               console.log("rendering " +event.title, 'elem is ', element);
           },
           eventClick: function(calEvent, jsEvent, view) {
-            console.log('calEvent is ', calEvent, 'jsevent is ', jsEvent);
             $scope.theCalEvent = calEvent;
             $(this).css('border-color', 'red');
             var theEvent = calEvent;
@@ -219,7 +210,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             })
           },
           dayClick: function(event, jsEvent) {
-            console.log('event is ', event, 'wat is ', jsEvent.target);
             $scope.$apply(function() {
                 $scope.dayClicked = event._d;
             });
@@ -242,7 +232,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
 
     $scope.completeEventObj = function(){
-      console.log('event obj before is ', $scope.eventObj);
       var date = $scope.dayClicked;
       var d = date.getDate();
       var m = date.getMonth();
@@ -255,7 +244,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       var endTime = new Date(y, m, d, adjustedEt.hour - 4, adjustedEt.min);
       $scope.eventObj.start = startTime;
       $scope.eventObj.end = endTime;
-      console.log('event obj after is ', $scope.eventObj);
     }
 
 
@@ -271,7 +259,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           $scope.serverMessage = "Your event has been succesfully added.";
           //updates events on DOM
           $scope.viewRISCalendarEventsPromise().then(function(response){
-            console.log('response is ', response);
             $('#calendar-week').fullCalendar('removeEvents');
             $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
             $('#calendar-week').fullCalendar('rerenderEvents');
@@ -317,8 +304,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
 
     $scope.deleteAgendaEventPromise = function(eventToDelete, calEventToDelete, dbName){
-      console.log('event to deletee ', eventToDelete);
-      console.log('calevent to deletee ', calEventToDelete);
       //delete event from database
       var deferred = $q.defer();
       DataService.deleteAgendaEvent(eventToDelete, dbName)
@@ -334,15 +319,12 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
 
     $scope.deleteRISCalendarEventPromise = function(eventToDelete, calEventToDelete, dbName){
-      console.log('event to deletee ', eventToDelete);
-      console.log('calevent to deletee ', calEventToDelete);
       //delete event from database
       var deferred = $q.defer();
       DataService.deleteRISCalendarEvent(eventToDelete, dbName)
         .then(function(data){
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully deleted.";
-          console.log('id to delete ', calEventToDelete._id);
           $("#calendar-week").fullCalendar("removeEvents", calEventToDelete._id);
           deferred.resolve(data);
         }).catch(function(error){
@@ -395,7 +377,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           if (eventDateShort === tabDate){
             ctx = $(this).context;
             // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
-
             //orders events chronologically for a given day
             var later = $scope.isLaterTime(event, $(this).context);
             if (later){
@@ -420,14 +401,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     $scope.isLaterTime = function(theEvent, theContext){
       var numEventsInCell = theContext.children.length;
       var lastChild = theContext.children[theContext.children.length -1];
-
       if (lastChild){
         var slicedTime = lastChild.innerText.slice(0, lastChild.innerText.indexOf('-'));
-
         var eventAdjustedTime = $scope.adjustTimeForCalendar(theEvent.startTime);
         var adjustedTime = $scope.adjustTimeForCalendar(slicedTime);
-
-        // console.log('adjusted time ', adjustedTime, 'event adjusted time ', eventAdjustedTime);
         if (eventAdjustedTime.hour >= adjustedTime.hour){
           return true
         } else {
