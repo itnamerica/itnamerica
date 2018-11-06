@@ -443,9 +443,27 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
     };
 
+    $scope.isAfterStartTime = function(endTime, startTime){
+      var adjustedEndTime = $scope.adjustTimeForCalendar(endTime);
+      var adjustedStartTime = $scope.adjustTimeForCalendar(startTime);
+      console.log('end time is ',endTime, 'startTime is ', startTime);
+      console.log('adjusted time is finally ', adjustedEndTime, adjustedStartTime);
+      if (adjustedEndTime.hour > adjustedStartTime.hour){
+        return true;
+      } else if (adjustedEndTime.hour < adjustedStartTime.hour){
+        return false;
+      } else if ( (adjustedEndTime.hour === adjustedStartTime.hour) && (adjustedEndTime.min < adjustedStartTime.min) ){
+        return false;
+      } else if ( (adjustedEndTime.hour === adjustedStartTime.hour) && (adjustedEndTime.min > adjustedStartTime.min) ){
+        return true;
+      } else {
+        return false;
+      }
+    };
+
     function compareNumbers(a, b) {
       return a - b;
-    } //numArray.sort(compareNumbers)
+    } //use as: numArray.sort(compareNumbers)
 
     Date.prototype.addDays = function(days) {
       var date = new Date(this.valueOf());
