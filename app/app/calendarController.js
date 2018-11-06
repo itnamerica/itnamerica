@@ -336,7 +336,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         .then(function(data){
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully deleted.";
-          $("#calendar").fullCalendar("removeEvents", calEventToDelete._id);
           $("#calendar-ris").fullCalendar("removeEvents", calEventToDelete._id);
           deferred.resolve(data);
         }).catch(function(error){

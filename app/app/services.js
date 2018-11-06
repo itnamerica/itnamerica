@@ -98,6 +98,7 @@ myApp.service('DataService', function($http){
     }).catch(function(error){ return error })
   };
   this.deleteRISCalendarEvent = function(agendaEvent, dbName){
+    //special circular object, do not send full agendaEvent obj to backend.
     console.log('event is ', agendaEvent, 'from ', dbName);
     return $http.delete('/deleteRISCalendarEvent/' + agendaEvent._id, {params: {dbName: dbName}} ).then(function(data){
       console.log('data returned is ', data);

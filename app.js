@@ -307,9 +307,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
   app.delete('/deleteRISCalendarEvent/:recordId', function (req,res) {
     var recordId = req.params.recordId;
-    //var agendaEvent = JSON.parse(req.query.agendaEvent);
     var dbName = req.query.dbName;
     console.log('inside deleteriscalendarevent backend func' , recordId, dbName);
+    db.collection(dbName).deleteOne({_id: new mongo.ObjectId(recordId)}, function(err, result){
+      if (err) { throw new Error('No record found. ', err) };
+      console.log('record has been removed, i think');
+      res.send(result);
+    });
 
   }); // end of deleteriscalendarevent request
 
