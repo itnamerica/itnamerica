@@ -4,13 +4,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     console.log('inside of config block');
     var viewsPath = "views/";
     var appPath = "/";
+    var today = new Date();
+    console.log(today.toISOString());
     if (location.host === "localhost:8080") {
         viewsPath = "app/views/";
         appPath = "app/";
     };
 
     $stateProvider
-
         .state('home', {
             url: '/',
             templateUrl: viewsPath + 'home.html'
@@ -138,7 +139,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'CalendarCtrl',
             templateUrl: viewsPath + 'agenda.html',
             params: {
-              selectedEventDate: null
+              selectedEventDate: today.toISOString()
             }
         })
         .state('ttp', {

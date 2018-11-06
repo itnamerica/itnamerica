@@ -439,8 +439,14 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
     $scope.retrieveFromSelectedEvent = function(){
       $scope.selectedEventDatePrevious = $stateParams.selectedEventDate;
+      var isValid = moment($scope.selectedEventDatePrevious, moment.ISO_8601, true).isValid();
+      //if user loads agenda page without parameter, default to today
+      if (isValid){
+        $scope.selectedEventDatePrevious = new Date($scope.selectedEventDatePrevious);
+      }
       $scope.selectedEventDate = $scope.selectedEventDatePrevious.addDays(1);
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
+
     };
 
     $scope.isAfterStartTime = function(endTime, startTime){
