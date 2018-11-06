@@ -81,52 +81,67 @@ myApp.service('DataService', function($http){
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'delete'}).then(function(data){
       console.log('data returned from delete comment service is ', data);
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.addRISCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
     return $http.post('/addRISCalendarEvent', {newEvent: newEvent}).then(function(data){
       console.log('data returned from add calendar event service is ', data);
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.addCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
     return $http.post('/addCalendarEvent', {newEvent: newEvent}).then(function(data){
       console.log('data returned from add calendar event service is ', data);
       return data;
-    })
+    }).catch(function(error){ return error })
   };
+  // this.deleteRISCalendarEvent = function(calendarEvent){
+  //   console.log('RIS event to delete is ', calendarEvent);
+  //   return $http.delete('/deleteRISCalendarEvent', {
+  //       params: {
+  //           calendarEvent: calendarEvent
+  //       }
+  //   }).then(function(data){
+  //     console.log('data returned from ris calendar delete is ', data);
+  //     return data;
+  //   }).catch(function(error){ return error })
+  // };
   this.viewRISCalendarEvents = function(){
     return $http.get('/viewRISCalendarEvents').then(function(data){
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.viewCalendarEvents = function(){
     return $http.get('/viewCalendarEvents').then(function(data){
       return data;
-    })
+    }).catch(function(error){ return error })
   };
-  this.deleteAgendaEvent = function(agendaEvent){
-    console.log('event is ', agendaEvent);
-    return $http.delete('/deleteAgendaEvent', {
+  this.deleteAgendaEvent = function(agendaEvent, dbName){
+    console.log('event is ', agendaEvent, 'from ', dbName);
+    return $http.delete('/deleteAgendaEvent/' + agendaEvent._id, {
         params: {
-            agendaEvent: agendaEvent
+            agendaEvent: agendaEvent,
+            dbName: dbName
         }
     }).then(function(data){
       console.log('data returned is ', data);
       return data;
+    }).catch(function(error){
+      console.log('error is ', error);
+      return error;
     })
   };
   this.getEmployees = function(){
     return $http.get('/getEmployees').then(function(data){
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.updateEmployee = function(employee){
     return $http.put('/updateEmployee', {employee: employee}).then(function(data){
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.login = function(formData, tableName) {
     console.log('inside DataService login ', formData, tableName);
@@ -177,7 +192,7 @@ myApp.service('DataService', function($http){
     return $http.post('/addEmployee', {newEmployee: newEmployee}).then(function(data){
       console.log('data returned from employee post req ', data);
       return data;
-    })
+    }).catch(function(error){ return error })
   }
 });
 

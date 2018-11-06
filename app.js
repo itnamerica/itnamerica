@@ -290,16 +290,21 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       });
   }); // end of deleteform request
 
-
-  app.delete('/deleteAgendaEvent', function (req,res) {
+  app.delete('/deleteAgendaEvent/:recordId', function (req,res) {
+    console.log('inside deleteagendaevent backend func');
       var agendaEvent = JSON.parse(req.query.agendaEvent);
+      var dbName = req.query.dbName;
+      var recordId = req.params.recordId;
+      console.log('agenda event is ', agendaEvent, 'db name is ', dbName);
       console.log('title and description', agendaEvent.title, agendaEvent.description);
 
-      db.collection('calendar').deleteOne({"title": agendaEvent.title}, function(err, result){
+      db.collection(dbName).deleteOne({_id: new mongo.ObjectId(recordId)}, function(err, result){
+        if (err) { throw new Error('No record found. ', err) };
         console.log('record has been removed, i think');
         res.send(result);
       });
   }); // end of deleteagendaevent request
+
 
 });//end of mongoclient
 
