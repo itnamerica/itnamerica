@@ -1313,7 +1313,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       console.log('fd about to be sent is ', fd);
    
       $http.post('/uploadFiles', fd, {
-        headers: {'Content-Type': undefined}
+        headers: {'Content-Type': undefined},
+        params: {tableName: tableName}
       })
       // $http.post('/uploadFile', fd)
       .then(function(data){

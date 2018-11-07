@@ -143,11 +143,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
   
   app.post('/uploadFiles', function(req, res) {
-    console.log('file from backend0 is ');
+    console.log('uploadFiles from backend is ');
     console.log(req.files);
+    var fileObj = { $push: req.files };
+    var tableName = req.query.tableName
+    console.log('table name backend is ', tableName);
     db.collection('commentsphoto').update(
-       { _id: recordId },
-       commentObj
+       { name: tableName },
+       fileObj
     )
     res.end();
   });
