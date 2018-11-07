@@ -21,7 +21,7 @@ var multer = require('multer');
 // var upload = multer({ storage : storage}).single('userPhoto');
 var upload = multer({ dest: 'uploads/' })
 var multipart = require('connect-multiparty');
-const formidable = require('formidable')
+var formidable = require('express-formidable');
 
 
 app.use(function(req, res, next) {
@@ -32,6 +32,7 @@ app.use(function(req, res, next) {
 app.use(express.json()); //convert req to json
 app.use(express.static(__dirname + '/app'));
 app.use(session({secret: "Sam is awesome"}));
+app.use(formidable());
 
 // app.use(bodyParser.json({limit: '50mb'}));
 // app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -140,43 +141,16 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     })
   });
-
-  app.post('/upload', upload.single('image'),  function(req, res) {
+  
+  app.post('/uploadFiles', function(req, res) {
     console.log('file from backend0 is ');
-    console.log(req.body);
-    console.log(req.body.files);
+    console.log(req.files);
+    db.collection('commentsphoto').update(
+       { _id: recordId },
+       commentObj
+    )
     res.end();
   });
-
-  app.post('/uploadFiles', function(req, res, next) {
-    console.log('inside uploadfiles backend')
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-        console.log(fields)
-        res.send('NOT IMPLEMENTED: pollsController createPost');
-    })
-    res.end();
-  });
-
-  // app.post('/uploadFile', function (req,res) {
-  //   console.log('file from backend1 is ');
-  //   console.log(req.body);
-  //   console.log(req.files);
-  // });
-
-  // app.post('/uploadTheFile', function (req,res,next) {
-  //   console.log('file from backend2 is ');
-  //   console.log(req.data);
-  //   console.log(req.file);
-
-  //   var data = _.pick(req.body, 'type')
-  // 		, uploadPath = path.normalize(cfg.data + '/uploads')
-  // 		, file = req.files.file;
-  //
-  //   console.log(file.name); //original name (ie: sunset.png)
-  //   console.log(file.path); //tmp path (ie: /tmp/12345-xyaz.png)
-  // 	console.log(uploadPath); //uploads directory: (ie: /home/user/data/uploads)
-  // });
 
   app.put('/updateCommentsPhoto', function (req,res) {
     var newComment = {
