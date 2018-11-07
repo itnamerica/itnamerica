@@ -1,9 +1,8 @@
 <div class="portal comments" ng-init="loadAffiliatePage(itnAffiliate)" class="portal events ta-center">
   <div class="container">
     <h2>Announcements for ITN<em>{{itnAffiliate.name}}</em></h2>
-    {{itnAffiliate}}
-    <ul>
 
+    <ul>
       <div class="row mt-25 mb-50">
         <div class="col-md-12">
           <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
@@ -90,8 +89,40 @@
 
       </div><!--row-->
 
-
-
     </ul>
   </div>
 </div>
+
+<div class="back-btn-wrap">
+  <a ng-click="openAdditionalPage('affiliateLanding')" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ui-sref="portal" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteAppModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content" style="font-size:25px">
+    <div class="modal-header" style="background:#529ba8;color:white">
+      <h3 class="modal-title" id="exampleModalLabel">Delete form submission</h3>
+      <button type="button" style="margin-top: -30px" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group ta-center">
+          <label for="delete app confirmation" style="margin-bottom:15px">Are you sure you would like to delete this comment?</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" ng-click="deleteComment();hideModal('deleteAppModal')" class="btn btn-lg btn-danger" style="background:#e05944">Delete</button>
+      <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+</div><!--end modal-->

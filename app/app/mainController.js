@@ -308,15 +308,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $(document).ready(function() {
             $('#deleteAppModal').modal('show');
         })
-    }
+    };
 
     $scope.askBeforeDeleteComment = function(affiliate, comment) {
+      console.log('aff is ', affiliate,comment);
         $scope.affiliateToDelete = affiliate;
         $scope.commentToDelete = comment;
         $(document).ready(function() {
             $('#deleteAppModal').modal('show');
         })
-    }
+    };
+
 
     $scope.deleteForm = function(formType, formObj) {
         console.log('inside deleteform, form type', formType, 'form obj', formObj);
