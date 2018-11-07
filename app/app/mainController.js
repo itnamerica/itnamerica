@@ -1,12 +1,11 @@
 var myApp = angular.module('myApp');
 
 myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService) {
-    console.log('inside main controller');
-
+    console.log('inside main controller', $stateParams);
+    $scope.comments = $stateParams.filter;
     $scope.assetsPath = "assets";
     $scope.viewsPath = "../views";
     if (location.host === "localhost:8080") {
-        console.log("localhost server, staging env");
         $scope.assetsPath = "app/assets";
         $scope.viewsPath = "../app/views";
     };

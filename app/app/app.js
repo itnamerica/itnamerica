@@ -196,30 +196,31 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: viewsPath + 'human-resources.html'
         })
         .state('affiliate-info', {
-            url: '/affiliate-info/:affiliateName',
+            url: '/affiliate-info/:filter',
             templateUrl: viewsPath + 'affiliate-info.html'
         })
         .state('comments', {
             url: '/comments?filter',
             templateUrl: viewsPath + 'comments.html',
-            controller: function($stateParams, $scope){
-              $scope.comments = $stateParams.filter;
-            }
+            controller: 'AffiliateCtrl'
+            // controller: function($stateParams, $scope){
+            //   $scope.comments = $stateParams.filter;
+            // }
         })
         .state('documents', {
-            url: '/documents/:affiliateName',
+            url: '/documents/:filter',
             templateUrl: viewsPath + 'documents.html'
         })
         .state('web-traffic', {
-            url: '/web-traffic/:affiliateName',
+            url: '/web-traffic/:filter',
             templateUrl: viewsPath + 'web-traffic.html'
         })
         .state('rides-data', {
-            url: '/rides-data/:affiliateName',
+            url: '/rides-data/:filter',
             templateUrl: viewsPath + 'rides-data.html'
         })
         .state('timesheets', {
-            url: '/timesheets/:affiliateName',
+            url: '/timesheets/:filter',
             templateUrl: viewsPath + 'timesheets.html'
         })
 
