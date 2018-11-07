@@ -116,15 +116,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
               gaViewCode: 0,
             }
         })
-        .state('affiliate', {
-            url: '/affiliate?filter',
-            templateUrl: viewsPath + 'affiliate.html',
-            controller: 'AffiliateCtrl',
-            params : {
-              name: 'Lanier',
-              gaViewCode: 89470158,
-            }
-        })
         .state('nda', {
             url: '/nda2018xyz',
             templateUrl: viewsPath + 'nda.html'
@@ -185,6 +176,15 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('human-resources', {
             url: '/human-resources',
             templateUrl: viewsPath + 'human-resources.html'
+        })
+        .state('affiliate', {
+            url: '/affiliate?filter',
+            templateUrl: viewsPath + 'affiliate.html',
+            controller: 'AffiliateCtrl',
+            params : {
+              name: 'Lanier',
+              gaViewCode: 89470158,
+            }
         })
         .state('affiliate-info', {
             url: '/affiliate-info?filter',

@@ -1,18 +1,13 @@
-<div ng-init="getCommentsPhoto()" class="portal events ta-center">
+<div class="portal comments" ng-init="loadAffiliatePage(itnAffiliate)" class="portal events ta-center">
   <div class="container">
     <h2>Announcements for ITN<em>{{itnAffiliate.name}}</em></h2>
     {{itnAffiliate}}
     <ul>
 
-      <div class="row mt-50 mb-50">
-
+      <div class="row mt-25 mb-50">
         <div class="col-md-12">
-          <h5 class="mb-25" style="display:inline-block">Comments</h5>
-
           <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
-
           <div class="row" ng-show="showCommentInput">
-
                 <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px">
                   <form name="itnForm" novalidate ng-submit="addComment(formData, itnAffiliate); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
                     <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
@@ -55,7 +50,7 @@
 
 
 
-          <table class="table table-responsive table-hover" ng-repeat="commentPhoto in commentsPhoto | filter: {name: itnAffiliate.name}" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
+          <table class="table table-responsive table-hover ta-center" ng-repeat="commentPhoto in commentsPhoto | filter: {name: itnAffiliate.name}" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
             <button class="btn btn-sm" ng-click="showCommentInput = true" style="background:#cc6257;float:right;margin-top:10px">Add a Comment</button>
             <thead>
               <tr>

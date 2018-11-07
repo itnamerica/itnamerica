@@ -927,7 +927,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.loadAffiliatePage = function(affiliateName){
       console.log('affiliate0 is ', affiliateName);
-
       $scope.bindParamToVar();
       $scope.getRidesData();
       $scope.getCommentsPhoto();
