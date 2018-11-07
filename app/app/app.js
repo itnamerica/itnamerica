@@ -187,7 +187,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: viewsPath + 'human-resources.html'
         })
         .state('affiliate-info', {
-            url: '/affiliate-info/:filter',
+            url: '/affiliate-info?filter',
             templateUrl: viewsPath + 'affiliate-info.html'
         })
         .state('comments', {
@@ -196,19 +196,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'AffiliateCtrl'
         })
         .state('documents', {
-            url: '/documents/:filter',
+            url: '/documents?filter',
             templateUrl: viewsPath + 'documents.html'
         })
         .state('web-traffic', {
-            url: '/web-traffic/:filter',
+            url: '/web-traffic?filter',
             templateUrl: viewsPath + 'web-traffic.html'
         })
         .state('rides-data', {
-            url: '/rides-data/:filter',
+            url: '/rides-data?filter',
             templateUrl: viewsPath + 'rides-data.html'
         })
         .state('timesheets', {
-            url: '/timesheets/:filter',
+            url: '/timesheets?filter',
             templateUrl: viewsPath + 'timesheets.html'
         })
 
