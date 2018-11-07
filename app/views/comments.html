@@ -1,6 +1,7 @@
 <div ng-init="getCommentsPhoto()" class="portal events ta-center">
   <div class="container">
     <h2>Announcements for ITN<em>{{itnAffiliate.name}}</em></h2>
+    {{itnAffiliate}}
     <ul>
 
       <div class="row mt-50 mb-50">
@@ -13,7 +14,7 @@
           <div class="row" ng-show="showCommentInput">
 
                 <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px">
-                  <form name="itnForm" novalidate ng-submit="addComment(formData, listOfProgramsObj.ridesInSight); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
+                  <form name="itnForm" novalidate ng-submit="addComment(formData, itnAffiliate); showCommentInput = false" role="comment form" ng-model="formData" style="padding:2%;margin:0 5%">
                     <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
 
                     <div class="row">
@@ -75,7 +76,7 @@
                     <small><em>{{comment.email}}</em></small>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment(listOfProgramsObj.ridesInSight, comment)" data-toggle="tooltip" title="Delete Comment">
+                  <button type="button" class="btn btn-danger btn-sm" ng-click="askBeforeDeleteComment(itnAffiliate, comment)" data-toggle="tooltip" title="Delete Comment">
                    <span class="glyphicon glyphicon-trash"></span>
                  </button>
                 </td>
