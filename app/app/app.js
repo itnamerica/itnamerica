@@ -202,11 +202,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('comments', {
             url: '/comments?filter',
             templateUrl: viewsPath + 'comments.html',
-            resolve: {
-              comments: function($stateParams){
-                console.log('comments are ', $stateParams.filter);
-                return $stateParams.filter
-              }
+            controller: function($stateParams, $scope){
+              $scope.comments = $stateParams.filter;
             }
         })
         .state('documents', {

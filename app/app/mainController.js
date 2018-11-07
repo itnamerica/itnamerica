@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', 'comments', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService, comments) {
+myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService) {
     console.log('inside main controller');
 
     $scope.assetsPath = "assets";
@@ -10,7 +10,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.assetsPath = "app/assets";
         $scope.viewsPath = "../app/views";
     };
-    $scope.comments = comments;
     $scope.affiliate = "America";
     $scope.zoomLevel = 1;
     $scope.tab = 1;
