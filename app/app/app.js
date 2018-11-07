@@ -5,7 +5,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     var viewsPath = "views/";
     var appPath = "/";
     var today = new Date();
-    console.log(today.toISOString());
     if (location.host === "localhost:8080") {
         viewsPath = "app/views/";
         appPath = "app/";
@@ -121,10 +120,20 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/affiliate/:name',
             templateUrl: viewsPath + 'affiliate.html',
             params : {
-              name: 'none',
-              gaViewCode: 0,
+              name: 'Lanier',
+              gaViewCode: 89470158,
             }
         })
+        // .state('affiliate', {
+        //      url: '/affiliate?name',
+        //      templateUrl: viewsPath + 'affiliate.html',
+        //      params: {
+        //         name: {
+        //            value: 'Lanier',
+        //            dynamic: true
+        //         }
+        //      }
+        // })
         .state('nda', {
             url: '/nda2018xyz',
             templateUrl: viewsPath + 'nda.html'
@@ -132,10 +141,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('rides', {
             url: '/rides',
             templateUrl: viewsPath + 'rides.html'
-        })
-        .state('human-resources', {
-            url: '/human-resources',
-            templateUrl: viewsPath + 'human-resources.html'
         })
         .state('calendar', {
             url: '/calendar',
@@ -185,6 +190,40 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/calendar-ris',
             templateUrl: viewsPath + 'calendar-ris.html',
             controller: 'CalendarCtrl'
+        })
+        .state('human-resources', {
+            url: '/human-resources',
+            templateUrl: viewsPath + 'human-resources.html'
+        })
+        .state('affiliate-info', {
+            url: '/affiliate-info/:affiliateName',
+            templateUrl: viewsPath + 'affiliate-info.html'
+        })
+        .state('comments', {
+            url: '/comments?filter',
+            templateUrl: viewsPath + 'comments.html',
+            resolve: {
+              comments: function($stateParams){
+                console.log('comments are ', $stateParams.filter);
+                return $stateParams.filter
+              }
+            }
+        })
+        .state('documents', {
+            url: '/documents/:affiliateName',
+            templateUrl: viewsPath + 'documents.html'
+        })
+        .state('web-traffic', {
+            url: '/web-traffic/:affiliateName',
+            templateUrl: viewsPath + 'web-traffic.html'
+        })
+        .state('rides-data', {
+            url: '/rides-data/:affiliateName',
+            templateUrl: viewsPath + 'rides-data.html'
+        })
+        .state('timesheets', {
+            url: '/timesheets/:affiliateName',
+            templateUrl: viewsPath + 'timesheets.html'
         })
 
     // default fall back route

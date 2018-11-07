@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService) {
+myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', 'comments', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService, comments) {
     console.log('inside main controller');
 
     $scope.assetsPath = "assets";
@@ -10,7 +10,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.assetsPath = "app/assets";
         $scope.viewsPath = "../app/views";
     };
-
+    $scope.comments = comments;
     $scope.affiliate = "America";
     $scope.zoomLevel = 1;
     $scope.tab = 1;
@@ -21,7 +21,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.ssnPattern = new RegExp(/^\d{3}-?\d{2}-?\d{4}$/);
     $scope.zipPattern = new RegExp(/^\d{5}$/);
     $scope.emailPattern = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/);
-    $scope.datePattern = new RegExp(/^(\d{2})\/(\d{2})\/(\d{4})$/); 
+    $scope.datePattern = new RegExp(/^(\d{2})\/(\d{2})\/(\d{4})$/);
     $scope.dobPattern = new RegExp(/^(\d{2})\/(\d{2})\/(\d{4})$/);
     $scope.phonePattern = new RegExp(/^\d{3}[- ]?\d{3}[- ]?\d{4}$/);
     $scope.errorMessages = LongVariablesService.errorMessages;
@@ -79,19 +79,19 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             $scope.scrollToTop();
         }
     });
-    
-    
+
+
     function compareNumbers(a, b) {
       return a - b;
     } //numArray.sort(compareNumbers)
-    
+
 
     Date.prototype.addDays = function(days) {
       var date = new Date(this.valueOf());
       date.setDate(date.getDate() + days);
       return date;
-    };    
-    
+    };
+
 
     //use this function instead of ng-href as ng-href is not compatible with html5mode
     $scope.redirectToURL = function(url) {
@@ -311,7 +311,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             $('#deleteAppModal').modal('show');
         })
     }
-    
+
     $scope.askBeforeDeleteComment = function(affiliate, comment) {
         $scope.affiliateToDelete = affiliate;
         $scope.commentToDelete = comment;
@@ -469,7 +469,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 'It is a Billing address': $scope.formData.isBillingAddress,
                 'It is a year-round residence': $scope.formData.isYearRoundResidence,
                 'Primary phone': $scope.formData.primaryPhone,
-                // 'First emergency contact (full)': $scope.formData.firstEmergencyContact, 
+                // 'First emergency contact (full)': $scope.formData.firstEmergencyContact,
                 'First emergency contact name': $scope.formData.firstEmergencyContact.name,
                 'First emergency contact relationship': $scope.formData.firstEmergencyContact.relationship,
                 'First emergency contact street': $scope.formData.firstEmergencyContact.street,
@@ -477,7 +477,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 'First emergency contact state': $scope.formData.firstEmergencyContact.state,
                 'First emergency contact zip': $scope.formData.firstEmergencyContact.zip,
                 'First emergency contact best phone number': $scope.formData.firstEmergencyContact.bestPhone,
-                // 'Second emergency contact (full)': $scope.formData.secondEmergencyContact, 
+                // 'Second emergency contact (full)': $scope.formData.secondEmergencyContact,
                 'Second emergency contact name': $scope.formData.secondEmergencyContact.name,
                 'Second emergency contact relationship': $scope.formData.secondEmergencyContact.relationship,
                 'Second emergency contact street': $scope.formData.secondEmergencyContact.street,
@@ -487,7 +487,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 'Second emergency contact best phone number': $scope.formData.secondEmergencyContact.bestPhone,
                 'How did you hear about ITN?': $scope.formData.heardAboutItn,
                 'Send info to friends or relatives?': $scope.formData.sendInfoToRelativeFriendBiz,
-                // 'Customer info (full)': $scope.formData.customerInfo , 
+                // 'Customer info (full)': $scope.formData.customerInfo ,
                 'Date of Birth': $scope.formData.customerInfo.dateOfBirth,
                 'Gender': $scope.formData.customerInfo.gender,
                 'Marital Status': $scope.formData.customerInfo.maritalStatus,
@@ -498,14 +498,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 'Member of Organization or Union': $scope.formData.memberOfProfessionalOrgOrUnion,
                 'Served in Military': $scope.formData.customerInfo.servedInMilitary,
                 'Special Needs': $scope.formData.customerInfo.specialNeeds,
-                // 'Driving Info (full)': $scope.formData.drivingInfo, 
+                // 'Driving Info (full)': $scope.formData.drivingInfo,
                 'Has license': $scope.formData.drivingInfo.hasLicense,
                 'Owns a vehicle': $scope.formData.drivingInfo.ownVehicle,
                 'Took Driver Improvement classes': $scope.formData.drivingInfo.driverImprovementClasses,
                 'Driven in last 10 years': $scope.formData.drivingInfo.drivenLast10Years,
                 'Currently drives': $scope.formData.drivingInfo.currentlyDrive,
                 'Reduce trip cost by sharing ride': $scope.formData.drivingInfo.reduceCostWithRideshare,
-                // 'Agreement (full)': $scope.formData.agreement, 
+                // 'Agreement (full)': $scope.formData.agreement,
                 'Agreement signature': $scope.formData.agreement.signature1,
                 'Agreement date': $scope.formData.agreement.date1,
                 'Informed consent signature': $scope.formData.agree1,
@@ -547,7 +547,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             return true;
         }
     };
-    
+
     //captures param to know if normal or custom contact form, custom comes from portal (HR or staff)
     $scope.isContactPerson = function(){
       if ($stateParams.contact) {
@@ -571,12 +571,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         console.log('valid contact is ', contactInputsValid);
         var formObj = {};
         var today = new Date();
-        
+
         $scope.loading = true;
         if (formType) {
             $scope.formType = formType;
         } //else $scope.formType is assigned in function above.
-        
+
         if ($scope.formType === 'contact' && contactInputsValid) {
             console.log('submitting valid contact form');
             formObj = {
@@ -614,7 +614,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 html: "<p><strong>Message</strong>: " + $scope.formData.messageBody + "</p> " +
                     "<p><strong>Author</strong>: " + $scope.formData.author + "</p>\n ",
                 formType: $scope.formType
-            } 
+            }
         } else if ($scope.formType === 'hrcontactform' && $scope.formData.messageBody) {
                 console.log('submitting valid HR ticket');
                 formObj = {
@@ -674,7 +674,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 return $scope.serverMessage;
                 // return $scope.serverMessage = 'Please complete all required fields.';
             }
-            
+
             $scope.formSubject = 'ITNAmerica - New ' + formType + ' application received';
             if (formType === 'membership' || formType === 'volunteer') {
                 $(document).ready(function() {
@@ -802,10 +802,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             })
     };
 
-    
+
     $scope.fetchRecentBlogURLs = function(){
-      $http.get('/getBlogContent', { 
-          params: { 
+      $http.get('/getBlogContent', {
+          params: {
             blogURL: 'http://blog.itnamerica.org/'
           }
         }).then(function(response) {
@@ -831,16 +831,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             $scope.getContentForEachBlogURL();
       })
     };
-    
+
     $scope.getContentForEachBlogURL = function(){
       for (var x = 0; x < $scope.blogURLs.length; x++) {
         $scope.getBlogContent($scope.blogURLs[x]);
       }
     };
-    
+
     $scope.getBlogContent = function(url){
-      $http.get('/getBlogContent', { 
-          params: { 
+      $http.get('/getBlogContent', {
+          params: {
             blogURL: url
           }
         }).then(function(response) {
@@ -873,14 +873,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             $scope.entryImgURL = store2.join('').toString();
             $scope.entryImgURL = $scope.entryImgURL.match(/\bhttps?:\/\/\S+/gi);
             $scope.entryImgURL = $scope.entryImgURL.toString().slice(0,-1);
-          }    
+          }
           $scope.blogEntries.push({
             title: $scope.entryTitle,
             imgURL: $scope.entryImgURL,
             blogURL: url
           });
         });
-        
+
     };
 
     $scope.readMoreLess = function(){
@@ -894,10 +894,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
               $(this).find(".btn-lg")[0].innerText = 'Show more';
             }
           }
-      })        
+      })
     };
 
-    
+
     $scope.openAdditionalPage = function(pageName){
       var affiliateName;
       console.log('inside openadditionalpage ', pageName)
@@ -912,13 +912,13 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.showPortal = true;
       }
     };
-    
+
     $scope.bindParamToVar = function(pageName){
       console.log('stateparams are ', $stateParams);
       if (pageName === 'affiliates') {
         $scope.itnAffiliate.name = $stateParams.name;
         $scope.itnAffiliate.gaViewCode = $stateParams.gaViewCode;
-        
+
         console.log("itn affiliate is ", $scope.itnAffiliate);
       }
     };
@@ -927,16 +927,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       if (row.affiliateName === $scope.selected.affiliateName) return 'edit';
       else return 'display';
     };
-    
+
     $scope.getTemplateWithAuth = function (row) {
       if (row.affiliateName === $scope.selected.affiliateName){
         return 'edit';
-      } 
+      }
       else {
         return 'display';
       }
     };
-    
+
     $scope.switchTemplates = function(template) {
       if (template) {
         return template
@@ -944,10 +944,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         return 'display'
       }
     };
-    
+
 
     $scope.authAndRedirect = function(loginType, privilegeType, routeType, routeName){
-        var title = "Please log in to access this page";  
+        var title = "Please log in to access this page";
         swal({
           title: title,
           html:
@@ -965,7 +965,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           if (result.value) {
             console.log('login inputs are ', result.value[0], result.value[1]);
             var loginCredentials = {};
-            loginCredentials.username = result.value[0]; 
+            loginCredentials.username = result.value[0];
             loginCredentials.password = result.value[1];
             return DataService.loginPrivilege(loginCredentials, loginType, privilegeType)
               .then(function(response){
@@ -986,8 +986,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
       return true;
     };
-    
-    
+
+
     $scope.authWallPopup = function(loginType, privilegeType, affiliateName){
         var theAffiliateName = affiliateName;
         var title = "Please log in to make changes"
@@ -1028,8 +1028,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
       return true;
     };
-    
-    
+
+
     $scope.getRidesData = function(){
         DataService.getAllRides().then(function(data){
           console.log('rides data from func is ', data);
@@ -1040,23 +1040,23 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.editRidesData = function (affiliateName) {
       $scope.selected = angular.copy(affiliateName);
     };
-    
+
     $scope.saveRidesData = function (idx) {
       console.log("Saving obj");
       $scope.ridesData[idx] = angular.copy($scope.selected);
       DataService.updateAffiliateRidesData($scope.selected).then(function(data){
         console.log('rides after updated in db is ', data);
       })
-      
+
       $scope.selected = {};
     };
-    
+
     $scope.getCommentsPhoto = function (affiliateName) {
       DataService.getCommentsPhoto(affiliateName).then(function(data){
         $scope.commentsPhoto = data.data
       })
     };
-    
+
     $scope.addComment = function (content, affiliate) {
       console.log('inside add comment, content is', content, 'affiliate is ', affiliate);
       $scope.serverMessage = "Loading. Please wait.";
@@ -1065,8 +1065,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.emailCommentAsync(content, affiliate).then(function(response){
           //async add for immediate update in page
           var commentToAdd = {
-            message: content.message, 
-            author: content.author, 
+            message: content.message,
+            author: content.author,
             email: content.email
           };
           for (var i=0; i < $scope.commentsPhoto.length; i++){
@@ -1082,7 +1082,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
       })
     };
-    
+
     $scope.emailCommentAsync = function(content, affiliate) {
       var deferred = $q.defer();
       var today = new Date();
@@ -1106,16 +1106,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
       return deferred.promise;
     };
-    
-    
+
+
     $scope.deleteComment = function() {
       $scope.serverMessage = "Loading. Please wait.";
       DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
         //async delete for immediate update in page
         var commentToDelete = {
-          message: $scope.commentToDelete.message, 
-          author: $scope.commentToDelete.author, 
-          email: $scope.commentToDelete.email, 
+          message: $scope.commentToDelete.message,
+          author: $scope.commentToDelete.author,
+          email: $scope.commentToDelete.email,
           };
         for (var i=0; i < $scope.commentsPhoto.length; i++){
           if ($scope.affiliateToDelete.name === $scope.commentsPhoto[i].name){
@@ -1135,26 +1135,26 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }, 5000)
       })
     };
-    
+
     $scope.addCommentFromAllComments = function(affiliateOfComment) {
       $scope.showCommentInput = true;
       $scope.affiliateOfComment = affiliateOfComment;
     };
-  
+
     $scope.hideModal = function(modalId) {
       $('.modal').hide();
       $('#'+modalId).hide();
       $('.modal-backdrop').css('display','none');
     };
-    
+
     $scope.toggleModal = function(modalIdToOpen, modalIdToClose) {
       if (modalIdToClose) {
         $('#'+modalIdToClose).modal('hide');
       }
       $('#'+modalIdToOpen).modal('show');
-    };    
-    
-    
+    };
+
+
     $scope.getEmployeesPromise = function() {
       var deferred = $q.defer();
       DataService.getEmployees().then(function(data){
@@ -1166,14 +1166,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
       return deferred.promise;
     };
-    
+
     $scope.toggleEmployee = function(employee) {
       console.log('employee is ', employee);
       $scope.employeeSelected = employee;
       $scope.showEditProfile = false;
       $scope.showDisplayProfile = true;
     };
-    
+
     $scope.toggleProfileType = function(profile) {
       if (profile === 'display') {
         console.log('inside display profile');
@@ -1187,13 +1187,13 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       };
       $(window).scrollTop(500);
     };
-    
+
     $scope.editEmployee = function(){
       console.log('updated employee obj before backend is ', $scope.employeeSelected);
       DataService.updateEmployee($scope.employeeSelected)
         .then(function(data){
           console.log('return from employee put call is ', data);
-          $scope.serverMessage = "Your profile was succesfully updated"; 
+          $scope.serverMessage = "Your profile was succesfully updated";
           //updates data on DOM without reload
           $timeout(function(){
             $scope.getEmployeesPromise().then(function(response){
@@ -1204,10 +1204,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         .catch(function(err){
           $scope.serverMessage = "There was an error updating your profile."
         })
-      
+
     };
-    
-    
+
+
     $scope.addEmployee = function(){
       swal({
         title: 'Add an Employee',
@@ -1255,8 +1255,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
       })
     };
-    
-    
+
+
     $scope.authWallEmployee = function(employee){
       var employeeSelected = employee
       swal({
@@ -1292,23 +1292,23 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             })
         }
       })
-    };  
-    
+    };
+
    $scope.catchDocFilter = function() {
        console.log('stateparam is ', $stateParams.filter);
        $scope.docFilter = $stateParams.filter;
        if ($stateParams.filter === 'upload'){
-         console.log('upload filter'); 
+         console.log('upload filter');
        } else if ($stateParams.filter === 'training'){
-       } 
-   };   
-    
+       }
+   };
+
     $scope.uploadFile = function(){
       console.log("my file is ", $scope.myFile);
       var file = $scope.myFile;
       console.log('file is ' );
       console.dir(file);
-      
+
       FileUploadService.uploadFileToDB(file)
       // .then(function(data){
       //   console.log('data returned from func for file upload is ', data);
@@ -1319,11 +1319,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     // upload on file select or drop
     $scope.upload = function (file) {
       console.log('about to upload ', file);
-      
+
       var fd = new FormData();
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
-   
+
       $http.post('/uploadFiles', {formData: fd, fileObj: file, test: 'test string'})
       // $http.post('/uploadFile', fd)
       .then(function(data){
@@ -1332,11 +1332,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       .catch(function(err){
         console.log('error uploading file ', err);
       });
-      
+
         // Upload.upload({
         //     url: '/uploadTheFile',
         //     // data: {
-        //     //   file: file, 
+        //     //   file: file,
         //     //   'username': $scope.username
         //     // }
         //     headers : {
@@ -1354,5 +1354,5 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         // });
     };
 
-    
+
 }]);
