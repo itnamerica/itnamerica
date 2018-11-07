@@ -22,6 +22,7 @@ var multer = require('multer');
 var upload = multer({ dest: 'uploads/' })
 var multipart = require('connect-multiparty');
 var formidable = require('express-formidable');
+var fs = require('fs');
 
 
 app.use(function(req, res, next) {
@@ -145,7 +146,9 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   app.post('/uploadFiles', function(req, res) {
     console.log('uploadFiles from backend is ');
     console.log(req.files);
-    var fileObj = { $push: req.files };
+    var binaryLocation = req.files.file.path;
+    var binaryData = fs.readFileSync(binaryLocation);
+    var fileObj = { $push: {"fileUploads": binaryData} };
     var tableName = req.query.tableName
     console.log('table name backend is ', tableName);
     db.collection('commentsphoto').update(
