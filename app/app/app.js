@@ -117,23 +117,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             }
         })
         .state('affiliate', {
-            url: '/affiliate/:name',
+            url: '/affiliate?filter',
             templateUrl: viewsPath + 'affiliate.html',
+            controller: 'AffiliateCtrl',
             params : {
               name: 'Lanier',
               gaViewCode: 89470158,
             }
         })
-        // .state('affiliate', {
-        //      url: '/affiliate?name',
-        //      templateUrl: viewsPath + 'affiliate.html',
-        //      params: {
-        //         name: {
-        //            value: 'Lanier',
-        //            dynamic: true
-        //         }
-        //      }
-        // })
         .state('nda', {
             url: '/nda2018xyz',
             templateUrl: viewsPath + 'nda.html'
@@ -203,9 +194,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/comments?filter',
             templateUrl: viewsPath + 'comments.html',
             controller: 'AffiliateCtrl'
-            // controller: function($stateParams, $scope){
-            //   $scope.comments = $stateParams.filter;
-            // }
         })
         .state('documents', {
             url: '/documents/:filter',

@@ -913,12 +913,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.bindParamToVar = function(pageName){
       console.log('stateparams are ', $stateParams);
-      if (pageName === 'affiliates') {
+      if ($stateParams.filter){
+        console.log('filter');
+        $scope.itnAffiliate.name = $stateParams.filter;
+        //fetch ga view code from long variables.
+      } else {
+        console.log('no filter');
         $scope.itnAffiliate.name = $stateParams.name;
         $scope.itnAffiliate.gaViewCode = $stateParams.gaViewCode;
-
-        console.log("itn affiliate is ", $scope.itnAffiliate);
       }
+
+      console.log("itn affiliate is ", $scope.itnAffiliate);
     };
 
     $scope.getTemplate = function (row) {
