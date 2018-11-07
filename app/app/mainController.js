@@ -915,10 +915,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
 
     $scope.parseAffiliateNameToList = function(affiliate){
-      console.log('affiliate is ', affiliate);
+      //test if page just loaded for Comments, then capture param in other way
+      console.log('affiliate isssss ', affiliate);
       for (var eachAffiliate in $scope.affiliateList){
         var theAffiliate = $scope.affiliateList[eachAffiliate]
-        console.log('each aff is ', theAffiliate);
+        // console.log('each aff is ', theAffiliate);
         if (theAffiliate.name === affiliate.name){
           console.log('a match');
           $scope.itnAffiliate = theAffiliate;
