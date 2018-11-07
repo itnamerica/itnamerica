@@ -919,9 +919,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         console.log('each aff is ', theAffiliate);
         if (theAffiliate.name === affiliate.name){
           console.log('a match');
-          $scope.$apply(function(){
-            $scope.itnAffiliate = theAffiliate;
-          })
+          $scope.itnAffiliate = theAffiliate;
         }
       }
     };
