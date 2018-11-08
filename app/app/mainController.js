@@ -956,6 +956,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       console.log("itn affiliate is ", $scope.itnAffiliate);
     };
 
+
+    $scope.hasAffiliateFilter = function(){
+      console.log('filter is ', $stateParams.filter);
+      if ($stateParams.filter === "affiliate"){
+        $scope.affiliateLanding = true;
+        $scope.showPortal = false;
+      }
+    }
+
+
     $scope.getTemplate = function (row) {
       if (row.affiliateName === $scope.selected.affiliateName) return 'edit';
       else return 'display';

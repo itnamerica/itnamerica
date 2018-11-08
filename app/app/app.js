@@ -85,8 +85,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             }
         })
         .state('portal', {
-            url: '/portal',
-            templateUrl: viewsPath + 'portal.html'
+            url: '/portal?filter',
+            templateUrl: viewsPath + 'portal.html',
+            params: {
+              filter: null
+            }
         })
         .state('login-portal', {
             url: '/login-portal',
