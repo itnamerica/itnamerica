@@ -916,16 +916,23 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.parseAffiliateNameToList = function(affiliate){
       //if comments page loaded directly from browser with filter params
-      console.log('stateparam is ', $stateParams);
+      console.log('stateparam is ', $stateParams.filter);
       console.log('affiliate isssss ', affiliate);
       if ($stateParams.filter){
         console.log('stateparams yeah');
-        $scope.itnAffiliate = $stateParams.filter;
+        var affiliate = {};
+        affiliate.name = $stateParams.filter;
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            console.log('a match');
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
       } else if (affiliate){
         console.log('affiliate yeah');
-        var theAffiliate;
         for (var eachAffiliate in $scope.affiliateList){
-          theAffiliate = $scope.affiliateList[eachAffiliate]
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
           if (theAffiliate.name === affiliate.name){
             console.log('a match');
             $scope.itnAffiliate = theAffiliate;
