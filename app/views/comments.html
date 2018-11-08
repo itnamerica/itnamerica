@@ -1,7 +1,7 @@
 <div class="portal comments" ng-init="parseAffiliateNameToList(itnAffiliate)" class="portal events ta-center">
   <div class="container">
     <h2>Announcements for ITN<em>{{itnAffiliate.name}}</em></h2>
-{{itnAffiliate}}
+
     <ul>
       <div class="row mt-25 mb-50">
         <div class="col-md-12">
@@ -46,7 +46,6 @@
                 </div><!--form-area-->
 
           </div><!--row-->
-
 
 
           <table class="table table-responsive table-hover ta-center" ng-repeat="commentPhoto in commentsPhoto | filter: {name: itnAffiliate.name}" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">

@@ -920,6 +920,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       console.log('affiliate isssss ', affiliate);
       if ($stateParams.filter){
         console.log('stateparams yeah');
+        $scope.getCommentsPhoto();
         var affiliate = {};
         affiliate.name = $stateParams.filter;
         for (var eachAffiliate in $scope.affiliateList){
