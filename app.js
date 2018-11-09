@@ -111,19 +111,19 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   }); // end of /viewRISCalendarEvents get request
   
-  app.get('/fetchImages', function (req,res) {
+  app.get('/fetchCommentsPhoto', function (req,res) {
     var affiliateName = req.query.affiliateName;
     console.log('affiliate name is ', affiliateName);
-    db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
-      res.send(result);
-    })
-  }); // end of /viewRISCalendarEvents get request
-  
-  app.get('/fetchCommentsPhotoFromAll', function (req,res) {
-    db.collection('commentsphoto').find().toArray(function (err, result) {
-      res.send(result);
-    })
-  }); // end of /viewRISCalendarEvents get request
+    if (affiliateName !== "all"){
+      db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
+        res.send(result);
+      })
+    } else {
+      db.collection('commentsphoto').find().toArray(function (err, result) {
+        res.send(result);
+      })
+    }
+  }); // end of /fetchCommentsPhoto get request
 
   app.post('/addCalendarEvent', function (req,res) {
     db.collection('calendar').save(req.body.newEvent, function(err, result){

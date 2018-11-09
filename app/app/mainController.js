@@ -1431,8 +1431,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       document.body.appendChild(img);
     };
     
-    $scope.fetchImages = function(){
-      var affiliateName = "America";
+    $scope.fetchImages = function(affiliateName){
       DataService.fetchImages(affiliateName).then(function(response){
         console.log('response from fetch image in frontend is ', response.data);
       })
