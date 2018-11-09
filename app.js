@@ -110,6 +110,12 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     })
   }); // end of /viewRISCalendarEvents get request
+  
+  app.get('/fetchImages', function (req,res) {
+    db.collection('commentsphoto').find().toArray(function (err, result) {
+      res.send(result);
+    })
+  }); // end of /viewRISCalendarEvents get request
 
   app.post('/addCalendarEvent', function (req,res) {
     db.collection('calendar').save(req.body.newEvent, function(err, result){

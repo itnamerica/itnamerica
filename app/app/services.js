@@ -189,11 +189,19 @@ myApp.service('DataService', function($http){
       })
   };
   this.addEmployee = function(newEmployee){
-    return $http.post('/addEmployee', {newEmployee: newEmployee}).then(function(data){
+    return $http.post('/addEmployee', {newEmployee: newEmployee})
+    .then(function(data){
       console.log('data returned from employee post req ', data);
       return data;
     }).catch(function(error){ return error })
-  }
+  };
+  this.fetchImages = function(){
+    return $http.get('/fetchImages')
+    .then(function(data){
+      console.log('data returned from fetch images frontend service is ', data);
+      return data;
+    }).catch(function(error){ return error })
+  };
 });
 
 
