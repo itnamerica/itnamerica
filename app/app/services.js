@@ -225,21 +225,19 @@ myApp.service('FileUploadService', ['$http', function ($http) {
       .error(function(){
       });
    };
-   this.uploadFileToDB = function(file){
-      var fd = new FormData();
-      console.log('file is ', file);
-      fd.append('file', file);
-      console.log('fd about to be sent is ', fd);
-
-      // $http.post('/uploadFile', {fileObj: fd})
-      $http.post('/uploadFile', file)
+   this.uploadFileToDB = function(fd, tableName){
+      $http.post('/uploadFiles', fd, {
+        headers: {'Content-Type': undefined},
+        params: {tableName: tableName}
+      })
       .then(function(data){
         console.log('succesfully uploaded file ', data);
       })
       .catch(function(err){
         console.log('error uploading file ', err);
       });
-   }
+   };
+
 }]);
 
 

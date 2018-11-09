@@ -154,9 +154,14 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     console.log(req.files);
     var binaryLocation = req.files.file.path;
     var fileName = req.files.file.name;
+    // var fileCategory = req.files.file.category;
     console.log('file name is ', fileName);
     var binaryData = fs.readFileSync(binaryLocation);
-    var theFile = {fileName: binaryData};
+    // var theFile = {data: binaryData};
+    var theFile = {};
+    theFile.data = binaryData
+    theFile.name = fileName;
+    // theFile.category = fileCategory;
     var fileObj = { $push: {"fileUploads": theFile} };
     var tableName = req.query.tableName
     console.log('table name backend is ', tableName);

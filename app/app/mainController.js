@@ -1362,61 +1362,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
    
-      $http.post('/uploadFiles', fd, {
-        headers: {'Content-Type': undefined},
-        params: {tableName: tableName}
+      // $http.post('/uploadFiles', fd, {
+      //   headers: {'Content-Type': undefined},
+      //   params: {tableName: tableName}
+      // })
+      FileUploadService.uploadFileToDB(fd, tableName)
+      .then(function(response){
+        console.log('success response from the file upload func is ', response);
+      }).catch(function(error){
+        console.log('error response from the file upload func is ', error);
       })
-    };
-
-    $scope.uploadFile = function(){
-      console.log("my file is ", $scope.myFile);
-      var file = $scope.myFile;
-      console.log('file is ' );
-      console.dir(file);
-
-      FileUploadService.uploadFileToDB(file)
-      // .then(function(data){
-      //   console.log('data returned from func for file upload is ', data);
-      // });
-   };
-
-
-    // upload on file select or drop
-    $scope.uploadOld = function (file) {
-      console.log('about to upload ', file);
-
-      var fd = new FormData();
-      fd.append('file', file);
-      console.log('fd about to be sent is ', fd);
-
-      $http.post('/uploadFiles', {formData: fd, fileObj: file, test: 'test string'})
-      // $http.post('/uploadFile', fd)
-      .then(function(data){
-        console.log('succesfully uploaded file ', data);
-      })
-      .catch(function(err){
-        console.log('error uploading file ', err);
-      });
-
-        // Upload.upload({
-        //     url: '/uploadTheFile',
-        //     // data: {
-        //     //   file: file,
-        //     //   'username': $scope.username
-        //     // }
-        //     headers : {
-        //       'Content-Type': file.type
-        //     },
-        //     data: file
-        // }).then(function (resp) {
-        //     console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        // }, function (resp) {
-        //     console.log('Error status: ' + resp.status);
-        // }, function (evt) {
-        //     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-        //     // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-        //     console.log('progress: ' + progressPercentage + '% ');
-        // });
     };
     
     
