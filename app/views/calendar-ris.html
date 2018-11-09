@@ -43,10 +43,11 @@
             </div>
 
             <div class="form-group" ng-class="{ 'has-error' : itnForm.endTime.$invalid && !itnForm.endTime.$pristine }">
-              <input type="text" class="form-control" id="endTime" autofocus="autofocus" name="endTime" placeholder="End time. Example: 2:15PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.endTime" required>
+              <input type="text" class="form-control" id="endTime" autofocus="autofocus" name="endTime" placeholder="End time. Example: 2:15PM" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="eventObj.endTime" ng-blur="isAfterStartTime(eventObj.endTime, eventObj.startTime)" required>
               <span ng-if="itnForm.endTime.$error.required && !itnForm.endTime.$pristine" class="help-block">{{errorMessages.required}}</span>
               <span ng-if="itnForm.endTime.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
               <span ng-if="itnForm.endTime.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
+              <span ng-if="afterStartTime" class="help-block" style="color:red">{{errorMessages.endTime}}</span>
             </div>
           </div>
 
@@ -76,7 +77,7 @@
           <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
 
           <div class="modal-footer">
-            <input type="submit" id="submit" class="btn btn-lg pull-right itn-green-bg pull-right" value="Add event" style="margin-left:2%;background:red">
+            <input type="submit" id="submit" class="btn btn-lg pull-right itn-green-bg pull-right" value="Add event" ng-disabled="afterStartTime || !eventObj.startTime || !eventObj.endTime || !eventObj.title || !eventObj.description || !eventObj.author" style="margin-left:2%;background:red">
             <input type="button" ng-click="eventObj = {}" value="Reset Form" class="btn btn-lg pull-left itn-green-bg " style="margin-left:2%">
             <button type="button" class="btn btn-lg btn-secondary pull-left" data-dismiss="modal" aria-label="Cancel">Cancel</button>
           </div>

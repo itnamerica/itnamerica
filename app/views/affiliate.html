@@ -1,0 +1,105 @@
+<div class="portal affiliate ta-center" ng-init="loadAffiliatePage(itnAffiliate)">
+  <div class="container" style="width:90%">
+    <h2>ITN<em>{{itnAffiliate.name}}</em></h2>
+
+    <div class="row mt-50 mb-25">
+
+      <div class="col-md-4">
+        <a ui-sref="affiliate-info({affiliate: itnAffiliate})">
+          <div class="block social-icons" style="background:#91cdff">
+            <img ng-src="{{assetsPath}}/images/affiliate-info.svg" alt="icon of avatar" style="object-fit:contain;width:150px;margin-left:0;margin-top:13%"/>
+            <h5 style="margin-top:-17px;color:white;font-size:22px">General Information</h5>
+          </div>
+        </a>
+      </div><!--col-md-4-->
+
+      <div class="col-md-4">
+        <a ui-sref="comments({affiliate: itnAffiliate})">
+          <div class="block" style="background:#90dea7">
+            <img ng-src="{{assetsPath}}/images/speakers2-icon.svg" alt="icon of a speaker" style="object-fit:contain;width:200px;margin-left:0;margin-top:-2%"/>
+            <h5 style="margin-top:-40px;color:white;font-size:22px">Comments & Announcements</h5>
+          </div>
+        </a>
+      </div><!--col-md-4-->
+
+      <div class="col-md-4">
+        <a ui-sref="web-traffic({affiliate: itnAffiliate})">
+          <div class="block" style="background:#f2ae5a">
+            <img ng-src="{{assetsPath}}/images/web-traffic.svg" alt="icon of a analytics diagram" style="object-fit:contain;width:170px;margin-left:0;margin-top:11%"/>
+            <h5 style="margin-top:-16px;color:white;font-size:22px">Web Traffic</h5>
+          </div>
+        </a>
+      </div><!--col-md-4-->
+
+    </div><!--row-->
+
+    <div class="row mt-50 mb-50">
+
+      <div class="col-md-4">
+        <a ui-sref="affiliate-info({affiliate: itnAffiliate})">
+          <div class="block social-icons" style="background:#d6d6d6">
+            <img ng-src="{{assetsPath}}/images/rides-data.svg" alt="icon of analytics diagram" style="object-fit:contain;width:130px;margin-left:0;margin-top:18%"/>
+            <h5 style="margin-top:0;font-size:22px">Rides Data</h5>
+          </div>
+        </a>
+      </div><!--col-md-4-->
+
+      <div class="col-md-4">
+        <a ui-sref="affiliate-info({affiliate: itnAffiliate})">
+          <div class="block social-icons" style="background:#82d2af">
+            <img ng-src="{{assetsPath}}/images/library.svg" alt="icon of shelf" style="object-fit:contain;width:130px;margin-left:0;margin-top:17%"/>
+            <h5 style="margin-top:0;color:white;font-size:22px">Document Library</h5>
+          </div>
+        </a>
+      </div><!--col-md-4-->
+
+      <div class="col-md-4">
+        <a ui-sref="affiliate-info({affiliate: itnAffiliate})">
+          <div class="block social-icons" style="background:#fdbf43">
+            <img ng-src="{{assetsPath}}/images/timesheets.svg" alt="icon of a timesheet" style="object-fit:contain;width:140px;margin-left:0;margin-top:13%"/>
+            <h5 style="margin-top:0;color:white;font-size:22px">Submit Timesheet</h5>
+          </div>
+        </a>
+      </div><!--col-md-4-->
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<div class="back-btn-wrap">
+  <a ng-click="openAdditionalPage('affiliateLanding')" ng-hide="showPortal" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ui-sref="portal" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
+
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+
+  $('#characterLeft').text('2000 characters left');
+  $('#message').keydown(function () {
+      var max = 2000;
+      var len = $(this).val().length;
+      if (len >= max) {
+          $('#characterLeft').text('You have reached the limit');
+          $('#characterLeft').addClass('text-danger');
+          $('#submit').addClass('disabled');
+      }
+      else {
+          var ch = max - len;
+          $('#characterLeft').text(ch + ' characters left');
+          $('#submit').removeClass('disabled');
+          $('#characterLeft').removeClass('red');
+      }
+  });
+});
+
+</script>

@@ -25,20 +25,22 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             $(this).css('border-color', 'red');
             var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
             swal({
-              title: reconstructEvent.title,
-              text: reconstructEvent.description + ' (by ' + reconstructEvent.author + ')',
-              buttons: {
-                cancel: true,
-                confirm: true,
-                deleteEvent: {
-                  text: "Delete event",
-                  value: reconstructEvent,
-                },
-              }
+              title: "Event Details",
+              html: "<h2>" + reconstructEvent.title + "</h2><p>" + reconstructEvent.description + "</p> <em>by " + reconstructEvent.author + "</em>",
+              showCancelButton: true,
+              showConfirmButton: true,
+              confirmButtonColor: "red",
+              confirmButtonText: "Delete event",
+              type: "warning"
             }).then(function(eventToDelete){
-              if (eventToDelete && eventToDelete.title) {
-                console.log('eventToDelete is ', eventToDelete);
-                $scope.deleteAgendaEvent(eventToDelete, calEvent);
+              //if user confirms to delete
+              if (eventToDelete.value) {
+                $scope.deleteAgendaEventPromise(reconstructEvent, calEvent, 'calendar')
+                .then(function(response){
+                    swal("Deleted!","Your event was deleted.","success")
+                  }).catch(function(error){
+                    swal("Oops!","Your event couldn't be deleted.","error");
+                  })
               }
             })
           },
@@ -57,6 +59,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         var theEvent = {};
         $scope.eventsArr = [];
 
+        //check if agenda defaults to today, then readjust dateformatted
+        if ($scope.loadAgendaDirectly) {
+          $scope.selectedEventDatePreviousFormatted =  new Date($scope.selectedEventDatePrevious).toDateString();
+        }
         for (calendarEvent in $scope.calendarEvents) {
           //only parse events for that day
           var calendarEventDay = new Date($scope.calendarEvents[calendarEvent].day).addDays(1)
@@ -122,7 +128,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       }
       adjustedTime.hour = parseInt(adjustedTime.hour);
       adjustedTime.min = parseInt(adjustedTime.min);
-      // console.log('time adjusted as ', adjustedTime);
       return adjustedTime;
     };
 
@@ -141,17 +146,14 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
 
     $scope.convert24ToPm = function(time){
-      console.log('time is ', time, typeof(time));
       var adjustedTime;
       if ((time > 0) && (time < 12)){
-        console.log('morning');
         adjustedTime = time + 'AM';
       } else if ((time >= 13) && (time < 24)){
         adjustedTime = (time-12) + 'PM';
       } else {
         adjustedTime = time + 'PM'
       }
-      console.log('adjusted time is ', adjustedTime);
       return adjustedTime;
     };
 
@@ -182,29 +184,30 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
               console.log("rendering " +event.title, 'elem is ', element);
           },
           eventClick: function(calEvent, jsEvent, view) {
-            console.log('calEvent is ', calEvent);
+            $scope.theCalEvent = calEvent;
             $(this).css('border-color', 'red');
-            var reconstructEvent = $scope.reconstructEventObjByTitle(calEvent);
+            var theEvent = calEvent;
             swal({
-              title: reconstructEvent.title,
-              text: reconstructEvent.description + ' (by ' + reconstructEvent.author + ')',
-              buttons: {
-                cancel: true,
-                confirm: true,
-                deleteEvent: {
-                  text: "Delete event",
-                  value: reconstructEvent,
-                },
-              }
+              title: "Event Details",
+              html: "<h2>" + $scope.theCalEvent.title + "</h2><p>" + $scope.theCalEvent.description + "</p> <em>by " + $scope.theCalEvent.author + "</em>",
+              showCancelButton: true,
+              showConfirmButton: true,
+              confirmButtonColor: "red",
+              confirmButtonText: "Delete event",
+              type: "warning"
             }).then(function(eventToDelete){
-              if (eventToDelete && eventToDelete.title) {
-                console.log('eventToDelete is ', eventToDelete);
-                $scope.deleteAgendaEvent(eventToDelete, calEvent);
+              //On confirm, delete event from db
+              if (eventToDelete.value){
+                $scope.deleteRISCalendarEventPromise(theEvent, theEvent, 'calendar-ris')
+                  .then(function(response){
+                    swal("Deleted!","Your event was deleted.","success");
+                  }).catch(function(error){
+                  swal("Oops!","Your event couldn't be deleted.","error");
+                  })
               }
             })
           },
           dayClick: function(event, jsEvent) {
-            console.log('event is ', event, 'wat is ', jsEvent.target);
             $scope.$apply(function() {
                 $scope.dayClicked = event._d;
             });
@@ -227,7 +230,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
 
     $scope.completeEventObj = function(){
-      console.log('event obj before is ', $scope.eventObj);
       var date = $scope.dayClicked;
       var d = date.getDate();
       var m = date.getMonth();
@@ -240,7 +242,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       var endTime = new Date(y, m, d, adjustedEt.hour - 4, adjustedEt.min);
       $scope.eventObj.start = startTime;
       $scope.eventObj.end = endTime;
-      console.log('event obj after is ', $scope.eventObj);
     }
 
 
@@ -256,10 +257,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           $scope.serverMessage = "Your event has been succesfully added.";
           //updates events on DOM
           $scope.viewRISCalendarEventsPromise().then(function(response){
-            console.log('response is ', response);
             $('#calendar-week').fullCalendar('removeEvents');
             $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
             $('#calendar-week').fullCalendar('rerenderEvents');
+            $scope.resetEventObj();
           })
         })
       } else {
@@ -300,13 +301,34 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
 
 
-    $scope.deleteAgendaEvent = function(eventToDelete, calEventToDelete){
+    $scope.deleteAgendaEventPromise = function(eventToDelete, calEventToDelete, dbName){
       //delete event from database
-      DataService.deleteAgendaEvent(eventToDelete).then(function(data){
-        $('#calendarModal').modal('hide');
-        $scope.serverMessage = "Your event has been succesfully deleted.";
-        $("#calendar").fullCalendar("removeEvents", calEventToDelete._id);
-      })
+      var deferred = $q.defer();
+      DataService.deleteAgendaEvent(eventToDelete, dbName)
+        .then(function(data){
+          $('#calendarModal').modal('hide');
+          $scope.serverMessage = "Your event has been succesfully deleted.";
+          $("#calendar").fullCalendar("removeEvents", calEventToDelete._id);
+          deferred.resolve(data);
+        }).catch(function(error){
+          deferred.resolve(error)
+        })
+      return deferred.promise
+    };
+
+    $scope.deleteRISCalendarEventPromise = function(eventToDelete, calEventToDelete, dbName){
+      //delete event from database
+      var deferred = $q.defer();
+      DataService.deleteRISCalendarEvent(eventToDelete, dbName)
+        .then(function(data){
+          $('#calendarModal').modal('hide');
+          $scope.serverMessage = "Your event has been succesfully deleted.";
+          $("#calendar-week").fullCalendar("removeEvents", calEventToDelete._id);
+          deferred.resolve(data);
+        }).catch(function(error){
+          deferred.resolve(error)
+        })
+      return deferred.promise
     };
 
 
@@ -353,7 +375,6 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           if (eventDateShort === tabDate){
             ctx = $(this).context;
             // console.log('a match! event is ', event, 'tab ctx is ', $(this).context);
-
             //orders events chronologically for a given day
             var later = $scope.isLaterTime(event, $(this).context);
             if (later){
@@ -378,14 +399,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     $scope.isLaterTime = function(theEvent, theContext){
       var numEventsInCell = theContext.children.length;
       var lastChild = theContext.children[theContext.children.length -1];
-
       if (lastChild){
         var slicedTime = lastChild.innerText.slice(0, lastChild.innerText.indexOf('-'));
-
         var eventAdjustedTime = $scope.adjustTimeForCalendar(theEvent.startTime);
         var adjustedTime = $scope.adjustTimeForCalendar(slicedTime);
-
-        // console.log('adjusted time ', adjustedTime, 'event adjusted time ', eventAdjustedTime);
         if (eventAdjustedTime.hour >= adjustedTime.hour){
           return true
         } else {
@@ -403,13 +420,41 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
     $scope.retrieveFromSelectedEvent = function(){
       $scope.selectedEventDatePrevious = $stateParams.selectedEventDate;
+      var isValid = moment($scope.selectedEventDatePrevious, moment.ISO_8601, true).isValid();
+      //if user loads agenda page without parameter, default to today
+      if (isValid){
+        $scope.selectedEventDatePrevious = new Date($scope.selectedEventDatePrevious);
+        $scope.loadAgendaDirectly = true;
+      }
       $scope.selectedEventDate = $scope.selectedEventDatePrevious.addDays(1);
       $scope.selectedEventDateFormatted = new Date($scope.selectedEventDate).toDateString();
+
+    };
+
+    $scope.isAfterStartTime = function(endTime, startTime){
+      var adjustedEndTime = $scope.adjustTimeForCalendar(endTime);
+      var adjustedStartTime = $scope.adjustTimeForCalendar(startTime);
+      if (adjustedEndTime.hour > adjustedStartTime.hour){
+        $scope.afterStartTime = false;
+        return true;
+      } else if (adjustedEndTime.hour < adjustedStartTime.hour){
+        $scope.afterStartTime = true;
+        return false;
+      } else if ( (adjustedEndTime.hour === adjustedStartTime.hour) && (adjustedEndTime.min < adjustedStartTime.min) ){
+        $scope.afterStartTime = true;
+        return false;
+      } else if ( (adjustedEndTime.hour === adjustedStartTime.hour) && (adjustedEndTime.min > adjustedStartTime.min) ){
+        $scope.afterStartTime = false;
+        return true;
+      } else {
+        $scope.afterStartTime = true;
+        return false;
+      }
     };
 
     function compareNumbers(a, b) {
       return a - b;
-    } //numArray.sort(compareNumbers)
+    } //use as: numArray.sort(compareNumbers)
 
     Date.prototype.addDays = function(days) {
       var date = new Date(this.valueOf());

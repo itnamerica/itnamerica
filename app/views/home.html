@@ -1,5 +1,5 @@
 <div class="homepage" ui-view>
-  
+
 <div class="hp-carousel">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
 <!-- Indicators -->
@@ -22,14 +22,14 @@
             <a href="https://www.pressherald.com/2018/08/09/letter-to-the-editor-ride-service-itnportland-is-a-blessing-for-non-drivers-and-seniors/"><u>Click here to read the full article</u></a>
           </h2>
     </div>
-    
+
     <div class="item">
       <img ng-src="{{assetsPath}}/images/MRCFlyerFinalDraft20180417.png" alt="million rides campaign flyer 2018">
       <h2 class="carousel-statement" id="mrc-statement" style="margin-top:-600px">
         <a ui-sref="million-rides-campaign-photo-album" class="btn btn-lg"> > View the Million Rides Campaign <br>Photo Album</a>
       </h2>
     </div>
-    
+
     <div class="item">
       <img ng-src="{{assetsPath}}/images/dark/ss2.png" alt="senior woman blue wall">
       <h2 class="carousel-statement" id="statement-woman-blue">
@@ -65,7 +65,7 @@
         <a ui-sref="about" class="btn btn-lg"> > Find out more</a>
       </h2>
     </div>
-    
+
     <div class="item">
       <a href="https://www.ridesinsight.org/">
         <img ng-src="{{assetsPath}}/images/dark/latest-ris4.png" alt="rides in sight banner" style="object-fit:cover;width:100%">
@@ -87,14 +87,14 @@
 
 <div class="jumbotron section infographic ta-center">
   <div class="container">
-    <h1 style="color:#529ba8;margin-bottom:50px">10,000 Americans turn 70 every day.</h1>
-    
+    <h1 style="color:#529ba8;margin-bottom:50px;font-size:50px">10,000 Americans turn 70 every day.</h1>
+
     <p><strong>Life. It’s about going places — shopping, visiting friends, trips to the doctor — but as we get older going places gets harder. Everything from walking up stairs to operating an automobile grows more difficult with age. We might turn to friends, neighbors and family members for help, but once we make the decision to stop driving it’s easy to find ourselves stranded. Life outside the driver’s seat can carry a heavy toll.</strong></p>
-    <p><strong>But no one should be trapped because they stop driving. ITNAmerica is dedicated to senior mobility. We ensure outliving the ability to drive safely doesn’t lead to a life of isolation. Because life is about going places, at any age.</strong></p>
+    <p><strong>But no one should be trapped because they stop driving. ITN<em>America</em> is dedicated to senior mobility. We ensure outliving the ability to drive safely doesn’t lead to a life of isolation. Because life is about going places, at any age.</strong></p>
     <img ng-src="{{assetsPath}}/images/what_we_do4.png" alt="itn infographic" id="itn-infographic" style="width:500px;display:block;margin:50px auto"/>
-    
+
     <a ui-sref="what-we-do" class="btn btn-lg" style="padding:20px 30px;"> > LEARN MORE</a>
-    
+
   </div>
 </div><!--JUMBO FEATURES-->
 
@@ -122,7 +122,7 @@
         Active volunteers
       </div>
     </div><!--ROW-->
-    
+
   </div>
   <!--CONTAINER-->
 </div><!-- PROGRESS-->
@@ -180,19 +180,19 @@
       </div>
       <div class="modal-body">
         <form novalidate name="itnForm" ng-model="formData" ng-submit="submitForm('newsletter')" role="newsletter form">
-          
+
           <div class="form-group ta-center" ng-class="{ 'has-error' : itnForm.email.$invalid && !itnForm.email.$pristine }">
             <label for="newsletter signup" style="margin-bottom:15px">Your email address: </label><br>
             <input type="text" class="form-control center-block" id="email" name="email" placeholder="Example: test@example.com" ng-model="formData.email" ng-pattern="emailPattern" style="width:70%">
             <span ng-if="itnForm.email.$error.pattern" class="help-block">{{errorMessages.email}}</span>
-          </div> 
-          
+          </div>
+
           <p ng-if="loading"><em>Loading. Please wait</em></p>
           <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
 
           <button type="submit" class="btn btn-lg center-block">Sign me up</button>
         </form>
-    
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -208,11 +208,11 @@
     $('.carousel').carousel({
       interval: 3500
     })
-    
+
     // setTimeout(function(){
     //     $('#myModal').modal('show');
     // }, 20000);
-    
+
     var firstTime = true;
     $(window).scroll(function() {
        var hT = $('#progress').offset().top,
@@ -236,8 +236,8 @@
          }
        }
     });
-    
-    
-  
+
+
+
   });
 </script>

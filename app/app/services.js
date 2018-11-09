@@ -81,52 +81,67 @@ myApp.service('DataService', function($http){
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'delete'}).then(function(data){
       console.log('data returned from delete comment service is ', data);
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.addRISCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
     return $http.post('/addRISCalendarEvent', {newEvent: newEvent}).then(function(data){
       console.log('data returned from add calendar event service is ', data);
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.addCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
     return $http.post('/addCalendarEvent', {newEvent: newEvent}).then(function(data){
       console.log('data returned from add calendar event service is ', data);
       return data;
+    }).catch(function(error){ return error })
+  };
+  this.deleteRISCalendarEvent = function(agendaEvent, dbName){
+    //special circular object, do not send full agendaEvent obj to backend.
+    console.log('event is ', agendaEvent, 'from ', dbName);
+    return $http.delete('/deleteRISCalendarEvent/' + agendaEvent._id, {params: {dbName: dbName}} ).then(function(data){
+      console.log('data returned is ', data);
+      return data;
+    }).catch(function(error){
+      console.log('error is ', error);
+      return error;
     })
   };
   this.viewRISCalendarEvents = function(){
     return $http.get('/viewRISCalendarEvents').then(function(data){
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.viewCalendarEvents = function(){
     return $http.get('/viewCalendarEvents').then(function(data){
       return data;
-    })
+    }).catch(function(error){ return error })
   };
-  this.deleteAgendaEvent = function(agendaEvent){
-    console.log('event is ', agendaEvent);
+  this.deleteAgendaEvent = function(agendaEvent, dbName){
+    console.log('event is ', agendaEvent, 'from ', dbName);
     return $http.delete('/deleteAgendaEvent', {
         params: {
-            agendaEvent: agendaEvent
+            agendaEvent: agendaEvent,
+            dbName: dbName
         }
     }).then(function(data){
       console.log('data returned is ', data);
       return data;
+    }).catch(function(error){
+      console.log('error is ', error);
+      return error;
     })
   };
   this.getEmployees = function(){
     return $http.get('/getEmployees').then(function(data){
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.updateEmployee = function(employee){
     return $http.put('/updateEmployee', {employee: employee}).then(function(data){
       return data;
-    })
+    }).catch(function(error){ return error })
   };
   this.login = function(formData, tableName) {
     console.log('inside DataService login ', formData, tableName);
@@ -177,7 +192,7 @@ myApp.service('DataService', function($http){
     return $http.post('/addEmployee', {newEmployee: newEmployee}).then(function(data){
       console.log('data returned from employee post req ', data);
       return data;
-    })
+    }).catch(function(error){ return error })
   }
 });
 
@@ -229,20 +244,21 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
   }
 
    this.errorMessages  = {
-       required: "This field is required",
-       minlength: "This field needs to be at least 2 characters long",
-       maxlength: "This field needs to be at most 30 characters long",
-       phone: "Please match pattern [+91-036-78658 || 91-036-78658]",
-       zip: "The zipcode should be be 5 digits long",
-       email: "The email should have the format: test@example.com",
-       emailConfirmation: "The email confirmation field should match the email field",
-       date: "The date should have the format: MM/DD/YYYY",
-       dob: "The date of birth should have the format: MM/DD/YYYY",
-       phone: "The phone number should have the format: 111-111-1111",
-       ssn: "The driver license number should have the format: 123-45-6789",
-       mismatchName: "Please match the name you entered above",
-       mismatchSignature: "Please match the signature you entered above",
-       mismatchDate: "Please match the date you entered above"
+       required: "This field is required.",
+       minlength: "This field needs to be at least 2 characters lon.g",
+       maxlength: "This field needs to be at most 30 characters long.",
+       phone: "Please match pattern [+91-036-78658 || 91-036-78658].",
+       zip: "The zipcode should be be 5 digits long.",
+       email: "The email should have the format: test@example.com.",
+       emailConfirmation: "The email confirmation field should match the email field.",
+       date: "The date should have the format: MM/DD/YYYY.",
+       dob: "The date of birth should have the format: MM/DD/YYYY.",
+       phone: "The phone number should have the format: 111-111-1111.",
+       ssn: "The driver license number should have the format: 123-45-6789.",
+       mismatchName: "Please match the name you entered above.",
+       mismatchSignature: "Please match the signature you entered above.",
+       mismatchDate: "Please match the date you entered above.",
+       endTime: "The end time must be later than the start time."
    };
   this.states = [
     'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'

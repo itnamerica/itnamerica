@@ -35,20 +35,12 @@ app.use(express.static(__dirname + '/app'));
 app.use(session({secret: "Sam is awesome"}));
 app.use(formidable());
 
-// app.use(bodyParser.json({limit: '50mb'}));
-// app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-// app.use(multer({ dest: './tmp/'}));
 app.use(bodyParser.json()); // Configures bodyParser to accept JSON
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-//
-// app.use(multipart({
-// 	uploadDir: 'app/dist'
-// }));
 
-
-var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-operations','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs', '/important-docs-landing','/employee-profiles','/dept-report','/hr-tickets', '/calendar-ris'];
+var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-operations','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs', '/important-docs-landing','/employee-profiles','/dept-report','/hr-tickets', '/calendar-ris','/affiliate','/comments','/web-traffic','/affiliate-info','/rides-data','/documents','/timesheets'];
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
   if (err) {
@@ -270,16 +262,30 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       });
   }); // end of deleteform request
 
-
   app.delete('/deleteAgendaEvent', function (req,res) {
       var agendaEvent = JSON.parse(req.query.agendaEvent);
+      var dbName = req.query.dbName;
+      console.log('agenda event is ', agendaEvent, 'db name is ', dbName);
       console.log('title and description', agendaEvent.title, agendaEvent.description);
 
-      db.collection('calendar').deleteOne({"title": agendaEvent.title}, function(err, result){
+      db.collection(dbName).deleteOne({description: agendaEvent.description}, function(err, result){
+        if (err) { throw new Error('No record found. ', err) };
         console.log('record has been removed, i think');
         res.send(result);
       });
   }); // end of deleteagendaevent request
+
+  app.delete('/deleteRISCalendarEvent/:recordId', function (req,res) {
+    var recordId = req.params.recordId;
+    var dbName = req.query.dbName;
+    db.collection(dbName).deleteOne({_id: new mongo.ObjectId(recordId)}, function(err, result){
+      if (err) { throw new Error('No record found. ', err) };
+      console.log('record has been removed, i think');
+      res.send(result);
+    });
+
+  }); // end of deleteriscalendarevent request
+
 
 });//end of mongoclient
 
@@ -449,9 +455,16 @@ app.post('/sendmail', function(req, res){
     res.sendFile(__dirname + '/app/index.html');
   });
 
-  // app.get('/affiliates/:affiliateName', function(req , res){
-  //   res.render('affiliates' + req.params.affiliateName);
-  // });
+//   app.get('/comments/:affiliateName', function (req, res) {
+//   res.send(req.params);
+// })
+
+//   app.use('/affiliate/:name', function(req , res){
+//   console.log('params is ', req.params);
+//   // res.sendFile(__dirname + '/app/affiliate/' + req.params.name);
+//   // res.sendFile(__dirname + '/app/affiliate/Gateway');
+//   res.render('affiliate' + '/app/affiliate/Gateway');
+// });
 
 
 

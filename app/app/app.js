@@ -4,13 +4,13 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     console.log('inside of config block');
     var viewsPath = "views/";
     var appPath = "/";
+    var today = new Date();
     if (location.host === "localhost:8080") {
         viewsPath = "app/views/";
         appPath = "app/";
     };
 
     $stateProvider
-
         .state('home', {
             url: '/',
             templateUrl: viewsPath + 'home.html'
@@ -85,8 +85,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             }
         })
         .state('portal', {
-            url: '/portal',
-            templateUrl: viewsPath + 'portal.html'
+            url: '/portal?filter',
+            templateUrl: viewsPath + 'portal.html',
+            params: {
+              filter: null
+            }
         })
         .state('login-portal', {
             url: '/login-portal',
@@ -124,10 +127,6 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/rides',
             templateUrl: viewsPath + 'rides.html'
         })
-        .state('human-resources', {
-            url: '/human-resources',
-            templateUrl: viewsPath + 'human-resources.html'
-        })
         .state('calendar', {
             url: '/calendar',
             controller: 'CalendarCtrl',
@@ -138,7 +137,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'CalendarCtrl',
             templateUrl: viewsPath + 'agenda.html',
             params: {
-              selectedEventDate: null
+              selectedEventDate: today.toISOString()
             }
         })
         .state('ttp', {
@@ -176,6 +175,44 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/calendar-ris',
             templateUrl: viewsPath + 'calendar-ris.html',
             controller: 'CalendarCtrl'
+        })
+        .state('human-resources', {
+            url: '/human-resources',
+            templateUrl: viewsPath + 'human-resources.html'
+        })
+        .state('affiliate', {
+            url: '/affiliate?filter',
+            templateUrl: viewsPath + 'affiliate.html',
+            controller: 'AffiliateCtrl',
+            params : {
+              name: 'Lanier',
+              gaViewCode: 89470158,
+            }
+        })
+        .state('affiliate-info', {
+            url: '/affiliate-info?filter',
+            templateUrl: viewsPath + 'affiliate-info.html'
+        })
+        .state('comments', {
+            url: '/comments?filter',
+            templateUrl: viewsPath + 'comments.html',
+            controller: 'AffiliateCtrl'
+        })
+        .state('documents', {
+            url: '/documents?filter',
+            templateUrl: viewsPath + 'documents.html'
+        })
+        .state('web-traffic', {
+            url: '/web-traffic?filter',
+            templateUrl: viewsPath + 'web-traffic.html'
+        })
+        .state('rides-data', {
+            url: '/rides-data?filter',
+            templateUrl: viewsPath + 'rides-data.html'
+        })
+        .state('timesheets', {
+            url: '/timesheets?filter',
+            templateUrl: viewsPath + 'timesheets.html'
         })
 
     // default fall back route
