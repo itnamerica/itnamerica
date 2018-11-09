@@ -13,7 +13,11 @@
         
         <div ng-repeat="file in fileUploads" class="border-white">
           <h5>{{file.name}}</h5>
-          <p>{{file.data}}</p>
+          <!-- <p>{{file.data}}</p> -->
+          <p>
+            Img src:<br>
+            <img ng-src="{{file.data | base64ToImgSrc}}"/>
+          </p>
         </div>
         
         

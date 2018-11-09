@@ -1375,12 +1375,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
     }; //img.src = 'data:image/jpeg;base64,' + hexToBase64('your-binary-data');
 
+
     $scope.drawElemFromBase64 = function(binaryData){
       var img = document.createElement('img');
       // img.src = 'data:image/jpeg;base64,' + btoa(binaryData);
       img.src = 'data:image/jpeg;base64,' + hexToBase64(binaryData);
       document.body.appendChild(img);
     };
+    
     
     $scope.fetchImages = function(affiliateName){
       DataService.fetchImages(affiliateName).then(function(response){

@@ -77,3 +77,20 @@ myApp.filter('reverse', function() {
       }
     };
 });
+
+myApp.filter('hexToBase64', function() {
+    return function(str) {
+      if (str){
+        return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+      }
+    };
+});
+ //img.src = 'data:image/jpeg;base64,' + hexToBase64('your-binary-data');
+ 
+ myApp.filter('base64ToImgSrc', function($filter) {
+     return function(base64) {
+       if (base64){
+         return 'data:image/jpeg;base64,' + $filter('hexToBase64')(base64);
+       }
+     };
+ });
