@@ -7,10 +7,10 @@
     <div class="upload-doc" ng-show="docFilter === 'upload' || docFilter === null">
 
 
-      <button class="button" class="btn btn-lg" ngf-select="upload($file)">Upload on file select</button>
+      <button class="button" class="btn btn-lg" ngf-select="upload($file)">Upload a Document</button>
 
       <div class="file-uploads">
-        
+        <h3>Document Library</h3>
         <div ng-repeat="file in fileUploads" class="border-white">
           <h5>{{file.name}}</h5>
           <!-- <p>{{file.data}}</p> -->
@@ -19,17 +19,6 @@
             <img ng-src="{{file.data | base64ToImgSrc}}"/>
           </p>
         </div>
-        
-        
-        <!-- <table class="table table-striped table-responsive">
-          <thead>
-            <th></th>
-          </thead>
-          
-          <tbody>
-            <td></td>
-          </tbody>
-        </table> -->
       </div>
       
     </div>
