@@ -58,6 +58,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.showCommentInput = false;
     $scope.affiliateOfComment = null;
     $scope.myFile = null;
+    $scope.isLogged = {};
 
 
 
@@ -1031,9 +1032,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
 
-    $scope.authWallPopup = function(loginType, privilegeType, affiliateName){
+    $scope.authWallPopup = function(loginType, privilegeType, affiliateName, wallType){
         var theAffiliateName = affiliateName;
-        var title = "Please log in to make changes"
+        var title = "Please log in to make changes";
+        if (wallType && wallType === 'ridesData'){
+          if ($scope.isLogged.ridesData){
+            return $scope.editRidesData(theAffiliateName);
+          }
+        }
         swal({
           title: title,
           html:
@@ -1046,29 +1052,30 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
               document.getElementById('swal-input2').value
             ]
           }
-      }).then(function(result){
-        if (result.value) {
+        }).then(function(result){
           if (result.value) {
-            var loginCredentials = {
-              username: result.value[0],
-              password : result.value[1]
-            };
-            console.log('login creds  are ', loginCredentials);
-            return DataService.loginPrivilege(loginCredentials, loginType, privilegeType)
-              .then(function(response){
-                console.log('response is ', response);
-                if ( (response.status === 500 && response.data === "error")) {
-                  swal("Login incorrect", "Please try again with the correct credentials", "error");
-                } else {
-                  console.log('response success');
-                  $scope.editRidesData(theAffiliateName);
-                }
-              }).catch(function(error){
-                console.log('err returned from frontend ', error);
-              })
+            if (result.value) {
+              var loginCredentials = {
+                username: result.value[0],
+                password : result.value[1]
+              };
+              console.log('login creds  are ', loginCredentials);
+              return DataService.loginPrivilege(loginCredentials, loginType, privilegeType)
+                .then(function(response){
+                  console.log('response is ', response);
+                  if ( (response.status === 500 && response.data === "error")) {
+                    swal("Login incorrect", "Please try again with the correct credentials", "error");
+                  } else {
+                    console.log('response success');
+                    $scope.isLogged.ridesData = true;
+                    $scope.editRidesData(theAffiliateName);
+                  }
+                }).catch(function(error){
+                  console.log('err returned from frontend ', error);
+                })
+            }
           }
-        }
-      })
+        })
       return true;
     };
 
