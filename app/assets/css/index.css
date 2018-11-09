@@ -2145,6 +2145,9 @@ form textarea.form-control {font-size:25px}
 .highlighted {
   background: yellow;
 }
+.border-white {
+  border: 1px solid white;
+}
 
 /* GENERAL */
 

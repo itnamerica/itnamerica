@@ -1361,17 +1361,13 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       var fd = new FormData();
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
-   
-      // $http.post('/uploadFiles', fd, {
-      //   headers: {'Content-Type': undefined},
-      //   params: {tableName: tableName}
-      // })
+
       FileUploadService.uploadFileToDB(fd, tableName)
-      .then(function(response){
-        console.log('success response from the file upload func is ', response);
-      }).catch(function(error){
-        console.log('error response from the file upload func is ', error);
-      })
+      // .then(function(response){
+      //   console.log('success response from the file upload func is ', response);
+      // }).catch(function(error){
+      //   console.log('error response from the file upload func is ', error);
+      // })
     };
     
     
@@ -1388,8 +1384,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     
     $scope.fetchImages = function(affiliateName){
       DataService.fetchImages(affiliateName).then(function(response){
-        console.log('response from fetch image in frontend is ', response.data);
-      })
+        $scope.fileUploads = response.data[0].fileUploads
+        console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
+      });
+      ;
     };
 
 }]);

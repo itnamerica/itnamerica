@@ -9,22 +9,24 @@
 
       <button class="button" class="btn btn-lg" ngf-select="upload($file)">Upload on file select</button>
 
-      <!-- Image thumbnail: <img ngf-thumbnail="file"> -->
-      <!-- Audio preview: <audio controls ngf-src="file"></audio>
-      Video preview: <video controls ngf-src="file"></video>
-      
-      Image thumbnail2: <img ngf-thumbnail="$file"> -->
-      
-      <!-- 
-      <form ng-submit="upload()" enctype="multipart/form-data">
-        <input type="file" name="image" ng-model="file"/>
-        <input type="submit" value="submit" />
-      </form> -->
-      
-      <!-- <form action="/profile" method="post" enctype="multipart/form-data">
-        <input type="file" name="avatar" />
-        <input type="submit" value="submit" />
-      </form> -->
+      <div class="file-uploads">
+        
+        <div ng-repeat="file in fileUploads" class="border-white">
+          <h5>{{file.name}}</h5>
+          <p>{{file.data}}</p>
+        </div>
+        
+        
+        <!-- <table class="table table-striped table-responsive">
+          <thead>
+            <th></th>
+          </thead>
+          
+          <tbody>
+            <td></td>
+          </tbody>
+        </table> -->
+      </div>
       
     </div>
     
