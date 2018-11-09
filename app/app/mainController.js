@@ -1357,7 +1357,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     // upload on file select or drop
     $scope.upload = function (file) {
       var tableName = 'America';
-      console.log('about to upload ', file);  
+      console.log('about to upload ', file, 'file name is ', file.name);
       var fd = new FormData();
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);

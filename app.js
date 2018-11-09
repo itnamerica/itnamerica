@@ -139,8 +139,11 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     console.log('uploadFiles from backend is ');
     console.log(req.files);
     var binaryLocation = req.files.file.path;
+    var fileName = req.files.file.name;
+    console.log('file name is ', fileName);
     var binaryData = fs.readFileSync(binaryLocation);
-    var fileObj = { $push: {"fileUploads": binaryData} };
+    var theFile = {fileName: binaryData};
+    var fileObj = { $push: {"fileUploads": theFile} };
     var tableName = req.query.tableName
     console.log('table name backend is ', tableName);
     db.collection('commentsphoto').update(
