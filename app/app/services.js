@@ -195,8 +195,12 @@ myApp.service('DataService', function($http){
       return data;
     }).catch(function(error){ return error })
   };
-  this.fetchImages = function(){
-    return $http.get('/fetchImages')
+  this.fetchImages = function(affiliateName){
+    return $http.get('/fetchImages', {
+      params: {
+        affiliateName: affiliateName
+      }
+    })
     .then(function(data){
       console.log('data returned from fetch images frontend service is ', data);
       return data;
