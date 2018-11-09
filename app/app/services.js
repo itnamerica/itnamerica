@@ -196,7 +196,7 @@ myApp.service('DataService', function($http){
     }).catch(function(error){ return error })
   };
   this.fetchImages = function(affiliateName){
-    return $http.get('/fetchImages', {
+    return $http.get('/fetchCommentsPhoto', {
       params: {
         affiliateName: affiliateName
       }
