@@ -1917,6 +1917,7 @@ form textarea.form-control {font-size:25px}
 .repeat-img {
   display:inline-block;
   margin:1%;
+  overflow:visible;
 }
 .repeat-img img {
   max-width: 100%;
