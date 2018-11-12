@@ -1,40 +1,37 @@
 <div class="important-docs portal" ng-init="catchDocFilter();fetchImages('America')">
+  <div class="container ta-center">
 
-  <div class="container">
-    <h2>Important Documents</h2>
-    <h3 style="margin-top:-50px">Filter: {{docFilter}}</h3>
+    <h2>Document Library</h2>
+    <h5 ng-show="docFilter" style="margin-top:-50px"><em>Filter: {{docFilter}}</em></h5>
 
-    <div class="upload-doc" ng-show="docFilter === 'upload' || docFilter === null">
+    <div class="upload-doc" ng-show="docFilter === 'upload' || docFilter === null" style="padding:3%">
+      <button type="button" class="btn btn-lg" ngf-select="upload($file)">Upload a Document</button>
+    </div><!--upload-doc-->
 
 
-      <button class="button" class="btn btn-lg" ngf-select="upload($file)">Upload a Document</button>
+    <div class="all-docs file-uploads" ng-show="docFilter === null">
+      <h5 class="title">All Documents:</h5>
+      <!-- <button type="button" class="btn btn-sm" ng-click="filterDocLibrary()"><em>Filter by category</em></button> -->
 
-      <div class="file-uploads">
-        <h3>Document Library</h3>
-        <div ng-repeat="file in fileUploads" class="border-white">
-          <h5>{{file.name}}</h5>
-          <p>
-            Img src:<br>
-            <img ng-src="{{file.data | base64ToImgSrc}}"/>
-          </p>
-        </div>
-      </div>
+      <div style="margin:auto">
+        <span ng-repeat="file in fileUploads" ng-click="downloadImgFull(file.data)" class="repeat-img">
+          <img ng-src="{{file.data | base64ToImgSrc}}"/><br />
+          <figcaption>{{file.name}}</figcaption>
+        </span><!--ngRepeat-->
+      </div><!-- file-uploads-->
 
     </div>
 
-
-
-    <div class="all-docs" ng-show="docFilter === null">
-      All docs (ng repeat)
-    </div>
 
     <div class="training-docs" ng-show="docFilter === 'training'">
       Training docs (ng repeat filter)
-    </div>
+    </div><!--training-docs-->
 
 
-  </div>
-</div>
+  </div><!--container-->
+</div><!--important-docs-->
+
+
 
 <div class="back-btn-wrap">
   <a ui-sref="human-resources" class="back-btn">

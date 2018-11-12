@@ -1895,6 +1895,51 @@ form textarea.form-control {font-size:25px}
   margin-bottom:20px;
   font-size:20px;
 }
+
+.repeat-img {
+  overflow: hidden;
+  display:inline;
+}
+
+.important-docs .all-docs {
+  margin:auto;
+  margin-top:75px;
+  border-left:1px groove white;
+  border-right:1px groove white;
+}
+.important-docs .all-docs .title {
+  text-align:left;
+  margin-left:2%;
+}
+.important-docs .all-docs figcaption {
+  font-size:10px;
+}
+.repeat-img {
+  display:inline-block;
+  margin:1%;
+}
+.repeat-img img {
+  max-width: 100%;
+  width:auto;
+  height:150px;
+  padding:1%;
+  border-radius:5px;
+  text-align:center;
+  -moz-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.repeat-img:hover img {
+  -moz-transform: scale(1.4);
+  -webkit-transform: scale(1.4);
+  transform: scale(1.4);
+  cursor: pointer;
+}
+
+
+
+
+
 .swal2-popup.swal2-modal.swal2-show {
   font-size: 20px !important;
   padding: 3%;
