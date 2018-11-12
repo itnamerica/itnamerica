@@ -86,11 +86,19 @@ myApp.filter('hexToBase64', function() {
     };
 });
  //img.src = 'data:image/jpeg;base64,' + hexToBase64('your-binary-data');
- 
- myApp.filter('base64ToImgSrc', function($filter) {
+
+ myApp.filter('base64ToImgSrcOld', function($filter) {
      return function(base64) {
        if (base64){
          return 'data:image/jpeg;base64,' + $filter('hexToBase64')(base64);
+       }
+     };
+ });
+
+ myApp.filter('base64ToImgSrc', function() {
+     return function(base64) {
+       if (base64){
+         return 'data:image/jpeg;base64,' + base64;
        }
      };
  });

@@ -1349,10 +1349,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        $scope.docFilter = $stateParams.filter;
        if ($stateParams.filter === 'upload'){
          console.log('upload filter');
-       } else if ($stateParams.filter === 'training'){
-       } 
-   };   
-    
+       } else if ($stateParams.filter === 'training'){}
+   };
 
     // upload on file select or drop
     $scope.upload = function (file) {
@@ -1369,27 +1367,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       //   console.log('error response from the file upload func is ', error);
       // })
     };
-    
-    
-    function hexToBase64(str) {
-      return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
-    }; //img.src = 'data:image/jpeg;base64,' + hexToBase64('your-binary-data');
 
-
-    $scope.drawElemFromBase64 = function(binaryData){
-      var img = document.createElement('img');
-      // img.src = 'data:image/jpeg;base64,' + btoa(binaryData);
-      img.src = 'data:image/jpeg;base64,' + hexToBase64(binaryData);
-      document.body.appendChild(img);
-    };
-    
-    
     $scope.fetchImages = function(affiliateName){
       DataService.fetchImages(affiliateName).then(function(response){
         $scope.fileUploads = response.data[0].fileUploads
         console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
       });
-      ;
     };
+
+    function hexToBase64(str) {
+      return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+    }; //
 
 }]);

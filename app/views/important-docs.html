@@ -3,7 +3,7 @@
   <div class="container">
     <h2>Important Documents</h2>
     <h3 style="margin-top:-50px">Filter: {{docFilter}}</h3>
-    
+
     <div class="upload-doc" ng-show="docFilter === 'upload' || docFilter === null">
 
 
@@ -13,27 +13,26 @@
         <h3>Document Library</h3>
         <div ng-repeat="file in fileUploads" class="border-white">
           <h5>{{file.name}}</h5>
-          <!-- <p>{{file.data}}</p> -->
           <p>
             Img src:<br>
             <img ng-src="{{file.data | base64ToImgSrc}}"/>
           </p>
         </div>
       </div>
-      
+
     </div>
-    
-    
-    
+
+
+
     <div class="all-docs" ng-show="docFilter === null">
       All docs (ng repeat)
     </div>
-    
+
     <div class="training-docs" ng-show="docFilter === 'training'">
       Training docs (ng repeat filter)
     </div>
-    
-    
+
+
   </div>
 </div>
 
