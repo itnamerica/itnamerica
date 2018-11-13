@@ -1900,18 +1900,17 @@ form textarea.form-control {font-size:25px}
   overflow: hidden;
   display:inline;
 }
-
-.important-docs .all-docs {
+.all-docs {
   margin:auto;
   margin-top:75px;
   border-left:1px groove white;
   border-right:1px groove white;
 }
-.important-docs .all-docs .title {
+.all-docs .title {
   text-align:left;
   margin-left:2%;
 }
-.important-docs .all-docs figcaption {
+.all-docs figcaption {
   font-size:10px;
 }
 .repeat-img {

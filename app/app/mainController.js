@@ -945,6 +945,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
 
+    // $scope.bindAffiliateParamToObj = function(pageName){
     $scope.bindParamToVar = function(pageName){
       console.log('stateparams are ', $stateParams);
       if ($stateParams.filter){
@@ -1102,9 +1103,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.getCommentsPhoto = function (affiliateName) {
-      DataService.getCommentsPhoto(affiliateName).then(function(data){
-        $scope.commentsPhoto = data.data
-      })
+      if (affiliateName){
+        DataService.fetchImages(affiliateName).then(function(response){
+          $scope.commentsPhoto = response.data;
+          $scope.fileUploads = response.data[0].fileUploads;
+          console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
+        })
+      } else {
+        DataService.getCommentsPhoto().then(function(response){
+          $scope.commentsPhoto = response.data
+        })
+      }
     };
 
     $scope.addComment = function (content, affiliate) {
@@ -1350,11 +1359,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        if ($stateParams.filter === 'upload'){
          console.log('upload filter');
        } else if ($stateParams.filter === 'training'){}
+       console.log('doc filter is ', $scope.docFilter);
    };
 
     // upload on file select or drop
-    $scope.upload = function (file) {
-      var tableName = 'America';
+    $scope.upload = function (file, tableName) {
+      var tableName;
+      if (!tableName){
+        tableName = 'America';
+      } else {
+        tableName = tableName;
+      }
       console.log('about to upload ', file, 'file name is ', file.name);
       var fd = new FormData();
       fd.append('file', file);

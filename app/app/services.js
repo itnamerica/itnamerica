@@ -64,11 +64,22 @@ myApp.service('DataService', function($http){
       return data;
     })
   };
-  this.getCommentsPhoto = function(affiliateName){
+  this.getCommentsPhoto = function(){
     console.log('inside getcommentsphoto');
     return $http.get('/getCommentsPhoto').then(function(data){
       return data;
     })
+  };
+  this.fetchImages = function(affiliateName){
+    return $http.get('/fetchCommentsPhoto', {
+      params: {
+        affiliateName: affiliateName
+      }
+    })
+    .then(function(data){
+      console.log('data returned from fetch images frontend service is ', data);
+      return data;
+    }).catch(function(error){ return error })
   };
   this.addComment = function(content, affiliate){
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'add'}).then(function(data){
@@ -192,17 +203,6 @@ myApp.service('DataService', function($http){
     return $http.post('/addEmployee', {newEmployee: newEmployee})
     .then(function(data){
       console.log('data returned from employee post req ', data);
-      return data;
-    }).catch(function(error){ return error })
-  };
-  this.fetchImages = function(affiliateName){
-    return $http.get('/fetchCommentsPhoto', {
-      params: {
-        affiliateName: affiliateName
-      }
-    })
-    .then(function(data){
-      console.log('data returned from fetch images frontend service is ', data);
       return data;
     }).catch(function(error){ return error })
   };
