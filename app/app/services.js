@@ -52,7 +52,7 @@ myApp.service('FormService', function($http) {
 });
 
 
-myApp.service('DataService', function($http){
+myApp.service('DataService', function($http, $q){
   this.getAllRides = function(){
     return $http.get('/getAllRides').then(function(data){
       console.log('rides data is ', data);
@@ -211,7 +211,7 @@ myApp.service('DataService', function($http){
 
 
 
-myApp.service('FileUploadService', ['$http', function ($http) {
+myApp.service('FileUploadService', ['$http','$q', function ($http, $q) {
    this.uploadFileToUrl = function(file, uploadUrl){
       var fd = new FormData();
       fd.append('file', file);
@@ -220,22 +220,22 @@ myApp.service('FileUploadService', ['$http', function ($http) {
          transformRequest: angular.identity,
          headers: {'Content-Type': undefined}
       })
-      .success(function(){
-      })
-      .error(function(){
-      });
    };
    this.uploadFileToDB = function(fd, tableName){
+      var deferred = $q.defer();
       $http.post('/uploadFiles', fd, {
         headers: {'Content-Type': undefined},
         params: {tableName: tableName}
       })
       .then(function(data){
         console.log('succesfully uploaded file ', data);
+        deferred.resolve('Resolved: ', data.config.data);
       })
       .catch(function(err){
         console.log('error uploading file ', err);
+        deferred.resolve('Error: ', err);
       });
+      return deferred.promise;
    };
 
 }]);

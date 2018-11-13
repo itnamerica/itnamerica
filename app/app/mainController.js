@@ -1104,16 +1104,19 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.getCommentsPhoto = function (affiliateName) {
+      // $scope.loadingPhotos = true;
       if (affiliateName){
         DataService.fetchImages(affiliateName).then(function(response){
+          // $scope.loadingPhotos = false;
           console.log('resp is ', response);
           $scope.commentsPhoto = response.data;
           $scope.fileUploads = response.data[0].fileUploads;
-          console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
+          console.log('response from getcomments in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
         })
       } else {
         DataService.getCommentsPhoto().then(function(response){
-          $scope.commentsPhoto = response.data
+          $scope.commentsPhoto = response.data;
+          $scope.fileUploads = response.data;
         })
       }
     };
@@ -1381,17 +1384,18 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       console.log('fd about to be sent is ', fd);
 
       FileUploadService.uploadFileToDB(fd, tableName)
-      .then(function(response){
-        console.log('success response from the file upload func is ', response);
-      })
-      .catch(function(error){
-        console.log('error response from the file upload func is ', error);
-      })
+        .then(function(response){
+          console.log('success response from the file upload func is ', response);
+          $scope.getCommentsPhoto(tableName);
+        })
+        .catch(function(error){
+          console.log('error response from the file upload func is ', error);
+        })
     };
 
     $scope.fetchImages = function(affiliateName){
       DataService.fetchImages(affiliateName).then(function(response){
-        $scope.fileUploads = response.data[0].fileUploads
+        $scope.fileUploads = response.data[0].fileUploads;
         console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
       });
     };

@@ -110,7 +110,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     })
   }); // end of /viewRISCalendarEvents get request
-  
+
   app.get('/fetchCommentsPhoto', function (req,res) {
     var affiliateName = req.query.affiliateName;
     console.log('affiliate name is ', affiliateName);
@@ -148,7 +148,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     })
   });
-  
+
   app.post('/uploadFiles', function(req, res) {
     console.log('uploadFiles from backend is ');
     console.log(req.files);
@@ -169,7 +169,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
        { name: tableName },
        fileObj
     )
-    res.end();
+    res.send();
   });
 
   app.put('/updateCommentsPhoto', function (req,res) {
