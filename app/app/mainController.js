@@ -951,7 +951,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       if ($stateParams.filter){
         $scope.itnAffiliate.name = $stateParams.filter;
         //fetch ga view code from long variables.
-      } else {
+      } else if ($stateParams.name){
+        $stateParams.filter = $stateParams.name;
         $scope.itnAffiliate.name = $stateParams.name;
         $scope.itnAffiliate.gaViewCode = $stateParams.gaViewCode;
       }
@@ -1105,6 +1106,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.getCommentsPhoto = function (affiliateName) {
       if (affiliateName){
         DataService.fetchImages(affiliateName).then(function(response){
+          console.log('resp is ', response);
           $scope.commentsPhoto = response.data;
           $scope.fileUploads = response.data[0].fileUploads;
           console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
@@ -1354,11 +1356,15 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
    $scope.catchDocFilter = function() {
-       console.log('stateparam is ', $stateParams.filter);
-       $scope.docFilter = $stateParams.filter;
-       if ($stateParams.filter === 'upload'){
-         console.log('upload filter');
-       } else if ($stateParams.filter === 'training'){}
+     console.log('state params is ', $stateParams, 'affiliate is ', $scope.itnAffiliate);
+       if ($stateParams.filter){
+         $scope.docFilter = $stateParams.filter;
+       } else if ($stateParams.name){
+         $scope.docFilter = $stateParams.name;
+       } else {
+         $scope.docFilter = {};
+         $scope.docFilter.filter = $scope.itnAffiliate.name;
+       }
        console.log('doc filter is ', $scope.docFilter);
    };
 
@@ -1376,11 +1382,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       console.log('fd about to be sent is ', fd);
 
       FileUploadService.uploadFileToDB(fd, tableName)
-      // .then(function(response){
-      //   console.log('success response from the file upload func is ', response);
-      // }).catch(function(error){
-      //   console.log('error response from the file upload func is ', error);
-      // })
+      .then(function(response){
+        console.log('success response from the file upload func is ', response);
+      })
+      .catch(function(error){
+        console.log('error response from the file upload func is ', error);
+      })
     };
 
     $scope.fetchImages = function(affiliateName){
