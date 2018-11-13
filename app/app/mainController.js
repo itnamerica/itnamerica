@@ -1361,9 +1361,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
          $scope.docFilter = $stateParams.filter;
        } else if ($stateParams.name){
          $scope.docFilter = $stateParams.name;
-       } else {
-         $scope.docFilter = {};
-         $scope.docFilter.filter = $scope.itnAffiliate.name;
+       } else if ($scope.itnAffiliate){
+         $scope.docFilter = $scope.itnAffiliate.name;
        }
        console.log('doc filter is ', $scope.docFilter);
    };
