@@ -233,6 +233,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     console.log('inside removeFile');
     var test = req.body;
     console.log('test is ', test);
+    rest.send(result);
   }); // end of /removeFile put request
   
 

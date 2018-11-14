@@ -240,10 +240,18 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
    
    this.removeFile = function(fd, fileName, tableName){
      console.log('fd is ', fd, 'tableName is ', tableName, 'fileName is ', fileName);
+     var test = isJsonString(fileName);
+     var theFileName = JSON.stringy(fileName);
+     var test2 = isJsonString(theFileName);
+     console.log("test is ", test, test2);
+     
      // return $http.put('/updateTheFile', {fd: fd, fileName: fileName, tableName: tableName}, {
-     return $http.put('/updateTheFile', fd, {
+     return $http.put('/updateTheFile', theFileName, {
         transformRequest: angular.identity,
-        headers: {'Content-Type': undefined}
+        // headers: {'Content-Type': 'multipart/form-data'}
+        headers: {"Content-Type": "application/json"}
+        // headers: {"Content-Type": "text/html"}
+        // headers: {"Content-Type": "charset=utf-8"}
      })
      .then(function(data){
        if (data.status === 200){
@@ -273,6 +281,14 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
        return error;
      })
    };
+   this.isJsonString = function(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 
 }]);
 
