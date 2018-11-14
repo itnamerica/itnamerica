@@ -8,7 +8,8 @@
 
     <div class="all-docs file-uploads">
       <h5 class="title">All Documents:</h5>
-
+      fileuploads is {{fileUploads}}<br>
+      {{file}}
       <div style="margin:auto">
         <div ng-if="!fileUploads">Your files are loading...please wait.</div>
         <span ng-repeat="file in fileUploads" ng-click="downloadImgFull(file.data)" class="repeat-img">

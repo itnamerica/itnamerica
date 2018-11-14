@@ -4,13 +4,12 @@
     <h2>Document Library</h2>
     <h5 ng-show="docFilter && docFilter !== 'upload'" style="margin-top:-50px"><em>Filter: {{docFilter}} documents</em></h5>
 
-    <div class="upload-doc" ng-show="docFilter === 'upload' || docFilter === null" style="padding:3%">
+    <div class="upload-doc" style="padding:3%">
       <button type="button" class="btn btn-lg" ngf-select="upload($file, 'America')">Upload a Document</button>
     </div><!--upload-doc-->
 
-
 <!-- <button type="button" class="btn btn-sm" ng-click="filterDocLibrary()"><em>Filter by category</em></button> -->
-    <div class="all-docs file-uploads" ng-show="docFilter === null">
+    <div class="all-docs file-uploads">
       <h5 class="title">All Documents:</h5>
 
       <div style="margin:auto">
