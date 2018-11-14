@@ -201,6 +201,27 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     });
   }); // end of /updateCommentsPhoto get request
+  
+  
+  app.put('/removeFile', function (req,res) {
+    var file = req.body.file;
+    var tableName = req.body.tableName;
+    console.log('file is ', file, 'tableName is ', tableName);
+
+    db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      console.log('recordId is ', recordId);
+      var newFileArr = { $pull: {fileUploads: file} };
+      console.log("newfilearr is ", newFileArr);
+      db.collection('commentsphoto').update(
+         { _id: recordId },
+         newFileArr
+      )
+      res.send(result);
+    });
+  }); // end of /removeFile put request
+  
 
   app.put('/updateAffiliateRidesData', function(req,res) {
     console.log('req body is ', req.body);

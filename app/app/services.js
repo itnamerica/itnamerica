@@ -237,6 +237,30 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
         return data;  
       })
    };
+   // this.removeFile = function(file, tableName){
+   //   var deferred = $q.defer()
+   //    $http.put('/removeFile', file, {
+   //      headers: {'Content-Type': undefined},
+   //      params: {tableName: tableName}
+   //    })
+   //    .then(function(data){
+   //      if (data.status === 200){
+   //        console.log('succesfully removed file ', data);
+   //        $rootScope.$broadcast('file remove ok', data);
+   //      } else {
+   //        console.log('error removing file ', data);
+   //      }
+   //      return data;  
+   //    })
+   // };
+   
+   this.removeFile = function(file, tableName){
+     console.log('file is ', file, 'tableName is ', tableName);
+     return $http.put('/removeFile', {file: file, tableName: tableName}).then(function(data){
+       console.log('data returned from delete file service is ', data);
+       return data;
+     }).catch(function(error){ return error })
+   };
 
 }]);
 

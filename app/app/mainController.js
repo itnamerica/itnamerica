@@ -1392,6 +1392,13 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         // $scope.getCommentsPhotoPerAffiliate(tableName);
       });
     };
+    
+    $scope.removeFile = function(fileObj, tableName){
+      console.log('inside removeFile func, fileObj is ', fileObj);
+      FileUploadService.removeFile(fileObj, tableName).then(function(response){
+        console.log('file remove success, response is ', response);
+      });
+    }
 
     function hexToBase64(str) {
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
