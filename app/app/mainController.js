@@ -1397,13 +1397,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         })
     };
 
-    // $scope.fetchImages = function(affiliateName){
-    //   DataService.fetchImages(affiliateName).then(function(response){
-    //     $scope.fileUploads = response.data[0].fileUploads;
-    //     console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
-    //   });
-    // };
-
     function hexToBase64(str) {
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
     }; //

@@ -11,6 +11,7 @@
 <!-- <button type="button" class="btn btn-sm" ng-click="filterDocLibrary()"><em>Filter by category</em></button> -->
     <div class="all-docs file-uploads">
       <h5 class="title">All Documents:</h5>
+      <h5 ng-hide="fileUploadsAffiliate" class="loading-msg">Your files are loading...please wait.</h5>
 
       <div style="margin:auto">
         <span ng-repeat="file in fileUploadsAffiliate" ng-click="downloadImgFull(file.data)" class="repeat-img">
