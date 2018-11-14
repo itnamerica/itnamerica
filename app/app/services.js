@@ -238,9 +238,10 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
       })
    };
    
-   this.removeFile = function(fd, tableName){
-     console.log('fd is ', fd, 'tableName is ', tableName);
-     return $http.put('/updateTheFile', {fd: fd, tableName: tableName}, {
+   this.removeFile = function(fd, fileName, tableName){
+     console.log('fd is ', fd, 'tableName is ', tableName, 'fileName is ', fileName);
+     // return $http.put('/updateTheFile', {fd: fd, fileName: fileName, tableName: tableName}, {
+     return $http.put('/updateTheFile', fd, {
         transformRequest: angular.identity,
         headers: {'Content-Type': undefined}
      })

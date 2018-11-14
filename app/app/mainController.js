@@ -1398,7 +1398,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       var fd = new FormData();
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
-      FileUploadService.removeFile(fd, tableName).then(function(response){
+      FileUploadService.removeFile(fd, file.name, tableName).then(function(response){
         if (response.status === 200){
           console.log('file remove success, response is ', response);  
           //new get call to db
