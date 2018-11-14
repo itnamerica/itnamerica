@@ -17,7 +17,7 @@
 
       <div style="margin:auto">
         <span ng-repeat="file in fileUploadsAffiliate" ng-click="downloadImgFull(file.data)" class="repeat-img">
-          <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove"></span>
+          <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove" style="margin-left:97%;cursor:pointer"></span>
           <img ng-src="{{file.data | base64ToImgSrc}}"/><br />
           <figcaption>{{file.name}}</figcaption>
         </span><!--ngRepeat-->

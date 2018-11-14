@@ -203,23 +203,36 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /updateCommentsPhoto get request
   
   
-  app.put('/removeFile', function (req,res) {
-    var file = req.body.file;
+  app.put('/bla', function (req,res) {
+    console.log('inside removeFile');
+    var fileName = req.body.fileName;
     var tableName = req.body.tableName;
     console.log('file is ', file, 'tableName is ', tableName);
 
     db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
+      console.log('inside commentsphoto');
       if (err) { throw new Error('No record found. ', err) };
       var recordId = result[0]._id;
       console.log('recordId is ', recordId);
-      var newFileArr = { $pull: {fileUploads: file} };
+      
+      // var newFileArr = { $pull: { 'contact.phone': { number: '+1786543589455' } } } // if want to modify name only
+      
+      var newFileArr = { $pull: { 'fileUploads': { name: fileName } } };
+      
       console.log("newfilearr is ", newFileArr);
+      
       db.collection('commentsphoto').update(
          { _id: recordId },
          newFileArr
       )
       res.send(result);
     });
+  }); // end of /removeFile put request
+  
+  app.put('/updateTheFile', function (req,res) {
+    console.log('inside removeFile');
+    var test = req.body;
+    console.log('test is ', test);
   }); // end of /removeFile put request
   
 

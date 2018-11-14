@@ -237,29 +237,40 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
         return data;  
       })
    };
-   // this.removeFile = function(file, tableName){
-   //   var deferred = $q.defer()
-   //    $http.put('/removeFile', file, {
-   //      headers: {'Content-Type': undefined},
-   //      params: {tableName: tableName}
-   //    })
-   //    .then(function(data){
-   //      if (data.status === 200){
-   //        console.log('succesfully removed file ', data);
-   //        $rootScope.$broadcast('file remove ok', data);
-   //      } else {
-   //        console.log('error removing file ', data);
-   //      }
-   //      return data;  
-   //    })
-   // };
    
-   this.removeFile = function(file, tableName){
-     console.log('file is ', file, 'tableName is ', tableName);
-     return $http.put('/removeFile', {file: file, tableName: tableName}).then(function(data){
-       console.log('data returned from delete file service is ', data);
+   this.removeFile = function(fd, tableName){
+     console.log('fd is ', fd, 'tableName is ', tableName);
+     return $http.put('/updateTheFile', {fd: fd, tableName: tableName}, {
+        transformRequest: angular.identity,
+        headers: {'Content-Type': undefined}
+     })
+     .then(function(data){
+       if (data.status === 200){
+         console.log('success delete file service is ', data);
+       } else {
+         console.log('error delete file ', data);
+       }
        return data;
-     }).catch(function(error){ return error })
+     }).catch(function(error){
+       console.log('error from backend', error);
+       return error;
+     })
+   };
+   
+   this.removeFile2 = function(fileName, tableName){
+     console.log('fileName is ', fileName, 'tableName is ', tableName);
+     return $http.put('/removeTheFile', {fileName: fileName, tableName: tableName})
+     .then(function(data){
+       if (data.status === 200){
+         console.log('success delete file service is ', data);
+       } else {
+         console.log('error delete file ', data);
+       }
+       return data;
+     }).catch(function(error){
+       console.log('error from backend', error);
+       return error;
+     })
    };
 
 }]);

@@ -1393,12 +1393,22 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       });
     };
     
-    $scope.removeFile = function(fileObj, tableName){
-      console.log('inside removeFile func, fileObj is ', fileObj);
-      FileUploadService.removeFile(fileObj, tableName).then(function(response){
-        console.log('file remove success, response is ', response);
+    $scope.removeFile = function(file, tableName){
+      console.log('inside removeFile func, file is ', file, file.name);
+      var fd = new FormData();
+      fd.append('file', file);
+      console.log('fd about to be sent is ', fd);
+      FileUploadService.removeFile(fd, tableName).then(function(response){
+        if (response.status === 200){
+          console.log('file remove success, response is ', response);  
+          //new get call to db
+          $scope.serverMessage = "Your file has been succesfully removed";
+        } else {
+          $scope.serverMessage = "There was an error removing your file. Please try again.";
+        }
+        
       });
-    }
+    };
 
     function hexToBase64(str) {
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
