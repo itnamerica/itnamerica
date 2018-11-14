@@ -211,7 +211,7 @@ myApp.service('DataService', function($http, $q){
 
 
 
-myApp.service('FileUploadService', ['$http','$q', function ($http, $q) {
+myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, $q, $rootScope) {
    this.uploadFileToUrl = function(file, uploadUrl){
       var fd = new FormData();
       fd.append('file', file);
@@ -222,20 +222,20 @@ myApp.service('FileUploadService', ['$http','$q', function ($http, $q) {
       })
    };
    this.uploadFileToDB = function(fd, tableName){
-      var deferred = $q.defer();
+     var deferred = $q.defer()
       $http.post('/uploadFiles', fd, {
         headers: {'Content-Type': undefined},
         params: {tableName: tableName}
       })
       .then(function(data){
-        console.log('succesfully uploaded file ', data);
-        deferred.resolve('Resolved: ', data.config.data);
+        if (data.status === 200){
+          console.log('succesfully uploaded file ', data);
+          $rootScope.$broadcast('hello hello', data);
+        } else {
+          console.log('error uploading file ', data);
+        }
+        return data;  
       })
-      .catch(function(err){
-        console.log('error uploading file ', err);
-        deferred.resolve('Error: ', err);
-      });
-      return deferred.promise;
    };
 
 }]);
