@@ -1104,14 +1104,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.getCommentsPhoto = function (affiliateName) {
-      // $scope.loadingPhotos = true;
       if (affiliateName){
+        console.log('affiliate name param in getcommentsphoto func is ', affiliateName);
         DataService.fetchImages(affiliateName).then(function(response){
-          // $scope.loadingPhotos = false;
-          console.log('resp is ', response);
           $scope.commentsPhoto = response.data;
           $scope.fileUploads = response.data[0].fileUploads;
-          console.log('response from getcomments in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
+          console.log('response from getcomments in frontend is ', $scope.fileUploads);
         })
       } else {
         DataService.getCommentsPhoto().then(function(response){
