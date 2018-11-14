@@ -1386,8 +1386,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       console.log('fd about to be sent is ', fd);
 
       FileUploadService.uploadFileToDB(fd, tableName);
-      $rootScope.$on('hello hello', function(){
-        console.log('received');
+      $rootScope.$on('file upload ok', function(){
+        console.log('file upload success');
+        $scope.getCommentsPhotoPerAffiliate(tableName)
       });
       // .then(function(response){
       //     if (response){

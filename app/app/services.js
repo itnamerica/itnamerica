@@ -230,7 +230,7 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
       .then(function(data){
         if (data.status === 200){
           console.log('succesfully uploaded file ', data);
-          $rootScope.$broadcast('hello hello', data);
+          $rootScope.$broadcast('file upload ok', data);
         } else {
           console.log('error uploading file ', data);
         }
