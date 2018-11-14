@@ -1,4 +1,4 @@
-<div class="documents portal" ng-init="catchDocFilter();getCommentsPhoto(docFilter)">
+<div class="documents portal" ng-init="catchDocFilter();getCommentsPhotoPerAffiliate(docFilter)">
   <div class="container ta-center">
     <h2>ITN<em>{{docFilter}}</em></h2>
 
@@ -8,11 +8,10 @@
 
     <div class="all-docs file-uploads">
       <h5 class="title">All Documents:</h5>
-      fileuploads is {{fileUploads}}<br>
-      {{file}}
+
       <div style="margin:auto">
         <div ng-if="!fileUploads">Your files are loading...please wait.</div>
-        <span ng-repeat="file in fileUploads" ng-click="downloadImgFull(file.data)" class="repeat-img">
+        <span ng-repeat="file in fileUploadsAffiliate" ng-click="downloadImgFull(file.data)" class="repeat-img">
           <img ng-src="{{file.data | base64ToImgSrc}}"/><br />
           <figcaption>{{file.name}}</figcaption>
         </span><!--ngRepeat-->

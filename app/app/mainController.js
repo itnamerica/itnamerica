@@ -1103,20 +1103,24 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       $scope.selected = {};
     };
 
-    $scope.getCommentsPhoto = function (affiliateName) {
-      if (affiliateName){
-        console.log('affiliate name param in getcommentsphoto func is ', affiliateName);
-        DataService.fetchImages(affiliateName).then(function(response){
-          $scope.commentsPhoto = response.data;
-          $scope.fileUploads = response.data[0].fileUploads;
-          console.log('response from getcomments in frontend is ', $scope.fileUploads);
-        })
-      } else {
+    $scope.getCommentsPhoto = function() {
+      console.log('getCommentsPhoto func');
         DataService.getCommentsPhoto().then(function(response){
           $scope.commentsPhoto = response.data;
           $scope.fileUploads = response.data;
+          console.log("commentsphoto var is ", $scope.commentsPhoto);
+          console.log('fileuploads var is ', $scope.fileUploads);
         })
-      }
+    };
+    
+    $scope.getCommentsPhotoPerAffiliate = function(affiliateName) {
+        console.log('getCommentsPhotoPerAffiliate func, param is ', affiliateName);
+        DataService.fetchImages(affiliateName).then(function(response){
+          $scope.commentsPhoto = response.data;
+          $scope.fileUploadsAffiliate = response.data[0].fileUploads;
+          console.log("commentsphoto aff var is ", $scope.commentsPhoto);
+          console.log('fileuploads aff var is ', $scope.fileUploadsAffiliate);
+        })
     };
 
     $scope.addComment = function (content, affiliate) {
@@ -1384,19 +1388,21 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       FileUploadService.uploadFileToDB(fd, tableName)
         .then(function(response){
           console.log('success response from the file upload func is ', response);
-          $scope.getCommentsPhoto(tableName);
+          $scope.getCommentsPhoto(tableName).then(function(response2){
+            console.log('success response after file reload ', response2);
+          })
         })
         .catch(function(error){
           console.log('error response from the file upload func is ', error);
         })
     };
 
-    $scope.fetchImages = function(affiliateName){
-      DataService.fetchImages(affiliateName).then(function(response){
-        $scope.fileUploads = response.data[0].fileUploads;
-        console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
-      });
-    };
+    // $scope.fetchImages = function(affiliateName){
+    //   DataService.fetchImages(affiliateName).then(function(response){
+    //     $scope.fileUploads = response.data[0].fileUploads;
+    //     console.log('response from fetch image in frontend is ', $scope.fileUploads, typeof($scope.fileUploads));
+    //   });
+    // };
 
     function hexToBase64(str) {
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
