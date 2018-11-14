@@ -1388,7 +1388,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       FileUploadService.uploadFileToDB(fd, tableName)
         .then(function(response){
           console.log('success response from the file upload func is ', response);
-          $scope.getCommentsPhoto(tableName).then(function(response2){
+          $scope.getCommentsPhotoPerAffiliate(tableName).then(function(response2){
             console.log('success response after file reload ', response2);
           })
         })
