@@ -1388,26 +1388,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       FileUploadService.uploadFileToDB(fd, tableName);
       $rootScope.$on('file upload ok', function(){
         console.log('file upload success');
-        $scope.getCommentsPhotoPerAffiliate(tableName)
+        location.reload();
+        // $scope.getCommentsPhotoPerAffiliate(tableName);
       });
-      // .then(function(response){
-      //     if (response){
-      //       console.log('success response from the file upload func is ', response);
-      //       $scope.getCommentsPhotoPerAffiliate(tableName)
-      //       $rootScope.$on('hello hello', function(){
-      //         console.log('received');
-      //       });
-      //       // .then(function(response2){
-      //       //   console.log('success response after file reload ', response2);
-      //       // })
-      //     } else {
-      //       $scope.serverMessage = "There was a problem uploading your file. Please try again."
-      //     }
-      // 
-      //   })
-        // .catch(function(error){
-        //   console.log('error response from the file upload func is ', error);
-        // })
     };
 
     function hexToBase64(str) {
