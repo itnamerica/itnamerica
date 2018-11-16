@@ -252,10 +252,26 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
      console.log('is json test', self.isJsonString(JSON.stringify(test)));
      
      // return $http.put('/updateTheFile', theFileObjJson, {
-     return $http.put('/updateTheFile', JSON.stringify(test), {
-        transformRequest: angular.identity,
-        headers: {"Content-Type": "application/json"}
-     })
+     // return $http.put('/updateTheFile', JSON.stringify(test), {
+     //    transformRequest: angular.identity,
+     //    headers: {"Content-Type": "application/json"}
+     // })
+     return $http.put('/updateTheFile', JSON.stringify(test))
+       .then(function(data){
+         if (data.status === 200){
+           console.log('success delete file service is ', data);
+         } else {
+           console.log('error delete file ', data);
+         }
+         return data;
+       }).catch(function(error){
+         console.log('error from backend', error);
+         return error;
+       })
+   };
+   this.removeFile2 = function(fileName, tableName){
+     console.log('fileName is ', fileName, 'tableName is ', tableName);
+     return $http.put('/removeTheFile', {fileName: fileName, tableName: tableName})
      .then(function(data){
        if (data.status === 200){
          console.log('success delete file service is ', data);
@@ -268,10 +284,9 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
        return error;
      })
    };
-   
-   this.removeFile2 = function(fileName, tableName){
-     console.log('fileName is ', fileName, 'tableName is ', tableName);
-     return $http.put('/removeTheFile', {fileName: fileName, tableName: tableName})
+   this.addCategory = function(category, file){
+     console.log('category is ', category, 'file is ', file);
+     return $http.put('/updateCategory', {category: category, file: file})
      .then(function(data){
        if (data.status === 200){
          console.log('success delete file service is ', data);
@@ -558,6 +573,36 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
           state: 'itn-operations',
           url: viewsPath + '/itn-operations.html'
       }
+  ];
+  this.fileCategories = [
+    { 
+      name: 'Training Material', 
+      dbName: 'training' 
+    },
+    { 
+      name: 'Human Resources', 
+      dbName: 'hr' 
+    },
+    { 
+      name: 'IT', 
+      dbName: 'it' 
+    },
+    { 
+      name: 'Rides in Sight', 
+      dbName: 'ris' 
+    },
+    { 
+      name: 'Dispatch', 
+      dbName: 'dispatch' 
+    },
+    { 
+      name: 'Archives', 
+      dbName: 'archives' 
+    },
+    { 
+      name: 'No Category/All', 
+      dbName: 'all' 
+    }
   ];
 
 }]);

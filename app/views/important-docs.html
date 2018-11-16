@@ -20,6 +20,15 @@
           <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove" style="margin-left:97%;cursor:pointer"></span>
           <img ng-src="{{file.data | base64ToImgSrc}}"/><br />
           <figcaption>{{file.name}}</figcaption>
+          
+          <div class="dropdown ta-center" style="color:black">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Add category
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu" style="font-size:16px">
+              <li ng-repeat="category in fileCategories"><a ng-click="addCategory(category, file)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
+            </ul>
+          </div>
+          
         </span><!--ngRepeat-->
       </div><!-- file-uploads-->
 

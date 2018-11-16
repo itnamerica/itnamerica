@@ -59,6 +59,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.affiliateOfComment = null;
     $scope.myFile = null;
     $scope.isLogged = {};
+    $scope.fileCategories = LongVariablesService.fileCategories;
 
 
 
@@ -1398,7 +1399,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       var fd = new FormData();
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
-      FileUploadService.removeFile(fd, file.name, tableName).then(function(response){
+      FileUploadService.removeFile(fd, file.name, tableName)
+      .then(function(response){
         if (response.status === 200){
           console.log('file remove success, response is ', response);  
           //new get call to db
@@ -1406,8 +1408,22 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         } else {
           $scope.serverMessage = "There was an error removing your file. Please try again.";
         }
-        
       });
+    };
+    
+    $scope.addCategory = function(category, file){
+      console.log('category is ', category, 'file is ', file);
+      FileUploadService.addCategory(category, file)
+      .then(function(response){
+        if (response.status === 200){
+          console.log('file remove success, response is ', response);  
+          //new get call to db
+          $scope.serverMessage = "Your file has been succesfully removed";
+        } else {
+          $scope.serverMessage = "There was an error removing your file. Please try again.";
+        }
+      });
+      
     };
 
     function hexToBase64(str) {
