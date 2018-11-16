@@ -212,6 +212,7 @@ myApp.service('DataService', function($http, $q){
 
 
 myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, $q, $rootScope) {
+  var self = this;
    this.uploadFileToUrl = function(file, uploadUrl){
       var fd = new FormData();
       fd.append('file', file);
@@ -240,18 +241,20 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
    
    this.removeFile = function(fd, fileName, tableName){
      console.log('fd is ', fd, 'tableName is ', tableName, 'fileName is ', fileName);
-     var test = isJsonString(fileName);
-     var theFileName = JSON.stringy(fileName);
-     var test2 = isJsonString(theFileName);
-     console.log("test is ", test, test2);
+     var theFileObj = {
+       fd: fd,
+       tableName: tableName,
+       fileName: fileName
+     };
+     var theFileObjJson = JSON.stringify(theFileObj);
+     console.log('is json ', self.isJsonString(theFileObjJson));
+     var test = {test: 'test'};
+     console.log('is json test', self.isJsonString(JSON.stringify(test)));
      
-     // return $http.put('/updateTheFile', {fd: fd, fileName: fileName, tableName: tableName}, {
-     return $http.put('/updateTheFile', theFileName, {
+     // return $http.put('/updateTheFile', theFileObjJson, {
+     return $http.put('/updateTheFile', JSON.stringify(test), {
         transformRequest: angular.identity,
-        // headers: {'Content-Type': 'multipart/form-data'}
         headers: {"Content-Type": "application/json"}
-        // headers: {"Content-Type": "text/html"}
-        // headers: {"Content-Type": "charset=utf-8"}
      })
      .then(function(data){
        if (data.status === 200){
