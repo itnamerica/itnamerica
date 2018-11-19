@@ -1402,12 +1402,18 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       .then(function(response){
         $scope.hideLibrary = false;
         if (response.status === 200){
-          $scope.getCommentsPhotoPerAffiliate(tableName);
-          $scope.serverMessage = "Your file was succesfully removed";
+          console.log('file delete success');
+          $scope.hideLibrary = true;
+          $timeout(function(){
+            $scope.serverMessage = "Your file was succesfully removed. Reloading page.";
+            location.reload();
+          }, 5000);
         } else {
           $scope.serverMessage = "There was an error removing your file. Please try again.";
         }
-      });
+      }).catch(function(err){
+        $scope.serverMessage = "There was an error removing your file. Please try again.";
+      })
     };
 
     $scope.addCategory = function(category, file){

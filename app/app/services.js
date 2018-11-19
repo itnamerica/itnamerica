@@ -223,7 +223,6 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
       })
    };
    this.uploadFileToDB = function(fd, tableName){
-     var deferred = $q.defer()
       $http.post('/uploadFiles', fd, {
         headers: {'Content-Type': undefined},
         params: {tableName: tableName}
@@ -234,6 +233,7 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
           $rootScope.$broadcast('file upload ok', data);
         } else {
           console.log('error uploading file ', data);
+          $rootScope.$broadcast('file upload error', data);
         }
         return data;
       })
@@ -249,12 +249,16 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
      .then(function(data){
        if (data.status === 200){
          console.log('success delete file service is ', data);
+         $rootScope.$broadcast('file delete ok', data);
+         return data;
        } else {
          console.log('error delete file ', data);
+         $rootScope.$broadcast('file delete error', data);
+         return data;
        }
-       return data;
      }).catch(function(error){
        console.log('error from backend', error);
+       $rootScope.$broadcast('file delete error type 2', error);
        return error;
      })
    };
