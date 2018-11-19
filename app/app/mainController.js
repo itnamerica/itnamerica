@@ -1113,7 +1113,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           console.log('fileuploads var is ', $scope.fileUploads);
         })
     };
-    
+
     $scope.getCommentsPhotoPerAffiliate = function(affiliateName) {
         console.log('getCommentsPhotoPerAffiliate func, param is ', affiliateName);
         DataService.fetchImages(affiliateName).then(function(response){
@@ -1393,16 +1393,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         // $scope.getCommentsPhotoPerAffiliate(tableName);
       });
     };
-    
+
     $scope.removeFile = function(file, tableName){
       console.log('inside removeFile func, file is ', file, file.name);
       var fd = new FormData();
       fd.append('file', file);
       console.log('fd about to be sent is ', fd);
-      FileUploadService.removeFile(fd, file.name, tableName)
+      // FileUploadService.removeFile(fd, file.name, tableName)
+      FileUploadService.getFileDraft(file, tableName)
       .then(function(response){
         if (response.status === 200){
-          console.log('file remove success, response is ', response);  
+          console.log('file remove success, response is ', response);
           //new get call to db
           $scope.serverMessage = "Your file has been succesfully removed";
         } else {
@@ -1410,20 +1411,20 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
       });
     };
-    
+
     $scope.addCategory = function(category, file){
       console.log('category is ', category, 'file is ', file);
       FileUploadService.addCategory(category, file)
       .then(function(response){
         if (response.status === 200){
-          console.log('file remove success, response is ', response);  
+          console.log('file remove success, response is ', response);
           //new get call to db
           $scope.serverMessage = "Your file has been succesfully removed";
         } else {
           $scope.serverMessage = "There was an error removing your file. Please try again.";
         }
       });
-      
+
     };
 
     function hexToBase64(str) {

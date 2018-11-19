@@ -201,41 +201,51 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     });
   }); // end of /updateCommentsPhoto get request
-  
-  
-  app.put('/bla', function (req,res) {
-    console.log('inside removeFile');
-    var fileName = req.body.fileName;
-    var tableName = req.body.tableName;
-    console.log('file is ', file, 'tableName is ', tableName);
 
+
+
+  app.get('/getFileDraft', function (req,res) {
+    console.log('inside removeFile');
+    var query = req.query;
+    var fileName = req.query.fileName;
+    var tableName = req.query.tableName;
+    console.log('file name is ', fileName, 'tableName is ', tableName);
     db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
       console.log('inside commentsphoto');
       if (err) { throw new Error('No record found. ', err) };
       var recordId = result[0]._id;
       console.log('recordId is ', recordId);
-      
       // var newFileArr = { $pull: { 'contact.phone': { number: '+1786543589455' } } } // if want to modify name only
-      
-      var newFileArr = { $pull: { 'fileUploads': { name: fileName } } };
-      
-      console.log("newfilearr is ", newFileArr);
-      
-      db.collection('commentsphoto').update(
-         { _id: recordId },
-         newFileArr
-      )
-      res.send(result);
+      // var newFileArr = { $pull: { 'fileUploads': { name: fileName } } };
+      // console.log("newfilearr is ", newFileArr);
+      // db.collection('commentsphoto').update(
+      //    { _id: recordId },
+      //    newFileArr
+      // )
+      // res.send(result);
     });
   }); // end of /removeFile put request
-  
-  app.put('/updateTheFile', function (req,res) {
-    console.log('inside removeFile');
+
+  app.put('/updateCategory', function (req,res) {
+    console.log('inside updatecategory');
     var test = req.body;
     console.log('test is ', test);
-    rest.send(result);
-  }); // end of /removeFile put request
-  
+    res.send(result);
+  }); // end of /updatetheFile put request
+
+
+  app.get('/getFileDraft2', function (req,res) {
+    console.log('inside removeFile');
+    var query = req.query;
+    console.log('query is ', query);
+    res.send(query)
+    // db.collection('calendar-ris').find().toArray(function (err, result) {
+    //   res.send(result);
+    // })
+  }); // end of /removeFileDraft get request
+
+
+
 
   app.put('/updateAffiliateRidesData', function(req,res) {
     console.log('req body is ', req.body);

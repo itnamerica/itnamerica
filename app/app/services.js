@@ -235,10 +235,10 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
         } else {
           console.log('error uploading file ', data);
         }
-        return data;  
+        return data;
       })
    };
-   
+
    this.removeFile = function(fd, fileName, tableName){
      console.log('fd is ', fd, 'tableName is ', tableName, 'fileName is ', fileName);
      var theFileObj = {
@@ -250,7 +250,7 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
      console.log('is json ', self.isJsonString(theFileObjJson));
      var test = {test: 'test'};
      console.log('is json test', self.isJsonString(JSON.stringify(test)));
-     
+
      // return $http.put('/updateTheFile', theFileObjJson, {
      // return $http.put('/updateTheFile', JSON.stringify(test), {
      //    transformRequest: angular.identity,
@@ -269,9 +269,14 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
          return error;
        })
    };
-   this.removeFile2 = function(fileName, tableName){
-     console.log('fileName is ', fileName, 'tableName is ', tableName);
-     return $http.put('/removeTheFile', {fileName: fileName, tableName: tableName})
+   this.getFileDraft = function(file, tableName){
+     console.log('file is ', file, 'tableName is ', tableName);
+     return $http.get('/getFileDraft', {
+       params: {
+         fileName: file.name,
+         tableName: tableName
+       }
+     })
      .then(function(data){
        if (data.status === 200){
          console.log('success delete file service is ', data);
@@ -575,33 +580,33 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
       }
   ];
   this.fileCategories = [
-    { 
-      name: 'Training Material', 
-      dbName: 'training' 
+    {
+      name: 'Training Material',
+      dbName: 'training'
     },
-    { 
-      name: 'Human Resources', 
-      dbName: 'hr' 
+    {
+      name: 'Human Resources',
+      dbName: 'hr'
     },
-    { 
-      name: 'IT', 
-      dbName: 'it' 
+    {
+      name: 'IT',
+      dbName: 'it'
     },
-    { 
-      name: 'Rides in Sight', 
-      dbName: 'ris' 
+    {
+      name: 'Rides in Sight',
+      dbName: 'ris'
     },
-    { 
-      name: 'Dispatch', 
-      dbName: 'dispatch' 
+    {
+      name: 'Dispatch',
+      dbName: 'dispatch'
     },
-    { 
-      name: 'Archives', 
-      dbName: 'archives' 
+    {
+      name: 'Archives',
+      dbName: 'archives'
     },
-    { 
-      name: 'No Category/All', 
-      dbName: 'all' 
+    {
+      name: 'No Category/All',
+      dbName: 'all'
     }
   ];
 
