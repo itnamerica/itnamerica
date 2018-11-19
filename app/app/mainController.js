@@ -1398,7 +1398,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             console.log('inside removeFile func, file is ', file, file.name);
       $scope.serverMessage = "Your file is being removed. Please wait.";
       $scope.hideLibrary = true;
-      FileUploadService.getFileDraft(file, tableName)
+      FileUploadService.removeFile(file, tableName)
       .then(function(response){
         $scope.hideLibrary = false;
         if (response.status === 200){

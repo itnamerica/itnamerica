@@ -238,9 +238,9 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
         return data;
       })
    };
-   this.getFileDraft = function(file, tableName){
+   this.removeFile = function(file, tableName){
      console.log('file is ', file, 'tableName is ', tableName);
-     return $http.get('/getFileDraft', {
+     return $http.get('/removeFile', {
        params: {
          fileName: file.name,
          tableName: tableName

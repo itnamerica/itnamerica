@@ -204,7 +204,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
 
 
-  app.get('/getFileDraft', function (req,res) {
+  app.get('/removeFile', function (req,res) {
     console.log('inside removeFile');
     var query = req.query;
     var fileName = req.query.fileName;
