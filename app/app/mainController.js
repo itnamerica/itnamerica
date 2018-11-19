@@ -1375,37 +1375,35 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     // upload on file select or drop
     $scope.upload = function (file, tableName) {
+            console.log('about to upload ', file, 'file name is ', file.name);
+      $scope.serverMessage = "Your file is being uploaded. Please wait.";
+      $scope.hideLibrary = true;
       var tableName;
-      if (!tableName){
-        tableName = 'America';
-      } else {
-        tableName = tableName;
-      }
-      console.log('about to upload ', file, 'file name is ', file.name);
+      if (!tableName){ tableName = 'America';}
+      else { tableName = tableName;}
       var fd = new FormData();
       fd.append('file', file);
-      console.log('fd about to be sent is ', fd);
-
+            console.log('fd about to be sent is ', fd);
       FileUploadService.uploadFileToDB(fd, tableName);
       $rootScope.$on('file upload ok', function(){
         console.log('file upload success');
+        $scope.hideLibrary = true;
+        $scope.serverMessage = "Your file was succesfully uploaded. Reloading page."
         location.reload();
         // $scope.getCommentsPhotoPerAffiliate(tableName);
       });
     };
 
     $scope.removeFile = function(file, tableName){
-      console.log('inside removeFile func, file is ', file, file.name);
-      var fd = new FormData();
-      fd.append('file', file);
-      console.log('fd about to be sent is ', fd);
-      // FileUploadService.removeFile(fd, file.name, tableName)
+            console.log('inside removeFile func, file is ', file, file.name);
+      $scope.serverMessage = "Your file is being removed. Please wait.";
+      $scope.hideLibrary = true;
       FileUploadService.getFileDraft(file, tableName)
       .then(function(response){
+        $scope.hideLibrary = false;
         if (response.status === 200){
-          console.log('file remove success, response is ', response);
-          //new get call to db
-          $scope.serverMessage = "Your file has been succesfully removed";
+          $scope.getCommentsPhotoPerAffiliate(tableName);
+          $scope.serverMessage = "Your file was succesfully removed";
         } else {
           $scope.serverMessage = "There was an error removing your file. Please try again.";
         }
@@ -1414,14 +1412,15 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.addCategory = function(category, file){
       console.log('category is ', category, 'file is ', file);
+      $scope.serverMessage = "The category is being updated. Please wait.";
       FileUploadService.addCategory(category, file)
       .then(function(response){
         if (response.status === 200){
           console.log('file remove success, response is ', response);
           //new get call to db
-          $scope.serverMessage = "Your file has been succesfully removed";
+          $scope.serverMessage = "Your file's category has been succesfully updated'";
         } else {
-          $scope.serverMessage = "There was an error removing your file. Please try again.";
+          $scope.serverMessage = "There was an error updating the category. Please try again.";
         }
       });
 

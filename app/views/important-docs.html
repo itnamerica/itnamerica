@@ -11,16 +11,17 @@
 <!-- <button type="button" class="btn btn-sm" ng-click="filterDocLibrary()"><em>Filter by category</em></button> -->
     <div class="all-docs file-uploads">
       <h5 class="title">All Documents:</h5>
-      
-      <h5 ng-hide="fileUploadsAffiliate" class="loading-msg">Your files are loading...please wait.</h5>
+
       <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
 
-      <div style="margin:auto">
+      <h5 ng-hide="fileUploadsAffiliate" class="loading-msg" ng-hide="hideLibrary">{{serverMessage}}</h5>
+
+      <div style="margin:auto" ng-hide="updatingMsg">
         <span ng-repeat="file in fileUploadsAffiliate" ng-click="downloadImgFull(file.data)" class="repeat-img">
           <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove" style="margin-left:97%;cursor:pointer"></span>
           <img ng-src="{{file.data | base64ToImgSrc}}"/><br />
           <figcaption>{{file.name}}</figcaption>
-          
+
           <div class="dropdown ta-center" style="color:black">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Add category
             <span class="caret"></span></button>
@@ -28,7 +29,6 @@
               <li ng-repeat="category in fileCategories"><a ng-click="addCategory(category, file)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
             </ul>
           </div>
-          
         </span><!--ngRepeat-->
       </div><!-- file-uploads-->
 

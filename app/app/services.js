@@ -238,37 +238,6 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
         return data;
       })
    };
-
-   this.removeFile = function(fd, fileName, tableName){
-     console.log('fd is ', fd, 'tableName is ', tableName, 'fileName is ', fileName);
-     var theFileObj = {
-       fd: fd,
-       tableName: tableName,
-       fileName: fileName
-     };
-     var theFileObjJson = JSON.stringify(theFileObj);
-     console.log('is json ', self.isJsonString(theFileObjJson));
-     var test = {test: 'test'};
-     console.log('is json test', self.isJsonString(JSON.stringify(test)));
-
-     // return $http.put('/updateTheFile', theFileObjJson, {
-     // return $http.put('/updateTheFile', JSON.stringify(test), {
-     //    transformRequest: angular.identity,
-     //    headers: {"Content-Type": "application/json"}
-     // })
-     return $http.put('/updateTheFile', JSON.stringify(test))
-       .then(function(data){
-         if (data.status === 200){
-           console.log('success delete file service is ', data);
-         } else {
-           console.log('error delete file ', data);
-         }
-         return data;
-       }).catch(function(error){
-         console.log('error from backend', error);
-         return error;
-       })
-   };
    this.getFileDraft = function(file, tableName){
      console.log('file is ', file, 'tableName is ', tableName);
      return $http.get('/getFileDraft', {
