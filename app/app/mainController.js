@@ -1116,11 +1116,13 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.getCommentsPhotoPerAffiliate = function(affiliateName) {
         console.log('getCommentsPhotoPerAffiliate func, param is ', affiliateName);
+        $scope.hideLibrary = true;
+        $scope.serverMessage = "Please wait a few seconds while your files are loading on the page."
         DataService.fetchImages(affiliateName).then(function(response){
           $scope.commentsPhoto = response.data;
           $scope.fileUploadsAffiliate = response.data[0].fileUploads;
-          console.log("commentsphoto aff var is ", $scope.commentsPhoto);
           console.log('fileuploads aff var is ', $scope.fileUploadsAffiliate);
+          $scope.hideLibrary = false;
         })
     };
 
@@ -1402,7 +1404,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       .then(function(response){
         $scope.hideLibrary = false;
         if (response.status === 200){
-          console.log('file delete success');
+                console.log('file delete success');
           $scope.hideLibrary = true;
           $timeout(function(){
             $scope.serverMessage = "Your file was succesfully removed. Reloading page.";
@@ -1416,20 +1418,25 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
     };
 
-    $scope.addCategory = function(category, file){
-      console.log('category is ', category, 'file is ', file);
+    $scope.addCategory = function(file, tableName, category){
+            console.log('category is ', category, 'file is ', file, 'tablename is ', tableName);
       $scope.serverMessage = "The category is being updated. Please wait.";
-      FileUploadService.addCategory(category, file)
+      FileUploadService.addCategory(file, tableName, category)
       .then(function(response){
+        $scope.hideLibrary = false;
         if (response.status === 200){
-          console.log('file remove success, response is ', response);
-          //new get call to db
-          $scope.serverMessage = "Your file's category has been succesfully updated'";
+          console.log('update category success, response is ', response);
+          $scope.hideLibrary = true;
+          $timeout(function(){
+            $scope.serverMessage = "Your file's category has been succesfully updated.";
+            location.reload();
+          }, 5000);
         } else {
           $scope.serverMessage = "There was an error updating the category. Please try again.";
         }
-      });
-
+      }).catch(function(err){
+        $scope.serverMessage = "There was an error updating the category. Please try again.";
+      })
     };
 
     function hexToBase64(str) {

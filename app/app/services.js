@@ -248,32 +248,33 @@ myApp.service('FileUploadService', ['$http','$q','$rootScope', function ($http, 
      })
      .then(function(data){
        if (data.status === 200){
-         console.log('success delete file service is ', data);
-         $rootScope.$broadcast('file delete ok', data);
          return data;
        } else {
-         console.log('error delete file ', data);
-         $rootScope.$broadcast('file delete error', data);
-         return data;
+         throw 500;
        }
      }).catch(function(error){
-       console.log('error from backend', error);
-       $rootScope.$broadcast('file delete error type 2', error);
        return error;
      })
    };
-   this.addCategory = function(category, file){
-     console.log('category is ', category, 'file is ', file);
-     return $http.put('/updateCategory', {category: category, file: file})
+   this.addCategory = function(file, tableName, category){
+     console.log('file is ', file, 'category is ', category, 'table is ', tableName);
+     return $http.get('/updateCategory', {
+       params: {
+         fileName: file.name,
+         tableName: tableName,
+         categoryName: category.name
+       }
+     })
      .then(function(data){
        if (data.status === 200){
-         console.log('success delete file service is ', data);
+         // $rootScope.$broadcast('add category ok', data);
+         return data;
        } else {
-         console.log('error delete file ', data);
+         // $rootScope.$broadcast('add category error', data);
+         return data;
        }
-       return data;
      }).catch(function(error){
-       console.log('error from backend', error);
+       // $rootScope.$broadcast('add category error', error);
        return error;
      })
    };
@@ -566,12 +567,20 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
       dbName: 'it'
     },
     {
-      name: 'Rides in Sight',
-      dbName: 'ris'
+      name: 'Word Documents',
+      dbName: 'word'
+    },
+    {
+      name: 'PDFs',
+      dbName: 'pdf'
     },
     {
       name: 'Dispatch',
       dbName: 'dispatch'
+    },
+    {
+      name: 'Icons/Logos',
+      dbName: 'icon'
     },
     {
       name: 'Archives',

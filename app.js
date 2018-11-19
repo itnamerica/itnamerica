@@ -149,28 +149,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   });
 
-  app.post('/uploadFiles', function(req, res) {
-    console.log('uploadFiles from backend is ');
-    console.log(req.files);
-    var binaryLocation = req.files.file.path;
-    var fileName = req.files.file.name;
-    // var fileCategory = req.files.file.category;
-    console.log('file name is ', fileName);
-    var binaryData = fs.readFileSync(binaryLocation);
-    // var theFile = {data: binaryData};
-    var theFile = {};
-    theFile.data = binaryData
-    theFile.name = fileName;
-    // theFile.category = fileCategory;
-    var fileObj = { $push: {"fileUploads": theFile} };
-    var tableName = req.query.tableName
-    console.log('table name backend is ', tableName);
-    db.collection('commentsphoto').update(
-       { name: tableName },
-       fileObj
-    )
-    res.send();
-  });
+
 
   app.put('/updateCommentsPhoto', function (req,res) {
     var newComment = {
@@ -203,48 +182,67 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /updateCommentsPhoto get request
 
 
+  app.post('/uploadFiles', function(req, res) {
+          console.log('uploadFiles from backend is ', req.files);
+    var binaryLocation = req.files.file.path;
+    var fileName = req.files.file.name;
+          console.log('file name is ', fileName);
+    var binaryData = fs.readFileSync(binaryLocation);
+    var theFile = {};
+    theFile.data = binaryData
+    theFile.name = fileName;
+    theFile.category = 'all';
+    var fileObj = { $push: {"fileUploads": theFile} };
+    var tableName = req.query.tableName;
+          console.log('table name backend is ', tableName);
+    db.collection('commentsphoto').update(
+       { name: tableName },
+       fileObj
+    )
+    res.send();
+  });
+
 
   app.get('/removeFile', function (req,res) {
-    console.log('inside removeFile');
-    var query = req.query;
+        console.log('inside removeFile, queries are ', req.query);
     var fileName = req.query.fileName;
     var tableName = req.query.tableName;
-    console.log('file name is ', fileName, 'tableName is ', tableName);
     db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
-      console.log('inside commentsphoto');
       if (err) { throw new Error('No record found. ', err) };
       var recordId = result[0]._id;
-      console.log('recordId is ', recordId);
       // var newFileArr = { $pull: { 'contact.phone': { number: '+1786543589455' } } } // if want to modify name only
       var newFileArr = { $pull: { 'fileUploads': { name: fileName } } };
-      console.log("newfilearr is ", newFileArr);
       db.collection('commentsphoto').update(
          { _id: recordId },
          newFileArr
       )
       res.send(result);
     });
-  }); // end of /removeFile put request
-
-  app.put('/updateCategory', function (req,res) {
-    console.log('inside updatecategory');
-    var test = req.body;
-    console.log('test is ', test);
-    res.send(result);
-  }); // end of /updatetheFile put request
+  }); // end of /removeFile get request
 
 
-  app.get('/getFileDraft2', function (req,res) {
-    console.log('inside removeFile');
-    var query = req.query;
-    console.log('query is ', query);
-    res.send(query)
-    // db.collection('calendar-ris').find().toArray(function (err, result) {
-    //   res.send(result);
-    // })
-  }); // end of /removeFileDraft get request
-
-
+  app.get('/updateCategory', function (req,res) {
+      console.log('inside update cat, queries are ', req.query);
+    var fileName = req.query.fileName;
+    var tableName = req.query.tableName;
+    var categoryName = req.query.categoryName;
+    db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+            console.log('recordId is ', recordId);
+      db.collection('commentsphoto').updateOne(
+         { _id: recordId, 'fileUploads.name': fileName },
+         {$set: {'fileUploads.$.category': categoryName}}
+      )
+      // var newFileArr = { $addToSet: { 'category': { name: fileName } } };
+      // console.log("newfilearr is ", newFileArr);
+      // db.collection('commentsphoto').update(
+      //    { _id: recordId },
+      //    newFileArr
+      // )
+      res.send(result);
+    });
+  }); // end of /updateCategory get request
 
 
   app.put('/updateAffiliateRidesData', function(req,res) {

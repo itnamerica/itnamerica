@@ -1896,9 +1896,10 @@ form textarea.form-control {font-size:25px}
   font-size:20px;
 }
 
-.repeat-img {
-  overflow: hidden;
-  display:inline;
+.upload-doc {
+  padding:3%;
+  float:right;
+  margin-top:-10%;
 }
 .all-docs {
   margin:auto;

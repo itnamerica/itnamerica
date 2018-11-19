@@ -4,7 +4,7 @@
     <h2>Document Library</h2>
     <h5 ng-show="docFilter && docFilter !== 'upload'" style="margin-top:-50px"><em>Filter: {{docFilter}} documents</em></h5>
 
-    <div class="upload-doc" style="padding:3%">
+    <div class="upload-doc">
       <button type="button" class="btn btn-lg" ngf-select="upload($file, 'America')">Upload a Document</button>
     </div><!--upload-doc-->
 
@@ -12,9 +12,7 @@
     <div class="all-docs file-uploads">
       <h5 class="title">All Documents:</h5>
 
-      <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
-
-      <h5 ng-hide="fileUploadsAffiliate || hideLibrary" class="loading-msg">{{serverMessage}}</h5>
+      <h5 ng-show="hideLibrary" class="loading-msg"><em>{{serverMessage}}</em></h5>
 
       <div style="margin:auto" ng-hide="hideLibrary">
         <span ng-repeat="file in fileUploadsAffiliate" ng-click="downloadImgFull(file.data)" class="repeat-img">
@@ -26,7 +24,7 @@
             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Add category
             <span class="caret"></span></button>
             <ul class="dropdown-menu" style="font-size:16px">
-              <li ng-repeat="category in fileCategories"><a ng-click="addCategory(category, file)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
+              <li ng-repeat="category in fileCategories"><a ng-click="addCategory(file, 'America', category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
             </ul>
           </div>
         </span><!--ngRepeat-->
