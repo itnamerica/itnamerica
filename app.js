@@ -216,13 +216,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       var recordId = result[0]._id;
       console.log('recordId is ', recordId);
       // var newFileArr = { $pull: { 'contact.phone': { number: '+1786543589455' } } } // if want to modify name only
-      // var newFileArr = { $pull: { 'fileUploads': { name: fileName } } };
-      // console.log("newfilearr is ", newFileArr);
-      // db.collection('commentsphoto').update(
-      //    { _id: recordId },
-      //    newFileArr
-      // )
-      // res.send(result);
+      var newFileArr = { $pull: { 'fileUploads': { name: fileName } } };
+      console.log("newfilearr is ", newFileArr);
+      db.collection('commentsphoto').update(
+         { _id: recordId },
+         newFileArr
+      )
+      res.send(result);
     });
   }); // end of /removeFile put request
 
