@@ -60,6 +60,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.myFile = null;
     $scope.isLogged = {};
     $scope.fileCategories = LongVariablesService.fileCategories;
+    $scope.fileCategoryFilter = '';
 
 
 
@@ -1438,6 +1439,20 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.serverMessage = "There was an error updating the category. Please try again.";
       })
     };
+
+    $scope.filterByCategory = function(tableName, category){
+      console.log('inside filter by cat func, tablename and cat are ', tableName, category);
+      // $scope.hideLibrary = true;
+      // $scope.serverMessage = "Your filter is being applied. Please wait.";
+      // $scope.fileUploadsAffiliate
+    };
+
+    $scope.assignFileCategoryFilter = function(tableName, category){
+      console.log('filter to be assigned is ', category.name);
+      $scope.fileCategoryFilter = category;
+    }
+
+
 
     function hexToBase64(str) {
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));

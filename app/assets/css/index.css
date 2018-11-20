@@ -1903,7 +1903,7 @@ form textarea.form-control {font-size:25px}
 }
 .all-docs {
   margin:auto;
-  margin-top:75px;
+  margin-top:125px;
   border-left:1px groove white;
   border-right:1px groove white;
 }
@@ -1912,7 +1912,7 @@ form textarea.form-control {font-size:25px}
   margin-left:2%;
 }
 .all-docs figcaption {
-  font-size:10px;
+  font-size:12px;
 }
 .repeat-img {
   display:inline-block;

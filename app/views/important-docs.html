@@ -8,21 +8,27 @@
       <button type="button" class="btn btn-lg" ngf-select="upload($file, 'America')">Upload a Document</button>
     </div><!--upload-doc-->
 
-<!-- <button type="button" class="btn btn-sm" ng-click="filterDocLibrary()"><em>Filter by category</em></button> -->
     <div class="all-docs file-uploads">
       <h5 class="title">All Documents:</h5>
+      <div class="dropdown ta-center" style="color:black">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Filter by category
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu" style="font-size:16px;margin-left: 40%">
+          <li ng-repeat="category in fileCategories"><a ng-click="assignFileCategoryFilter('America', category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
+        </ul>
+      </div>
 
       <h5 ng-show="hideLibrary" class="loading-msg"><em>{{serverMessage}}</em></h5>
 
       <div style="margin:auto" ng-hide="hideLibrary">
-        <span ng-repeat="file in fileUploadsAffiliate" ng-click="downloadImgFull(file.data)" class="repeat-img">
+        <span ng-repeat="file in fileUploadsAffiliate | filter: fileCategoryFilter.name" ng-click="downloadImgFull(file.data)" class="repeat-img">
           <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove" style="margin-left:97%;cursor:pointer"></span>
           <img ng-src="{{file.data | base64ToImgSrc}}"/><br />
           <figcaption>{{file.name}}</figcaption>
           <figcaption><em>Category: {{file.category}}</em></figcaption>
 
           <div class="dropdown ta-center" style="color:black">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Add category
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Change category
             <span class="caret"></span></button>
             <ul class="dropdown-menu" style="font-size:16px">
               <li ng-repeat="category in fileCategories"><a ng-click="addCategory(file, 'America', category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
