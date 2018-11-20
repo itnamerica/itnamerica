@@ -97,7 +97,7 @@ myApp.filter('hexToBase64', function() {
 
  myApp.filter('base64ToImgSrc', function() {
      return function(base64) {
-       if (base64){
+        if (base64){
          return 'data:image/png;base64,' + base64;
        }
      };

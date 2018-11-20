@@ -1440,11 +1440,21 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       })
     };
 
-
     $scope.assignFileCategoryFilter = function(category){
       $scope.fileCategoryFilter = category;
     };
 
+    $scope.isDocOrPDF = function(file){
+      var fileFormat = file.name.substr(file.name.length - 3);
+            console.log('file name is ', fileFormat);
+      if (fileFormat === 'pdf'){
+        return 'pdf'
+      } else if (fileFormat === 'doc'){
+        return 'doc'
+      } else {
+        return false;
+      }
+    };
 
 
     function hexToBase64(str) {
