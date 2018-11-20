@@ -24,12 +24,12 @@
       <div style="margin:auto;clear:both" ng-hide="hideLibrary">
         <span ng-repeat="file in fileUploadsAffiliate | filter: fileCategoryFilter.name" ng-click="downloadImgFull(file.data)" class="repeat-img">
           <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove" style="margin-left:97%;cursor:pointer"></span>
-          <img ng-src="{{file.data | base64ToImgSrc}}" ng-if="isDocOrPDF(file) === false"/><br />
-          <img ng-src="{{assetsPath}}/images/icons/pdf-icon.png" ng-if="isDocOrPDF(file) === 'pdf'" style="display:block"/><br />
-          <img ng-src="{{assetsPath}}/images/icons/doc-icon.png" ng-if="isDocOrPDF(file) === 'doc'" style="display:block"/><br />
-          <img ng-src="{{assetsPath}}/images/icons/pptx-icon.png" ng-if="isDocOrPDF(file) === 'pptx'" style="display:block"/><br />
-          <img ng-src="{{assetsPath}}/images/icons/excel-icon.png" ng-if="isDocOrPDF(file) === 'excel'" style="display:block"/><br />
-          <img ng-src="{{assetsPath}}/images/icons/audiovideofile-icon.jpg" ng-if="isDocOrPDF(file) === 'audiovid'" style="display:block"/><br />
+          <a ng-click="downloadImg(file)"><img ng-src="{{file.data | base64ToImgSrc}}" ng-if="isDocOrPDF(file) === false"/></a><br />
+          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/pdf-icon.png" ng-if="isDocOrPDF(file) === 'pdf'" style="display:block"/></a><br />
+          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/doc-icon.png" ng-if="isDocOrPDF(file) === 'doc'" style="display:block"/></a><br />
+          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/pptx-icon.png" ng-if="isDocOrPDF(file) === 'pptx'" style="display:block"/></a><br />
+          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/excel-icon.png" ng-if="isDocOrPDF(file) === 'excel'" style="display:block"/></a><br />
+          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/audiovideofile-icon.jpg" ng-if="isDocOrPDF(file) === 'audiovid'" style="display:block"/></a><br />
           <figcaption><em>Name:</em>{{file.name}}</figcaption>
           <figcaption style="float:left"><em>Category:</em> {{file.category}}</figcaption>
 
