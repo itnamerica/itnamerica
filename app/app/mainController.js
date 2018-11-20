@@ -1446,10 +1446,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.isDocOrPDF = function(file){
       var fileFormat = file.name.substr(file.name.length - 3);
+      fileFormat = fileFormat.toLowerCase();
             console.log('file name is ', fileFormat);
       if (fileFormat === 'pdf'){
         return 'pdf'
       } else if (fileFormat === 'doc' || fileFormat === 'ocx'){
+        return 'doc'
+      } else if (fileFormat === 'xls' || fileFormat === 'lsx' || fileFormat === 'xlr' || fileFormat === 'ods'){
+        return 'excel'
+      } else if (fileFormat === 'ptx' || fileFormat === 'ppt' || fileFormat === 'pps' || fileFormat === 'odp'){
+        return 'pptx'
+      } else if (fileFormat === 'mp3' || fileFormat === 'mp4' || fileFormat === 'mov' || fileFormat === 'mp4' || fileFormat === 'avi' || fileFormat === '3gp' || fileFormat === 'flv' || fileFormat === 'swf' || fileFormat === 'wmv' || fileFormat === '.rm' || fileFormat === 'mp4'){
         return 'doc'
       } else {
         return false;
