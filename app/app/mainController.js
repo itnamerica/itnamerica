@@ -1449,7 +1449,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             console.log('file name is ', fileFormat);
       if (fileFormat === 'pdf'){
         return 'pdf'
-      } else if (fileFormat === 'doc'){
+      } else if (fileFormat === 'doc' || fileFormat === 'ocx'){
         return 'doc'
       } else {
         return false;

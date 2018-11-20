@@ -25,8 +25,8 @@
         <span ng-repeat="file in fileUploadsAffiliate | filter: fileCategoryFilter.name" ng-click="downloadImgFull(file.data)" class="repeat-img">
           <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove" style="margin-left:97%;cursor:pointer"></span>
           <img ng-src="{{file.data | base64ToImgSrc}}" ng-if="isDocOrPDF(file) === false"/><br />
-          <img ng-src="{{assetsPath}}/images/icons/pdf-icon.png" ng-if="isDocOrPDF(file) === 'pdf'"/><br />
-          <img ng-src="{{assetsPath}}/images/icons/doc-icon.png" ng-if="isDocOrPDF(file) === 'doc'"/><br />
+          <img ng-src="{{assetsPath}}/images/icons/pdf-icon.png" ng-if="isDocOrPDF(file) === 'pdf'" style="display:block"/><br />
+          <img ng-src="{{assetsPath}}/images/icons/doc-icon.png" ng-if="isDocOrPDF(file) === 'doc'" style="display:block"/><br />
           <figcaption><em>Name:</em>{{file.name}}</figcaption>
           <figcaption style="float:left"><em>Category:</em> {{file.category}}</figcaption>
 
