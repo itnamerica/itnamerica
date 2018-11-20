@@ -1910,6 +1910,7 @@ form textarea.form-control {font-size:25px}
 .all-docs .title {
   text-align:left;
   margin-left:2%;
+  float:left;
 }
 .all-docs figcaption {
   font-size:12px;
