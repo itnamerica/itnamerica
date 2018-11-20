@@ -19,6 +19,7 @@
           <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove" style="margin-left:97%;cursor:pointer"></span>
           <img ng-src="{{file.data | base64ToImgSrc}}"/><br />
           <figcaption>{{file.name}}</figcaption>
+          <figcaption><em>Category: {{file.category}}</em></figcaption>
 
           <div class="dropdown ta-center" style="color:black">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Add category
