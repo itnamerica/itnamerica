@@ -14,7 +14,7 @@
         <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Filter by category
         <span class="caret"></span></button>
         <ul class="dropdown-menu" style="font-size:16px;margin-left: 40%">
-          <li ng-repeat="category in fileCategories"><a ng-click="assignFileCategoryFilter('America', category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
+          <li ng-repeat="category in fileCategories"><a ng-click="assignFileCategoryFilter(category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
         </ul>
       </div>
 
