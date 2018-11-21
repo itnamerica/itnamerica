@@ -1545,7 +1545,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      // $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
      if ($scope.docOrPDF === 'png'){
        //replace icon with thumnail of that img
-       $scope.filePath = $scope.base64ToImgSrc(file);
+       $scope.filePath = $scope.base64ToImgSrc(file.data);
      } else {
        //replace with icon of that file format
        $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
