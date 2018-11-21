@@ -33,7 +33,15 @@
             
             <div class="col-sm-4">
               
-              <a ng-href="base64ToImgSrc(file.data)" ng-if="isDocOrPDF(file) === false"><img ng-src="{{file.data | base64ToImgSrc}}"/></a><br />
+              <a ng-click="downloadPDF(file)" ng-init="testFileFormat(file)">
+                <img ng-src="{{filePath}}" style="display:block"/>
+              </a><br />
+              filepath is {{filePath}}
+              
+              
+              
+              <!-- 
+              <a ng-href="base64ToImgSrc(file.data)" ng-if="isDocOrPDF(file) === 'png'"><img ng-src="{{file.data | base64ToImgSrc}}"/></a><br />
               
               <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'pdf'"><img ng-src="{{assetsPath}}/images/icons/pdf-icon.png" style="display:block"/></a><br />
               
@@ -43,7 +51,7 @@
               
               <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'excel'"><img ng-src="{{assetsPath}}/images/icons/excel-icon.png"  style="display:block"/></a><br />
               
-              <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'audiovid'"><img ng-src="{{assetsPath}}/images/icons/audiovideofile-icon.jpg" style="display:block"/></a><br />
+              <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'audiovid'"><img ng-src="{{assetsPath}}/images/icons/audiovideofile-icon.jpg" style="display:block"/></a><br /> -->
               
               <div class="img-legend" style="font-size:16px">
                 

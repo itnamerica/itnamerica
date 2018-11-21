@@ -1497,7 +1497,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       var fileFormat = file.name.substr(file.name.length - 3);
       fileFormat = fileFormat.toLowerCase();
             // console.log('file name is ', fileFormat);
-      if (fileFormat === 'pdf'){
+      if (fileFormat === 'png' || fileFormat === 'jpg' fileFormat === 'peg' fileFormat === 'svg'){
+        return 'png'
+      } else if (fileFormat === 'pdf'){
         return 'pdf'
       } else if (fileFormat === 'doc' || fileFormat === 'ocx'){
         return 'doc'
@@ -1518,8 +1520,21 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         console.log('newimgurl is ', newImgUrl);
         return newImgUrl;
      }
-    }
+   };
 
+   
+   $scope.testFileFormat = function(file){
+     console.log('inside test file format, file is ', file);
+     $scope.docOrPDF = $scope.isDocOrPDF(file);
+     if ($scope.docOrPDF === 'png'){
+       //replace icon with thumnail of that img
+     } else {
+       //replace with icon of that file format
+       $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
+     }
+     console.log("file path is ", $scope.filePath);
+     return $scope.filePath;
+   };
 
     function hexToBase64(str) {
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
