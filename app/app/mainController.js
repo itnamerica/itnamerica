@@ -1542,13 +1542,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    
    $scope.testFileFormat = function(file){
      $scope.docOrPDF = $scope.isDocOrPDF(file);
-     $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
-     // if ($scope.docOrPDF === 'png'){
-     //   //replace icon with thumnail of that img
-     // } else {
-     //   //replace with icon of that file format
-     //   $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
-     // }
+     // $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
+     if ($scope.docOrPDF === 'png'){
+       //replace icon with thumnail of that img
+       $scope.filePath = $scope.base64ToImgSrc(file);
+     } else {
+       //replace with icon of that file format
+       $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
+     }
      $scope.filePathArray.push($scope.filePath);
      console.log("file path is ", $scope.filePath);
      return $scope.filePath;

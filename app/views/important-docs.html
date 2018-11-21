@@ -38,6 +38,7 @@
               
               <a ng-click="downloadFile(file, $index)" ng-init="testFileFormat(file)" ng-attr-id="{{'file-' + $index }}">
                 <img ng-src="{{filePathArray[$index]}}" style="display:block"/>
+                <img ng-src="{{file.data | base64ToImgSrc}}"/><br />
               </a><br />
 
               <div class="img-legend" style="font-size:14px">
