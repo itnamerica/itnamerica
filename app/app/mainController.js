@@ -289,16 +289,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             var currentBlob = new Blob([uintArray], {
                 type: 'application/png'
             });
-            // $scope.pdfUrl = URL.createObjectURL(currentBlob);
-            // console.log('redirecting to pdf', formObj);
-            // window.location.href = $scope.pdfUrl;
-          
-                window.saveAs(currentBlob, 'my-node1.png');
-            
-            domtoimage.toBlob(document.getElementById('file-' + idx))
-            .then(function (blob) {
-                window.saveAs(blob, 'my-node2.png');
-            });
+            window.saveAs(currentBlob, formObj.name);
             
         } else {
             return $scope.pdfUrl = "This form does not contain a PDF";
