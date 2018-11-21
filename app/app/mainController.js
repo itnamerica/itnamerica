@@ -1497,7 +1497,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       var fileFormat = file.name.substr(file.name.length - 3);
       fileFormat = fileFormat.toLowerCase();
             // console.log('file name is ', fileFormat);
-      if (fileFormat === 'png' || fileFormat === 'jpg' fileFormat === 'peg' fileFormat === 'svg'){
+      if (fileFormat === 'png' || fileFormat === 'jpg' || fileFormat === 'peg' || fileFormat === 'svg'){
         return 'png'
       } else if (fileFormat === 'pdf'){
         return 'pdf'
@@ -1522,19 +1522,27 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      }
    };
 
-   
-   $scope.testFileFormat = function(file){
-     console.log('inside test file format, file is ', file);
+   $scope.filePathArray = []; 
+   $scope.testFileFormat = function(file, idx){
+     console.log('inside test file format, file is ', file, 'index is ', idx);
+     
      $scope.docOrPDF = $scope.isDocOrPDF(file);
-     if ($scope.docOrPDF === 'png'){
-       //replace icon with thumnail of that img
-     } else {
-       //replace with icon of that file format
-       $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
-     }
+     
+     $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
+     // if ($scope.docOrPDF === 'png'){
+     //   //replace icon with thumnail of that img
+     // } else {
+     //   //replace with icon of that file format
+     //   $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
+     // }
+     
+     $scope.filePathArray.push($scope.filePath);
+     
+     
      console.log("file path is ", $scope.filePath);
      return $scope.filePath;
    };
+
 
     function hexToBase64(str) {
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
