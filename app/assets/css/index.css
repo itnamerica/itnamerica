@@ -1919,25 +1919,33 @@ form textarea.form-control {font-size:25px}
   border-color: white;
   color:white;
 }
-.all-docs .row .col-sm-4 {
-  width: 100% !important;
-}
 .all-docs .cat-options {
-  float:left;padding:1%
+  float:left;
+  padding:10px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.all-docs .file-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .all-docs .cat-options .dropdown {
   color:black;
   float:left;
-  margin-top:-12px;
   margin-left:2%;
 }
 .all-docs .cat-options .dropdown .btn {
   padding:1px 6px;
   font-size:12px;
 }
+.loading-img {
+  color:red;
+  margin-top:100px;
+  display:block;
+}
 .repeat-img {
   display:inline-block;
-  margin:1%;
+  /* margin:1%; */
   overflow:visible;
 }
 .repeat-img img {

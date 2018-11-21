@@ -7,12 +7,15 @@
     <div class="upload-doc">
       <button type="button" class="btn btn-lg" ngf-select="upload($file, 'America')">Upload a Document</button>
     </div><!--upload-doc-->
+    
+    <div ng-hide="fileUploadsAffiliate" class="loading-msg"><em>Please wait a few seconds while your files are loading on the page.</em></div>
 
     <div class="all-docs">
       <h5 class="title">All Documents:</h5>
 
       <div class="dropdown" style="color:black;float:left;margin-left:2%">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Filter by category
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+          Filter by category
         <span class="caret"></span></button>
         <ul class="dropdown-menu" style="font-size:16px;margin-left: 40%">
           <li ng-repeat="category in fileCategories"><a ng-click="assignFileCategoryFilter(category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
@@ -33,30 +36,29 @@
             
             <div class="col-sm-4">
               
-              <a ng-click="downloadPDF(file)" ng-init="testFileFormat(file, $index)">
+              <a ng-click="downloadPDF(file)" ng-init="testFileFormat(file)">
                 <img ng-src="{{filePathArray[$index]}}" style="display:block"/>
               </a><br />
-              filepath is {{filePath}}
 
-              <div class="img-legend" style="font-size:16px">
+              <div class="img-legend" style="font-size:14px">
                 
-                <em>Name:</em> {{file.name}}</br>
+                <p class="file-name">{{file.name}}</p>
                 
-                <button class="btn btn-itn-sm" ng-click="viewEditOptions = !viewEditOptions">Edit</button>
+                <button class="btn btn-itn-sm" ng-click="viewEditOptions = !viewEditOptions" ng-hide="viewEditOptions">Edit</button>
                 
                 <div ng-if="viewEditOptions" class="cat-options">
-                    <em>Category:</em> {{file.category}}
+                    <em>Category: </em>  {{file.category}}
                     
                     <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                      <button class="btn btn-itn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                         Change Category<span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" style="font-size:14px">
-                        <li ng-repeat="category in fileCategories"><a ng-click="addCategory(file, 'America', category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
+                        <li ng-repeat="category in fileCategories"><a ng-click="addCategory(file, 'America', category); viewEditOptions = false" ng-class="{'no-border': $last}">{{category.name}}</a></li>
                       </ul>
                     </div><!--dropdown-->
                     
-                    <button class="btn-itn-sm" ng-click="removeFile(file, 'America')">
+                    <button ng-click="removeFile(file, 'America'); viewEditOptions = false" class="btn-itn-sm" style="margin-top:10px">
                       Delete file <span class="glyphicon glyphicon-remove"></span>
                     </button>
                   

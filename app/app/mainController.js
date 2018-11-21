@@ -1496,7 +1496,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.isDocOrPDF = function(file){
       var fileFormat = file.name.substr(file.name.length - 3);
       fileFormat = fileFormat.toLowerCase();
-            // console.log('file name is ', fileFormat);
       if (fileFormat === 'png' || fileFormat === 'jpg' || fileFormat === 'peg' || fileFormat === 'svg'){
         return 'png'
       } else if (fileFormat === 'pdf'){
@@ -1523,11 +1522,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    };
 
    $scope.filePathArray = []; 
-   $scope.testFileFormat = function(file, idx){
-     console.log('inside test file format, file is ', file, 'index is ', idx);
-     
+   $scope.testFileFormat = function(file){
      $scope.docOrPDF = $scope.isDocOrPDF(file);
-     
      $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
      // if ($scope.docOrPDF === 'png'){
      //   //replace icon with thumnail of that img
@@ -1535,10 +1531,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      //   //replace with icon of that file format
      //   $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
      // }
-     
      $scope.filePathArray.push($scope.filePath);
-     
-     
      console.log("file path is ", $scope.filePath);
      return $scope.filePath;
    };
