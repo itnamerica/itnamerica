@@ -273,7 +273,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
     };
     
-    $scope.downloadPNG = function(formObj) {
+    $scope.downloadPNG = function(formObj, idx) {
         console.log('inside base64 func');
         console.log('form obj is ', formObj);
         if (formObj && formObj.data) {
@@ -289,9 +289,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             var currentBlob = new Blob([uintArray], {
                 type: 'application/png'
             });
-            $scope.pdfUrl = URL.createObjectURL(currentBlob);
-            console.log('redirecting to pdf', formObj);
-            window.location.href = $scope.pdfUrl;
+            // $scope.pdfUrl = URL.createObjectURL(currentBlob);
+            // console.log('redirecting to pdf', formObj);
+            // window.location.href = $scope.pdfUrl;
+          
+                window.saveAs(currentBlob, 'my-node1.png');
+            
+            domtoimage.toBlob(document.getElementById('file-' + idx))
+            .then(function (blob) {
+                window.saveAs(blob, 'my-node2.png');
+            });
+            
         } else {
             return $scope.pdfUrl = "This form does not contain a PDF";
         }
@@ -322,6 +330,24 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             return $scope.pdfUrl = "This form does not contain a PDF";
         }
     };
+    
+    $scope.downloadFile = function(file, idx){
+      console.log("file is ", file, 'index is ', idx);
+      var docOrPDF = $scope.isDocOrPDF(file);
+      if (docOrPDF === 'png'){
+        $scope.downloadPNG(file, idx)
+      } else if (docOrPDF === 'pdf'){
+        $scope.downloadPDF(file)
+      } else if (docOrPDF === 'doc'){
+        
+      } else if (docOrPDF === 'excel'){
+        
+      } else if (docOrPDF === 'pptx'){
+        
+      } else {
+        
+      }
+    }
 
     $scope.authenticate = function() {
         if ($scope.session) {
@@ -1522,6 +1548,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    };
 
    $scope.filePathArray = []; 
+   
    $scope.testFileFormat = function(file){
      $scope.docOrPDF = $scope.isDocOrPDF(file);
      $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
