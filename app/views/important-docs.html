@@ -8,7 +8,7 @@
       <button type="button" class="btn btn-lg" ngf-select="upload($file, 'America')">Upload a Document</button>
     </div><!--upload-doc-->
 
-    <div class="all-docs file-uploads">
+    <div class="all-docs">
       <h5 class="title">All Documents:</h5>
 
       <div class="dropdown" style="color:black;float:left;margin-left:2%">
@@ -17,46 +17,75 @@
         <ul class="dropdown-menu" style="font-size:16px;margin-left: 40%">
           <li ng-repeat="category in fileCategories"><a ng-click="assignFileCategoryFilter(category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
         </ul>
-      </div>
+      </div><!--dropodown-->
 
       <h5 ng-show="hideLibrary" class="loading-msg" style="clear:both"><em>{{serverMessage}}</em></h5>
-
-      <div style="margin:auto;clear:both" ng-hide="hideLibrary">
-        <span ng-repeat="file in fileUploadsAffiliate | filter: fileCategoryFilter.name" ng-click="downloadImgFull(file.data)" class="repeat-img">
-          <a href="{{file.data | base64ToImgSrc}}">click</a>
-
-          <span ng-click="removeFile(file, 'America')" class="glyphicon glyphicon-remove" style="margin-left:97%;cursor:pointer"></span>
-          <a ng-href="base64ToImgSrc(file.data)"><img ng-src="{{file.data | base64ToImgSrc}}" ng-if="isDocOrPDF(file) === false"/></a><br />
-          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/pdf-icon.png" ng-if="isDocOrPDF(file) === 'pdf'" style="display:block"/></a><br />
-          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/doc-icon.png" ng-if="isDocOrPDF(file) === 'doc'" style="display:block"/></a><br />
-          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/pptx-icon.png" ng-if="isDocOrPDF(file) === 'pptx'" style="display:block"/></a><br />
-          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/excel-icon.png" ng-if="isDocOrPDF(file) === 'excel'" style="display:block"/></a><br />
-          <a ng-click="downloadPDF(file)"><img ng-src="{{assetsPath}}/images/icons/audiovideofile-icon.jpg" ng-if="isDocOrPDF(file) === 'audiovid'" style="display:block"/></a><br />
-          <figcaption><em>Name:</em>{{file.name}}</figcaption>
-          <figcaption style="float:left"><em>Category:</em> {{file.category}}</figcaption>
-
-          <div class="dropdown" style="color:black;float:left;margin-top:-12px;margin-left:2%">
-            <button class="btn btn-secondary dropdown-toggle" style="padding:1px 6px;font-size:12px;" type="button" data-toggle="dropdown">Change
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu" style="font-size:16px">
-              <li ng-repeat="category in fileCategories"><a ng-click="addCategory(file, 'America', category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
-            </ul>
-          </div>
-        </span><!--ngRepeat-->
-      </div><!-- file-uploads-->
-
-    </div>
+    <div><!--all-docs-->
+        
+    
+        <!-- <a href="{{file.data | base64ToImgSrc}}">click</a> -->
+        
+        <div class="row ta-center" style="margin:auto;padding:1;clear:both" ng-hide="hideLibrary">
+          
+          <div ng-repeat="file in fileUploadsAffiliate | filter: fileCategoryFilter.name" ng-click="downloadImgFull(file.data)" class="repeat-img">
+            
+            <div class="clearfix" ng-if="$index % 3 == 0"></div>
+            
+            <div class="col-sm-4">
+              
+              <a ng-href="base64ToImgSrc(file.data)" ng-if="isDocOrPDF(file) === false"><img ng-src="{{file.data | base64ToImgSrc}}"/></a><br />
+              
+              <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'pdf'"><img ng-src="{{assetsPath}}/images/icons/pdf-icon.png" style="display:block"/></a><br />
+              
+              <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'doc'"><img ng-src="{{assetsPath}}/images/icons/doc-icon.png"  style="display:block"/></a><br />
+              
+              <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'pptx'"><img ng-src="{{assetsPath}}/images/icons/pptx-icon.png"  style="display:block"/></a><br />
+              
+              <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'excel'"><img ng-src="{{assetsPath}}/images/icons/excel-icon.png"  style="display:block"/></a><br />
+              
+              <a ng-click="downloadPDF(file)" ng-if="isDocOrPDF(file) === 'audiovid'"><img ng-src="{{assetsPath}}/images/icons/audiovideofile-icon.jpg" style="display:block"/></a><br />
+              
+              <div class="img-legend" style="font-size:16px">
+                
+                <em>Name:</em> {{file.name}}</br>
+                
+                <button class="btn btn-itn-sm" ng-click="viewEditOptions = !viewEditOptions">Edit</button>
+                
+                <div ng-if="viewEditOptions" class="cat-options">
+                    <em>Category:</em> {{file.category}}
+                    
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Change Category<span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" style="font-size:14px">
+                        <li ng-repeat="category in fileCategories"><a ng-click="addCategory(file, 'America', category)" ng-class="{'no-border': $last}">{{category.name}}</a></li>
+                      </ul>
+                    </div><!--dropdown-->
+                    
+                    <button class="btn-itn-sm" ng-click="removeFile(file, 'America')">
+                      Delete file <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                  
+                    
+                </div><!--viewEditOptions-->
+                
+              </div><!--img-legend-->
+            </div><!--col-sm-4-->
+            
+          </div><!--ngRepeat/repeat-img-->
+      </div><!-- row-->
 
   </div><!--container-->
 </div><!--important-docs-->
 
 
 
-<div class="back-btn-wrap">
+<!-- <div class="back-btn-wrap">
   <a ui-sref="important-docs-landing" class="back-btn">
     <h3>Back to Previous Page</h3>
   </a>
   <a ui-sref="portal" class="back-btn">
     <h3>Back to Portal</h3>
   </a>
-</div>
+</div> -->

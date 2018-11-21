@@ -1912,7 +1912,27 @@ form textarea.form-control {font-size:25px}
   margin-left:2%;
   float:left;
 }
-.all-docs figcaption {
+.btn-itn-sm {
+  padding:1px 6px;
+  font-size:12px;
+  background: #529ba8;
+  border-color: white;
+  color:white;
+}
+.all-docs .row .col-sm-4 {
+  width: 100% !important;
+}
+.all-docs .cat-options {
+  float:left;padding:1%
+}
+.all-docs .cat-options .dropdown {
+  color:black;
+  float:left;
+  margin-top:-12px;
+  margin-left:2%;
+}
+.all-docs .cat-options .dropdown .btn {
+  padding:1px 6px;
   font-size:12px;
 }
 .repeat-img {

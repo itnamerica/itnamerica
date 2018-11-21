@@ -272,6 +272,30 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             return $scope.pdfUrl = "This form does not contain a PDF";
         }
     };
+    
+    $scope.downloadPNG = function(formObj) {
+        console.log('inside base64 func');
+        console.log('form obj is ', formObj);
+        if (formObj && formObj.data) {
+            var base64 = formObj.data;
+            base64 = base64.replace("data:application/png;base64,", "");
+            var binaryImg = window.atob(base64);
+            var length = binaryImg.length;
+            var arrayBuffer = new ArrayBuffer(length);
+            var uintArray = new Uint8Array(arrayBuffer);
+            for (var i = 0; i < length; i++) {
+                uintArray[i] = binaryImg.charCodeAt(i);
+            }
+            var currentBlob = new Blob([uintArray], {
+                type: 'application/png'
+            });
+            $scope.pdfUrl = URL.createObjectURL(currentBlob);
+            console.log('redirecting to pdf', formObj);
+            window.location.href = $scope.pdfUrl;
+        } else {
+            return $scope.pdfUrl = "This form does not contain a PDF";
+        }
+    };
 
     $scope.downloadPDF = function(formObj) {
         console.log('inside base64 func');
