@@ -359,14 +359,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.downloadExcel = function(formObj, idx) {
-        console.log('inside download doc, file is ', file);
+        console.log('inside download doc, file is ', formObj);
         console.log('file ext obj is ', $scope.fileExtensionsObj);
 
         console.log('inside base64 func');
         console.log('form obj is ', formObj);
         if (formObj && formObj.data) {
             var base64 = formObj.data;
-            base64 = base64.replace("data:application/vnd.openxmlformats-officedocument.wordprocessingml.document,", "");
+            base64 = base64.replace("data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,", "");
             var binaryImg = window.atob(base64);
             var length = binaryImg.length;
             var arrayBuffer = new ArrayBuffer(length);
