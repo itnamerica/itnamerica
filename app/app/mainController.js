@@ -362,19 +362,19 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.downloadFile = function(file, idx){
-      var fileMimeType = $scope.isDocOrPDF(file);
+      var fileMimeType = $scope.findFileMimeType(file);
       console.log("file is ", file, 'type is ', fileMimeType);
       if (fileMimeType === 'png'){
         $scope.downloadPNG(file, idx)
       } else if (fileMimeType === 'pdf'){
         $scope.downloadPDF(file)
       } else if (fileMimeType === 'doc'){
-        $scope.downloadDOC(file, idx);
+        $scope.downloadExcelPPTX(file, idx);
       } else if (fileMimeType === 'excel'){
         $scope.downloadExcelPPTX(file, idx);
       } else if (fileMimeType === 'pptx'){
         $scope.downloadExcelPPTX(file, idx);
-      } else {}
+      } else {} //audio, video, photoshop, svg
     };
 
     $scope.authenticate = function() {
@@ -1547,7 +1547,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       $scope.fileCategoryFilter = category;
     };
 
-    $scope.isDocOrPDF = function(file){
+    $scope.findFileMimeType = function(file){
       var fileFormat = file.name.substr(file.name.length - 3);
       fileFormat = fileFormat.toLowerCase();
       if (fileFormat === 'png' || fileFormat === 'jpg' || fileFormat === 'peg' || fileFormat === 'svg'){
@@ -1581,7 +1581,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    };
 
    $scope.displayThumbnailImg = function(file){
-     $scope.fileMimeType = $scope.isDocOrPDF(file);
+     $scope.fileMimeType = $scope.findFileMimeType(file);
      if ($scope.fileMimeType === 'png'){ //replace icon with thumnail of that img
        $scope.filePath = $scope.base64ToImgSrc(file.data);
      } else { //replace with icon of that file format
