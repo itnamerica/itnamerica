@@ -353,12 +353,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
     };
 
-    $scope.downloadDOC2 = function(file, idx){
-      console.log('inside download doc, file is ', file);
-      console.log('file ext obj is ', $scope.fileExtensionsObj);
-    };
-
-    $scope.downloadExcel = function(formObj, idx) {
+    $scope.downloadExcel2 = function(formObj, idx) {
         console.log('inside download doc, file is ', formObj);
         console.log('file ext obj is ', $scope.fileExtensionsObj);
 
@@ -385,6 +380,15 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         } else {
             return $scope.pdfUrl = "This form does not contain a PDF";
         }
+    };
+
+    $scope.downloadExcel = function(file, idx){
+      var blob = new Blob([s2ab(atob(file.data))], {
+          type: ''
+      });
+      href = URL.createObjectURL(blob);
+      // window.location.href = href;
+      window.saveAs(blob, file.name);
     };
 
     $scope.downloadFile = function(file, idx){
@@ -1626,5 +1630,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     function hexToBase64(str) {
       return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
     }; //
+
+    function s2ab(s) {
+      var buf = new ArrayBuffer(s.length);
+      var view = new Uint8Array(buf);
+      for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    };
 
 }]);
