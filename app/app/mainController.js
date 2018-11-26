@@ -334,7 +334,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.downloadPNG(file, idx)
       } else if (fileMimeType !== 'png'){
         $scope.downloadBLOB(file)
-      } else {} //audio, video, photoshop, svg
+      } //audio, video, photoshop, svg
     };
 
     $scope.authenticate = function() {
@@ -1508,7 +1508,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.findFileMimeType = function(file){
       var fileFormat = file.name.substr(file.name.length - 3);
       fileFormat = fileFormat.toLowerCase();
-      if (fileFormat === 'png' || fileFormat === 'jpg' || fileFormat === 'peg' || fileFormat === 'svg'){
+      if (fileFormat === 'png' || fileFormat === 'jpg' || fileFormat === 'peg'){
         return 'png'
       } else if (fileFormat === 'pdf'){
         return 'pdf'
@@ -1520,6 +1520,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         return 'pptx'
       } else if (fileFormat === 'mp3' || fileFormat === 'mp4' || fileFormat === 'mov' || fileFormat === 'mp4' || fileFormat === 'avi' || fileFormat === '3gp' || fileFormat === 'flv' || fileFormat === 'swf' || fileFormat === 'wmv' || fileFormat === '.rm' || fileFormat === 'mp4'){
         return 'audiovid'
+      } else if (fileFormat === 'svg'){
+        return 'svg'
       } else {
         return false;
       }
