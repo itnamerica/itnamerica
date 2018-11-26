@@ -1924,6 +1924,7 @@ form textarea.form-control {font-size:25px}
   padding:10px;
   border: 1px solid white;
   border-radius: 5px;
+  position:absolute;
 }
 .all-docs .file-name {
   text-overflow: ellipsis;

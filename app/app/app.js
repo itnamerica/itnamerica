@@ -39,11 +39,13 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('dashboard', {
             url: '/dashboard',
-            templateUrl: viewsPath + 'dashboard.html'
+            templateUrl: viewsPath + 'dashboard.html',
+            controller: 'FileUploadCtrl'
         })
         .state('view-form', {
             url: '/view-form',
             templateUrl: viewsPath + 'view-form.html',
+            controller: 'FileUploadCtrl',
             params: {
                 formObj: null,
                 formType: null
@@ -151,6 +153,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('important-docs', {
             url: '/important-docs',
             templateUrl: viewsPath + 'important-docs.html',
+            controller: 'FileUploadCtrl',
             params: {
               filter: null
             }
@@ -158,6 +161,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('important-docs-landing', {
             url: '/important-docs-landing',
             templateUrl: viewsPath + 'important-docs-landing.html',
+            controller: 'FileUploadCtrl'
         })
         .state('employee-profiles', {
             url: '/employee-profiles',
@@ -200,7 +204,8 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('documents', {
             url: '/documents?filter',
-            templateUrl: viewsPath + 'documents.html'
+            templateUrl: viewsPath + 'documents.html',
+            controller: 'FileUploadCtrl'
         })
         .state('web-traffic', {
             url: '/web-traffic?filter',
