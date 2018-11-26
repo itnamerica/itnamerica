@@ -353,41 +353,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         }
     };
 
-    $scope.downloadExcel2 = function(formObj, idx) {
-        console.log('inside download doc, file is ', formObj);
-        console.log('file ext obj is ', $scope.fileExtensionsObj);
-
-        console.log('inside base64 func');
-        console.log('form obj is ', formObj);
-        if (formObj && formObj.data) {
-            var base64 = formObj.data;
-            base64 = base64.replace("data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,", "");
-            var binaryImg = window.atob(base64);
-            var length = binaryImg.length;
-            var arrayBuffer = new ArrayBuffer(length);
-            var uintArray = new Uint8Array(arrayBuffer);
-            for (var i = 0; i < length; i++) {
-                uintArray[i] = binaryImg.charCodeAt(i);
-            }
-            var currentBlob = new Blob([uintArray], {
-                type: 'application/pdf'
-            });
-            $scope.pdfUrl = URL.createObjectURL(currentBlob);
-            // $("#output").append($("<a/>").attr({href: $scope.pdfUrl}).append("Download"));
-            // $scope.redirectToURL($scope.pdfUrl);
-            console.log('redirecting to pdf', formObj, 'pdf url is ', $scope.pdfUrl);
-          //  window.location.href = $scope.pdfUrl;
-        } else {
-            return $scope.pdfUrl = "This form does not contain a PDF";
-        }
-    };
-
-    $scope.downloadExcel = function(file, idx){
+    $scope.downloadExcelPPTX = function(file, idx){
       var blob = new Blob([s2ab(atob(file.data))], {
           type: ''
       });
-      href = URL.createObjectURL(blob);
-      // window.location.href = href;
+      // href = URL.createObjectURL(blob);
       window.saveAs(blob, file.name);
     };
 
@@ -401,12 +371,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       } else if (docOrPDF === 'doc'){
         $scope.downloadDOC(file, idx);
       } else if (docOrPDF === 'excel'){
-        $scope.downloadExcel(file, idx);
+        $scope.downloadExcelPPTX(file, idx);
       } else if (docOrPDF === 'pptx'){
-
-      } else {
-
-      }
+        $scope.downloadExcelPPTX(file, idx);
+      } else {}
     };
 
     $scope.authenticate = function() {
@@ -1607,7 +1575,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         } else if ($scope.docOrPDF === 'blah'){
         newImgUrl = 'data:image/blah;base64,' + base64;
         }
-        console.log('newimgurl is ', newImgUrl);
+        //console.log('newimgurl is ', newImgUrl);
         return newImgUrl;
      }
    };
@@ -1622,7 +1590,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
      }
      $scope.filePathArray.push($scope.filePath);
-     console.log("file path is ", $scope.filePath);
+     //console.log("file path is ", $scope.filePath);
      return $scope.filePath;
    };
 
