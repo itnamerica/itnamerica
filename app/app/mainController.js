@@ -1520,10 +1520,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         return 'pptx'
       } else if (fileFormat === 'mp3' || fileFormat === 'mp4' || fileFormat === 'mov' || fileFormat === 'mp4' || fileFormat === 'avi' || fileFormat === '3gp' || fileFormat === 'flv' || fileFormat === 'swf' || fileFormat === 'wmv' || fileFormat === '.rm' || fileFormat === 'mp4'){
         return 'audiovid'
-      } else if (fileFormat === 'svg'){
-        return 'svg'
-      } else {
-        return false;
+      }  else { //if entering new file format, make sure to add icon for thumbnail, as '<fileFormat>-icon.png'
+        return fileFormat;
       }
     };
 
