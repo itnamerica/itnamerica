@@ -36,7 +36,7 @@
 
             <div class="col-sm-4">
 
-              <a ng-click="downloadFile(file, $index)" ng-init="scanFileFormat(file)" ng-attr-id="{{'file-' + $index }}">
+              <a ng-click="downloadFile(file, $index)" ng-init="displayThumbnailImg(file)" ng-attr-id="{{'file-' + $index }}">
                 <img ng-src="{{filePathArray[$index]}}" style="display:block"/>
               </a><br />
 

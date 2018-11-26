@@ -362,17 +362,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.downloadFile = function(file, idx){
-      var docOrPDF = $scope.isDocOrPDF(file);
-      console.log("file is ", file, 'type is ', docOrPDF);
-      if (docOrPDF === 'png'){
+      var fileMimeType = $scope.isDocOrPDF(file);
+      console.log("file is ", file, 'type is ', fileMimeType);
+      if (fileMimeType === 'png'){
         $scope.downloadPNG(file, idx)
-      } else if (docOrPDF === 'pdf'){
+      } else if (fileMimeType === 'pdf'){
         $scope.downloadPDF(file)
-      } else if (docOrPDF === 'doc'){
+      } else if (fileMimeType === 'doc'){
         $scope.downloadDOC(file, idx);
-      } else if (docOrPDF === 'excel'){
+      } else if (fileMimeType === 'excel'){
         $scope.downloadExcelPPTX(file, idx);
-      } else if (docOrPDF === 'pptx'){
+      } else if (fileMimeType === 'pptx'){
         $scope.downloadExcelPPTX(file, idx);
       } else {}
     };
@@ -1568,11 +1568,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.base64ToImgSrc = function(base64){
-      if (base64 && $scope.docOrPDF){
+      if (base64 && $scope.fileMimeType){
         var newImgUrl;
-        if ($scope.docOrPDF === 'png'){
+        if ($scope.fileMimeType === 'png'){
           newImgUrl = 'data:image/png;base64,' + base64;
-        } else if ($scope.docOrPDF === 'blah'){
+        } else if ($scope.fileMimeType === 'blah'){
         newImgUrl = 'data:image/blah;base64,' + base64;
         }
         //console.log('newimgurl is ', newImgUrl);
@@ -1580,17 +1580,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      }
    };
 
-   $scope.scanFileFormat = function(file){
-     $scope.docOrPDF = $scope.isDocOrPDF(file);
-     if ($scope.docOrPDF === 'png'){
-       //replace icon with thumnail of that img
+   $scope.displayThumbnailImg = function(file){
+     $scope.fileMimeType = $scope.isDocOrPDF(file);
+     if ($scope.fileMimeType === 'png'){ //replace icon with thumnail of that img
        $scope.filePath = $scope.base64ToImgSrc(file.data);
-     } else {
-       //replace with icon of that file format
-       $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
+     } else { //replace with icon of that file format
+       $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.fileMimeType + '-icon.png';
      }
      $scope.filePathArray.push($scope.filePath);
-     //console.log("file path is ", $scope.filePath);
      return $scope.filePath;
    };
 
