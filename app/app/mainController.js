@@ -61,6 +61,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.isLogged = {};
     $scope.fileCategories = LongVariablesService.fileCategories;
     $scope.fileCategoryFilter = '';
+    $scope.filePathArray = [];
+    $scope.fileExtensionsObj = LongVariablesService.fileExtensionsObj
 
 
 
@@ -272,7 +274,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             return $scope.pdfUrl = "This form does not contain a PDF";
         }
     };
-    
+
     $scope.downloadPNG = function(formObj, idx) {
         console.log('inside base64 func');
         console.log('form obj is ', formObj);
@@ -290,7 +292,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                 type: 'application/png'
             });
             window.saveAs(currentBlob, formObj.name);
-            
+
         } else {
             return $scope.pdfUrl = "This form does not contain a PDF";
         }
@@ -321,24 +323,87 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             return $scope.pdfUrl = "This form does not contain a PDF";
         }
     };
-    
+
+    $scope.downloadDOC = function(formObj, idx) {
+        console.log('inside download doc, file is ', file);
+        console.log('file ext obj is ', $scope.fileExtensionsObj);
+
+        console.log('inside base64 func');
+        console.log('form obj is ', formObj);
+        if (formObj && formObj.data) {
+            var base64 = formObj.data;
+            base64 = base64.replace("data:application/vnd.openxmlformats-officedocument.wordprocessingml.document,", "");
+            var binaryImg = window.atob(base64);
+            var length = binaryImg.length;
+            var arrayBuffer = new ArrayBuffer(length);
+            var uintArray = new Uint8Array(arrayBuffer);
+            for (var i = 0; i < length; i++) {
+                uintArray[i] = binaryImg.charCodeAt(i);
+            }
+            var currentBlob = new Blob([uintArray], {
+                type: 'application/pdf'
+            });
+            $scope.pdfUrl = URL.createObjectURL(currentBlob);
+            // $("#output").append($("<a/>").attr({href: $scope.pdfUrl}).append("Download"));
+            // $scope.redirectToURL($scope.pdfUrl);
+            console.log('redirecting to pdf', formObj);
+            window.location.href = $scope.pdfUrl;
+        } else {
+            return $scope.pdfUrl = "This form does not contain a PDF";
+        }
+    };
+
+    $scope.downloadDOC2 = function(file, idx){
+      console.log('inside download doc, file is ', file);
+      console.log('file ext obj is ', $scope.fileExtensionsObj);
+    };
+
+    $scope.downloadExcel = function(formObj, idx) {
+        console.log('inside download doc, file is ', file);
+        console.log('file ext obj is ', $scope.fileExtensionsObj);
+
+        console.log('inside base64 func');
+        console.log('form obj is ', formObj);
+        if (formObj && formObj.data) {
+            var base64 = formObj.data;
+            base64 = base64.replace("data:application/vnd.openxmlformats-officedocument.wordprocessingml.document,", "");
+            var binaryImg = window.atob(base64);
+            var length = binaryImg.length;
+            var arrayBuffer = new ArrayBuffer(length);
+            var uintArray = new Uint8Array(arrayBuffer);
+            for (var i = 0; i < length; i++) {
+                uintArray[i] = binaryImg.charCodeAt(i);
+            }
+            var currentBlob = new Blob([uintArray], {
+                type: 'application/pdf'
+            });
+            $scope.pdfUrl = URL.createObjectURL(currentBlob);
+            // $("#output").append($("<a/>").attr({href: $scope.pdfUrl}).append("Download"));
+            // $scope.redirectToURL($scope.pdfUrl);
+            console.log('redirecting to pdf', formObj, 'pdf url is ', $scope.pdfUrl);
+          //  window.location.href = $scope.pdfUrl;
+        } else {
+            return $scope.pdfUrl = "This form does not contain a PDF";
+        }
+    };
+
     $scope.downloadFile = function(file, idx){
-      console.log("file is ", file, 'index is ', idx);
       var docOrPDF = $scope.isDocOrPDF(file);
+      console.log("file is ", file, 'type is ', docOrPDF);
       if (docOrPDF === 'png'){
         $scope.downloadPNG(file, idx)
       } else if (docOrPDF === 'pdf'){
         $scope.downloadPDF(file)
       } else if (docOrPDF === 'doc'){
-        
+        $scope.downloadDOC(file, idx);
       } else if (docOrPDF === 'excel'){
-        
+        $scope.downloadExcel(file, idx);
       } else if (docOrPDF === 'pptx'){
-        
+
       } else {
-        
+
       }
-    }
+    };
 
     $scope.authenticate = function() {
         if ($scope.session) {
@@ -1531,18 +1596,20 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.base64ToImgSrc = function(base64){
-      if (base64){
-        var newImgUrl = 'data:image/png;base64,' + base64;
+      if (base64 && $scope.docOrPDF){
+        var newImgUrl;
+        if ($scope.docOrPDF === 'png'){
+          newImgUrl = 'data:image/png;base64,' + base64;
+        } else if ($scope.docOrPDF === 'blah'){
+        newImgUrl = 'data:image/blah;base64,' + base64;
+        }
         console.log('newimgurl is ', newImgUrl);
         return newImgUrl;
      }
    };
 
-   $scope.filePathArray = []; 
-   
-   $scope.testFileFormat = function(file){
+   $scope.scanFileFormat = function(file){
      $scope.docOrPDF = $scope.isDocOrPDF(file);
-     // $scope.filePath = $scope.assetsPath + '/images/icons/' + $scope.docOrPDF + '-icon.png';
      if ($scope.docOrPDF === 'png'){
        //replace icon with thumnail of that img
        $scope.filePath = $scope.base64ToImgSrc(file.data);
