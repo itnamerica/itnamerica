@@ -1920,15 +1920,20 @@ form textarea.form-control {font-size:25px}
   color:white;
 }
 .all-docs .cat-options {
-  float:left;
-  padding:10px;
-  border: 1px solid white;
+  z-index: 99;
+  float: left;
+  padding: 10px;
+  border: 1px solid #529ba8;
   border-radius: 5px;
-  position:absolute;
+  position: absolute;
+  background: white;
+  color: #529ba8;
 }
 .all-docs .file-name {
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow:hidden;
+  width:200px;
 }
 .all-docs .cat-options .dropdown {
   color:black;
@@ -1946,12 +1951,16 @@ form textarea.form-control {font-size:25px}
 }
 .repeat-img {
   display:inline-block;
-  /* margin:1%; */
   overflow:visible;
 }
 .repeat-img img {
+  display:block;
+  object-fit:scale-down;
+  overflow:hidden;
+
   max-width: 100%;
-  width:auto;
+  /* width:auto; */
+  width:250px;
   height:75px;
   padding:1%;
   border-radius:5px;

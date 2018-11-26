@@ -12,7 +12,6 @@
 
     <div class="all-docs">
       <h5 class="title">All Documents:</h5>
-
       <div class="dropdown" style="color:black;float:left;margin-left:2%">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
           Filter by category
@@ -26,30 +25,21 @@
     <div><!--all-docs-->
 
 
-        <!-- <a href="{{file.data | base64ToImgSrc}}">click</a> -->
-
         <div class="row ta-center" style="margin:auto;padding:1;clear:both" ng-hide="hideLibrary">
-
-          <div ng-repeat="file in fileUploadsAffiliate | filter: fileCategoryFilter.name" ng-click="downloadImgFull(file.data)" class="repeat-img">
-
-            <div class="clearfix" ng-if="$index % 3 == 0"></div>
-
-            <div class="col-sm-4">
+          <div ng-repeat="file in fileUploadsAffiliate | filter: fileCategoryFilter.name" ng-click="downloadImgFull(file.data)" class="repeat-img col-sm-3">
+            <div class="clearfix" ng-if="$index % 4 == 0"></div>
+            <div class="col-sm-3">
 
               <a ng-click="downloadFile(file, $index)" ng-init="displayThumbnailImg(file)" ng-attr-id="{{'file-' + $index }}">
-                <img ng-src="{{filePathArray[$index]}}" style="display:block"/>
+                <img ng-src="{{filePathArray[$index]}}"/>
               </a><br />
 
 
               <div class="img-legend" style="font-size:14px;margin-top:-30px">
-
                 <p class="file-name">{{file.name}}</p>
-
                 <button class="btn btn-itn-sm" ng-click="viewEditOptions = !viewEditOptions" ng-hide="viewEditOptions">Edit</button>
-
                 <div ng-if="viewEditOptions" class="cat-options">
                     <em>Category: </em>  {{file.category}}
-
                     <div class="dropdown">
                       <button class="btn btn-itn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                         Change Category<span class="caret"></span>
@@ -67,7 +57,7 @@
                 </div><!--viewEditOptions-->
 
               </div><!--img-legend-->
-            </div><!--col-sm-4-->
+            </div><!--col-sm-3-->
 
           </div><!--ngRepeat/repeat-img-->
       </div><!-- row-->
