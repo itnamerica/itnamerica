@@ -295,6 +295,26 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
       dbName: 'archives'
     },
     {
+      name: 'Audio/Video',
+      dbName: 'audiovid'
+    },
+    {
+      name: 'General Images',
+      dbName: 'images'
+    },
+    {
+      name: 'Powerpoint (pptx)',
+      dbName: 'pptx'
+    },
+    {
+      name: 'Photoshop',
+      dbName: 'psd'
+    },
+    {
+      name: 'Excel Spreadsheets',
+      dbName: 'excel'
+    },
+    {
       name: 'No Category/All',
       dbName: 'all'
     }
