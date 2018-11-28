@@ -1053,7 +1053,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.getRidesData = function(){
         DataService.getAllRides().then(function(data){
-          console.log('rides data from func is ', data);
           $scope.ridesData = data.data;
         })
     };
@@ -1063,23 +1062,19 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.saveRidesData = function (idx) {
-      console.log("Saving obj");
       $scope.ridesData[idx] = angular.copy($scope.selected);
       DataService.updateAffiliateRidesData($scope.selected).then(function(data){
-        console.log('rides after updated in db is ', data);
       })
-
       $scope.selected = {};
     };
 
     $scope.getCommentsPhoto = function() {
-      console.log('getCommentsPhoto func');
         DataService.getCommentsPhoto().then(function(response){
           $scope.commentsPhoto = response.data;
           $scope.fileUploads = response.data;
-          console.log("commentsphoto var is ", $scope.commentsPhoto);
-          console.log('fileuploads var is ', $scope.fileUploads);
-        })
+          // console.log("commentsphoto var is ", $scope.commentsPhoto);
+          // console.log('fileuploads var is ', $scope.fileUploads);
+        });
     };
 
     $scope.getCommentsPhotoPerAffiliate = function(affiliateName) {

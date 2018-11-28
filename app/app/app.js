@@ -204,7 +204,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('documents', {
             url: '/documents?filter',
             templateUrl: viewsPath + 'documents.html',
-            controller: 'FileUploadCtrl'
+            controller: 'FileUploadCtrl',
+            params: {
+              filter: null
+            }
         })
         .state('web-traffic', {
             url: '/web-traffic?filter',

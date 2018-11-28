@@ -18,8 +18,22 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
       $rootScope.$on('file upload ok', function(){
         console.log('file upload success');
         $scope.hideLibrary = true;
-        $scope.serverMessage = "Your file was succesfully uploaded. Reloading page."
-        location.reload();
+        $scope.serverMessage = "Your file was succesfully uploaded. Reloading page.";
+
+        // var url = $location.url();
+        // var absUrl = $location.absUrl();
+        // console.log('url is ', url, 'abs url is ', absUrl, 'host is ', host);
+        // console.log('tablename is ', tableName);
+        // var urlWithParam = host + '/' + tableName;
+        // console.log('url with param', urlWithParam);
+        //location.reload();
+
+        var url = $location.url();
+        url = url.substr(1);
+        console.log('url is ', url);
+        $state.go(url, {"filter": $scope.docFilter})
+
+
       });
     };
 
