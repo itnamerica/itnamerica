@@ -218,6 +218,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/timesheets?filter',
             templateUrl: viewsPath + 'timesheets.html'
         })
+        .state('affiliate-landing', {
+            url: '/affiliate-landing',
+            templateUrl: viewsPath + 'affiliate-landing.html'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');
