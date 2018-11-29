@@ -1617,7 +1617,17 @@ form textarea.form-control {font-size:25px}
 }
 .back-btn-wrap a {
   color: white;
+  margin: 0 !important;
 }
+.important-docs .back-btn-wrap {
+  position: absolute !important;
+  margin-top: 5%;
+  margin-left: -20%;
+}
+.important-docs .back-btn-wrap a h3 {
+  font-size:20px !important;
+}
+
 
 .portal {
   background-image: url('../images/itnportland-pic.JPG') !important;

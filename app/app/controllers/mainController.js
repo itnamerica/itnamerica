@@ -1332,14 +1332,25 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
    $scope.catchDocFilter = function() {
-     // console.log('state params is ', $stateParams, 'affiliate is ', $scope.itnAffiliate);
+     console.log('state params is ', $stateParams, 'affiliate is ', $scope.itnAffiliate);
        if ($stateParams.filter){
-         $scope.docFilter = $stateParams.filter;
+         $scope.docFilter = fixCorruptedParams($stateParams.filter);
+         console.log('docfilter from mainctrl 1 is ', $scope.docFilter);
        } else if ($stateParams.name){
          $scope.docFilter = $stateParams.name;
        } else if ($scope.itnAffiliate){
          $scope.docFilter = $scope.itnAffiliate.name;
        }
+       console.log('docfilter from mainctrl 2 is ', $scope.docFilter);
+   };
+
+   var fixCorruptedParams = function(stateParams){
+     var corruptedIdx = stateParams.indexOf('?');
+     if (corruptedIdx){
+        return stateParams.slice(corruptedIdx + 1, stateParams.length)
+     } else {
+       return stateParams;
+     }
    };
 
    $scope.base64ToPDF = function(formType, formObj) {
