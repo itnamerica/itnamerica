@@ -1345,7 +1345,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    };
 
    var fixCorruptedParams = function(stateParams){
-     var corruptedIdx = stateParams.indexOf('?');
+     var corruptedIdx = stateParams.indexOf('=');
      if (corruptedIdx){
         return stateParams.slice(corruptedIdx + 1, stateParams.length)
      } else {
