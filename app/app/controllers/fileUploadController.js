@@ -20,18 +20,27 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
         $scope.hideLibrary = true;
         $scope.serverMessage = "Your file was succesfully uploaded. Reloading page.";
 
-        // var url = $location.url();
-        // var absUrl = $location.absUrl();
-        // console.log('url is ', url, 'abs url is ', absUrl, 'host is ', host);
-        // console.log('tablename is ', tableName);
-        // var urlWithParam = host + '/' + tableName;
-        // console.log('url with param', urlWithParam);
-        //location.reload();
+        window.location.href = "";
 
         var url = $location.url();
-        url = url.substr(1);
-        console.log('url is ', url);
-        $state.go(url, {"filter": $scope.docFilter})
+        var absUrl = $location.absUrl();
+        var urlWithParam;
+        console.log('url is ', url, 'abs url is ', absUrl);
+
+        if (absUrl.indexOf('filter') >= -1 ){
+          urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
+        } else {
+          var idx = absUrl.indexOf('?');
+          absUrl = absUrl.slice(0,idx);
+          urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
+        }
+        console.log('url with param', urlWithParam);
+        window.location.href = urlWithParam;
+
+        // var url = $location.url();
+        // url = url.substr(1);
+        // console.log('url is ', url);
+        // $state.go(url, {"filter": $scope.docFilter});
 
 
       });

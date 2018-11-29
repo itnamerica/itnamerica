@@ -13,7 +13,6 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
     })
   };
   this.getCommentsPhoto = function(){
-    console.log('inside getcommentsphoto');
     return $http.get('/getCommentsPhoto').then(function(data){
       return data;
     })

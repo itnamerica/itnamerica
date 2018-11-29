@@ -1083,10 +1083,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.serverMessage = "Please wait a few seconds while your files are loading on the page."
         DataService.fetchImages(affiliateName).then(function(response){
           $scope.commentsPhoto = response.data;
-          if (response.data[0].fileUploads){
+          if (response.data[0] && response.data[0].fileUploads){
               $scope.fileUploadsAffiliate = response.data[0].fileUploads;
-          } else {
+          }
+          else {
             $scope.fileUploadsAffiliate = [];
+            $scope.serverMessage = "There are no files uploaded yet in your library. Upload your first one!"
           }
           console.log('fileuploads aff var is ', $scope.fileUploadsAffiliate);
           $scope.hideLibrary = false;
