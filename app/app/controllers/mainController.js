@@ -1072,8 +1072,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         DataService.getCommentsPhoto().then(function(response){
           $scope.commentsPhoto = response.data;
           $scope.fileUploads = response.data;
-          // console.log("commentsphoto var is ", $scope.commentsPhoto);
-          // console.log('fileuploads var is ', $scope.fileUploads);
         });
     };
 

@@ -36,18 +36,17 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
         $scope.hideLibrary = true;
         $scope.serverMessage = "Your file was succesfully uploaded. Reloading page.";
 
+        // $scope.reloadWithParams();
         var absUrl = $location.absUrl();
         var urlWithParam;
         var paramIdx = absUrl.indexOf('?');
         if (!paramIdx){
-          console.log('long url');
           absUrl = absUrl.slice(paramIdx);
-          urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
-        } else {
           urlWithParam = absUrl;
+        } else {
+          urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
         }
-        console.log('url with param', urlWithParam);
-        // window.location.href = urlWithParam;
+        window.location.href = urlWithParam;
       });
     };
 

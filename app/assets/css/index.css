@@ -1988,8 +1988,9 @@ form textarea.form-control {font-size:25px}
 
 .loading-msg {
   font-style:italic;
-  font-size:16px;
+  font-size:22px;
   color:red;
+  margin: 6%;
 }
 .swal2-popup.swal2-modal.swal2-show {
   font-size: 20px !important;
