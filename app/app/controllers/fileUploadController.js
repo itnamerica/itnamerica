@@ -1,7 +1,21 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService) {
+myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', 'ParseVariablesService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService, ParseVariablesService) {
     console.log('inside file upload controller');
+
+    //catch url params for affiliates loading their dynamic page directly
+     $scope.catchDocFilter = function() {
+       console.log('state params is ', $stateParams, 'affiliate is ', $scope.itnAffiliate);
+         if ($stateParams.filter){
+           $scope.docFilter = ParseVariablesService.fixCorruptedParams($stateParams.filter);
+           console.log('docfilter from mainctrl 1 is ', $scope.docFilter);
+         } else if ($stateParams.name){
+           $scope.docFilter = $stateParams.name;
+         } else if ($scope.itnAffiliate){
+           $scope.docFilter = $scope.itnAffiliate.name;
+         }
+         console.log('docfilter from mainctrl 2 is ', $scope.docFilter);
+     };
 
     // upload on file select or drop
     $scope.upload = function (file, tableName) {
@@ -15,34 +29,25 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
       fd.append('file', file);
             console.log('fd about to be sent is ', fd);
       FileUploadService.uploadFileToDB(fd, tableName);
+
+      //upload service cannot work with promises, so listen to response instead using $rootScope
       $rootScope.$on('file upload ok', function(){
         console.log('file upload success');
         $scope.hideLibrary = true;
         $scope.serverMessage = "Your file was succesfully uploaded. Reloading page.";
 
-        window.location.href = "";
-
-        var url = $location.url();
         var absUrl = $location.absUrl();
         var urlWithParam;
-        console.log('url is ', url, 'abs url is ', absUrl);
-
-        if (absUrl.indexOf('filter') >= -1 ){
+        var paramIdx = absUrl.indexOf('?');
+        if (!paramIdx){
+          console.log('long url');
+          absUrl = absUrl.slice(paramIdx);
           urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
         } else {
-          var idx = absUrl.indexOf('?');
-          absUrl = absUrl.slice(0,idx);
-          urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
+          urlWithParam = absUrl;
         }
         console.log('url with param', urlWithParam);
-        window.location.href = urlWithParam;
-
-        // var url = $location.url();
-        // url = url.substr(1);
-        // console.log('url is ', url);
-        // $state.go(url, {"filter": $scope.docFilter});
-
-
+        // window.location.href = urlWithParam;
       });
     };
 

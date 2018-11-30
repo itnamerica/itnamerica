@@ -1980,14 +1980,11 @@ form textarea.form-control {font-size:25px}
   transition: all 0.3s;
 }
 .repeat-img:hover img {
-  -moz-transform: scale(1.3);
-  -webkit-transform: scale(1.3);
-  transform: scale(1.3);
+  -moz-transform: scale(1.6);
+  -webkit-transform: scale(1.6);
+  transform: scale(1.6);
   cursor: pointer;
 }
-
-
-
 
 .loading-msg {
   font-style:italic;
