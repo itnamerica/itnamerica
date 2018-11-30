@@ -35,20 +35,23 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
         console.log('file upload success');
         $scope.hideLibrary = true;
         $scope.serverMessage = "Your file was succesfully uploaded. Reloading page.";
+        $scope.reloadWithParams();
 
-        // $scope.reloadWithParams();
-        var absUrl = $location.absUrl();
-        var urlWithParam;
-        var paramIdx = absUrl.indexOf('?');
-        if (!paramIdx){
-          absUrl = absUrl.slice(paramIdx);
-          urlWithParam = absUrl;
-        } else {
-          urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
-        }
-        window.location.href = urlWithParam;
       });
     };
+
+    $scope.reloadWithParams = function(){
+      var urlWithParam;
+      var absUrl = $location.absUrl();
+      var paramIdx = absUrl.indexOf('?');
+      if (!paramIdx){
+        absUrl = absUrl.slice(paramIdx);
+        urlWithParam = absUrl;
+      } else {
+        urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
+      }
+      return window.location.href = urlWithParam;
+    }
 
     $scope.removeFile = function(file, tableName){
             console.log('inside removeFile func, file is ', file, file.name);
@@ -62,7 +65,8 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
           $scope.hideLibrary = true;
           $timeout(function(){
             $scope.serverMessage = "Your file was succesfully removed. Reloading page.";
-            location.reload();
+            // location.reload();
+            $scope.reloadWithParams();
           }, 5000);
         } else {
           $scope.serverMessage = "There was an error removing your file. Please try again.";
@@ -83,7 +87,8 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
           $scope.hideLibrary = true;
           $timeout(function(){
             $scope.serverMessage = "Your file's category has been succesfully updated.";
-            location.reload();
+            // location.reload();
+            $scope.reloadWithParams();
           }, 5000);
         } else {
           $scope.serverMessage = "There was an error updating the category. Please try again.";
