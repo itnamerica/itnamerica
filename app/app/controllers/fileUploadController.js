@@ -29,14 +29,12 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
       fd.append('file', file);
             console.log('fd about to be sent is ', fd);
       FileUploadService.uploadFileToDB(fd, tableName);
-
       //upload service cannot work with promises, so listen to response instead using $rootScope
       $rootScope.$on('file upload ok', function(){
         console.log('file upload success');
         $scope.hideLibrary = true;
         $scope.serverMessage = "Your file was succesfully uploaded. Reloading page.";
         $scope.reloadWithParams();
-
       });
     };
 
@@ -45,12 +43,20 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
       var absUrl = $location.absUrl();
       var paramIdx = absUrl.indexOf('?');
       if (!paramIdx){
+        console.log('short, param idx is ', paramIdx);
         absUrl = absUrl.slice(paramIdx);
         urlWithParam = absUrl;
       } else {
-        urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
+        console.log('long, param idx is ', paramIdx);
+        if ($stateParams.filter){
+          urlWithParam = absUrl;
+        } else {
+          urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
+        }
+
       }
-      return window.location.href = urlWithParam;
+      console.log('url with param is ', urlWithParam);
+      // return window.location.href = urlWithParam;
     }
 
     $scope.removeFile = function(file, tableName){
@@ -58,22 +64,22 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
       $scope.serverMessage = "Your file is being removed. Please wait.";
       $scope.hideLibrary = true;
       FileUploadService.removeFile(file, tableName)
-      .then(function(response){
-        $scope.hideLibrary = false;
-        if (response.status === 200){
-                console.log('file delete success');
-          $scope.hideLibrary = true;
-          $timeout(function(){
-            $scope.serverMessage = "Your file was succesfully removed. Reloading page.";
-            // location.reload();
-            $scope.reloadWithParams();
-          }, 5000);
-        } else {
+        .then(function(response){
+          $scope.hideLibrary = false;
+          if (response.status === 200){
+                  console.log('file delete success');
+            $scope.hideLibrary = true;
+            $timeout(function(){
+              $scope.serverMessage = "Your file was succesfully removed. Reloading page.";
+              // location.reload();
+              $scope.reloadWithParams();
+            }, 5000);
+          } else {
+            $scope.serverMessage = "There was an error removing your file. Please try again.";
+          }
+        }).catch(function(err){
           $scope.serverMessage = "There was an error removing your file. Please try again.";
-        }
-      }).catch(function(err){
-        $scope.serverMessage = "There was an error removing your file. Please try again.";
-      })
+        })
     };
 
     $scope.addCategory = function(file, tableName, category){
