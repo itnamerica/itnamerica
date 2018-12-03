@@ -36,7 +36,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.listOfPrograms = LongVariablesService.listOfPrograms;
     $scope.listOfProgramsObj = LongVariablesService.listOfProgramsObj;
     $scope.listOfUrls = LongVariablesService.listOfUrls;
-    console.log('list of urls is ', $scope.listOfUrls );
     $scope.formType = '';
     $scope.ndaFormData = [];
     $scope.contactFormData = [];

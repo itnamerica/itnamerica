@@ -1,11 +1,11 @@
-<div class="important-docs portal" ng-init="catchDocFilter();getCommentsPhotoPerAffiliate('America')">
+<div class="important-docs portal" ng-init="catchDocFilter();getCommentsPhotoPerAffiliate(docFilter)">
   <div class="container ta-center">
 
     <h2>Document Library</h2>
     <h5 ng-show="docFilter && docFilter !== 'upload'" style="margin-top:-50px"><em>Filter: {{docFilter}} documents</em></h5>
 
     <div class="upload-doc">
-      <button type="button" class="btn btn-lg" ngf-select="upload($file, 'America')">Upload a Document</button>
+      <button type="button" class="btn btn-lg" ngf-select="upload($file, docFilter)">Upload a Document</button>
     </div><!--upload-doc-->
 
     <div ng-hide="fileUploadsAffiliate" class="loading-msg"><em>Please wait a few seconds while your files are loading on the page.</em></div>
@@ -45,11 +45,11 @@
                         Change Category<span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" style="font-size:14px">
-                        <li ng-repeat="category in fileCategories"><a ng-click="addCategory(file, 'America', category); viewEditOptions = false" ng-class="{'no-border': $last}">{{category.name}}</a></li>
+                        <li ng-repeat="category in fileCategories"><a ng-click="addCategory(file, docFilter, category); viewEditOptions = false" ng-class="{'no-border': $last}">{{category.name}}</a></li>
                       </ul>
                     </div><!--dropdown-->
 
-                    <button ng-click="removeFile(file, 'America'); viewEditOptions = false" class="btn-itn-sm" style="margin-top:10px">
+                    <button ng-click="removeFile(file, docFilter); viewEditOptions = false" class="btn-itn-sm" style="margin-top:10px">
                       Delete file <span class="glyphicon glyphicon-remove"></span>
                     </button>
 
@@ -66,12 +66,11 @@
 </div><!--important-docs-->
 
 
-
-<!-- <div class="back-btn-wrap">
-  <a ui-sref="important-docs-landing" class="back-btn">
-    <h3>Back to Previous Page</h3>
+<div class="back-btn-wrap">
+  <a ui-sref="documents({filter: docFilter})" class="back-btn">
+    <h3 style="margin-left:65px">Back to Previous Page</h3>
   </a>
-  <a ui-sref="portal" class="back-btn">
+  <a ui-sref="portal" class="back-btn" style="margin-top:-5%">
     <h3>Back to Portal</h3>
   </a>
-</div> -->
+</div>

@@ -1,20 +1,20 @@
 var myApp = angular.module('myApp');
 
 myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', 'ParseVariablesService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService, ParseVariablesService) {
-    console.log('inside file upload controller');
+    console.log('inside file upload controller', $stateParams);
 
     //catch url params for affiliates loading their dynamic page directly
      $scope.catchDocFilter = function() {
-       console.log('state params is ', $stateParams, 'affiliate is ', $scope.itnAffiliate);
          if ($stateParams.filter){
            $scope.docFilter = ParseVariablesService.fixCorruptedParams($stateParams.filter);
-           console.log('docfilter from mainctrl 1 is ', $scope.docFilter);
          } else if ($stateParams.name){
            $scope.docFilter = $stateParams.name;
-         } else if ($scope.itnAffiliate){
+         } else if ($scope.itnAffiliate.name){
            $scope.docFilter = $scope.itnAffiliate.name;
+         } else if (window.location.pathname === '/important-docs'){
+           $scope.docFilter = 'America';
          }
-         console.log('docfilter from mainctrl 2 is ', $scope.docFilter);
+         console.log('docfilter is ', $scope.docFilter);
      };
 
     // upload on file select or drop
@@ -53,10 +53,9 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
         } else {
           urlWithParam = absUrl + '?' + 'filter=' + $scope.docFilter;
         }
-
       }
-      console.log('url with param is ', urlWithParam);
-      // return window.location.href = urlWithParam;
+      // console.log('url with param is ', urlWithParam);
+      return window.location.href = urlWithParam;
     }
 
     $scope.removeFile = function(file, tableName){
