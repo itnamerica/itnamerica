@@ -198,8 +198,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('comments', {
             url: '/comments?filter',
-            templateUrl: viewsPath + 'comments.html',
-            controller: 'AffiliateCtrl'
+            templateUrl: viewsPath + 'comments.html'
         })
         .state('documents', {
             url: '/documents?filter',

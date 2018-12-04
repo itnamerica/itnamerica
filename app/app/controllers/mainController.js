@@ -1068,20 +1068,22 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.getCommentsPhoto = function() {
+      $scope.serverMessage = "Please wait a few seconds while the comments are loading.";
         DataService.getCommentsPhoto().then(function(response){
           $scope.commentsPhoto = response.data;
           $scope.fileUploads = response.data;
+          $scope.serverMessage = "";
         });
     };
 
     $scope.getCommentsPhotoPerAffiliate = function(affiliateName) {
-        console.log('getCommentsPhotoPerAffiliate func, param is ', affiliateName);
         $scope.hideLibrary = true;
-        $scope.serverMessage = "Please wait a few seconds while your files are loading on the page."
+        $scope.serverMessage = "Please wait a few seconds while your files are loading on the page.";
         DataService.fetchImages(affiliateName).then(function(response){
           $scope.commentsPhoto = response.data;
           if (response.data[0] && response.data[0].fileUploads){
               $scope.fileUploadsAffiliate = response.data[0].fileUploads;
+              $scope.serverMessage = "";
           }
           else {
             $scope.fileUploadsAffiliate = [];
