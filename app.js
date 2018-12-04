@@ -16,9 +16,7 @@ var db;
 var http = require('http');
 var request=require('request');
 var _ =require('lodash');
-// var router = express.Router();
 var multer = require('multer');
-// var upload = multer({ storage : storage}).single('userPhoto');
 var upload = multer({ dest: 'uploads/' })
 var multipart = require('connect-multiparty');
 var formidable = require('express-formidable');
@@ -40,6 +38,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+
 var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-operations','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs', '/important-docs-landing','/employee-profiles','/dept-report','/hr-tickets', '/calendar-ris','/affiliate','/comments','/web-traffic','/affiliate-info','/rides-data','/documents','/timesheets','/affiliate-landing'];
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
@@ -49,6 +48,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   db = client.db('itnamerica-new');
 
   console.log('inside first mongo block');
+
 
   app.get('/getBlogContent', function(req, res) {
     console.log('params are ', req.query.blogURL)
