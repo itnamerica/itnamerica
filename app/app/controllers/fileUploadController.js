@@ -167,7 +167,7 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
            });
            $scope.pdfUrl = URL.createObjectURL(currentBlob);
            console.log('redirecting to pdf', formType, formObj);
-           window.location.href = $scope.pdfUrl;
+           window.open($scope.pdfUrl);
        } else {
            return $scope.pdfUrl = "This form does not contain a PDF";
        }
@@ -210,7 +210,8 @@ myApp.controller('FileUploadCtrl', ['$scope', '$transitions', '$http', '$anchorS
                type: 'application/pdf'
            });
            $scope.pdfUrl = URL.createObjectURL(currentBlob);
-           window.location.href = $scope.pdfUrl;
+           // window.location.href = $scope.pdfUrl;
+           window.open($scope.pdfUrl);
        } else {
            return $scope.pdfUrl = "This form does not contain a PDF";
        }
