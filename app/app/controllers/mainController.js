@@ -1096,7 +1096,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.addComment = function (content, affiliate) {
       console.log('inside add comment, content is', content, 'affiliate is ', affiliate);
-      $scope.serverMessage = "Loading. Please wait.";
+      $scope.serverMessage = "Posting comment. Please wait.";
       DataService.addComment(content, affiliate).then(function(data){
         //email the affiliate or dept in question
         $scope.emailCommentAsync(content, affiliate).then(function(response){

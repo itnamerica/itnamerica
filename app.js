@@ -125,6 +125,92 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     }
   }); // end of /fetchCommentsPhoto get request
 
+  app.get('/removeFile', function (req,res) {
+        console.log('inside removeFile, queries are ', req.query);
+    var fileName = req.query.fileName;
+    var tableName = req.query.tableName;
+    db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      // var newFileArr = { $pull: { 'contact.phone': { number: '+1786543589455' } } } // if want to modify name only
+      var newFileArr = { $pull: { 'fileUploads': { name: fileName } } };
+      db.collection('commentsphoto').update(
+         { _id: recordId },
+         newFileArr
+      )
+      res.send(result);
+    });
+  }); // end of /removeFile get request
+
+  app.get('/updateCategory', function (req,res) {
+      console.log('inside update cat, queries are ', req.query);
+    var fileName = req.query.fileName;
+    var tableName = req.query.tableName;
+    var categoryName = req.query.categoryName;
+    db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+            console.log('recordId is ', recordId);
+      db.collection('commentsphoto').updateOne(
+         { _id: recordId, 'fileUploads.name': fileName },
+         {$set: {'fileUploads.$.category': categoryName}}
+      )
+      // var newFileArr = { $addToSet: { 'category': { name: fileName } } };
+      // db.collection('commentsphoto').update(
+      //    { _id: recordId },
+      //    newFileArr
+      // )
+      res.send(result);
+    });
+  }); // end of /updateCategory get request
+
+  app.get('/loginPrivilege', function (req,res) {
+      var userInput = JSON.parse(req.query.formData);
+      var tableName = req.query.tableName;
+      var privilegeType = req.query.privilegeType;
+      console.log('inside backend loginprivilege, user input is ', userInput, 'tablename is ', tableName, 'privilegeType ', privilegeType);
+
+      db.collection(tableName).find({username: userInput.username}).toArray(function (err, result) {
+        console.log('result from db is ', result[0]);
+        if ( ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === privilegeType) || ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === 'Master') ){
+          console.log('a match, initializing session');
+          req.session.user = userInput;
+          console.log('new session is ', req.session.user, 'and', req.session);
+          res.send(result);
+        }
+        else {
+          res.status(500).send('error')
+        }
+      })
+  }); // end of /loginPrivilege get request
+
+  app.get('/loginEmployees', function (req,res) {
+    var userInput = JSON.parse(req.query.formData);
+    var employeeSelected = JSON.parse(req.query.employeeSelected);
+    db.collection('employees').find({'email': employeeSelected.email}).toArray(function (err, result) {
+      console.log('result is ', result[0]);
+      if ((result[0].email === employeeSelected.email) && (result[0].email === userInput.email) && (result[0].password === userInput.password)){
+        req.session.user = userInput;
+        res.send(result);
+      }
+      else {
+        db.collection('admins').find({'username': userInput.email}).toArray(function (err2, result2) {
+          if (err2) { throw new Error('No record found. ', err2) };
+          console.log('result2 is ', result2)
+          if ((result2 && result2[0]) && (result2[0].username === userInput.email) && (result2[0].password === userInput.password) && (result2[0].privilege === 'Master')){
+            res.send(result2);
+          } else {
+            console.log('no match')
+            // if (err2) { throw new Error('No record found. ', err2) };
+            res.status(500).send('error')
+          }
+        })
+      }
+    })
+  }); // end of /loginEmployees get request
+
+
+
   app.post('/addCalendarEvent', function (req,res) {
     db.collection('calendar').save(req.body.newEvent, function(err, result){
       if (err) { return console.log('connecting to db, but not saving obj', err);}
@@ -147,6 +233,26 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       console.log('new employee saved to database', result);
       res.send(result);
     })
+  });
+
+  app.post('/uploadFiles', function(req, res) {
+          console.log('uploadFiles from backend is ', req.files);
+    var binaryLocation = req.files.file.path;
+    var fileName = req.files.file.name;
+          console.log('file name is ', fileName);
+    var binaryData = fs.readFileSync(binaryLocation);
+    var theFile = {};
+    theFile.data = binaryData
+    theFile.name = fileName;
+    theFile.category = 'all';
+    var fileObj = { $push: {"fileUploads": theFile} };
+    var tableName = req.query.tableName;
+          console.log('table name backend is ', tableName);
+    db.collection('commentsphoto').update(
+       { name: tableName },
+       fileObj
+    )
+    res.send();
   });
 
 
@@ -182,69 +288,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /updateCommentsPhoto get request
 
 
-  app.post('/uploadFiles', function(req, res) {
-          console.log('uploadFiles from backend is ', req.files);
-    var binaryLocation = req.files.file.path;
-    var fileName = req.files.file.name;
-          console.log('file name is ', fileName);
-    var binaryData = fs.readFileSync(binaryLocation);
-    var theFile = {};
-    theFile.data = binaryData
-    theFile.name = fileName;
-    theFile.category = 'all';
-    var fileObj = { $push: {"fileUploads": theFile} };
-    var tableName = req.query.tableName;
-          console.log('table name backend is ', tableName);
-    db.collection('commentsphoto').update(
-       { name: tableName },
-       fileObj
-    )
-    res.send();
-  });
-
-
-  app.get('/removeFile', function (req,res) {
-        console.log('inside removeFile, queries are ', req.query);
-    var fileName = req.query.fileName;
-    var tableName = req.query.tableName;
-    db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
-      if (err) { throw new Error('No record found. ', err) };
-      var recordId = result[0]._id;
-      // var newFileArr = { $pull: { 'contact.phone': { number: '+1786543589455' } } } // if want to modify name only
-      var newFileArr = { $pull: { 'fileUploads': { name: fileName } } };
-      db.collection('commentsphoto').update(
-         { _id: recordId },
-         newFileArr
-      )
-      res.send(result);
-    });
-  }); // end of /removeFile get request
-
-
-  app.get('/updateCategory', function (req,res) {
-      console.log('inside update cat, queries are ', req.query);
-    var fileName = req.query.fileName;
-    var tableName = req.query.tableName;
-    var categoryName = req.query.categoryName;
-    db.collection('commentsphoto').find({name: tableName}).toArray(function (err, result) {
-      if (err) { throw new Error('No record found. ', err) };
-      var recordId = result[0]._id;
-            console.log('recordId is ', recordId);
-      db.collection('commentsphoto').updateOne(
-         { _id: recordId, 'fileUploads.name': fileName },
-         {$set: {'fileUploads.$.category': categoryName}}
-      )
-      // var newFileArr = { $addToSet: { 'category': { name: fileName } } };
-      // console.log("newfilearr is ", newFileArr);
-      // db.collection('commentsphoto').update(
-      //    { _id: recordId },
-      //    newFileArr
-      // )
-      res.send(result);
-    });
-  }); // end of /updateCategory get request
-
-
   app.put('/updateAffiliateRidesData', function(req,res) {
     console.log('req body is ', req.body);
     var myQuery = {_id: new mongo.ObjectId(req.body._id)};
@@ -270,51 +313,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     });
   }); // end of /updateEmployee edit request
 
-  app.get('/loginPrivilege', function (req,res) {
-      var userInput = JSON.parse(req.query.formData);
-      var tableName = req.query.tableName;
-      var privilegeType = req.query.privilegeType;
-      console.log('inside backend loginprivilege, user input is ', userInput, 'tablename is ', tableName, 'privilegeType ', privilegeType);
 
-      db.collection(tableName).find({username: userInput.username}).toArray(function (err, result) {
-        console.log('result from db is ', result[0]);
-        if ( ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === privilegeType) || ((result[0].username === userInput.username) && (result[0].password === userInput.password) && result[0].privilege === 'Master') ){
-          console.log('a match, initializing session');
-          req.session.user = userInput;
-          console.log('new session is ', req.session.user, 'and', req.session);
-          res.send(result);
-        }
-        else {
-          res.status(500).send('error')
-        }
-      })
-  }); // end of /loginPrivilege get request
-
-
-  app.get('/loginEmployees', function (req,res) {
-    var userInput = JSON.parse(req.query.formData);
-    var employeeSelected = JSON.parse(req.query.employeeSelected);
-    db.collection('employees').find({'email': employeeSelected.email}).toArray(function (err, result) {
-      console.log('result is ', result[0]);
-      if ((result[0].email === employeeSelected.email) && (result[0].email === userInput.email) && (result[0].password === userInput.password)){
-        req.session.user = userInput;
-        res.send(result);
-      }
-      else {
-        db.collection('admins').find({'username': userInput.email}).toArray(function (err2, result2) {
-          if (err2) { throw new Error('No record found. ', err2) };
-          console.log('result2 is ', result2)
-          if ((result2 && result2[0]) && (result2[0].username === userInput.email) && (result2[0].password === userInput.password) && (result2[0].privilege === 'Master')){
-            res.send(result2);
-          } else {
-            console.log('no match')
-            // if (err2) { throw new Error('No record found. ', err2) };
-            res.status(500).send('error')
-          }
-        })
-      }
-    })
-  }); // end of /loginEmployees get request
 
   app.delete('/deleteForm/:formId', function (req,res) {
     console.log('req param', req.params.formId, 'req query', req.query.formType);
@@ -519,17 +518,6 @@ app.post('/sendmail', function(req, res){
   app.use(allPages, function(req, res){
     res.sendFile(__dirname + '/app/index.html');
   });
-
-//   app.get('/comments/:affiliateName', function (req, res) {
-//   res.send(req.params);
-// })
-
-//   app.use('/affiliate/:name', function(req , res){
-//   console.log('params is ', req.params);
-//   // res.sendFile(__dirname + '/app/affiliate/' + req.params.name);
-//   // res.sendFile(__dirname + '/app/affiliate/Gateway');
-//   res.render('affiliate' + '/app/affiliate/Gateway');
-// });
 
 
 
