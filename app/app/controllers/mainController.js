@@ -1078,7 +1078,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           $scope.serverMessage = "";
         });
     };
-    
+
     $scope.getCommentsPerAffiliate = function(affiliateName) {
         $scope.hideLibrary = true;
         $scope.serverMessage = "Please wait a few seconds while your files are loading on the page.";
@@ -1169,7 +1169,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.deleteComment = function() {
       $scope.serverMessage = "Loading. Please wait.";
-      DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete)
+      DataService.blah($scope.commentToDelete, $scope.affiliateToDelete)
         .then(function(data){
           //async delete for immediate update in page
           var commentToDelete = {

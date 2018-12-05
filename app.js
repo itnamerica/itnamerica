@@ -98,7 +98,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     })
   }); // end of /getRidesData get request
-  
+
 
   app.get('/viewCalendarEvents', function (req,res) {
     db.collection('calendar').find().toArray(function (err, result) {
@@ -125,22 +125,18 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
     }
   }); // end of /fetchCommentsPhoto get request
-  
+
   app.get('/fetchCommentsPerAffiliate', function (req,res) {
     var affiliateName = req.query.affiliateName;
     affiliateName = JSON.parse(affiliateName);
-    console.log('aff name 1 is ', affiliateName);
     affiliateName = affiliateName.name;
-    console.log('aff name 2 is ', affiliateName);
-    // console.log('affiliate name in fetchcommentsperaffiliate is ', affiliateName);
     if (affiliateName !== "all"){
-      console.log('fetching all comments from ', affiliateName);
+      // console.log('fetching all comments from ', affiliateName);
       db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
-        console.log('result is ', result);
         res.send(result);
       })
     } else {
-      console.log('fetching all comments');
+      // console.log('fetching all comments');
       db.collection('commentsphoto').find().toArray(function (err, result) {
         res.send(result);
       })
@@ -276,17 +272,29 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     )
     res.send();
   });
-  
-  app.put('/updateComments', function (req,res) {
-    console.log('inside update comments');
-    console.log('req body is ', req.body);
-    // console.log('affiliate is ', req.body.affiliate, 'content is ', req.body.content);
 
-  }); // end of /updateCommentsPhoto get request
+  app.delete('/deleteComment', function (req,res) {
+    console.log('inside update comments');
+    var parsedContent = JSON.parse(req.query.content);
+    var parsedAffiliate = JSON.parse(req.query.affiliate);
+    // var parsedOperation = JSON.parse(req.query.operation);
+    var operation = req.query.operation;
+    var updatedComment = {
+      message: parsedContent.message,
+      author: parsedContent.author,
+      email: parsedContent.email
+    };
+    console.log('affiliate is ', parsedAffiliate.name, 'content is ', updatedComment, 'operation is ', operation);
+
+
+
+
+  }); // end of /updateComments get request
 
 
 
   app.put('/updateCommentsPhoto', function (req,res) {
+    console.log('inside update comments photo');
     var newComment = {
       message: req.body.content.message,
       author: req.body.content.author,
