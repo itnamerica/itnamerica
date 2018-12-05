@@ -39,8 +39,15 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       return data;
     }).catch(function(error){ return error })
   };
-  this.addComment = function(content, affiliate){
+  this.addComment2 = function(content, affiliate){
     return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'add'}).then(function(data){
+      console.log('data returned from add comment service is ', data);
+      return data;
+    })
+  };
+  this.addComment = function(content, affiliate){
+    var payload = {content: content, affiliate: affiliate};
+    return $http.post('/addComment', {params: payload}).then(function(data){
       console.log('data returned from add comment service is ', data);
       return data;
     })

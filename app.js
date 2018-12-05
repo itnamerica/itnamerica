@@ -273,32 +273,23 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     res.send();
   });
 
-
-
-
-  app.delete('/deleteComment', function (req,res) {
-    console.log('inside update comments');
+  app.post('/addComment', function (req,res) {
+    console.log('inside add comments');
     var parsedContent = JSON.parse(req.query.content);
     var parsedAffiliate = JSON.parse(req.query.affiliate);
-    var operation = req.query.operation;
     var updatedComment = {
       message: parsedContent.message,
       author: parsedContent.author,
       email: parsedContent.email
     };
-    console.log('affiliate is ', parsedAffiliate.name, 'content is ', updatedComment, 'operation is ', operation);
+    console.log('affiliate is ', parsedAffiliate.name, 'content is ', updatedComment);
 
     db.collection('commentsphoto').find({name: parsedAffiliate.name}).toArray(function (err, result) {
       if (err) { throw new Error('No record found. ', err) };
       var recordId = result[0]._id;
       var commentObj;
-      console.log('operation: ', operation, 'recordId:', recordId);
-
-      if (operation === 'add') {
-        commentObj = { $addToSet: {comments: updatedComment} };
-      } else if (operation === 'delete') {
-        commentObj = { $pull: {comments: updatedComment} };
-      }
+      console.log('recordId:', recordId);
+      commentObj = { $addToSet: {comments: updatedComment} };
       console.log("comment obj is ", commentObj);
 
       db.collection('commentsphoto').update(
@@ -307,7 +298,12 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       )
       res.send(result);
     });
-  }); // end of /updateComments get request
+  }); // end of /addComment post request
+
+
+
+
+
 
 
   app.put('/updateCommentsPhoto', function (req,res) {
@@ -367,6 +363,41 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     });
   }); // end of /updateEmployee edit request
 
+
+
+  app.delete('/deleteComment', function (req,res) {
+    console.log('inside delete comments');
+    var parsedContent = JSON.parse(req.query.content);
+    var parsedAffiliate = JSON.parse(req.query.affiliate);
+    var operation = req.query.operation;
+    var updatedComment = {
+      message: parsedContent.message,
+      author: parsedContent.author,
+      email: parsedContent.email
+    };
+    console.log('affiliate is ', parsedAffiliate.name, 'content is ', updatedComment, 'operation is ', operation);
+
+    db.collection('commentsphoto').find({name: parsedAffiliate.name}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      var commentObj;
+
+      console.log('operation: ', operation, 'recordId:', recordId);
+
+      if (operation === 'add') {
+        commentObj = { $addToSet: {comments: updatedComment} };
+      } else if (operation === 'delete') {
+        commentObj = { $pull: {comments: updatedComment} };
+      }
+      console.log("comment obj is ", commentObj);
+
+      db.collection('commentsphoto').update(
+         { _id: recordId },
+         commentObj
+      )
+      res.send(result);
+    });
+  }); // end of /deleteComment delete request
 
 
   app.delete('/deleteForm/:formId', function (req,res) {

@@ -1,29 +1,29 @@
-<!-- <div class="portal comments" ng-init="parseAffiliateNameToList(itnAffiliate)" class="portal events ta-center"> -->
+
 <div class="portal comments" class="portal events ta-center">
   <div class="container">
     <h2>Announcements for ITN<em>{{itnAffiliate.name}}</em></h2>
 
     <div ng-hide="commentsPhoto" style="color:red;text-align:center"><strong>Please wait for your comments to load.</strong></div>
-    
+
     <ul>
       <div class="row mt-25 mb-50">
         <div class="col-md-12">
 
           <div class="row" ng-show="showCommentInput">
                 <div class="form-area mb-50" style="background: #c7dfe4;border:none;padding:1%;border-radius:5px">
-                  <form name="itnForm" novalidate ng-submit="addComment(commentData, itnAffiliate); showCommentInput = false" role="comment form" ng-model="commentData" style="padding:2%;margin:0 5%">
+                  <form name="itnForm" novalidate ng-submit="addComment(itnAffiliate); showCommentInput = false" role="comment form" ng-model="commentData" style="padding:2%;margin:0 5%">
                     <h3 style="margin-bottom: 25px; text-align: center">Add a new comment</h3>
 
                     <div class="row">
                       <div class="form-group col-sm-6" ng-class="{ 'has-error' : itnForm.name.$invalid && !itnForm.name.$pristine }">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.author" required>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="commentData.author" required>
                         <span ng-if="itnForm.name.$error.required && !itnForm.name.$pristine" class="help-block">{{errorMessages.required}}</span>
                         <span ng-if="itnForm.name.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
                         <span ng-if="itnForm.name.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
                       </div>
 
                       <div class="form-group col-sm-6" ng-class="{ 'has-error' : itnForm.email.$invalid && !itnForm.email.$pristine }">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Your Email" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="formData.email" ng-pattern="emailPattern" required>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Your Email" ng-minlength="minlength" ng-maxlength="maxlength" ng-model="commentData.email" ng-pattern="emailPattern" required>
                         <span ng-if="itnForm.email.$error.required && !itnForm.email.$pristine" class="help-block">{{errorMessages.required}}</span>
                         <span ng-if="itnForm.email.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
                         <span ng-if="itnForm.email.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="form-group" ng-class="{ 'has-error' : itnForm.message.$invalid && !itnForm.message.$pristine }">
-                      <textarea class="form-control" type="textarea" name="message" id="message" placeholder="Message" maxlength="2000" rows="7" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="formData.message" required></textarea>
+                      <textarea class="form-control" type="textarea" name="message" id="message" placeholder="Message" maxlength="2000" rows="7" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="commentData.message" required></textarea>
                       <span ng-if="itnForm.message.$error.required && !itnForm.message.$pristine" class="help-block">{{errorMessages.required}}</span>
                       <span ng-if="itnForm.message.$error.minlength" class="help-block">{{errorMessages.minlength}}</span>
                       <span ng-if="itnForm.message.$error.maxlength" class="help-block">{{errorMessages.maxlength}}</span>
@@ -43,7 +43,7 @@
                     <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
 
                     <input type="submit" id="submit" class="btn btn-lg btn-primary pull-right itn-green-bg" value="Send" style="margin-left:2%;margin-top:-50px">
-                    <input type="button" ng-click="formData = {}" value="Reset Form" class="btn btn-lg pull-left itn-green-bg"  style="margin-left:2%;margin-top:-50px">
+                    <input type="button" ng-click="commentData = {}" value="Reset Form" class="btn btn-lg pull-left itn-green-bg"  style="margin-left:2%;margin-top:-50px">
 
                   </form>
                 </div><!--form-area-->

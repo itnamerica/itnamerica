@@ -62,6 +62,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.fileCategoryFilter = '';
     $scope.filePathArray = [];
     $scope.fileExtensionsObj = LongVariablesService.fileExtensionsObj
+    $scope.commentData = {};
 
 
 
@@ -1116,28 +1117,23 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         })
     };
 
-    $scope.addComment = function (content, affiliate) {
-      console.log('inside add comment, content is', content, 'affiliate is ', affiliate);
+    $scope.addComment = function (affiliate) {
+      console.log('inside add comment, content is', $scope.commentData, 'affiliate is ', affiliate, 'comments array is ', $scope.commentsPhoto);
       $scope.serverMessage = "Posting comment. Please wait.";
-      DataService.addComment(content, affiliate).then(function(data){
+      DataService.addComment($scope.commentData, affiliate).then(function(data){
         //email the affiliate or dept in question
-        $scope.emailCommentAsync(content, affiliate).then(function(response){
+        // $scope.emailCommentAsync($scope.commentData, affiliate).then(function(response){
           //async add for immediate update in page
-          var commentToAdd = {
-            message: content.message,
-            author: content.author,
-            email: content.email
-          };
-          for (var i=0; i < $scope.commentsPhoto.length; i++){
-            if (affiliate.name === $scope.commentsPhoto[i].name){
-              $scope.commentsPhoto[i].comments.push(commentToAdd);
-            }
-          }
+          $scope.commentsPhoto.push($scope.commentData);
+          console.log('commentsPhoto is ', $scope.commentsPhoto);
+          $scope.$apply(function(){
+            $scope.commentsPhoto.push($scope.commentData);
+          })
           $scope.showCommentInput = false;
           $timeout(function(){
             $scope.serverMessage = "";
           }, 5000)
-        });
+        // });
 
       })
     };
