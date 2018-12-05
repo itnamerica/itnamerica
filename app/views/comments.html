@@ -4,6 +4,10 @@
     <h2>Announcements for ITN<em>{{itnAffiliate.name}}</em></h2>
 commentz: {{commentsPhoto}}
     <div ng-hide="commentsPhoto" style="color:red;text-align:center"><strong>Please wait for your comments to load.</strong></div>
+    
+    <div ng-repeat="commentPhoto in commentsPhoto">
+      each comment is {{commentPhoto}}
+    </div>
 
     <ul>
       <div class="row mt-25 mb-50">
@@ -128,6 +132,8 @@ commentz: {{commentsPhoto}}
   </div>
 </div>
 </div><!--end modal-->
+
+
 
 
 
