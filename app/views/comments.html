@@ -2,12 +2,9 @@
 <div class="portal comments" class="portal events ta-center">
   <div class="container">
     <h2>Announcements for ITN<em>{{itnAffiliate.name}}</em></h2>
-commentz: {{commentsPhoto}}
+
     <div ng-hide="commentsPhoto" style="color:red;text-align:center"><strong>Please wait for your comments to load.</strong></div>
-    
-    <div ng-repeat="commentPhoto in commentsPhoto">
-      each comment is {{commentPhoto}}
-    </div>
+
 
     <ul>
       <div class="row mt-25 mb-50">
@@ -55,7 +52,8 @@ commentz: {{commentsPhoto}}
           </div><!--row-->
 
 
-          <table class="table table-responsive table-hover ta-center" ng-repeat="commentPhoto in commentsPhoto | filter: {name: itnAffiliate.name}" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
+
+          <table class="table table-responsive table-hover ta-center" id="comments-table" style="font-size:25px;font-weight:bold;width:90%;margin:auto">
             <button class="btn btn-sm" ng-click="showCommentInput = true" style="background:#cc6257;float:right;margin-top:10px">Add a Comment</button>
             <thead>
               <tr>
@@ -70,7 +68,7 @@ commentz: {{commentsPhoto}}
             </thead>
 
             <tbody style="font-size:20px">
-              <tr dir-paginate="comment in commentPhoto.comments|orderBy:sortKey:reverse|itemsPerPage:10|reverse" pagination-id="comments">
+              <tr dir-paginate="comment in commentsPhoto|orderBy:sortKey:reverse|itemsPerPage:10|reverse" pagination-id="comments">
                 <td>{{comment.message}}</td>
                 <td>{{comment.author}} <br>
                     <small><em>{{comment.email}}</em></small>
