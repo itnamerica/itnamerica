@@ -298,6 +298,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
         commentObj = { $pull: {comments: updatedComment} };
       }
       console.log("comment obj is ", commentObj);
+
       db.collection('commentsphoto').update(
          { _id: recordId },
          commentObj
