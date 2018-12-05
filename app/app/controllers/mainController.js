@@ -885,7 +885,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.parseAffiliateNameToList = function(affiliate){
       if ($stateParams.filter){   //if comments page loaded directly from browser with filter params
-        $scope.getCommentsPhoto();
+        // $scope.getCommentsPhoto();
+        console.log('affiliate param in parseAffiliate is ', affiliate);
+        $scope.getCommentsPerAffiliate(affiliate);
         var affiliate = {};
         affiliate.name = $stateParams.filter;
         for (var eachAffiliate in $scope.affiliateList){
@@ -902,13 +904,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           }
         }
       }
+      console.log('$scope.itnAffiliate in parseAffiliate is ', $scope.itnAffiliate);
     };
 
 
     $scope.loadAffiliatePage = function(affiliateName){
       $scope.bindParamToVar();
       $scope.getRidesData();
-      $scope.getCommentsPhoto();
+      // $scope.getCommentsPerAffiliate(affiliateName);
       $scope.parseAffiliateNameToList(affiliateName);
     };
 
@@ -924,7 +927,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.itnAffiliate.name = $stateParams.name;
         $scope.itnAffiliate.gaViewCode = $stateParams.gaViewCode;
       }
-      console.log("itn affiliate is ", $scope.itnAffiliate);
+      console.log("$scope.itnAffiliate in bindParam is ", $scope.itnAffiliate);
     };
 
 
@@ -1075,6 +1078,25 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           $scope.serverMessage = "";
         });
     };
+    
+    $scope.getCommentsPerAffiliate = function(affiliateName) {
+        $scope.hideLibrary = true;
+        $scope.serverMessage = "Please wait a few seconds while your files are loading on the page.";
+        DataService.fetchCommentsPerAffiliate(affiliateName).then(function(response){
+          // $scope.commentsPhoto = response.data;
+          if (response.data[0] && response.data[0].comments){
+            $scope.commentsPhoto = response.data[0].comments;
+            $scope.commentsPerAffiliate = response.data[0].comments;
+            $scope.serverMessage = "";
+          }
+          else {
+            $scope.commentsPhoto = [];
+            $scope.serverMessage = "There are no files uploaded yet in your library. Upload your first one!"
+          }
+          console.log('commentsphoto is ', $scope.commentsPhoto, Array.isArray($scope.commentsPhoto));
+          $scope.hideLibrary = false;
+        })
+    };
 
     $scope.getCommentsPhotoPerAffiliate = function(affiliateName) {
         $scope.hideLibrary = true;
@@ -1147,30 +1169,31 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.deleteComment = function() {
       $scope.serverMessage = "Loading. Please wait.";
-      DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete).then(function(data){
-        //async delete for immediate update in page
-        var commentToDelete = {
-          message: $scope.commentToDelete.message,
-          author: $scope.commentToDelete.author,
-          email: $scope.commentToDelete.email,
-          };
-        for (var i=0; i < $scope.commentsPhoto.length; i++){
-          if ($scope.affiliateToDelete.name === $scope.commentsPhoto[i].name){
-            var commentsArr = $scope.commentsPhoto[i].comments;
-            for (key in commentsArr) {
-              if (commentsArr.hasOwnProperty(key)) {
-                if (commentToDelete.message === commentsArr[key].message) {
-                  var commentToDeleteIndex = key;
-                  $scope.commentsPhoto[i].comments.splice(commentToDeleteIndex, 1);
+      DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete)
+        .then(function(data){
+          //async delete for immediate update in page
+          var commentToDelete = {
+            message: $scope.commentToDelete.message,
+            author: $scope.commentToDelete.author,
+            email: $scope.commentToDelete.email,
+            };
+          for (var i=0; i < $scope.commentsPhoto.length; i++){
+            if ($scope.affiliateToDelete.name === $scope.commentsPhoto[i].name){
+              var commentsArr = $scope.commentsPhoto[i].comments;
+              for (key in commentsArr) {
+                if (commentsArr.hasOwnProperty(key)) {
+                  if (commentToDelete.message === commentsArr[key].message) {
+                    var commentToDeleteIndex = key;
+                    $scope.commentsPhoto[i].comments.splice(commentToDeleteIndex, 1);
+                  }
                 }
               }
             }
           }
-        }
-        $timeout(function(){
-          $scope.serverMessage = "";
-        }, 5000)
-      })
+          $timeout(function(){
+            $scope.serverMessage = "";
+          }, 5000)
+        })
     };
 
     $scope.addCommentFromAllComments = function(affiliateOfComment) {

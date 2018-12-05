@@ -3,7 +3,7 @@ var myApp = angular.module('myApp');
 myApp.service('DataService', ['$http','$q', function($http, $q){
   this.getAllRides = function(){
     return $http.get('/getAllRides').then(function(data){
-      console.log('rides data is ', data);
+      // console.log('rides data is ', data);
       return data;
     })
   };
@@ -16,6 +16,17 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
     return $http.get('/getCommentsPhoto').then(function(data){
       return data;
     })
+  };
+  this.fetchCommentsPerAffiliate = function(affiliateName){
+    return $http.get('/fetchCommentsPerAffiliate', {
+      params: {
+        affiliateName: affiliateName
+      }
+    })
+    .then(function(data){
+      console.log('data returned from fetch comments per aff frontend service is ', data);
+      return data;
+    }).catch(function(error){ return error })
   };
   this.fetchImages = function(affiliateName){
     return $http.get('/fetchCommentsPhoto', {
@@ -40,6 +51,9 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       console.log('data returned from delete comment service is ', data);
       return data;
     }).catch(function(error){ return error })
+    // return $http.put('/updateComments').then(function(data){
+    //   console.log('return from update comments', data);
+    // })
   };
   this.addRISCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
