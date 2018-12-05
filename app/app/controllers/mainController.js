@@ -1172,24 +1172,18 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       DataService.blah($scope.commentToDelete, $scope.affiliateToDelete)
         .then(function(data){
           //async delete for immediate update in page
-          var commentToDelete = {
-            message: $scope.commentToDelete.message,
-            author: $scope.commentToDelete.author,
-            email: $scope.commentToDelete.email,
-            };
-          for (var i=0; i < $scope.commentsPhoto.length; i++){
-            if ($scope.affiliateToDelete.name === $scope.commentsPhoto[i].name){
-              var commentsArr = $scope.commentsPhoto[i].comments;
-              for (key in commentsArr) {
-                if (commentsArr.hasOwnProperty(key)) {
-                  if (commentToDelete.message === commentsArr[key].message) {
-                    var commentToDeleteIndex = key;
-                    $scope.commentsPhoto[i].comments.splice(commentToDeleteIndex, 1);
-                  }
+          console.log('data return from delete req is ', data.data[0]);
+          console.log('comm to delete obj 1 ', $scope.commentToDelete);
+          console.log('commentsphoto array is ', $scope.commentsPhoto, typeof($scope.commentsPhoto), Array.isArray($scope.commentsPhoto));
+
+            for (var key in $scope.commentsPhoto) {
+              if ($scope.commentsPhoto.hasOwnProperty(key)) {
+                console.log('has property ', key);
+                if ( ($scope.commentToDelete.message === $scope.commentsPhoto[key].message) &&  ($scope.commentToDelete.author === $scope.commentsPhoto[key].author)) {
+                  $scope.commentsPhoto.splice(key, 1);
                 }
               }
             }
-          }
           $timeout(function(){
             $scope.serverMessage = "";
           }, 5000)

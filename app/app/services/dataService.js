@@ -50,6 +50,7 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
     var payload = {content: content, affiliate: affiliate, operation: 'delete'};
     return $http.delete('/deleteComment', {params: payload}).then(function(data){
       console.log('return from update comments', data);
+      return data;
     })
   };
   this.deleteComment2 = function(content, affiliate){
