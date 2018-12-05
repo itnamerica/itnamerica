@@ -273,11 +273,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     res.send();
   });
 
+
+
+
   app.delete('/deleteComment', function (req,res) {
     console.log('inside update comments');
     var parsedContent = JSON.parse(req.query.content);
     var parsedAffiliate = JSON.parse(req.query.affiliate);
-    // var parsedOperation = JSON.parse(req.query.operation);
     var operation = req.query.operation;
     var updatedComment = {
       message: parsedContent.message,
@@ -305,10 +307,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       )
       res.send(result);
     });
-
-
   }); // end of /updateComments get request
-
 
 
   app.put('/updateCommentsPhoto', function (req,res) {
@@ -340,7 +339,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       )
       res.send(result);
     });
-  }); // end of /updateCommentsPhoto get request
+  });
 
 
   app.put('/updateAffiliateRidesData', function(req,res) {

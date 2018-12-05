@@ -1169,16 +1169,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.deleteComment = function() {
       $scope.serverMessage = "Loading. Please wait.";
-      DataService.blah($scope.commentToDelete, $scope.affiliateToDelete)
+      DataService.deleteComment($scope.commentToDelete, $scope.affiliateToDelete)
         .then(function(data){
           //async delete for immediate update in page
-          console.log('data return from delete req is ', data.data[0]);
-          console.log('comm to delete obj 1 ', $scope.commentToDelete);
-          console.log('commentsphoto array is ', $scope.commentsPhoto, typeof($scope.commentsPhoto), Array.isArray($scope.commentsPhoto));
-
             for (var key in $scope.commentsPhoto) {
               if ($scope.commentsPhoto.hasOwnProperty(key)) {
-                console.log('has property ', key);
                 if ( ($scope.commentToDelete.message === $scope.commentsPhoto[key].message) &&  ($scope.commentToDelete.author === $scope.commentsPhoto[key].author)) {
                   $scope.commentsPhoto.splice(key, 1);
                 }

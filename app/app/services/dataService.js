@@ -45,20 +45,13 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       return data;
     })
   };
-  this.blah = function(content, affiliate){
+  this.deleteComment = function(content, affiliate){
     console.log('inside delete comment service, content is ', content, 'affiliate is ', affiliate);
     var payload = {content: content, affiliate: affiliate, operation: 'delete'};
     return $http.delete('/deleteComment', {params: payload}).then(function(data){
       console.log('return from update comments', data);
       return data;
     })
-  };
-  this.deleteComment2 = function(content, affiliate){
-    console.log('content is ', content, 'affiliate is ', affiliate);
-    return $http.put('/updateCommentsPhoto', {content: content, affiliate: affiliate, operation: 'delete'}).then(function(data){
-      console.log('data returned from delete comment service is ', data);
-      return data;
-    }).catch(function(error){ return error })
   };
   this.addRISCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
