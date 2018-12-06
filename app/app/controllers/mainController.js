@@ -1126,15 +1126,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           //async add for immediate update in page
           $scope.commentsPhoto.push($scope.commentData);
           console.log('commentsPhoto is ', $scope.commentsPhoto);
-          $scope.$apply(function(){
-            $scope.commentsPhoto.push($scope.commentData);
-          })
+          // $scope.$apply(function(){
+          //   $scope.commentsPhoto.push($scope.commentData);
+          // })
           $scope.showCommentInput = false;
           $timeout(function(){
             $scope.serverMessage = "";
           }, 5000)
         // });
-
       })
     };
 

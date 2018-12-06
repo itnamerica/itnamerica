@@ -45,45 +45,12 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       return data;
     })
   };
-  // this.addComment = function(content, affiliate){
-  //   var newComment = {content: content, affiliate: affiliate};
-  //   return $http.post('/addComment', {newComment: newComment}).then(function(data){
-  //     console.log('data returned from add comment service is ', data);
-  //     return data;
-  //   })
-  // };
-  this.addComment = function(content, affiliate){
-    var newComment = {content: content, affiliate: affiliate};
-    return $http.post('/addBlah', {params: newComment}).then(function(data){
-      console.log('data returned from add comment service 3 is ', data);
-      return data;
-    })
-    return $http.post('/addBlah', newComment).then(function(data){
-      console.log('data returned from add comment service 4 is ', data);
-      return data;
-    })
-  };
-  this.updateComment = function(content, affiliate){
-    var newComment = {content: content, affiliate: affiliate};
-    return $http.put('/updateBlah', {params: newComment}).then(function(data){
-      console.log('data returned from add comment service 1 is ', data);
-      return data;
-    })
-    return $http.put('/updateBlah', newComment).then(function(data){
-      console.log('data returned from add comment service 2 is ', data);
-      return data;
-    })
-  };
   this.fetchComment = function(content, affiliate){
     var newComment = {content: content, affiliate: affiliate};
     return $http.get('/fetchComment', {params: newComment}).then(function(data){
       console.log('data returned from fetch comment service 1 is ', data);
       return data;
     })
-    // return $http.get('/fetchComment', newComment).then(function(data){
-    //   console.log('data returned from fetch comment service 2 is ', data);
-    //   return data;
-    // })
   };
   this.deleteComment = function(content, affiliate){
     console.log('inside delete comment service, content is ', content, 'affiliate is ', affiliate);

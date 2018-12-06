@@ -273,64 +273,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     res.send();
   });
 
-  app.post('/updateBlah', function (req,res) {
-    console.log('inside add comments');
-    console.log('body is ', req.body);
-    console.log('query is ', req.query);
-    var parsedContent = JSON.parse(req.query.content);
-    var parsedAffiliate = JSON.parse(req.query.affiliate);
-    var updatedComment = {
-      message: parsedContent.message,
-      author: parsedContent.author,
-      email: parsedContent.email
-    };
-    console.log('affiliate is ', parsedAffiliate.name, 'content is ', updatedComment);
-
-    db.collection('commentsphoto').find({name: parsedAffiliate.name}).toArray(function (err, result) {
-      if (err) { throw new Error('No record found. ', err) };
-      var recordId = result[0]._id;
-      var commentObj;
-      console.log('recordId:', recordId);
-      commentObj = { $addToSet: {comments: updatedComment} };
-      console.log("comment obj is ", commentObj);
-
-      db.collection('commentsphoto').update(
-         { _id: recordId },
-         commentObj
-      )
-      res.send(result);
-    });
-  }); // end of /addComment post request
-
-  app.post('/addBlah', function (req,res) {
-    console.log('inside add blah');
-    console.log('body is ', req.body);
-    console.log('query is ', req.query);
-    var parsedContent = JSON.parse(req.query.content);
-    var parsedAffiliate = JSON.parse(req.query.affiliate);
-    var updatedComment = {
-      message: parsedContent.message,
-      author: parsedContent.author,
-      email: parsedContent.email
-    };
-    console.log('affiliate is ', parsedAffiliate.name, 'content is ', updatedComment);
-
-    db.collection('commentsphoto').find({name: parsedAffiliate.name}).toArray(function (err, result) {
-      if (err) { throw new Error('No record found. ', err) };
-      var recordId = result[0]._id;
-      var commentObj;
-      console.log('recordId:', recordId);
-      commentObj = { $addToSet: {comments: updatedComment} };
-      console.log("comment obj is ", commentObj);
-
-      db.collection('commentsphoto').update(
-         { _id: recordId },
-         commentObj
-      )
-      res.send(result);
-    });
-  }); // end of /addComment post request
-
+//fetchComment should be a POST request, but not working for some reason
   app.get('/fetchComment', function (req,res) {
     console.log('inside fetch comm');
     var parsedContent = JSON.parse(req.query.content);
