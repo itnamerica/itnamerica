@@ -1120,7 +1120,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.addComment = function (affiliate) {
       console.log('inside add comment, content is', $scope.commentData, 'affiliate is ', affiliate, 'comments array is ', $scope.commentsPhoto);
       $scope.serverMessage = "Posting comment. Please wait.";
-      DataService.updateComment($scope.commentData, affiliate).then(function(data){
+      DataService.fetchComment($scope.commentData, affiliate).then(function(data){
         //email the affiliate or dept in question
         // $scope.emailCommentAsync($scope.commentData, affiliate).then(function(response){
           //async add for immediate update in page

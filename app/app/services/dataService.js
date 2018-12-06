@@ -74,6 +74,17 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       return data;
     })
   };
+  this.fetchComment = function(content, affiliate){
+    var newComment = {content: content, affiliate: affiliate};
+    return $http.get('/fetchComment', {params: newComment}).then(function(data){
+      console.log('data returned from fetch comment service 1 is ', data);
+      return data;
+    })
+    // return $http.get('/fetchComment', newComment).then(function(data){
+    //   console.log('data returned from fetch comment service 2 is ', data);
+    //   return data;
+    // })
+  };
   this.deleteComment = function(content, affiliate){
     console.log('inside delete comment service, content is ', content, 'affiliate is ', affiliate);
     var payload = {content: content, affiliate: affiliate, operation: 'delete'};
