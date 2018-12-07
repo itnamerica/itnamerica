@@ -927,21 +927,20 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
 
-    $scope.generateUrl = function(affiliate){
-      console.log('inside generate url, affiliate is ', affiliate);
-      var baseUrl = window.location.origin;
-      var pathName = '/affiliate?filter=';
-      var url = baseUrl + pathName + affiliate.name;
-      console.log('url is ', url);
-      return url;
-    };
-
-
     $scope.generateAffiliateUrl = function(affiliate){
       var baseUrl = window.location.origin;
       var pathName = '/affiliate?filter=';
       var url = baseUrl + pathName + affiliate.name;
-      window.open(url)
+      window.location.href = url;
+    };
+
+
+    $scope.generateCommentUrl = function(affiliate, comment){
+      console.log('inside generate comm url, affiliate is ', affiliate, comment);
+      var baseUrl = window.location.origin;
+      var pathName = '/comments?filter=';
+      var url = baseUrl + pathName + affiliate.name;
+      window.location.href = url;
     };
 
 

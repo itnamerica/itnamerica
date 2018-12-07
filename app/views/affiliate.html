@@ -14,8 +14,8 @@
       </div><!--col-md-4-->
 
       <div class="col-md-4">
-        <a ui-sref="comments({affiliate: itnAffiliate, commentsPhoto: commentsPhoto})">
-        <!-- <a ng-href="currentUrl"> -->
+        <!-- <a ui-sref="comments({affiliate: itnAffiliate, commentsPhoto: commentsPhoto})"> -->
+        <a ng-click="generateCommentUrl(itnAffiliate, commentsPhoto)">
           <div class="block" style="background:#90dea7">
             <img ng-src="{{assetsPath}}/images/speakers2-icon.svg" alt="icon of a speaker" style="object-fit:contain;width:200px;margin-left:0;margin-top:-2%"/>
             <h5 style="margin-top:-40px;color:white;font-size:22px">Comments & Announcements</h5>
