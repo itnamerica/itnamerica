@@ -888,9 +888,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
     $scope.parseAffiliateNameToList = function(affiliate){
       if ($stateParams.filter){   //if comments page loaded directly from browser with filter params
-        // $scope.getCommentsPhoto();
         console.log('affiliate param in parseAffiliate is ', affiliate);
-        $scope.getCommentsPerAffiliate(affiliate);
+        // $scope.getCommentsPerAffiliate(affiliate);
         var affiliate = {};
         affiliate.name = $stateParams.filter;
         for (var eachAffiliate in $scope.affiliateList){
@@ -914,9 +913,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.loadAffiliatePage = function(affiliateName){
       $scope.bindParamToVar();
       $scope.getRidesData();
-      // $scope.getCommentsPerAffiliate(affiliateName);
       $scope.parseAffiliateNameToList(affiliateName);
+      $scope.getCommentsPerAffiliate($scope.itnAffiliate);
+      $scope.currentUrl = window.location.href;
     };
+
+    $scope.catchCommentParams = function(){
+      if ($stateParams.filter){
+        $scope.parseAffiliateNameToList($stateParams.filter);
+        $scope.getCommentsPerAffiliate($scope.itnAffiliate);
+      }
+    }
 
 
     // $scope.bindAffiliateParamToObj = function(pageName){

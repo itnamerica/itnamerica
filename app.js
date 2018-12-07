@@ -601,12 +601,7 @@ app.post('/sendmail', function(req, res){
 
   app.get('/fetchBlah', function(req, res){
     console.log('INSIDE FETCHMAIL, req query is ', req.query);
-    // var date = JSON.parse(req.query.date);
     var parsedAffiliateObj = JSON.parse(req.query.formType);
-    // var from = JSON.parse(req.query.from);
-    // var to = JSON.parse(req.query.to);
-    // var subject = JSON.parse(req.query.subject);
-    // var html = JSON.parse(req.query.html);
     var from = req.query.from;
     var to = req.query.to;
     var subject = req.query.subject;
