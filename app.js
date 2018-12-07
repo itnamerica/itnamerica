@@ -600,49 +600,39 @@ app.post('/sendmail', function(req, res){
 
 
   app.get('/fetchBlah', function(req, res){
-    console.log('inside fetchmail, req query', req.query);
-    //   let transporter = nodemailer.createTransport(smtpTransport({
-    //      service: "Gmail",  // sets automatically host, port and connection security settings
-    //      auth: {
-    //          user: gmail_login,
-    //          pass: gmail_pass
-    //      }
-    //   })
-    // )
-    // let mailOptions = {};
-    // if (req.body && req.body.formType.email){ //private contact form from ITN staff to ITN staff
-    //   mailOptions = {
-    //       from: req.body.from, // sender address
-    //       to: req.body.to, // list of receivers
-    //       subject: req.body.subject, // Subject line
-    //       html: req.body.html, // html body
-    //       bcc: req.body.formType.email
-    //   };
-    // }
-    //   transporter.sendMail(mailOptions, function(error, info) {
-    //       if (error) {
-    //           return console.log(error);
-    //       }
-    //       console.log('Message sent: %s', info.messageId);
-    //       transporter.close();
-    //   });
-    //   MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
-    //     if (err) { console.log('db not connecting, but inside mongo block - 2', err) };
-    //     db = client.db('itnamerica-new');
-    //     var objWithPDF; var pdfVal;
-    //      if (req.body && req.body.formType.email){ //private contact form from ITN staff to ITN staff
-    //       mailOptions = {
-    //           from: req.body.from, // sender address
-    //           to: req.body.to, // list of receivers
-    //           subject: req.body.subject, // Subject line
-    //           html: req.body.html, // html body
-    //           bcc: req.body.formType.email
-    //       };
-    //     }
-    //   });
-      res.end();
+    console.log('INSIDE FETCHMAIL, req query is ', req.query);
+    // var date = JSON.parse(req.query.date);
+    var parsedAffiliateObj = JSON.parse(req.query.formType);
+    // var from = JSON.parse(req.query.from);
+    // var to = JSON.parse(req.query.to);
+    // var subject = JSON.parse(req.query.subject);
+    // var html = JSON.parse(req.query.html);
+    var from = req.query.from;
+    var to = req.query.to;
+    var subject = req.query.subject;
+    var html = req.query.html;
+    var emailObj = {
+        from: from,
+        to: to,
+        subject: subject,
+        html: html,
+        bcc: parsedAffiliateObj.email
+    };
+    console.log('email obj is ', emailObj);
+    let transporter = nodemailer.createTransport(smtpTransport({
+       service: "Gmail",  // sets automatically host, port and connection security settings
+       auth: {
+           user: gmail_login,
+           pass: gmail_pass
+       }
+    }))
+    transporter.sendMail(emailObj, function(error, info) {
+        if (error) {return console.log(error)}
+        console.log('Message sent: %s', info.messageId);
+        transporter.close();
     });
-     // end /fetchmail get request
+      res.end();
+    });// end /fetchmail get request
 
 
   app.use(allPages, function(req, res){
