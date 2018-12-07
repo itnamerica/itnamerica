@@ -918,15 +918,26 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       $scope.currentUrl = window.location.href;
     };
 
+
     $scope.catchCommentParams = function(){
       if ($stateParams.filter){
         $scope.parseAffiliateNameToList($stateParams.filter);
         $scope.getCommentsPerAffiliate($scope.itnAffiliate);
       }
-    }
+    };
 
 
-    // $scope.bindAffiliateParamToObj = function(pageName){
+    $scope.generateUrl = function(affiliate){
+      console.log('inside generate url, affiliate is ', affiliate);
+      var baseUrl = window.location.origin;
+      var pathName = '/affiliate?filter=';
+      var url = baseUrl + pathName + affiliate.name;
+      console.log('url is ', url);
+      return url;
+    };
+
+
+    //is this function really needed?
     $scope.bindParamToVar = function(pageName){
       console.log('stateparams are ', $stateParams);
       if ($stateParams.filter){
