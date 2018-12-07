@@ -95,7 +95,8 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
     {
       name: 'NorthJersey',
       gaViewCode: 60671208,
-      email: 'info@itnnorthjersey.org'
+      // email: 'info@itnnorthjersey.org'
+      email: 'sguergenenov@itnamerica.org'
     },
     {
       name: 'Suncoast',
@@ -108,7 +109,6 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
       name: 'America',
       gaViewCode: 0000000,
       email: 'info@itnamerica.org'
-      // email: 'sguergenenov@itnamerica.org'
     },
     {
       name: 'RidesInSight',

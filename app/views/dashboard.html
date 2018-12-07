@@ -1,13 +1,13 @@
-<div class="container-fluid dashboard" ng-init="authenticate()" style="padding:2% 5% 10% 5%; background:#afcace">
+<div class="container-fluid dashboard" ng-init="authenticate()" style="padding:2% 5% 10% 5%; background:#afcace;font-weight:bold">
   <h1 style="mb-50">Admin Portal</h1>
-  
+
   <div class="ta-center" ng-hide="session">
     <p class="mt-50 mb-50" style="font-size: 25px">
       <strong>You must first authenticate to view the applications :)</strong>
     </p>
     <p><a class="btn btn-lg" ui-sref="login">Login</a></p>
   </div>
-  
+
   <div class="row" ng-show="session">
     <div class="col-md-6">
       <h2>Non-Disclosure Agreement Forms</h2>
@@ -57,10 +57,10 @@
          boundary-links="true" >
       </dir-pagination-controls>
     </div><!--col-md-6-->
-    
+
     <div class="col-md-6">
       <h2>Contact forms</h2>
-      
+
       <input type="text" id="searchInput" placeholder="Search" ng-model="filterTable4">
       <table class="table table-striped table-hover" id="contact-table">
         <thead>
@@ -101,17 +101,17 @@
          direction-links="true"
          boundary-links="true" >
       </dir-pagination-controls>
-      
+
     </div><!--col-md-6-->
 
   </div><!--row-->
 
-  
+
   <div class="row" ng-show="session">
-    
+
     <div class="col-md-6">
       <h2>Newsletter subscriptions</h2>
-      
+
       <input type="text" id="searchInput" placeholder="Search" ng-model="filterTable5">
       <table class="table table-striped table-hover" id="newsletter-table">
         <thead>
@@ -149,11 +149,11 @@
          boundary-links="true" >
       </dir-pagination-controls>
     </div><!--col-md-6-->
-    
-    
+
+
     <div class="col-md-6">
       <h2>HR Contact forms</h2>
-      
+
       <input type="text" id="searchInput" placeholder="Search" ng-model="filterTable6">
       <table class="table table-striped table-hover" id="contact-table">
         <thead>
@@ -194,12 +194,12 @@
          direction-links="true"
          boundary-links="true" >
       </dir-pagination-controls>
-      
+
     </div><!--col-md-6-->
-    
-    
+
+
   </div><!--row-->
-  
+
   <!-- Modal -->
 <div class="modal fade" id="deleteAppModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -213,7 +213,7 @@
       <div class="modal-body">
           <div class="form-group ta-center">
             <label for="delete app confirmation" style="margin-bottom:15px">Are you sure you would like to delete this form?</label>
-          </div> 
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" ng-click="deleteForm(formType, formData)" class="btn btn-lg btn-danger" style="background:#e05944">Delete</button>
@@ -222,13 +222,13 @@
     </div>
   </div>
 </div><!--end modal-->
-  
-  
+
+
 </div><!--container-->
 
 <script>
   $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip(); 
+      $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
 
@@ -247,7 +247,7 @@
   .dashboard table a {
     padding: 5%;
   }
-  
+
   .sort-icon {
     font-size: 9px;
     margin-left: 5px;

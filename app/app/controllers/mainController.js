@@ -1122,36 +1122,33 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       $scope.serverMessage = "Posting comment. Please wait.";
       DataService.fetchComment($scope.commentData, affiliate).then(function(data){
         //email the affiliate or dept in question
-        // $scope.emailCommentAsync($scope.commentData, affiliate).then(function(response){
+        $scope.emailCommentAsync(affiliate).then(function(response){
           //async add for immediate update in page
           $scope.commentsPhoto.push($scope.commentData);
           console.log('commentsPhoto is ', $scope.commentsPhoto);
-          // $scope.$apply(function(){
-          //   $scope.commentsPhoto.push($scope.commentData);
-          // })
           $scope.showCommentInput = false;
           $timeout(function(){
             $scope.serverMessage = "";
           }, 5000)
-        // });
+        });
       })
     };
 
-    $scope.emailCommentAsync = function(content, affiliate) {
+    $scope.emailCommentAsync = function(affiliate) {
       var deferred = $q.defer();
       var today = new Date();
       var formObj = {
           from: '"ITNAmerica Staff Member" <donotreply@itnamerica.com>',
           to: affiliate.email,
           subject: "New message from ITN Staff",
-          text: $scope.formData,
+          text: $scope.commentData,
           date: today,
-          html: "<p><strong>Message</strong>: " + $scope.formData.message + "</p> " +
-                "<p><strong>Sender</strong>: " + $scope.formData.author + "</p>\n " +
-                "<p><strong>Sender contact</strong>: " + $scope.formData.email + "</p>\n ",
+          html: "<p><strong>Message</strong>: " + $scope.commentData.message + "</p> " +
+                "<p><strong>Sender</strong>: " + $scope.commentData.author + "</p>\n " +
+                "<p><strong>Sender contact</strong>: " + $scope.commentData.email + "</p>\n ",
           formType: affiliate
       };
-      FormService.sendMail(affiliate, formObj).then(function(response){
+      FormService.fetchMail(affiliate, formObj).then(function(response){
         console.log('data returned from sendmail is ', response);
         $scope.serverMessage = response.serverMessage;
         $scope.loading = response.loading;

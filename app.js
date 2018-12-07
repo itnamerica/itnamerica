@@ -275,7 +275,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
 //fetchComment should be a POST request, but not working for some reason
   app.get('/fetchComment', function (req,res) {
-    console.log('inside fetch comm');
+    console.log('adding new comment');
     var parsedContent = JSON.parse(req.query.content);
     var parsedAffiliate = JSON.parse(req.query.affiliate);
     var updatedComment = {
@@ -291,7 +291,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       var commentObj;
       console.log('recordId:', recordId);
       commentObj = { $addToSet: {comments: updatedComment} };
-      console.log("comment obj is ", commentObj);
 
       db.collection('commentsphoto').update(
          { _id: recordId },
@@ -300,9 +299,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     });
   }); // end of /fetchComment post request
-
-
-
 
 
 
@@ -599,6 +595,54 @@ app.post('/sendmail', function(req, res){
     console.log('after mongo block');
     res.end();
   }); // end /sendmail post request
+
+
+
+
+  app.get('/fetchBlah', function(req, res){
+    console.log('inside fetchmail, req query', req.query);
+    //   let transporter = nodemailer.createTransport(smtpTransport({
+    //      service: "Gmail",  // sets automatically host, port and connection security settings
+    //      auth: {
+    //          user: gmail_login,
+    //          pass: gmail_pass
+    //      }
+    //   })
+    // )
+    // let mailOptions = {};
+    // if (req.body && req.body.formType.email){ //private contact form from ITN staff to ITN staff
+    //   mailOptions = {
+    //       from: req.body.from, // sender address
+    //       to: req.body.to, // list of receivers
+    //       subject: req.body.subject, // Subject line
+    //       html: req.body.html, // html body
+    //       bcc: req.body.formType.email
+    //   };
+    // }
+    //   transporter.sendMail(mailOptions, function(error, info) {
+    //       if (error) {
+    //           return console.log(error);
+    //       }
+    //       console.log('Message sent: %s', info.messageId);
+    //       transporter.close();
+    //   });
+    //   MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
+    //     if (err) { console.log('db not connecting, but inside mongo block - 2', err) };
+    //     db = client.db('itnamerica-new');
+    //     var objWithPDF; var pdfVal;
+    //      if (req.body && req.body.formType.email){ //private contact form from ITN staff to ITN staff
+    //       mailOptions = {
+    //           from: req.body.from, // sender address
+    //           to: req.body.to, // list of receivers
+    //           subject: req.body.subject, // Subject line
+    //           html: req.body.html, // html body
+    //           bcc: req.body.formType.email
+    //       };
+    //     }
+    //   });
+      res.end();
+    });
+     // end /fetchmail get request
 
 
   app.use(allPages, function(req, res){
