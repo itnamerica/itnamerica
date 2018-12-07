@@ -282,11 +282,13 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
     $scope.askBeforeDeleteComment = function(affiliate, comment) {
-      console.log('aff is ', affiliate,comment);
+      console.log('aff is ', affiliate);
+      console.log('comment is ', comment);
         $scope.affiliateToDelete = affiliate;
         $scope.commentToDelete = comment;
         $(document).ready(function() {
             $('#deleteAppModal').modal('show');
+            $('#deleteAppModal').css('display','block');
         })
     };
 
@@ -1174,6 +1176,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           $timeout(function(){
             $scope.serverMessage = "";
           }, 5000)
+          $scope.commentToDelete = {};
         })
     };
 
