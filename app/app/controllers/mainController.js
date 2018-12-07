@@ -944,6 +944,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
 
+    $scope.generateRESTUrl = function(affiliate, routeName){
+      console.log('inside generate REST url, affiliate is ', affiliate, routeName);
+      var baseUrl = window.location.origin;
+      var url = '/' + routeName + '?filter=' + affiliate.name;
+      window.location.href = url;
+    };
+
+
     //is this function really needed?
     $scope.bindParamToVar = function(pageName){
       console.log('stateparams are ', $stateParams);
