@@ -7,20 +7,18 @@
       <div class="col-sm-4">
         <ul>
           <li ng-repeat="itnAffiliate in affiliateList" ng-if="$index <= affiliateList.length / 2">
-            <!-- <a ui-sref="affiliate({name: itnAffiliate.name, gaViewCode: itnAffiliate.gaViewCode })">ITN<em>{{itnAffiliate.name}}</em></a> -->
-            url is: {{ generateUrl(itnAffiliate) }}
-            <a ng-href="generateUrl(itnAffiliate)">ITN<em>{{itnAffiliate.name}}</a>
+            <a ng-click="generateAffiliateUrl(itnAffiliate)">ITN<em>{{itnAffiliate.name}}</a>
           </li>
         </ul>
         </div>
 
-        <!-- <div class="col-sm-4">
+        <div class="col-sm-4">
           <ul>
             <li ng-repeat="itnAffiliate in affiliateList" ng-if="$index > affiliateList.length / 2">
-              <a ui-sref="affiliate({name: itnAffiliate.name, gaViewCode: itnAffiliate.gaViewCode })">ITN<em>{{itnAffiliate.name}}</em></a>
+              <a ng-click="generateAffiliateUrl(itnAffiliate)">ITN<em>{{itnAffiliate.name}}</a>
             </li>
           </ul>
-        </div> -->
+        </div>
         <div class="col-sm-2"></div>
       </div>
 

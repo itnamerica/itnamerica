@@ -937,6 +937,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
 
+    $scope.generateAffiliateUrl = function(affiliate){
+      var baseUrl = window.location.origin;
+      var pathName = '/affiliate?filter=';
+      var url = baseUrl + pathName + affiliate.name;
+      window.open(url)
+    };
+
+
     //is this function really needed?
     $scope.bindParamToVar = function(pageName){
       console.log('stateparams are ', $stateParams);
