@@ -927,25 +927,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
 
-    $scope.generateAffiliateUrl = function(affiliate){
-      var baseUrl = window.location.origin;
-      var pathName = '/affiliate?filter=';
-      var url = baseUrl + pathName + affiliate.name;
-      window.location.href = url;
-    };
-
-
-    $scope.generateCommentUrl = function(affiliate, comment){
-      console.log('inside generate comm url, affiliate is ', affiliate, comment);
-      var baseUrl = window.location.origin;
-      var pathName = '/comments?filter=';
-      var url = baseUrl + pathName + affiliate.name;
-      window.location.href = url;
-    };
-
-
     $scope.generateRESTUrl = function(affiliate, routeName){
-      console.log('inside generate REST url, affiliate is ', affiliate, routeName);
       var baseUrl = window.location.origin;
       var url = '/' + routeName + '?filter=' + affiliate.name;
       window.location.href = url;
