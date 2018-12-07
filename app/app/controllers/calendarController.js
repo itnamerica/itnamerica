@@ -242,7 +242,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       var endTime = new Date(y, m, d, adjustedEt.hour - 4, adjustedEt.min);
       $scope.eventObj.start = startTime;
       $scope.eventObj.end = endTime;
-    }
+    };
 
 
     $scope.addCalendarEvent = function(calendarType){

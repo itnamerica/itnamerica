@@ -237,13 +237,25 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   });
 
-  app.post('/addRISCalendarEvent', function (req,res) {
-    db.collection('calendar-ris').save(req.body.newEvent, function(err, result){
+  // app.post('/addRISCalendarEvent', function (req,res) {
+  //   db.collection('calendar-ris').save(req.body.newEvent, function(err, result){
+  //     if (err) { return console.log('connecting to db, but not saving obj', err);}
+  //     console.log('contact form saved to database', result);
+  //     res.send(result);
+  //   })
+  // });
+
+  //the GET call below is meant to be the POST CALL above but smth is parsing wrong.
+  app.get('/fetchRISSchedulerEvent', function (req,res) {
+    console.log('inside fetch ris calendar', req.query.newEvent);
+    var parsedNewEvent = JSON.parse(req.query.newEvent);
+    db.collection('calendar-ris').save(parsedNewEvent, function(err, result){
       if (err) { return console.log('connecting to db, but not saving obj', err);}
       console.log('contact form saved to database', result);
       res.send(result);
     })
   });
+
 
   app.post('/addEmployee', function (req,res) {
     db.collection('employees').save(req.body.newEmployee, function(err, result){
