@@ -237,14 +237,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   });
 
-  // app.post('/addRISCalendarEvent', function (req,res) {
-  //   db.collection('calendar-ris').save(req.body.newEvent, function(err, result){
-  //     if (err) { return console.log('connecting to db, but not saving obj', err);}
-  //     console.log('contact form saved to database', result);
-  //     res.send(result);
-  //   })
-  // });
-
   //the GET call below is meant to be the POST CALL above but smth is parsing wrong.
   app.get('/fetchRISSchedulerEvent', function (req,res) {
     console.log('inside fetch ris calendar', req.query.newEvent);
@@ -254,6 +246,32 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       console.log('contact form saved to database', result);
       res.send(result);
     })
+  });
+  
+  //the GET call below is meant to be the POST CALL above but smth is parsing wrong.
+  app.get('/fetchAffiliateSchedulerEvent', function (req,res) {
+    console.log('inside fetch affiliate calendar', req.query.newEvent);
+    var parsedNewEvent = JSON.parse(req.query.newEvent);
+    var affiliateName = req.query.affiliateName
+    // db.collection('calendar-ris').save(parsedNewEvent, function(err, result){
+    //   if (err) { return console.log('connecting to db, but not saving obj', err);}
+    //   console.log('contact form saved to database', result);
+    //   res.send(result);
+    // })
+    
+    db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      var eventObj = { $addToSet: {scheduler: parsedNewEvent} };
+      console.log('recordId:', recordId);
+      console.log("event obj is ", eventObj);
+      db.collection('commentsphoto').update(
+         { _id: recordId },
+         eventObj
+      )
+      res.send(result);
+    });
+    
   });
 
 

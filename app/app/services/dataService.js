@@ -60,13 +60,6 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       return data;
     })
   };
-  // this.addRISCalendarEvent = function(newEvent){
-  //   console.log('event is ', newEvent);
-  //   // return $http.post('/addRISCalendarEvent', {newEvent: newEvent}).then(function(data){
-  //     console.log('data returned from add calendar event service is ', data);
-  //     return data;
-  //   }).catch(function(error){ return error })
-  // };
   this.addRISCalendarEvent = function(newEvent){
     console.log('event is ', newEvent);
     return $http.get('/fetchRISSchedulerEvent', {
@@ -76,6 +69,19 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
     })
       .then(function(data){
       console.log('data returned from add calendar event service is ', data);
+      return data;
+    }).catch(function(error){ return error })
+  };
+  this.addAffiliateCalendarEvent = function(newEvent, affiliateName){
+    console.log('event is ', newEvent);
+    return $http.get('/fetchAffiliateSchedulerEvent', {
+      params: {
+        newEvent: newEvent,
+        affiliateName: affiliateName
+      }
+    })
+      .then(function(data){
+      console.log('data returned from add affiliate calendar service is ', data);
       return data;
     }).catch(function(error){ return error })
   };

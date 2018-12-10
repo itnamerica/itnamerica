@@ -249,7 +249,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
 
 
-    $scope.addCalendarEvent = function(calendarType){
+    $scope.addCalendarEvent = function(calendarType, affiliateName){
       //selects previous day by default, so need to adjust
       $scope.eventObj.day = new Date($scope.dayClicked.getTime());
       console.log('event obj is ', $scope.eventObj);
@@ -261,6 +261,20 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           $scope.serverMessage = "Your event has been succesfully added.";
           //updates events on DOM
           $scope.viewRISCalendarEventsPromise().then(function(response){
+            $('#calendar-week').fullCalendar('removeEvents');
+            $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
+            $('#calendar-week').fullCalendar('rerenderEvents');
+            $scope.resetEventObj();
+          })
+        })
+      } else if (calendarType === 'affiliate' && affiliateName) {
+        console.log('is affiliate add');
+        $scope.completeEventObj();
+        DataService.addAffiliateCalendarEvent($scope.eventObj, affiliateName).then(function(data){
+          $('#calendarModal').modal('hide');
+          $scope.serverMessage = "Your event has been succesfully added.";
+          //updates events on DOM
+          $scope.viewAffiliateCalendarEventsPromise().then(function(response){
             $('#calendar-week').fullCalendar('removeEvents');
             $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
             $('#calendar-week').fullCalendar('rerenderEvents');
