@@ -111,6 +111,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     })
   }); // end of /viewRISCalendarEvents get request
+  
+  app.get('/viewAffiliateCalendarEvents', function (req,res) {
+    var affiliateName = req.query.affiliateName;
+    db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
+      res.send(result);
+    })
+  }); // end of /viewRISCalendarEvents get request
 
   app.get('/fetchCommentsPhoto', function (req,res) {
     var affiliateName = req.query.affiliateName;
@@ -253,12 +260,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     console.log('inside fetch affiliate calendar', req.query.newEvent);
     var parsedNewEvent = JSON.parse(req.query.newEvent);
     var affiliateName = req.query.affiliateName
-    // db.collection('calendar-ris').save(parsedNewEvent, function(err, result){
-    //   if (err) { return console.log('connecting to db, but not saving obj', err);}
-    //   console.log('contact form saved to database', result);
-    //   res.send(result);
-    // })
-    
     db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
       if (err) { throw new Error('No record found. ', err) };
       var recordId = result[0]._id;

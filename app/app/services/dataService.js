@@ -108,6 +108,15 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       return data;
     }).catch(function(error){ return error })
   };
+  this.viewAffiliateCalendarEvents = function(affiliateName){
+    return $http.get('/viewAffiliateCalendarEvents', {
+      params: {
+        affiliateName: affiliateName
+      }
+    }).then(function(data){
+      return data;
+    }).catch(function(error){ return error })
+  };
   this.viewCalendarEvents = function(){
     return $http.get('/viewCalendarEvents').then(function(data){
       return data;

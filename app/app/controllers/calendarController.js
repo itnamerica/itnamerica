@@ -159,13 +159,16 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
 
 
-    $scope.initWeekCalendar = function(calendarType) {
-      // if (calendarType === 'affiliate'){
-      //   DataService.generateRESTUrl($scope.itnAffiliate.name, 'shift-scheduler');
-      // }
+    $scope.initWeekCalendar = function(calendarType, affiliateName) {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
-      var promise = $scope.viewRISCalendarEventsPromise();
+      var promise;
+      if (calendarType === 'affiliate'){
+        // DataService.generateRESTUrl($scope.itnAffiliate.name, 'shift-scheduler');
+        promise = $scope.viewAffiliateCalendarEventsPromise(affiliateName);
+      } else {
+        promise = $scope.viewRISCalendarEventsPromise();
+      }
       promise.then(function(data){
         console.log('ris events are ', $scope.calendarEvents);
 
@@ -274,7 +277,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully added.";
           //updates events on DOM
-          $scope.viewAffiliateCalendarEventsPromise().then(function(response){
+          $scope.viewAffiliateCalendarEventsPromise(affiliateName).then(function(response){
             $('#calendar-week').fullCalendar('removeEvents');
             $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
             $('#calendar-week').fullCalendar('rerenderEvents');
@@ -372,6 +375,21 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       .then(function(data){
         $scope.calendarEvents = data.data;
         console.log('RIS calendar events are ', $scope.calendarEvents);
+        deferred.resolve(data.data);
+      }).catch(function(err){
+        deferred.resolve('Error: ', err);
+      })
+      return deferred.promise;
+    };
+    
+    $scope.viewAffiliateCalendarEventsPromise = function(affiliateName){
+      var deferred = $q.defer();
+      //get events from database
+      DataService.viewAffiliateCalendarEvents(affiliateName)
+      .then(function(data){
+        console.log("dataaa is ", data)
+        $scope.calendarEvents = data.data[0].scheduler;
+        console.log('Affiliate calendar events are ', $scope.calendarEvents);
         deferred.resolve(data.data);
       }).catch(function(err){
         deferred.resolve('Error: ', err);
