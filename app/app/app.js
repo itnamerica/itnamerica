@@ -228,6 +228,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/affiliate-landing',
             templateUrl: viewsPath + 'affiliate-landing.html'
         })
+        .state('shift-scheduler', {
+            url: '/shift-scheduler',
+            templateUrl: viewsPath + 'shift-scheduler.html',
+            controller: 'CalendarCtrl'
+        })
 
     // default fall back route
     $urlRouterProvider.otherwise('/');

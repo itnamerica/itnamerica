@@ -158,7 +158,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
 
 
-    $scope.initWeekCalendar = function() {
+    $scope.initWeekCalendar = function(calendarType) {
+      // if (calendarType === 'affiliate'){
+      //   $scope.generateRESTUrl($scope.itnAffiliate.name, 'shift-scheduler');
+      // }
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
       var promise = $scope.viewRISCalendarEventsPromise();
