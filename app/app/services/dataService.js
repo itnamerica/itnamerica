@@ -184,5 +184,10 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       return data;
     }).catch(function(error){ return error })
   };
+  this.generateRESTUrl = function(affiliate, routeName){
+    var baseUrl = window.location.origin;
+    var url = '/' + routeName + '?filter=' + affiliate.name;
+    window.location.href = url;
+  };
 
 }]);

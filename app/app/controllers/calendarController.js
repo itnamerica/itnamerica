@@ -4,6 +4,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     console.log('inside calendar controller');
     $scope.eventObj = {}
 
+    //agenda here refers to a detailed day view of the monthly calendar after selecting day.
     $scope.initAgenda = function() {
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
@@ -160,7 +161,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
     $scope.initWeekCalendar = function(calendarType) {
       // if (calendarType === 'affiliate'){
-      //   $scope.generateRESTUrl($scope.itnAffiliate.name, 'shift-scheduler');
+      //   DataService.generateRESTUrl($scope.itnAffiliate.name, 'shift-scheduler');
       // }
       $scope.hideModal('calendarModal');
       $scope.hideModal('addOrShowModal');
@@ -366,6 +367,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
 
     //place events on their respective day tabs
+    //unlike the weekly calendar, which provides build-in help for drawing events, monthly calendar does not so I had to reinvent the wheel using JQuery to manually draw events on DOM.
     $scope.drawEventsOnCalendar = function(){
       $scope.eventsinFC = [];
       $('.fc-day').each(function(){
