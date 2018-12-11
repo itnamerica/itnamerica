@@ -204,8 +204,16 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
               type: "warning"
             }).then(function(eventToDelete){
               //On confirm, delete event from db
-              if (eventToDelete.value){
-                $scope.deleteRISCalendarEventPromise(theEvent, theEvent, 'calendar-ris')
+              if (eventToDelete.value && calendarType === 'affiliate'){
+                $scope.deleteAffiliateCalendarEventPromise(theEvent, affiliateName)
+                  .then(function(response){
+                    swal("Deleted!","Your event was deleted.","success");
+                  }).catch(function(error){
+                  swal("Oops!","Your event couldn't be deleted.","error");
+                  })
+              }
+              else if (eventToDelete.value){
+                $scope.deleteRISCalendarEventPromise(theEvent, 'calendar-ris')
                   .then(function(response){
                     swal("Deleted!","Your event was deleted.","success");
                   }).catch(function(error){
@@ -337,11 +345,26 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       return deferred.promise
     };
 
-    $scope.deleteRISCalendarEventPromise = function(eventToDelete, calEventToDelete, dbName){
+    $scope.deleteRISCalendarEventPromise = function(eventToDelete, dbName){
       //delete event from database
       var deferred = $q.defer();
       DataService.deleteRISCalendarEvent(eventToDelete, dbName)
         .then(function(data){
+          $('#calendarModal').modal('hide');
+          $scope.serverMessage = "Your event has been succesfully deleted.";
+          $("#calendar-week").fullCalendar("removeEvents", calEventToDelete._id);
+          deferred.resolve(data);
+        }).catch(function(error){
+          deferred.resolve(error)
+        })
+      return deferred.promise
+    };
+    
+    $scope.deleteAffiliateCalendarEventPromise = function(eventToDelete, affiliateName){
+      var deferred = $q.defer();
+      DataService.deleteAffiliateCalendarEvent(eventToDelete, affiliateName)
+        .then(function(data){
+          console.log('data is ', data);
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully deleted.";
           $("#calendar-week").fullCalendar("removeEvents", calEventToDelete._id);

@@ -272,7 +272,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       )
       res.send(result);
     });
-    
   });
 
 
@@ -460,11 +459,29 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       console.log('record has been removed, i think');
       res.send(result);
     });
-
   }); // end of deleteriscalendarevent request
-
-
 });//end of mongoclient
+  
+  
+  //the GET call below is meant to be the DELETE CALL above but smth is parsing wrong.
+  app.get('/fetchAffiliateScheduler2', function (req,res) {
+    console.log('inside delete week calendar affiliate ', req.query)
+    var parsedEventToDelete = req.query.agendaEvent;
+    var affiliateName = req.query.affiliateName;
+    console.log('inside fetch affiliate calendar delete', parsedEventToDelete, affiliateName);
+    // db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
+    //   if (err) { throw new Error('No record found. ', err) };
+    //   var recordId = result[0]._id;
+    //   var eventObj = { $pull: {scheduler: parsedEventToDelete} };
+    //   console.log('recordId:', recordId);
+    //   console.log("event obj is ", eventObj);
+    //   db.collection('commentsphoto').update(
+    //      { _id: recordId },
+    //      eventObj
+    //   )
+    //   res.send(result);
+    // });
+  });
 
 
 
@@ -621,7 +638,6 @@ app.post('/sendmail', function(req, res){
           // res.redirect('/');
         })
       }
-
     });//end of mongoclient
     console.log('after mongo block');
     res.end();

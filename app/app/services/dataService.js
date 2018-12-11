@@ -103,6 +103,22 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       return error;
     })
   };
+  this.deleteAffiliateCalendarEvent = function(agendaEvent, affiliateName){
+    //special circular object, do not send full agendaEvent obj to backend.
+    console.log('event is ', agendaEvent, 'from ', affiliateName);
+    return $http.get('/fetchAffiliateScheduler2', {
+      params: {
+        affiliateName: affiliateName,
+        agendaEvent: agendaEvent
+      }
+    }).then(function(data){
+      console.log('data returned is ', data);
+      return data;
+    }).catch(function(error){
+      console.log('error is ', error);
+      return error;
+    })
+  };
   this.viewRISCalendarEvents = function(){
     return $http.get('/viewRISCalendarEvents').then(function(data){
       return data;
