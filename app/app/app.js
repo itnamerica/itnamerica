@@ -79,6 +79,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/annual-report-2017',
             templateUrl: viewsPath + 'annual-report-2017.html'
         })
+        .state('annual-report-2018', {
+            url: '/annual-report-2018',
+            templateUrl: viewsPath + 'annual-report-2018.html'
+        })
         .state('about', {
             url: '/about',
             templateUrl: viewsPath + 'about.html',

@@ -1628,6 +1628,24 @@ form textarea.form-control {font-size:25px}
   font-size:20px !important;
 }
 
+.annual-report #first-hero-report {
+  background-image: url('../images/dark/annual-report-logo.png');
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+  /*opacity:0.5;*/
+}
+.annual-report #first-hero-report h1{
+  color:White;
+  text-shadow: 2px 2px #529ba8;
+  margin-top:170px !important;
+  margin-left: 5% !important;
+}
+
+
+
 
 .portal {
   background-image: url('../images/itnportland-pic.JPG') !important;
