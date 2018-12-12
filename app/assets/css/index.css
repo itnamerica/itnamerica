@@ -2249,7 +2249,9 @@ form textarea.form-control {font-size:25px}
 .pt-100 {padding-top:100px !important}
 .pt-50 {padding-top:50px !important}
 .pt-25 {padding-top:25px !important}
-.mb-100 {margin-bottom:100px !important}
+.pb-25 {padding-bottom:25px !important}
+.pb-50 {padding-bottom:50px !important}
+.pb-100 {padding-bottom:100px !important}
 .center-70 {
   margin-left:auto;
   margin-right:auto;
