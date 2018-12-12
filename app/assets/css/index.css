@@ -361,7 +361,7 @@ nav .dropdown-menu li.divider{
 .services .container-fluid {
   /* width:80%; */
 }
-.services .jumbo-title {
+ .jumbo-title {
   background-color: #399eaa;
   color: white;
   text-align: center;
@@ -378,7 +378,7 @@ nav .dropdown-menu li.divider{
 #policy, #education, #ashoka, .ris {
   text-align:justify;
 }
-.services #transportation .jumbo-title, .services #transportation .row {
+ .jumbo-title, .services #transportation .row {
   margin-left:-30px;
   margin-right:-30px;
 }
@@ -1661,7 +1661,7 @@ form textarea.form-control {font-size:25px}
   color:#399eaa;
   font-weight:bold;
 }
-.annual-report .container p {
+.annual-report .container p, .annual-report .container-fluid p {
   font-weight: bold;
   text-align:justify;
 }
@@ -2246,6 +2246,10 @@ form textarea.form-control {font-size:25px}
 .mb-50 {margin-bottom:50px !important}
 .mb-25 {margin-bottom:25px !important}
 .m-50 {margin:50px !important}
+.pt-100 {padding-top:100px !important}
+.pt-50 {padding-top:50px !important}
+.pt-25 {padding-top:25px !important}
+.mb-100 {margin-bottom:100px !important}
 .center-70 {
   margin-left:auto;
   margin-right:auto;
