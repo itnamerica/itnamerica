@@ -63,6 +63,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/draft',
             templateUrl: viewsPath + 'draft.html'
         })
+        .state('member-programs', {
+            url: '/member-programs',
+            templateUrl: viewsPath + 'member-programs.html'
+        })
         .state('find-your-itn', {
             url: '/find-your-itn',
             templateUrl: viewsPath + 'find-your-itn.html'

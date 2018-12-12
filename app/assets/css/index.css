@@ -398,10 +398,10 @@ nav .dropdown-menu li.divider{
   background-repeat: no-repeat !important;
 }
 
-.services .service-features .icon-wrap, .services .service-features .icon-legend {
+.service-features .icon-wrap, .service-features .icon-legend {
   text-align:center;
 }
-.services .service-features p {
+.service-features p {
   padding:5%;
 }
 .service-features {
@@ -423,7 +423,7 @@ nav .dropdown-menu li.divider{
   width:180px;
 }
 .service-features .col-sm-4 .icon-wrap .fa {
-  font-size: 70px;
+  font-size: 50px;
 }
 .service-features .col-sm-4 .icon-legend {
   margin-top: 7%;
@@ -1305,22 +1305,22 @@ nav .dropdown-menu li.divider{
 .become-member .btn {
   margin:2%;
 }
-.become-member .service-features .col-sm-4 {
+ .service-features .col-sm-4 {
   text-align:center;
   padding: 2%;
 }
-.become-member .service-features .col-sm-4 .icon-wrap {
+ .service-features .col-sm-4 .icon-wrap {
   font-size: 50px;
 }
-.become-member .service-features .col-sm-4 .icon-wrap .fa {
+ .service-features .col-sm-4 .icon-wrap .fa {
   font-size: 70px;
 }
-.become-member .service-features .col-sm-4 .icon-legend {
+ .service-features .col-sm-4 .icon-legend {
   margin-top: 7%;
   font-weight: bold;
   font-size: 22px;
 }
-.become-member .icon-wrap-circle {
+ .icon-wrap-circle {
   border-radius: 100%;
   color: white;
   background: #399eaa;
@@ -1329,7 +1329,7 @@ nav .dropdown-menu li.divider{
   margin-left: auto;
   margin-right: auto;
 }
-.become-member .icon-wrap-circle i {
+ .icon-wrap-circle i {
   color:white;
   line-height:150px;
 }
@@ -1680,6 +1680,10 @@ form textarea.form-control {font-size:25px}
 }
 .elevator-list li {
   margin-top:10px;
+}
+.annual-report .icon-wrap {
+  line-height:3;
+  font-weight:bold;
 }
 
 
