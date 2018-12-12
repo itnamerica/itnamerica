@@ -1643,7 +1643,20 @@ form textarea.form-control {font-size:25px}
   margin-top:170px !important;
   margin-left: 5% !important;
 }
-
+.annual-report .first-paragraph::first-letter {
+  font-size: 300%;
+  /* color: #8A2BE2; */
+}
+.annual-report .first-cont {
+  padding:5%;
+  border-radius:5px;
+  background:white;
+  color:#399eaa;
+  font-weight:bold;
+}
+.annual-report .container p {
+  font-weight: bold;
+}
 
 
 
@@ -2247,7 +2260,7 @@ form textarea.form-control {font-size:25px}
 .itn-title h2 {
   color: #399eaa
 }
-.itn-title hr {
+.itn-title hr, .red-hr {
   border: none;
   height: 5px;
   color: #fc6d6d;
