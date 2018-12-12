@@ -1645,9 +1645,16 @@ form textarea.form-control {font-size:25px}
 }
 .annual-report .first-paragraph::first-letter {
   font-size: 300%;
-  /* color: #8A2BE2; */
 }
-.annual-report .first-cont {
+.annual-report ul {
+  list-style-type:none;
+  font-weight:bold !important;
+}
+.annual-report li:before {
+  content: "\2605";
+  margin-right: 2%;
+}
+.annual-report .white-cont {
   padding:5%;
   border-radius:5px;
   background:white;
@@ -1656,6 +1663,23 @@ form textarea.form-control {font-size:25px}
 }
 .annual-report .container p {
   font-weight: bold;
+  text-align:justify;
+}
+.wider-row {
+  margin-left: -5%;
+  margin-right: -10%;
+}
+.annual-report .row {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.elevator-list {
+  margin: 5% 8%;
+  border: 1px solid;
+  padding: 3%;
+}
+.elevator-list li {
+  margin-top:10px;
 }
 
 
