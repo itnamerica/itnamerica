@@ -267,6 +267,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         console.log("each obj is ", allEvents[obj]);
         console.log("inner txt is ", allEvents[obj].innerText);
         var substr = allEvents[obj].innerText.replace(/[^a-zA-Z0-9]+/g, "");
+        substr = substr.replace(/[0-9]/g, '');
         console.log('substr is ', substr);
         var relevantInnerText = obj.innerText.substring()
         if (relevantInnerText){
@@ -470,9 +471,13 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       DataService.viewAffiliateCalendarEvents(affiliateName)
       .then(function(data){
         console.log("dataaa is ", data)
-        $scope.calendarEvents = data.data[0].scheduler;
-        console.log('Affiliate calendar events are ', $scope.calendarEvents);
-        deferred.resolve(data.data);
+        if (data.data[0]){
+          $scope.calendarEvents = data.data[0].scheduler;
+          console.log('Affiliate calendar events are ', $scope.calendarEvents);
+          deferred.resolve(data.data);
+        } else {
+          deferred.resolve('Error: ', err);
+        }
       }).catch(function(err){
         deferred.resolve('Error: ', err);
       })
