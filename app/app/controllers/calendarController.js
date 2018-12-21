@@ -212,22 +212,27 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
               if (readyToDelete.value && calendarType === 'affiliate'){
                 console.log('event is ', complexEventObj);
                 var simpleEventObjToDelete = $scope.convertComplexToSimpleEventObj(complexEventObj);
-                $scope.deleteAffiliateCalendarEventPromise(simpleEventObjToDelete, affiliateName)
-                  .then(function(response){
-                    console.log('final response from delete is ', response);
+                // $scope.deleteAffiliateCalendarEventPromise(simpleEventObjToDelete, affiliateName)
+                //   .then(function(response){
+                    // console.log('final response from delete is ', response);
+                    
                     //removeEvents from fullcalendar not working so much force event to hide on DOM with CSS
                     var cssElem = $scope.theJsEvent.currentTarget.className;
                     var idx = cssElem.indexOf(' ');
-                    var cssCutoff = cssElem.substring(0,idx);
+                    var cssCutoff = cssElem.substring(0, idx);
                     var cssElemReady = '.' + cssCutoff;
                     console.log('css elem ready is ', cssElemReady);
+                    var allEvents = $(cssElemReady).show();
+                    console.log('all obj with class name are ', allEvents);
+                    $scope.matchRelevantEvent(allEvents);
+                    
                     $(cssElemReady).css('display','none');
                     $scope.resetEventObj();
                     swal("Deleted!","Your event was deleted.","success");
-                  })
-                  .catch(function(error){
-                    swal("Oops!","Your event couldn't be deleted.","error");
-                  })
+                  // })
+                  // .catch(function(error){
+                  //   swal("Oops!","Your event couldn't be deleted.","error");
+                  // })
               }
               else if (readyToDelete.value){
                 $scope.deleteRISCalendarEventPromise(complexEventObj, 'calendar-ris')
@@ -252,6 +257,22 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         events: $scope.calendarEvents
         })//end of calendar config
       });//end of promise
+    };
+    
+    
+    $scope.matchRelevantEvent = function(allEvents){
+      console.log('inside match relevant event');
+      // for (var obj=0; obj <= allEvents.length;obj++){
+      for (var obj in allEvents){
+        console.log("each obj is ", allEvents[obj]);
+        console.log("inner txt is ", allEvents[obj].innerText);
+        var substr = allEvents[obj].innerText.replace(/[^a-zA-Z0-9]+/g, "");
+        console.log('substr is ', substr);
+        var relevantInnerText = obj.innerText.substring()
+        if (relevantInnerText){
+          console.log('relevant one');
+        }
+      }
     };
 
 
