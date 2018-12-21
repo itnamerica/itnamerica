@@ -224,8 +224,8 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
                     console.log('css elem ready is ', cssElemReady);
                     var allEvents = $(cssElemReady).show();
                     console.log('all obj with class name are ', allEvents);
-                    $scope.matchRelevantEvent(allEvents, calEvent);
-                    
+                    var matchedElem = $scope.matchRelevantEvent(allEvents, calEvent);
+                    console.log('matched event ', matchedEvent);
                     $(cssElemReady).css('display','none');
                     $scope.resetEventObj();
                     swal("Deleted!","Your event was deleted.","success");
@@ -261,16 +261,18 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     
     
     $scope.matchRelevantEvent = function(allEvents, calEvent){
-      console.log('inside match relevant event');
       var eventTitle = calEvent.title;
       var eventTitleSquashed = calEvent.title.replace(/[^a-zA-Z0-9]+/g, "");
       console.log('cal event is ', calEvent.title, eventTitleSquashed);
       for (var obj in allEvents){
         var eventsObj = allEvents[obj];
-        console.log("inner txt is ", eventsObj.innerText);
         var substr = eventsObj.innerText.replace(/[^a-zA-Z0-9]+/g, "");
         substr = substr.replace(/[0-9]/g, '');
         console.log('substr is ', substr);
+        if (substr === eventTitleSquashed){
+          console.log('a match!! the match is ', substr);
+          return substr;
+        }
       }
     };
 
