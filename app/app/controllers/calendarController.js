@@ -316,6 +316,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
 
 
     $scope.addCalendarEvent = function(calendarType, affiliateName){
+      console.log('is calendar Type and affiliateName ', calendarType, affiliateName);
       $scope.serverMessage = "Adding event...";
       //selects previous day by default, so need to adjust
       $scope.eventObj.day = new Date($scope.dayClicked.getTime());
@@ -337,7 +338,8 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       } else if (calendarType === 'affiliate' && affiliateName) {
         console.log('is affiliate add');
         $scope.completeEventObj();
-        DataService.addAffiliateCalendarEvent($scope.eventObj, affiliateName).then(function(data){
+        DataService.addAffiliateCalendarEvent($scope.eventObj, affiliateName)
+        .then(function(data){
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully added.";
           //updates events on DOM
@@ -348,7 +350,25 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
             $scope.resetEventObj();
           })
         })
+      } else if (calendarType === 'affiliate') {
+        console.log('is affiliate add');
+        console.log('scope itn affiliate is ', $scope.itnAffiliate);
+        $scope.completeEventObj();
+        DataService.addAffiliateCalendarEvent($scope.eventObj, $scope.itnAffiliate)
+        .then(function(data){
+          $('#calendarModal').modal('hide');
+          $scope.serverMessage = "Your event has been succesfully added.";
+          console.log("event added to db");
+          //updates events on DOM
+          $scope.viewAffiliateCalendarEventsPromise($scope.itnAffiliate).then(function(response){
+            $('#calendar-week').fullCalendar('removeEvents');
+            $('#calendar-week').fullCalendar('addEventSource', $scope.calendarEvents);
+            $('#calendar-week').fullCalendar('rerenderEvents');
+            $scope.resetEventObj();
+          })
+        })
       } else {
+        console.log('inside calendar event');
         DataService.addCalendarEvent($scope.eventObj).then(function(data){
           $('#calendarModal').modal('hide');
           $scope.serverMessage = "Your event has been succesfully added.";
@@ -477,7 +497,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       //get events from database
       DataService.viewAffiliateCalendarEvents(affiliateName)
       .then(function(data){
-        console.log("dataaa is ", data)
+        console.log("data from viewAffiliateCalendarEventsPromise func is ", data);
         if (data.data[0]){
           $scope.calendarEvents = data.data[0].scheduler;
           console.log('Affiliate calendar events are ', $scope.calendarEvents);

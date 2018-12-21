@@ -92,12 +92,25 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
     }).catch(function(error){ return error })
   };
   this.addCalendarEvent = function(newEvent){
-    console.log('event is ', newEvent);
+    console.log('event in add calendar event is ', newEvent);
     return $http.post('/addCalendarEvent', {newEvent: newEvent}).then(function(data){
       console.log('data returned from add calendar event service is ', data);
       return data;
     }).catch(function(error){ return error })
   };
+  // this.addCalendarEventAffiliate = function(newEvent){
+  //   console.log('event is ', newEvent);
+  //   return $http.get('/addCalendarEventAffiliate', {
+  //     params: {
+  //       newEvent: newEvent,
+  //       affiliateName: affiliateName
+  //     }
+  //   })
+  //     .then(function(data){
+  //     console.log('data returned from add affiliate calendar service is ', data);
+  //     return data;
+  //   }).catch(function(error){ return error })
+  // };
   this.deleteRISCalendarEvent = function(agendaEvent, dbName){
     //special circular object, do not send full agendaEvent obj to backend.
     console.log('event is ', agendaEvent, 'from ', dbName);

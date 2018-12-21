@@ -257,6 +257,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
   //the GET call below is meant to be the POST CALL above but smth is parsing wrong.
   app.get('/fetchAffiliateSchedulerEvent', function (req,res) {
+        console.log('inside addcalendarevent, backend');
     console.log('inside fetch affiliate calendar', req.query.newEvent);
     var parsedNewEvent = JSON.parse(req.query.newEvent);
     var affiliateName = req.query.affiliateName
