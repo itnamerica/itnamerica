@@ -168,6 +168,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
       var promise;
       if (calendarType === 'affiliate'){
         // DataService.generateRESTUrl($scope.itnAffiliate.name, 'shift-scheduler');
+        console.log('fetching calendar events, affiliateName is ', affiliateName);
         promise = $scope.viewAffiliateCalendarEventsPromise(affiliateName);
       } else {
         promise = $scope.viewRISCalendarEventsPromise();
@@ -215,6 +216,12 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
                 $scope.deleteAffiliateCalendarEventPromise(simpleEventObjToDelete, affiliateName)
                   .then(function(response){
                     console.log('final response from delete is ', response);
+                    location.reload()
+                    
+                    
+                    
+                    
+                    
                     //removeEvents from fullcalendar not working so much force event to hide on DOM with CSS
                     var cssElem = $scope.theJsEvent.currentTarget.className;
                     var idx = cssElem.indexOf(' ');
@@ -465,6 +472,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
 
     $scope.viewAffiliateCalendarEventsPromise = function(affiliateName){
+      console.log('view affiliate calendar events promise, affiliate name is ',affiliateName);
       var deferred = $q.defer();
       //get events from database
       DataService.viewAffiliateCalendarEvents(affiliateName)
@@ -475,10 +483,10 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
           console.log('Affiliate calendar events are ', $scope.calendarEvents);
           deferred.resolve(data.data);
         } else {
-          deferred.resolve('Error: ', err);
+          deferred.resolve('Error');
         }
       }).catch(function(err){
-        deferred.resolve('Error: ', err);
+        deferred.resolve('Error');
       })
       return deferred.promise;
     };

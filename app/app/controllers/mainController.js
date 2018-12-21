@@ -973,6 +973,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       if ($stateParams.filter === "affiliate"){
         $scope.affiliateLanding = true;
         $scope.showPortal = false;
+      } else {
+        $scope.itnAffiliate = $stateParams.filter;
       }
     };
 
