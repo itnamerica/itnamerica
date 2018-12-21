@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 app.use(express.json()); //convert req to json
 app.use(express.static(__dirname + '/app'));
 app.use(session({secret: "Sam is awesome"}));
-app.use(formidable());
+// app.use(formidable());
 
 app.use(bodyParser.json()); // Configures bodyParser to accept JSON
 app.use(bodyParser.urlencoded({
@@ -43,83 +43,83 @@ var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
   if (err) {
-    console.log('db not connecting, but inside mongo block - 1', err);
+    console.log('db not connecting, but inside mongo block - 1', err);3
   };
   db = client.db('itnamerica-new');
 
   console.log('inside first mongo block');
 
 
-  app.get('/getBlogContent', function(req, res) {
+  app.get('/getBlogContent', formidable(), function(req, res) {
     console.log('params are ', req.query.blogURL)
     request.get(req.query.blogURL, function(err,result,body) {
       res.send(result.body)
     });
   });
 
-  app.get('/getNDAForms', function (req,res) {
+  app.get('/getNDAForms', formidable(), function (req,res) {
       db.collection('ndaform').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getContactForms get request
 
-  app.get('/getContactForms', function (req,res) {
+  app.get('/getContactForms', formidable(), function (req,res) {
       db.collection('contactform').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getContactForms get request
 
-  app.get('/getHRContactForms', function (req,res) {
+  app.get('/getHRContactForms', formidable(), function (req,res) {
       db.collection('hrcontactform').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getHRContactForms get request
 
-  app.get('/getNewsletterForms', function (req,res) {
+  app.get('/getNewsletterForms', formidable(), function (req,res) {
       db.collection('newsletterform').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getNewsletterForms get request
 
-  app.get('/getAllRides', function (req,res) {
+  app.get('/getAllRides', formidable(), function (req,res) {
       db.collection('ridesdatamonthly').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getRidesData get request
 
-  app.get('/getEmployees', function (req,res) {
+  app.get('/getEmployees', formidable(), function (req,res) {
       db.collection('employees').find().toArray(function (err, result) {
         res.send(result);
       })
   }); // end of /getEmployees get request
 
-  app.get('/getCommentsPhoto', function (req,res) {
+  app.get('/getCommentsPhoto', formidable(), function (req,res) {
     db.collection('commentsphoto').find().toArray(function (err, result) {
       res.send(result);
     })
   }); // end of /getRidesData get request
 
 
-  app.get('/viewCalendarEvents', function (req,res) {
+  app.get('/viewCalendarEvents', formidable(), function (req,res) {
     db.collection('calendar').find().toArray(function (err, result) {
       res.send(result);
     })
   }); // end of /viewCalendarEvents get request
 
-  app.get('/viewRISCalendarEvents', function (req,res) {
+  app.get('/viewRISCalendarEvents', formidable(), function (req,res) {
     db.collection('calendar-ris').find().toArray(function (err, result) {
       res.send(result);
     })
   }); // end of /viewRISCalendarEvents get request
 
-  app.get('/viewAffiliateCalendarEvents', function (req,res) {
+  app.get('/viewAffiliateCalendarEvents', formidable(), function (req,res) {
     var affiliateName = req.query.affiliateName;
     db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
       res.send(result);
     })
   }); // end of /viewRISCalendarEvents get request
 
-  app.get('/fetchCommentsPhoto', function (req,res) {
+  app.get('/fetchCommentsPhoto', formidable(), function (req,res) {
     var affiliateName = req.query.affiliateName;
     console.log('affiliate name is ', affiliateName);
     if (affiliateName !== "all"){
@@ -133,7 +133,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     }
   }); // end of /fetchCommentsPhoto get request
 
-  app.get('/fetchCommentsPerAffiliate', function (req,res) {
+  app.get('/fetchCommentsPerAffiliate', formidable(), function (req,res) {
     var affiliateName = req.query.affiliateName;
     affiliateName = JSON.parse(affiliateName);
     affiliateName = affiliateName.name;
@@ -150,7 +150,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     }
   }); // end of /fetchCommentsPhoto get request
 
-  app.get('/removeFile', function (req,res) {
+  app.get('/removeFile', formidable(), function (req,res) {
         console.log('inside removeFile, queries are ', req.query);
     var fileName = req.query.fileName;
     var tableName = req.query.tableName;
@@ -167,7 +167,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     });
   }); // end of /removeFile get request
 
-  app.get('/updateCategory', function (req,res) {
+  app.get('/updateCategory', formidable(), function (req,res) {
       console.log('inside update cat, queries are ', req.query);
     var fileName = req.query.fileName;
     var tableName = req.query.tableName;
@@ -189,7 +189,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     });
   }); // end of /updateCategory get request
 
-  app.get('/loginPrivilege', function (req,res) {
+  app.get('/loginPrivilege', formidable(), function (req,res) {
       var userInput = JSON.parse(req.query.formData);
       var tableName = req.query.tableName;
       var privilegeType = req.query.privilegeType;
@@ -209,7 +209,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       })
   }); // end of /loginPrivilege get request
 
-  app.get('/loginEmployees', function (req,res) {
+  app.get('/loginEmployees', formidable(), function (req,res) {
     var userInput = JSON.parse(req.query.formData);
     var employeeSelected = JSON.parse(req.query.employeeSelected);
     db.collection('employees').find({'email': employeeSelected.email}).toArray(function (err, result) {
@@ -236,7 +236,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
 
 
-  app.post('/addCalendarEvent', function (req,res) {
+  app.post('/addCalendarEvent', formidable(), function (req,res) {
     db.collection('calendar').save(req.body.newEvent, function(err, result){
       if (err) { return console.log('connecting to db, but not saving obj', err);}
       console.log('contact form saved to database', result);
@@ -245,7 +245,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
 
   //the GET call below is meant to be the POST CALL above but smth is parsing wrong.
-  app.get('/fetchRISSchedulerEvent', function (req,res) {
+  app.get('/fetchRISSchedulerEvent', formidable(), function (req,res) {
     console.log('inside fetch ris calendar', req.query.newEvent);
     var parsedNewEvent = JSON.parse(req.query.newEvent);
     db.collection('calendar-ris').save(parsedNewEvent, function(err, result){
@@ -256,8 +256,8 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
 
   //the GET call below is meant to be the POST CALL above but smth is parsing wrong.
-  app.get('/fetchAffiliateSchedulerEvent', function (req,res) {
-        console.log('inside addcalendarevent, backend');
+  app.get('/fetchAffiliateSchedulerEvent', formidable(), function (req,res) {
+    console.log('inside addcalendarevent, backend');
     console.log('inside fetch affiliate calendar', req.query.newEvent);
     var parsedNewEvent = JSON.parse(req.query.newEvent);
     var affiliateName = req.query.affiliateName
@@ -276,7 +276,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
 
 
-  app.post('/addEmployee', function (req,res) {
+  app.post('/addEmployee', formidable(), function (req,res) {
     db.collection('employees').save(req.body.newEmployee, function(err, result){
       if (err) { return console.log('connecting to db, but not saving obj', err);}
       console.log('new employee saved to database', result);
@@ -284,7 +284,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   });
 
-  app.post('/uploadFiles', function(req, res) {
+  app.post('/uploadFiles', formidable(), function(req, res) {
           console.log('uploadFiles from backend is ', req.files);
     var binaryLocation = req.files.file.path;
     var fileName = req.files.file.name;
@@ -305,7 +305,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
 
 //fetchComment should be a POST request, but not working for some reason
-  app.get('/fetchComment', function (req,res) {
+  app.get('/fetchComment', formidable(), function (req,res) {
     console.log('adding new comment');
     var parsedContent = JSON.parse(req.query.content);
     var parsedAffiliate = JSON.parse(req.query.affiliate);
@@ -334,7 +334,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
 
 
-  app.put('/updateCommentsPhoto', function (req,res) {
+  app.put('/updateCommentsPhoto', formidable(), function (req,res) {
     console.log('inside update comments photo');
     var newComment = {
       message: req.body.content.message,
@@ -366,7 +366,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   });
 
 
-  app.put('/updateAffiliateRidesData', function(req,res) {
+  app.put('/updateAffiliateRidesData', formidable(), function(req,res) {
     console.log('req body is ', req.body);
     var myQuery = {_id: new mongo.ObjectId(req.body._id)};
     var newValues = {$set: {affiliateName: req.body.affiliateName, totalRideCount: req.body.totalRideCount, totalMiles: req.body.totalMiles, totalActiveMembers: req.body.totalActiveMembers  } };
@@ -379,7 +379,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /updateAffiliateRidesData edit request
 
 
-  app.put('/updateEmployee', function(req,res) {
+  app.put('/updateEmployee', formidable(), function(req,res) {
     console.log('employee is ', req.body.employee);
     var employee = req.body.employee;
     var myQuery = {_id: new mongo.ObjectId(employee._id)};
@@ -393,7 +393,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
 
 
-  app.delete('/deleteComment', function (req,res) {
+  app.delete('/deleteComment', formidable(), function (req,res) {
     console.log('inside delete comments');
     var parsedContent = JSON.parse(req.query.content);
     var parsedAffiliate = JSON.parse(req.query.affiliate);
@@ -428,7 +428,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /deleteComment delete request
 
 
-  app.delete('/deleteForm/:formId', function (req,res) {
+  app.delete('/deleteForm/:formId', formidable(), function (req,res) {
     console.log('req param', req.params.formId, 'req query', req.query.formType);
       var tableName = req.query.formType;
       var recordId = req.params.formId;
@@ -439,7 +439,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       });
   }); // end of deleteform request
 
-  app.delete('/deleteAgendaEvent', function (req,res) {
+  app.delete('/deleteAgendaEvent', formidable(), function (req,res) {
       var agendaEvent = JSON.parse(req.query.agendaEvent);
       var dbName = req.query.dbName;
       console.log('agenda event is ', agendaEvent, 'db name is ', dbName);
@@ -452,7 +452,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       });
   }); // end of deleteagendaevent request
 
-  app.delete('/deleteRISCalendarEvent/:recordId', function (req,res) {
+  app.delete('/deleteRISCalendarEvent/:recordId', formidable(), function (req,res) {
     var recordId = req.params.recordId;
     var dbName = req.query.dbName;
     db.collection(dbName).deleteOne({_id: new mongo.ObjectId(recordId)}, function(err, result){
@@ -465,7 +465,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
 
   //the GET call below is meant to be the DELETE CALL above but smth is parsing wrong.
-  app.delete('/deleteAffiliateEventObj', function (req,res) {
+  app.delete('/deleteAffiliateEventObj', formidable(), function (req,res) {
     var parsedEventToDelete = JSON.parse(req.query.event);
     var affiliateName = req.query.affiliateName;
     db.collection('commentsphoto').find({name: affiliateName}).toArray(function (err, result) {
@@ -647,7 +647,7 @@ app.post('/sendmail', function(req, res){
 
 
 
-  app.get('/fetchBlah', function(req, res){
+  app.get('/fetchBlah', formidable(), function(req, res){
     console.log('INSIDE FETCHMAIL, req query is ', req.query);
     var parsedAffiliateObj = JSON.parse(req.query.formType);
     var from = req.query.from;
