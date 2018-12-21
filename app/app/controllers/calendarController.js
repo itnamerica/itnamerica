@@ -224,7 +224,7 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
                     console.log('css elem ready is ', cssElemReady);
                     var allEvents = $(cssElemReady).show();
                     console.log('all obj with class name are ', allEvents);
-                    $scope.matchRelevantEvent(allEvents);
+                    $scope.matchRelevantEvent(allEvents, calEvent);
                     
                     $(cssElemReady).css('display','none');
                     $scope.resetEventObj();
@@ -260,19 +260,17 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
     };
     
     
-    $scope.matchRelevantEvent = function(allEvents){
+    $scope.matchRelevantEvent = function(allEvents, calEvent){
       console.log('inside match relevant event');
-      // for (var obj=0; obj <= allEvents.length;obj++){
+      var eventTitle = calEvent.title;
+      var eventTitleSquashed = calEvent.title.replace(/[^a-zA-Z0-9]+/g, "");
+      console.log('cal event is ', calEvent.title, eventTitleSquashed);
       for (var obj in allEvents){
-        console.log("each obj is ", allEvents[obj]);
-        console.log("inner txt is ", allEvents[obj].innerText);
-        var substr = allEvents[obj].innerText.replace(/[^a-zA-Z0-9]+/g, "");
+        var eventsObj = allEvents[obj];
+        console.log("inner txt is ", eventsObj.innerText);
+        var substr = eventsObj.innerText.replace(/[^a-zA-Z0-9]+/g, "");
         substr = substr.replace(/[0-9]/g, '');
         console.log('substr is ', substr);
-        var relevantInnerText = obj.innerText.substring()
-        if (relevantInnerText){
-          console.log('relevant one');
-        }
       }
     };
 
