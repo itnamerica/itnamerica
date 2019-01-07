@@ -2173,14 +2173,20 @@ form textarea.form-control {font-size:25px}
   border: 2px solid black;
   white-space: nowrap;
 }
-
-
 .nda p {
   margin-top:20px;
 }
-
 .fc-agenda-view .fc-day-grid {
   display:none;
+}
+.analytics-warning {
+  border: 2px solid;
+  padding: 2%;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+#auth-button {
+  margin-bottom: 50px;
 }
 
 
