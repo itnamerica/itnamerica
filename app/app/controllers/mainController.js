@@ -664,7 +664,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     };
 
 
-    $scope.generatePDF = function() {
+    $scope.submitNDAFormAsPDF = function() {
         console.log('inside pdf');
         kendo.drawing.drawDOM($("#formConfirmation"))
             .then(function(group) {
@@ -681,15 +681,13 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             .done(function(data) {
                 console.log('data is ', data);
                 var ndaForm = null;
-                if ($scope.formType === 'ndaform') {
-                  $("#ndaForm input#name").replaceWith(function () {
-                      return $("<span>"+ $scope.formData.name +"</span>");
-                  });
-                  $("#ndaForm input#itnAffiliate").replaceWith(function () {
-                      return $("<span>"+ $scope.formData.itnAffiliate +"</span>");
-                  });
-                  ndaForm = $('#ndaForm').html();
-                }
+                $("#ndaForm input#name").replaceWith(function () {
+                    return $("<span>"+ $scope.formData.name +"</span>");
+                });
+                $("#ndaForm input#itnAffiliate").replaceWith(function () {
+                    return $("<span>"+ $scope.formData.itnAffiliate +"</span>");
+                });
+                ndaForm = $('#ndaForm').html();
                 $scope.dataPDF = data;
                 $http.post('/sendmail', {
                     from: '"ITNAmerica Web User" <donotreply@itnamerica.com>',
@@ -698,7 +696,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
                     text: $scope.formData,
                     pdf: $scope.dataPDF,
                     html: ndaForm,
-                    formType: $scope.formType
+                    formType: 'ndaform'
                 }).then(function(res) {
                     $scope.loading = false;
                     $scope.serverMessage = 'Your form was submitted successfully. You should hear back from us soon.';
