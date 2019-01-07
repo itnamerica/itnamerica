@@ -1,11 +1,11 @@
-<div class="portal company-analytics web-traffic">
+<div class="portal company-analytics web-traffic" ng-init="parseAffiliateNameToList()">
   <div class="container ta-center">
     <h2>ITN<em>{{itnAffiliate.name}}</em> Web Traffic</h2>
-    <em>Code: <span id="gaViewCode">{{itnAffiliate.gaViewCode}}</span></em>
+    
     
     
     <p class="analytics-warning">
-      To view web traffic for ITN<em>{{itnAffiliate.name}}</em>, you must log in from an active Gmail account. <br>
+      To view web traffic for ITN<em>{{itnAffiliate.name}}</em> (code: <span id="gaViewCode">{{itnAffiliate.gaViewCode}}</span>), you must log in from an active Gmail account. <br>
       If you do not have a Gmail account, please create one at <em><a href="https://www.gmail.com" target="_blank">www.gmail.com</a></em>
     </p>
 

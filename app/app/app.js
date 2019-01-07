@@ -225,8 +225,11 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             }
         })
         .state('web-traffic', {
-            url: '/web-traffic',
-            templateUrl: viewsPath + 'web-traffic.html'
+            url: '/web-traffic?filter',
+            templateUrl: viewsPath + 'web-traffic.html',
+            params: {
+              filter: null
+            }
         })
         .state('rides-data', {
             url: '/rides-data?filter',
