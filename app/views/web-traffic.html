@@ -1,9 +1,12 @@
-<div class="portal company-analytics" ng-show="analytics">
+<div class="portal company-analytics web-traffic">
   <div class="container ta-center">
-    <h2>ITN<em>Blah</em> Web Traffic</h2>
+    <h2>ITN<em>{{itnAffiliate.name}}</em> Web Traffic</h2>
+    <em>Code: <span id="gaViewCode">{{itnAffiliate.gaViewCode}}</span></em>
+    
     
     <p class="analytics-warning">
-      To view web traffic for the ITN<em>America</em> website & its affiliates, you must log in from an active Gmail account. If you do not have a Gmail account, please create one at <em><a href="https://www.gmail.com" target="_blank">www.gmail.com</a></em>
+      To view web traffic for ITN<em>{{itnAffiliate.name}}</em>, you must log in from an active Gmail account. <br>
+      If you do not have a Gmail account, please create one at <em><a href="https://www.gmail.com" target="_blank">www.gmail.com</a></em>
     </p>
 
     <button id="loading-btn">Loading graph...</button>
@@ -11,10 +14,12 @@
     <div class="ga-wrap" style="display:block;width:80%;margin:auto">
       <section id="auth-button"></section>
       <section id="view-selector"></section>
-      <section id="timeline"></section>
+      <section id="timeline" style="margin-left:22%"></section>
     </div>
   </div>
 </div>
+
+
 
 <div class="back-btn-wrap">
   <a ui-sref="affiliate-landing" class="back-btn">
