@@ -942,13 +942,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         $scope.getCommentsPerAffiliate($scope.itnAffiliate);
       }
     };
-    
-    $scope.catchAffiliateParams = function(){
-      if ($stateParams.filter){
-        $scope.itnAffiliate.name = $stateParams.filter;
-      }
-      console.log('new itn affiliate is ', $scope.itnAffiliate)
-    };
 
 
     $scope.generateRESTUrl = function(affiliate, routeName){
