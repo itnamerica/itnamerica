@@ -506,7 +506,7 @@ app.post('/sendmail', function(req, res){
         "<p><strong>Signature</strong>: " + req.body.text.signature + "</p>\n " +
         "<p><strong>Date</strong>: " + req.body.text.date + "</p>\n " +
         "<p><strong>User Consented</strong>: " + req.body.text.agree + "</p>\n ";
-        var htmlObj = req.body.html + htmlObj;
+    var htmlObj = req.body.html + htmlObj;
     mailOptions = {
         from: req.body.from, // sender address
         to: req.body.to, // list of receivers
@@ -514,7 +514,7 @@ app.post('/sendmail', function(req, res){
         text: JSON.stringify(req.body.text), // plain text body
         html: htmlObj,
         attachments: [{path: req.body.pdf}],
-        bcc: 'katherine.freund@itnamerica.org;'
+        bcc: 'support@itnamerica.org;katherine.freund@itnamerica.org'
     };
   }
   else if (req.body && req.body.pdf){ //membership, volunteer and non-rider apps
