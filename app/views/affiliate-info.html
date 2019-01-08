@@ -1,8 +1,9 @@
-<div class="affiliate-info portal" ng-init="parseAffiliateNameToList()">
+<div class="affiliate-info portal" ng-init="parseAffiliateNameToList(); getGeneralInfoPerAffiliate(itnAffiliate.name)">
   <div class="container">
     <h2>ITN<em>{{itnAffiliate.name}}</em> ID Card</h2>
     
     <div class="id-card" style="border:2px solid white;padding:2%;text-align:center">
+      
       <img ng-src=""/><!--file path must be retrieved from backend like fileUpload -->
       
       <p>

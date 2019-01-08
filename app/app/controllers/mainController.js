@@ -1152,6 +1152,25 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           $scope.hideLibrary = false;
         })
     };
+    
+    $scope.getGeneralInfoPerAffiliate = function(affiliateName) {
+        console.log('inside getGeneralInfoPerAffiliate, aff name is ', affiliateName);
+        $scope.hideLibrary = true;
+        $scope.serverMessage = "Please wait a few seconds while your files are loading on the page.";
+        DataService.fetchCommentsPerAffiliate(affiliateName).then(function(response){
+          // $scope.commentsPhoto = response.data;
+          if (response.data[0] && response.data[0].generalInfo){
+            $scope.generalInfo = response.data[0].generalInfo;
+            $scope.serverMessage = "";
+          }
+          // else {
+          //   $scope.commentsPhoto = [];
+          //   $scope.serverMessage = "There are no files uploaded yet in your library. Upload your first one!"
+          // }
+          console.log('generalInfo is ', $scope.generalInfo);
+          $scope.hideLibrary = false;
+        })
+    };
 
     $scope.addComment = function (affiliate) {
       console.log('inside add comment, content is', $scope.commentData, 'affiliate is ', affiliate, 'comments array is ', $scope.commentsPhoto);
