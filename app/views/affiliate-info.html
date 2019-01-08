@@ -1,10 +1,33 @@
-<div class="affiliate-info portal">
+<div class="affiliate-info portal" ng-init="parseAffiliateNameToList()">
   <div class="container">
-    <h2>ITN<em>Test</em> ID Card</h2>
+    <h2>ITN<em>{{itnAffiliate.name}}</em> ID Card</h2>
     
     <div class="id-card" style="border:2px solid white;padding:2%;text-align:center">
       <img ng-src=""/><!--file path must be retrieved from backend like fileUpload -->
       
+      <p>
+        <span class="label">Founded in:</span> 
+      </p>
+      
+      <p>
+        <span class="label">Address:</span> 
+      </p>
+      
+      <p>
+        <span class="label">Contact info:</span> 
+      </p>
+      
+      <p>
+        <span class="label">Official website:</span> 
+      </p>
+      
+      <p>
+        <span class="label">Applications Dashboard:</span> 
+      </p>
+      
+      <p>
+        <span class="label">Employees:</span> 
+      </p>
       
     </div>
     

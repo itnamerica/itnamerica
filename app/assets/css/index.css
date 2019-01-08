@@ -2188,6 +2188,11 @@ form textarea.form-control {font-size:25px}
 #auth-button {
   margin-bottom: 50px;
 }
+.affiliate-info .label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: beige;
+}
 
 
 
