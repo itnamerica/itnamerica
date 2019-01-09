@@ -8,7 +8,7 @@
 
         <div class="form-group">
           <label for="driver name">Enter name: <span style="color:red">*</span></label><br>
-          <input type="text" class="form-control" id="riderName" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength">
+          <input type="text" class="form-control" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength">
         </div>
         answer: {{tsData.name}}
 
@@ -19,21 +19,29 @@
         </div>
         answer: {{tsData.tookLunch}}
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="date">Date2: <span style="color:red">*</span></label><br>
           <input type="text" class="form-control" name="date2" placeholder="Example: mm/dd/yyyy" ng-model="tsData.date2" ng-pattern="dobPattern">
         </div>
-        answer: {{tsData.date2}}
+        answer: {{tsData.date2}} -->
 
         <div class="form-group">
-          <label for="date">Date: <span style="color:red">*</span></label><br>
-          <input type="date" class="form-control" name="date" ng-model="tsData.date"">
+          <label for="date">Date: <span style="color:red">*</span></label>
+          <input type="date" class="form-control" name="date" ng-model="tsData.date" style="width:25%">
         </div>
         answer: {{tsData.date | date : "dd-MM-y" }}
 
+        <div class="form-group">
+          <label for="note">Add note: <span style="color:red">*</span></label><br>
+          <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="tsData.note"></textarea>
+        </div>
+        answer: {{tsData.note}}
 
-        <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
-        <button type="submit" ng-disabled="itnForm.$invalid || loading" class="btn btn-lg pull-right btn-danger" style="background:#e05944; margin-left:2%">Submit</button>
+        <div class="formBtns" style="margin-top:20px">
+          <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
+          <button type="submit" ng-disabled="itnForm.$invalid || loading" class="btn btn-lg pull-right btn-danger" style="background:#e05944; margin-left:2%">Submit</button>
+        </div>
+
 
       </form>
 
