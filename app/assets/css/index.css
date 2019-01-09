@@ -2200,6 +2200,11 @@ form textarea.form-control {font-size:25px}
 .affiliate-info .info {
   font-size: 22px;
 }
+.timesheet .card {
+  border:2px solid white;
+  padding:2%;
+  text-align:center;
+}
 
 #footer {
     width:100%;

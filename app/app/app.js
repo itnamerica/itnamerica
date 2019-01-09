@@ -235,9 +235,12 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/rides-data?filter',
             templateUrl: viewsPath + 'rides-data.html'
         })
-        .state('timesheets', {
-            url: '/timesheets?filter',
-            templateUrl: viewsPath + 'timesheets.html'
+        .state('timesheet', {
+            url: '/timesheet?filter',
+            templateUrl: viewsPath + 'timesheet.html',
+            params : {
+              filter: null,
+            }
         })
         .state('affiliate-landing', {
             url: '/affiliate-landing',

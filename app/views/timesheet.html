@@ -1,0 +1,53 @@
+<div class="timesheet portal" ng-init="parseAffiliateNameToList()">
+  <div class="container">
+    <h2>ITN<em>{{itnAffiliate.name}}</em> Timesheet</h2>
+
+    <div class="timesheet-card card"">
+
+      <form name="tsForm" novalidate ng-submit="submitTimesheet()" role="timesheet form" ng-model="tsData" ng-hide="submitted">
+
+        <div class="form-group">
+          <label for="driver name">Enter name: <span style="color:red">*</span></label><br>
+          <input type="text" class="form-control" id="riderName" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength">
+        </div>
+        answer: {{tsData.name}}
+
+        <div class="form-group ta-center">
+          <label for="lunchtime taken">Lunchtime taken? <span style="color:red">*</span></label><br>
+          <label class="radio-inline"><input type="radio" name="tookLunch" value="false" ng-model="tsData.tookLunch">Yes</label>
+          <label class="radio-inline"><input type="radio" name="tookLunch" value="true" ng-model="tsData.tookLunch">No</label>
+        </div>
+        answer: {{tsData.tookLunch}}
+
+        <div class="form-group">
+          <label for="date">Date2: <span style="color:red">*</span></label><br>
+          <input type="text" class="form-control" name="date2" placeholder="Example: mm/dd/yyyy" ng-model="tsData.date2" ng-pattern="dobPattern">
+        </div>
+        answer: {{tsData.date2}}
+
+        <div class="form-group">
+          <label for="date">Date: <span style="color:red">*</span></label><br>
+          <input type="date" class="form-control" name="date" ng-model="tsData.date"">
+        </div>
+        answer: {{tsData.date | date : "dd-MM-y" }}
+
+
+        <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
+        <button type="submit" ng-disabled="itnForm.$invalid || loading" class="btn btn-lg pull-right btn-danger" style="background:#e05944; margin-left:2%">Submit</button>
+
+      </form>
+
+
+    </div><!--timesheet-card-->
+
+  </div>
+</div>
+
+<div class="back-btn-wrap" style="margin-top:10px">
+  <a ui-sref="affiliate({filter: itnAffiliate.name})" class="back-btn">
+    <h3>Back to Previous Page</h3>
+  </a>
+  <a ui-sref="portal" class="back-btn">
+    <h3>Back to Portal</h3>
+  </a>
+</div>
