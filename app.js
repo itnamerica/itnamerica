@@ -43,7 +43,7 @@ var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
   if (err) {
-    console.log('db not connecting, but inside mongo block - 1', err);3
+    console.log('db not connecting, but inside mongo block - 1', err);
   };
   db = client.db('itnamerica-new');
 
