@@ -2193,8 +2193,13 @@ form textarea.form-control {font-size:25px}
   margin-right: 10px;
   color: beige;
 }
-
-
+.affiliate-info a {
+  text-decoration: underline;
+  color: white;
+}
+.affiliate-info .info {
+  font-size: 22px;
+}
 
 #footer {
     width:100%;
@@ -2790,7 +2795,7 @@ h2,h3 {line-height:1.7}
   .carousel-wrap2 {
     height: 1000px !important;
   }
-  
+
   .annual-report .graph {
     width:100%;
   }
