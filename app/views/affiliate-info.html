@@ -3,39 +3,62 @@
     <h2>ITN<em>{{itnAffiliate.name}}</em> ID Card</h2>
 
     <div class="id-card" style="border:2px solid white;padding:2%;text-align:center">
-      {{generalInfo}}
+
       <img ng-src=""/><!--file path must be retrieved from backend like fileUpload -->
 
+      <!-- <p>
+        <div class="label">Founded in:</div>
+        <div class="info">{{generalInfo.founded}}</div>
+      </p> -->
+
       <p>
-        <span class="label">Founded in:</span>
+        <div class="label">Address:</div>
+        <div class="info">{{generalInfo.address}}</div>
       </p>
 
       <p>
-        <span class="label">Address:</span>
+        <div class="label">Email:</div>
+        <div class="info">{{generalInfo.email}}</div>
       </p>
 
       <p>
-        <span class="label">Email:</span>
+        <div class="label">Phone:</div>
+        <div class="info">{{generalInfo.phone}}</div>
       </p>
 
       <p>
-        <span class="label">Phone:</span>
+        <div class="label">Fax:</div>
+        <div class="info">{{generalInfo.fax}}</div>
       </p>
 
       <p>
-        <span class="label">Fax:</span>
+        <div class="label">Official website:</div>
+        <div class="info"><a ng-href="{{generalInfo.website}}" target="_blank">{{generalInfo.website}}</a></div>
       </p>
 
       <p>
-        <span class="label">Official website:</span>
+        <div class="label">Applications Dashboard:</div>
+        <div class="info"><a ng-href="{{generalInfo.dashboard}}" target="_blank">{{generalInfo.dashboard}}</a></div>
       </p>
 
       <p>
-        <span class="label">Applications Dashboard:</span>
+        <div class="label">Employees:</div>
+        <div class="info">
+          <div class="dropdown ta-center">
+            <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">ITN Employees
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="employee in generalInfo.employees">
+                <a ng-click="toggleEmployee(employee)" ng-class="{'no-border': $last}">{{employee.firstName}} {{employee.lastName}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </p>
 
       <p>
-        <span class="label">Employees:</span>
+        <div class="label">Google Analytics Tracking Code:</div>
+        <div class="info">{{generalInfo.gaViewCode}}</div>
       </p>
 
     </div>

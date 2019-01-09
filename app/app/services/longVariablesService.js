@@ -102,6 +102,11 @@ myApp.service('LongVariablesService', ['$http', function ($http) {
       name: 'Suncoast',
       gaViewCode: 171748983,
       email: 'info@itnsuncoast.org'
+    },
+    {
+      name: 'Friends of ITNPortland',
+      gaViewCode: 4084855,
+      email: 'wellborncarl@itc427.com'
     }
   ];
   this.listOfPrograms = [
