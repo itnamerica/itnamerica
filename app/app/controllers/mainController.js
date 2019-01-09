@@ -1152,8 +1152,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           $scope.hideLibrary = false;
         })
     };
-    
-    $scope.getGeneralInfoPerAffiliate = function(affiliateName) {
+
+    $scope.getGeneralInfoPerAffiliateOld = function(affiliateName) {
         console.log('inside getGeneralInfoPerAffiliate, aff name is ', affiliateName);
         $scope.hideLibrary = true;
         $scope.serverMessage = "Please wait a few seconds while your files are loading on the page.";
@@ -1169,6 +1169,19 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           // }
           console.log('generalInfo is ', $scope.generalInfo);
           $scope.hideLibrary = false;
+        })
+    };
+
+    $scope.getGeneralInfoPerAffiliate = function(affiliateName) {
+        console.log('inside getGeneralInfoPerAffiliate, aff name is ', affiliateName);
+        DataService.fetchgeneralInfoPerAffiliate(affiliateName).then(function(response){
+          if (response.data){
+            $scope.generalInfo = response.data;
+          } else {
+            $scope.generalInfo = [];
+            $scope.serverMessage = "General info not found."
+          }
+          console.log('generalInfo is ', $scope.generalInfo);
         })
     };
 

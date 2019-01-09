@@ -243,5 +243,20 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
     var url = '/' + routeName + '?filter=' + affiliate.name;
     window.location.href = url;
   };
+  this.fetchgeneralInfoPerAffiliate = function(affiliateName){
+    console.log('inside fetch general info' , affiliateName);
+    return $http.get('/fetchgeneralInfoPerAffiliate', {
+            params: {
+                affiliateName: affiliateName
+            }
+        })
+      .then(function(data){
+        console.log('good is ', data);
+        return data;
+      }).catch(function(error) {
+        console.log('bad is ', error);
+          return error
+      })
+  }
 
 }]);

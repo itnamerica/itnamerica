@@ -234,6 +234,16 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   }); // end of /loginEmployees get request
 
+  app.get('/fetchgeneralInfoPerAffiliate', formidable(), function (req,res) {
+    var affiliateName = req.query.affiliateName;
+    console.log('affiliate name is ',affiliateName, typeof(affiliateName));
+    db.collection('generalinfo').find({'name': affiliateName}).toArray(function (err, result) {
+      console.log('result is ', result);
+    })
+  }); // end of /fetchgeneralInfoPerAffiliate get request
+
+
+
 
 
   app.post('/addCalendarEvent', formidable(), function (req,res) {
