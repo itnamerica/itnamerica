@@ -13,11 +13,15 @@
         answer: {{tsData.name}}
 
         <div class="form-group ta-center">
-          <label for="lunchtime taken">Lunchtime taken? <span style="color:red">*</span></label><br>
-          <label class="radio-inline"><input type="radio" name="tookLunch" value="false" ng-model="tsData.tookLunch">Yes</label>
-          <label class="radio-inline"><input type="radio" name="tookLunch" value="true" ng-model="tsData.tookLunch">No</label>
+          <label for="lunchtime taken">Lunchtime taken? <span style="color:red">*</span></label>
+          <input type="checkbox" name="tookLunch" value="true" ng-model="tsData.tookLunch" style="width:20px;height:20px;margin-left:10px">
         </div>
         answer: {{tsData.tookLunch}}
+
+        <!-- <div class="form-group">
+          <label class="checkbox-inline">Lunchtime taken?
+            <input type="checkbox" value="yes" name="tookLunch" ng-model="formData.tookLunch"></label>
+        </div>answer: {{tsData.tookLunch}} -->
 
         <!-- <div class="form-group">
           <label for="date">Date2: <span style="color:red">*</span></label><br>
@@ -27,7 +31,7 @@
 
         <div class="form-group">
           <label for="date">Date: <span style="color:red">*</span></label>
-          <input type="date" class="form-control" name="date" ng-model="tsData.date" style="width:25%">
+          <input type="date" class="form-control" name="date" ng-model="tsData.date" style="width:25%;display:inline-block">
         </div>
         answer: {{tsData.date | date : "dd-MM-y" }}
 
