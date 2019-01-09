@@ -1,37 +1,45 @@
 <div class="affiliate-info portal" ng-init="parseAffiliateNameToList(); getGeneralInfoPerAffiliate(itnAffiliate.name)">
   <div class="container">
     <h2>ITN<em>{{itnAffiliate.name}}</em> ID Card</h2>
-    
+
     <div class="id-card" style="border:2px solid white;padding:2%;text-align:center">
-      
+      {{generalInfo}}
       <img ng-src=""/><!--file path must be retrieved from backend like fileUpload -->
-      
+
       <p>
-        <span class="label">Founded in:</span> 
+        <span class="label">Founded in:</span>
       </p>
-      
+
       <p>
-        <span class="label">Address:</span> 
+        <span class="label">Address:</span>
       </p>
-      
+
       <p>
-        <span class="label">Contact info:</span> 
+        <span class="label">Email:</span>
       </p>
-      
+
       <p>
-        <span class="label">Official website:</span> 
+        <span class="label">Phone:</span>
       </p>
-      
+
       <p>
-        <span class="label">Applications Dashboard:</span> 
+        <span class="label">Fax:</span>
       </p>
-      
+
       <p>
-        <span class="label">Employees:</span> 
+        <span class="label">Official website:</span>
       </p>
-      
+
+      <p>
+        <span class="label">Applications Dashboard:</span>
+      </p>
+
+      <p>
+        <span class="label">Employees:</span>
+      </p>
+
     </div>
-    
+
   </div>
 </div
 

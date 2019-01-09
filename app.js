@@ -238,7 +238,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     var affiliateName = req.query.affiliateName;
     console.log('affiliate name is ',affiliateName, typeof(affiliateName));
     db.collection('generalinfo').find({'name': affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
       console.log('result is ', result);
+      if (result[0]){
+        res.send(result[0]);
+      } else {
+        throw new Error('No record found. ', err)
+      }
     })
   }); // end of /fetchgeneralInfoPerAffiliate get request
 
