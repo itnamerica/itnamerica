@@ -1428,7 +1428,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    };
 
    $scope.tsData = {};
-   $scope.tsData.mileageRate = 0.555;
+   $scope.tsData.rates = {
+     mileageRate: 0.555,
+     dailyRate: 7.14,
+     weeklyRate: 50
+   }
    $scope.tsData.shiftSelected = {};
    $scope.tsData.shifts = [
      {
@@ -1446,10 +1450,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
             start: null,
             stop: null,
             milesPerShift: 0,
-            note: "",
+            note: "Add a note here.",
             isSelected: true
           };
-    $scope.shifts.push(newShift);
+    $scope.tsData.shifts.push(newShift);
   };
 
   $scope.removeShift = function(shiftSelected){

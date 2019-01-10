@@ -8,7 +8,11 @@
 
         <p class="title">Driver Information<p>
 
-        <div class="mileage-rate">Mileage rate: ${{tsData.mileageRate}}</div>
+        <div class="rates">
+          Mileage rate: ${{tsData.rates.mileageRate}}<br />
+          After-hours daily rate: ${{tsData.rates.dailyRate}}<br />
+          Weekly: ${{tsData.rates.weeklyRate}}
+        </div>
 
         <div class="row semi-white-bg">
 
@@ -33,8 +37,7 @@
 
 
         <div class="shifts">
-          <p class="title">Start/Stop Shifts<p>
-          <p style="text-align:left;margin-bottom:50px">Add new shift <i class="fa fa-plus-circle" ng-click="addShift()"></i></p>
+          <p class="title">Start/Stop Shifts <i class="fa fa-plus-circle" ng-click="addShift()"></i><p>
 
           <div class="each-shift" style="background:grey">
             <table class="table table-responsive">
@@ -48,7 +51,7 @@
                   <i class="fa fa-minus-circle" ng-click="showNote = !showNote" ng-show="showNote"></i></th>
               </thead>
               <tbody ng-repeat="shift in tsData.shifts">
-                <td style="width:15%;font-size:25px">{{$index}}</td>
+                <td style="width:15%;font-size:25px">{{$index + 1}}</td>
                 <td>
                   <input  style="width:90%"type="time" id="start" name="start" min="6:00" max="23:00" step="60" ng-model="shift.start">
                 </td> {{shift.start}}
