@@ -2222,6 +2222,12 @@ form textarea.form-control {font-size:25px}
 .timesheet .fa-plus-circle {
   margin-left: 2%;
 }
+.timesheet .semi-white-bg {
+  border-bottom:1px solid;
+  padding-bottom:5%;
+  background:rgba(255,255,255,0.4);
+  border-radius:5px;
+}
 
 #footer {
     width:100%;

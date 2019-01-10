@@ -5,45 +5,47 @@
     <div class="timesheet-card card">
 
       <form name="tsForm" novalidate ng-submit="submitTimesheet()" role="timesheet form" ng-model="tsData" ng-hide="submitted">
-        
+
         <p class="title">Driver Information<p>
-        
+
         <div class="mileage-rate">Mileage rate: ${{tsData.mileageRate}}</div>
 
-        <div class="row" style="border-bottom:1px solid;padding-bottom:5%;background:rgba(255,255,255,0.4)">
-          
-          <div class="col-sm-7 form-group" style="margin-right:5%">
+        <div class="row semi-white-bg">
+
+          <div class="col-sm-6 form-group">
             <label for="driver name">Enter name: <span style="color:red">*</span></label><br>
             <input type="text" class="form-control" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength">
           </div>
-          
-          <div class="col-sm-4 form-group">
+
+          <div class="col-sm-3 form-group">
             <label for="date">Date: <span style="color:red">*</span></label><br>
             <input type="date" class="form-control" name="date" ng-model="tsData.date" style="display:inline-block">
           </div>
           <!-- answer: {{tsData.date | date : "dd-MM-y" }}   -->
-      </div>
-      
-        <div class="form-group ta-center">
-          <label for="lunchtime taken">Lunch taken? <span style="color:red">*</span></label>
-          <input type="checkbox" name="tookLunch" value="true" ng-model="tsData.tookLunch" style="width:20px;height:20px;margin-left:10px">
-        </div>
 
-        
+          <div class="col-sm-3 form-group" style="margin-top:80px">
+            <label for="lunchtime taken">Lunch taken? <span style="color:red">*</span></label>
+            <input type="checkbox" name="tookLunch" value="true" ng-model="tsData.tookLunch" style="width:20px;height:20px">
+          </div>
+
+      </div>
+
+
+
         <div class="shifts">
           <p class="title">Start/Stop Shifts<p>
-          <p style="text-align:left">Add shift <i class="fa fa-plus-circle" ng-click="addShift()"></i></p>
-            
-          <div class="each-shift">  
-            <p style="text-align:left">Shift number {{tsData.shiftNumber}}</p>
+          <p style="text-align:left">Add new shift <i class="fa fa-plus-circle" ng-click="addShift()"></i></p>
+
+          <div class="each-shift">
             <table class="table table-striped table-responsive">
               <thead>
+                <th>Shift number #{{tsData.shiftNumber}}</th>
                 <th>Start</th>
                 <th>Stop</th>
                 <th>Miles Driven</th>
-                <th>Add note 
-                  <i class="fa fa-plus-circle" ng-click="showNote = !showNote" ng-show="showNote === false"></i></th>
-                  <i class="fa fa-minus-circle" ng-click="showNote = !showNote" ng-show="showNote === true"></i>
+                <th>Add note
+                  <i class="fa fa-plus-circle" ng-click="showNote = !showNote" ng-show="!showNote"></i></th>
+                  <i class="fa fa-minus-circle" ng-click="showNote = !showNote" ng-show="showNote"></i>
               </thead>
               <tbody>
                 <td>
@@ -52,28 +54,28 @@
                 <td>
                   <input type="time" id="stop" name="stop" min="6:00" max="23:00" ng-model="tsData.stop">
                 </td>
-                <td><input type="number"></td>
+                <td><input type="number" ng-model="tsData.milesPerShift"></td>
                 <td>
-                  <div ng-show="showNote === true">
+                  <div ng-show="showNote">txt here
                     <textarea style="position:absolute" class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="tsData.note"></textarea>
-                  </div> 
+                  </div>
                 </td>
               </tbody>
             </table>
           </div>
         </div><!--shifts-->
-        
-        
 
-        
-        
-        
-        
+
+
+
+
+
+
         <div class="formBtns" style="margin-top:20px">
           <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
           <button type="submit" ng-disabled="itnForm.$invalid || loading" class="btn btn-lg pull-right btn-danger" style="background:#e05944; margin-left:2%">Submit</button>
         </div>
-        
+
 
       </form>
     </div><!--timesheet-card-->
