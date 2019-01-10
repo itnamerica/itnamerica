@@ -1434,10 +1434,26 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      {
        start: null,
        stop: null,
-       milesPerShift: 0,
+       milesPerShift: 10,
        note: "",
        isSelected: true
      }
-   ]
+   ];
+
+   $scope.addShift = function(){
+     console.log('inside add new shift');
+     var newShift =      {
+            start: null,
+            stop: null,
+            milesPerShift: 0,
+            note: "",
+            isSelected: true
+          };
+    $scope.shifts.push(newShift);
+  };
+
+  $scope.removeShift = function(shiftSelected){
+    console.log('inside remove shift');
+  }
 
 }]);

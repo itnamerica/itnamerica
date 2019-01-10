@@ -36,10 +36,10 @@
           <p class="title">Start/Stop Shifts<p>
           <p style="text-align:left;margin-bottom:50px">Add new shift <i class="fa fa-plus-circle" ng-click="addShift()"></i></p>
 
-          <div class="each-shift">
-            <table class="table table-striped table-responsive">
+          <div class="each-shift" style="background:grey">
+            <table class="table table-responsive">
               <thead>
-                <th style="15%">Shift #{{tsData.shiftNumber}}</th>
+                <th style="15%">Shift #</th>
                 <th>Start</th>
                 <th>Stop</th>
                 <th>Miles Driven</th>
@@ -47,18 +47,19 @@
                   <i class="fa fa-plus-circle" ng-click="showNote = !showNote" ng-show="!showNote"></i>
                   <i class="fa fa-minus-circle" ng-click="showNote = !showNote" ng-show="showNote"></i></th>
               </thead>
-              <tbody>
-                <td style="width:15%">$index</td>
+              <tbody ng-repeat="shift in tsData.shifts">
+                <td style="width:15%;font-size:25px">{{$index}}</td>
                 <td>
-                  <input  style="width:90%"type="time" id="start" name="start" min="6:00" max="23:00" ng-model="tsData.start">
-                </td>
+                  <input  style="width:90%"type="time" id="start" name="start" min="6:00" max="23:00" step="60" ng-model="shift.start">
+                </td> {{shift.start}}
                 <td>
-                  <input  style="width:90%" type="time" id="stop" name="stop" min="6:00" max="23:00" ng-model="tsData.stop">
+                  <input  style="width:90%" type="time" id="stop" name="stop" min="6:00" max="23:00" step="900" ng-model="shift.stop">
+                </td> {{shift.stop}}
+                <td><input  style="width:90%" type="number" min="0" max="100" ng-model="shift.milesPerShift">
                 </td>
-                <td><input  style="width:90%" type="number" min="0" max="100" ng-model="tsData.milesPerShift"></td>
                 <td>
                   <div ng-show="showNote">
-                    <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="tsData.note"></textarea>
+                    <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
                   </div>
                 </td>
               </tbody>

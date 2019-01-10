@@ -1390,7 +1390,7 @@ form .member-tabs {
   margin-top:50px;
 }
 form input[type=radio] {margin-top:10px}
-form input[type=text], form input#email, form input[type=date] {
+form input[type=text], form input#email, form input[type=date], form input[type=time], form input[type=number] {
   font-size:25px;
   height:50px;
 }
@@ -2223,10 +2223,12 @@ form textarea.form-control {font-size:25px}
   margin-left: 2%;
 }
 .timesheet .semi-white-bg {
-  border-bottom:1px solid;
   padding-bottom:5%;
   background:rgba(255,255,255,0.4);
   border-radius:5px;
+}
+.timesheet input {
+  color:black;
 }
 
 #footer {
