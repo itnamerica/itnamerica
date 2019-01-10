@@ -41,7 +41,9 @@
                 <th>Start</th>
                 <th>Stop</th>
                 <th>Miles Driven</th>
-                <th>Add notes <i class="fa fa-plus-circle"></i></th>
+                <th>Add note 
+                  <i class="fa fa-plus-circle" ng-click="showNote = !showNote" ng-show="showNote === false"></i></th>
+                  <i class="fa fa-minus-circle" ng-click="showNote = !showNote" ng-show="showNote === true"></i>
               </thead>
               <tbody>
                 <td>
@@ -51,17 +53,21 @@
                   <input type="time" id="stop" name="stop" min="6:00" max="23:00" ng-model="tsData.stop">
                 </td>
                 <td><input type="number"></td>
-                <td><i class="fa fa-plus-circle"></i></td>
+                <td>
+                  <div ng-show="showNote === true">
+                    <textarea style="position:absolute" class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="tsData.note"></textarea>
+                  </div> 
+                </td>
               </tbody>
             </table>
-          </div>`
+          </div>
         </div><!--shifts-->
         
         
-        <div class="form-group">
-          <label for="note">Add note: <span style="color:red">*</span></label><br>
-          <textarea style="width:80%;margin:auto" class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="tsData.note"></textarea>
-        </div>    
+
+        
+        
+        
         
         <div class="formBtns" style="margin-top:20px">
           <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
