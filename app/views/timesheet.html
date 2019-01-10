@@ -39,7 +39,7 @@
         <div class="shifts">
           <p class="title">Start/Stop Shifts <i class="fa fa-plus-circle" ng-click="addShift()"></i><p>
 
-          <div class="each-shift" style="background:grey">
+          <div class="each-shift" style="background:grey;padding:5px">
             <table class="table table-responsive">
               <thead>
                 <th style="15%">Shift #</th>
@@ -60,10 +60,11 @@
                 </td> {{shift.stop}}
                 <td><input  style="width:90%" type="number" min="0" max="100" ng-model="shift.milesPerShift">
                 </td>
-                <td>
+                <td class="show-note">
                   <div ng-show="showNote">
                     <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
                   </div>
+                  <i class="fa fa-trash" ng-click="removeShift(shift, $index)"></i>
                 </td>
               </tbody>
             </table>
