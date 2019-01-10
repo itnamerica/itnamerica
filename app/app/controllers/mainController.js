@@ -1426,5 +1426,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
            return $scope.pdfUrl = "This form does not contain a PDF";
        }
    };
+   
+   $scope.tsData = {};
+   $scope.tsData.mileageRate = 0.555;
 
 }]);
