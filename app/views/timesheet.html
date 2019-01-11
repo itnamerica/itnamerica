@@ -58,7 +58,7 @@
                     <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Pick Time
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu scrollable-menu" aria-labelledby="timepicker dropdown">
-                      <li ng-repeat="time in timesForPicker"><a ng-click="selectStartTime(time, shift, $index)" ng-class="{'no-border': $last}">{{time}}</a></li>
+                      <li ng-repeat="time in timesForPicker"><a ng-click="selectStartTime(time, shift, $shift.$index)" ng-class="{'no-border': $last}">{{time}}</a></li>
                     </ul>
                   </div>
                 </td>

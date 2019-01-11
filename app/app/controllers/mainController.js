@@ -1444,7 +1444,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        stopTimeMeridian: null,
        milesPerShift: 10,
        note: "",
-       isSelected: true
+       isSelected: true,
+       idx: 0
      }
    ];
 
@@ -1457,7 +1458,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
         stopTimeMeridian: null,
         milesPerShift: 0,
         note: "Add a note here.",
-        isSelected: true
+        isSelected: true, 
+        idx: 0
       };
     $scope.tsData.shifts.push(newShift);
   };
@@ -1470,14 +1472,16 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   };
   
   $scope.selectStartTime = function(time, shiftSelected, shiftIdx){
-    console.log('data is ', time, shiftSelected, shiftIdx)
+    console.log('data is ', time, shiftSelected, shiftSelected.$$hashKey);
+    console.log('shift idx is ', shiftIdx, 'or', this.$index);
     var convertedTime = $scope.adjustTimeForCalendar(time);
     console.log('converted time is ', convertedTime);
     shiftSelected.startTimeMeridian = time;
     shiftSelected.startTime = convertedTime;
     
-    $scope.tsData.shifts[shiftIdx] = shiftSelected;
-    console.log('updated shifts array is ', $scope.tsData.shifts);
+    console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
+    // $scope.tsData.shifts[shiftIdx] = shiftSelected;
+    // console.log('updated shifts array is ', $scope.tsData.shifts);
   }
 
 }]);
