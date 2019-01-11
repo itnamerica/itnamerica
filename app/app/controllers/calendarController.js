@@ -1,8 +1,10 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q',  function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q) {
+myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', 'ParseVariablesService', '$q',  function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, ParseVariablesService, $q) {
     console.log('inside calendar controller');
     $scope.eventObj = {}
+    
+    // $scope.adjustTimeForCalendar = ParseVariablesService.adjustTimeForCalendar;
 
     //agenda here refers to a detailed day view of the monthly calendar after selecting day.
     $scope.initAgenda = function() {

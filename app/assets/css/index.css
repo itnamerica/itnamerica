@@ -2243,6 +2243,11 @@ form textarea.form-control {font-size:25px}
 .timesheet .show-note div, .timesheet .show-note .fa-trash {
   display:inline-block;
 }
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
 
 #footer {
     width:100%;

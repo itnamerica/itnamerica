@@ -1462,6 +1462,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     console.log('inside remove shift, shift is ', shiftSelected, shiftIdx);
     $scope.tsData.shifts.splice(shiftIdx, 1);
     console.log('updated shifts array is ', $scope.tsData.shifts);
+  };
+  
+  $scope.selectStartTime = function(time, shiftSelected, shiftIdx){
+    console.log('data is ', time, shiftSelected, shiftIdx)
+    // var convertedTime = 
+    shiftSelected.start = time;
+    $scope.tsData.shifts[shiftIdx] = shiftSelected;
+    console.log('updated shifts array is ', $scope.tsData.shifts);
   }
 
 }]);
