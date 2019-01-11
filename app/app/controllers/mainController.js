@@ -64,6 +64,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.fileExtensionsObj = LongVariablesService.fileExtensionsObj
     $scope.commentData = {};
     $scope.timesForPicker = LongVariablesService.timesForPicker;
+    $scope.adjustTimeForCalendar = ParseVariablesService.adjustTimeForCalendar; //function
 
 
 
@@ -1437,8 +1438,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    $scope.tsData.shiftSelected = {};
    $scope.tsData.shifts = [
      {
-       start: null,
-       stop: null,
+       startTime: null,
+       stopTime: null,
+       startTimeMeridian: null,
+       stopTimeMeridian: null,
        milesPerShift: 10,
        note: "",
        isSelected: true
@@ -1448,12 +1451,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    $scope.addShift = function(){
      console.log('inside add new shift');
      var newShift =      {
-            start: null,
-            stop: null,
-            milesPerShift: 0,
-            note: "Add a note here.",
-            isSelected: true
-          };
+        startTime: null,
+        stopTime: null,
+        startTimeMeridian: null,
+        stopTimeMeridian: null,
+        milesPerShift: 0,
+        note: "Add a note here.",
+        isSelected: true
+      };
     $scope.tsData.shifts.push(newShift);
   };
 
@@ -1466,8 +1471,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   
   $scope.selectStartTime = function(time, shiftSelected, shiftIdx){
     console.log('data is ', time, shiftSelected, shiftIdx)
-    // var convertedTime = 
-    shiftSelected.start = time;
+    var convertedTime = $scope.adjustTimeForCalendar(time);
+    console.log('converted time is ', convertedTime);
+    shiftSelected.startTimeMeridian = time;
+    shiftSelected.startTime = convertedTime;
+    
     $scope.tsData.shifts[shiftIdx] = shiftSelected;
     console.log('updated shifts array is ', $scope.tsData.shifts);
   }

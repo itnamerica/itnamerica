@@ -65,12 +65,15 @@
                 
                 <td>
                   <!-- <input  style="width:90%" type="time" id="start" name="start" min="6:00" max="23:00" step="60" ng-model="shift.start">
-                </td> {{shift.start}}
+                </td>
+                
                 <td> -->
-                  <input  style="width:90%" type="time" id="stop" name="stop" min="6:00" max="23:00" step="900" ng-model="shift.stop">
-                </td> {{shift.stop}}
+                  <input  style="width:90%" type="time" id="stop" name="stop" min="6:00" max="23:00" step="900" ng-model="shift.stopTimeMeridian">
+                </td>
+                
                 <td><input  style="width:90%" type="number" min="0" max="100" ng-model="shift.milesPerShift">
                 </td>
+                
                 <td class="show-note">
                   <div ng-show="showNote">
                     <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
