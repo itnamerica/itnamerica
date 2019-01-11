@@ -63,6 +63,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.filePathArray = [];
     $scope.fileExtensionsObj = LongVariablesService.fileExtensionsObj
     $scope.commentData = {};
+    $scope.timesForPicker = LongVariablesService.timesForPicker;
 
 
 

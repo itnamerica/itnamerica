@@ -52,6 +52,20 @@
               </thead>
               <tbody ng-repeat="shift in tsData.shifts">
                 <td style="width:15%;font-size:25px">{{$index + 1}}</td>
+                <!-- <td>
+                  <input  style="width:90%"type="time" id="start" name="start" min="6:00" max="23:00" step="60" ng-model="shift.start">
+                </td> {{shift.start}} -->
+                
+                <td>
+                  <div class="dropdown ta-center">
+                    <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Pick Time
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li ng-repeat="time in timesForPicker"><a ng-click="" ng-class="{'no-border': $last}">{{time}}</a></li>
+                    </ul>
+                  </div>
+                </td>
+                
                 <td>
                   <input  style="width:90%"type="time" id="start" name="start" min="6:00" max="23:00" step="60" ng-model="shift.start">
                 </td> {{shift.start}}
