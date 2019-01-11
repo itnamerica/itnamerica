@@ -1457,8 +1457,10 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   };
 
   $scope.removeShift = function(shiftSelected, shiftIdx){
+    console.log('shifts array is ', $scope.tsData.shifts);
     console.log('inside remove shift, shift is ', shiftSelected, shiftIdx);
-    $scope.tsData.shifts.slice(shiftIdx, 1);
+    $scope.tsData.shifts.splice(shiftIdx, 1);
+    console.log('updated shifts array is ', $scope.tsData.shifts);
   }
 
 }]);
