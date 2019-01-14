@@ -1453,9 +1453,11 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
          milesPerShift: 0,
          note: "",
          isSelected: true,
-         idx: 0
+         idx: 0,
+         mileageRefund: 0
        }
-     ]
+     ],
+     totalMileageRefund: 0
    };
 
    $scope.addShift = function(){
@@ -1471,7 +1473,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           milesPerShift: 0,
           note: "",
           isSelected: true,
-          idx: 0
+          idx: 0,
+          mileageRefund: 0
         };
       $scope.tsData.shifts.push(newShift);
     } else {
@@ -1514,19 +1517,27 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   };
 
   $scope.calculateDayOfPeriod = function(day){
-
   };
 
   $scope.recordShift = function(shiftIdx){
-    $scope.calculateMileageRate(shiftIdx);
-    $scope.isDeductLunch();
-    $scope.calculateOverTime();
+    $scope.tsData.shifts[shiftIdx].mileageRefund = $scope.calculateMileageRate(shiftIdx); //calculate mileage refund
+    $scope.tsData.totalMileageRefund = $scope.tsData.totalMileageRefund + $scope.tsData.shifts[shiftIdx].mileageRefund; //add to total daily mileage refund
+    $scope.isDeductLunch(); //if lunch during shift or >5hrs work, deduct
+    $scope.calculateOverTime(); //rates change when OT
   };
 
   $scope.calculateMileageRate = function(shiftIdx){
-    $scope.reiumb = $scope.tsData.rates.mileageRate * $scope.tsData.shifts[shiftIdx].milesPerShift
-    console.log('reiumb is ', $scope.reiumb);
-    return $scope.reiumb;
+    var mileageRefund = $scope.tsData.rates.mileageRate * $scope.tsData.shifts[shiftIdx].milesPerShift
+    console.log('mileageRefund is ', mileageRefund);
+    return mileageRefund;
+  };
+
+  $scope.isDeductLunch = function(){
+
+  };
+
+  $scope.calculateOverTime = function(){
+
   };
 
 }]);
