@@ -48,9 +48,12 @@
                 <th>Miles Driven</th>
                 <th>Add note</th>
                 <th>Delete</th>
+                <th style="color:#afcace">Save Shift</th>
               </thead>
               <tbody ng-repeat="shift in tsData.shifts">
-                <td style="width:15%;font-size:25px">{{$index + 1}}</td>
+                <td style="width:15%;font-size:25px">
+                  {{$index + 1}}
+                </td>
 
                 <td>
                   <div class="dropdown ta-center">
@@ -76,7 +79,8 @@
                   </div>
                 </td>
 
-                <td><input style="width:80%;text-align:center;border-radius:5px" type="number" min="0" max="100" ng-model="shift.milesPerShift">
+                <td>
+                  <input style="width:80%;text-align:center;border-radius:5px" type="number" min="0" max="100" ng-model="shift.milesPerShift">
                 </td>
 
                 <td class="show-note">
@@ -87,7 +91,14 @@
                     <i class="fa fa-minus-circle" ng-click="toggleNote($index)"></i>
                   </div>
                 </td>
-                <td><i class="fa fa-trash" ng-click="removeShift(shift, $index)"></i></td>
+
+                <td>
+                  <i class="fa fa-trash" ng-click="removeShift(shift, $index)"></i>
+                </td>
+
+                <td>
+                  <i class="fa fa-check" ng-click="recordShift($index)"></i>
+                  </td>
               </tbody>
             </table>
           </div>

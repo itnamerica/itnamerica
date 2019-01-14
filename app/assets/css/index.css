@@ -2224,7 +2224,7 @@ form textarea.form-control {font-size:25px}
 .timesheet .fa-plus-circle {
   margin-left: 2%;
 }
-.timesheet .fa-trash {
+.timesheet .fa-trash, .timesheet .fa-check {
   font-size: 25px;
   padding-top: 15px;
 }

@@ -1513,4 +1513,20 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.showNote[shiftIdx] = !$scope.showNote[shiftIdx];
   };
 
+  $scope.calculateDayOfPeriod = function(day){
+
+  };
+
+  $scope.recordShift = function(shiftIdx){
+    $scope.calculateMileageRate(shiftIdx);
+    $scope.isDeductLunch();
+    $scope.calculateOverTime();
+  };
+
+  $scope.calculateMileageRate = function(shiftIdx){
+    $scope.reiumb = $scope.tsData.rates.mileageRate * $scope.tsData.shifts[shiftIdx].milesPerShift
+    console.log('reiumb is ', $scope.reiumb);
+    return $scope.reiumb;
+  };
+
 }]);
