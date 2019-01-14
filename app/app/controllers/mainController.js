@@ -65,7 +65,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.commentData = {};
     $scope.timesForPicker = LongVariablesService.timesForPicker;
     $scope.adjustTimeForCalendar = ParseVariablesService.adjustTimeForCalendar; //function
-    $scope.showNote = {};
+
 
 
 
@@ -1430,27 +1430,33 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        }
    };
 
-   $scope.tsData = {};
-   $scope.tsData.rates = {
-     mileageRate: 0.555,
-     dailyRate: 7.14,
-     weeklyRate: 50
-   }
-   $scope.tsData.shiftSelected = {};
-   $scope.tsData.shifts = [
-     {
-       startTime: null,
-       stopTime: null,
-       startTimeObj: null,
-       stopTimeObj: null,
-       startTimeMeridian: null,
-       stopTimeMeridian: null,
-       milesPerShift: 0,
-       note: "",
-       isSelected: true,
-       idx: 0
-     }
-   ];
+  $scope.showNote = {};
+
+  $scope.tsData = {
+     date: new Date(),
+     tookLunch: false,
+     dayOfPeriod: 0, //calculate
+     shiftSelected: {},
+     rates: {
+       mileageRate: 0.555,
+       dailyRate: 7.14,
+       weeklyRate: 50
+     },
+     shifts: [
+       {
+         startTime: null,
+         stopTime: null,
+         startTimeObj: null,
+         stopTimeObj: null,
+         startTimeMeridian: null,
+         stopTimeMeridian: null,
+         milesPerShift: 0,
+         note: "",
+         isSelected: true,
+         idx: 0
+       }
+     ]
+   };
 
    $scope.addShift = function(){
      var newShift;
