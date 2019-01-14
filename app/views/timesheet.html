@@ -55,7 +55,7 @@
 
                 <td>
                   <div class="dropdown ta-center">
-                    <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Pick Time
+                    <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Pick Start Time
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu scrollable-menu" aria-labelledby="timepicker dropdown">
                       <li ng-repeat="time in timesForPicker">
@@ -66,8 +66,20 @@
                 </td>
 
                 <td>
-                  <input  style="width:90%" type="time" id="stop" name="stop" min="6:00" max="23:00" step="900" ng-model="shift.stopTimeMeridian">
+                  <div class="dropdown ta-center">
+                    <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Pick End Time
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu scrollable-menu" aria-labelledby="timepicker dropdown">
+                      <li ng-repeat="time in timesForPicker">
+                        <a ng-click="updateEndTime(time, shift, $parent.$index)" ng-class="{'no-border': $last}">{{time}}</a>
+                      </li>
+                    </ul>
+                  </div>
                 </td>
+
+                <!-- <td>
+                  <input  style="width:90%" type="time" id="stop" name="stop" min="6:00" max="23:00" step="900" ng-model="shift.stopTimeMeridian">
+                </td> -->
 
                 <td><input  style="width:90%" type="number" min="0" max="100" ng-model="shift.milesPerShift">
                 </td>
