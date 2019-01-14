@@ -2226,8 +2226,7 @@ form textarea.form-control {font-size:25px}
 }
 .timesheet .fa-trash {
   font-size: 25px;
-  /* margin-left: 80%; */
-  margin-top: 20px;
+  padding-top: 15px;
 }
 .timesheet .semi-white-bg {
   padding-bottom:5%;

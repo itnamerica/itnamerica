@@ -76,15 +76,15 @@
                   </div>
                 </td>
 
-                <td><input style="width:80%;text-align:center" type="number" min="0" max="100" ng-model="shift.milesPerShift">
+                <td><input style="width:80%;text-align:center;border-radius:5px" type="number" min="0" max="100" ng-model="shift.milesPerShift">
                 </td>
 
                 <td class="show-note">
-                  <i class="fa fa-plus-circle pt-25" ng-click="toggleNote($index)" ng-show="!showNote[$index]"></i>
+                  <i class="fa fa-plus-circle" style="padding-top:15px" ng-click="toggleNote($index)" ng-show="!showNote[$index]"></i>
 
                   <div ng-show="showNote[$index]">
-                    <i class="fa fa-minus-circle" ng-click="toggleNote($index)"></i>
                     <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
+                    <i class="fa fa-minus-circle" ng-click="toggleNote($index)"></i>
                   </div>
                 </td>
                 <td><i class="fa fa-trash" ng-click="removeShift(shift, $index)"></i></td>
