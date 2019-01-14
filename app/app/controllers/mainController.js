@@ -1440,6 +1440,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      {
        startTime: null,
        stopTime: null,
+       startTimeObj: null,
+       stopTimeObj: null,
        startTimeMeridian: null,
        stopTimeMeridian: null,
        milesPerShift: 10,
@@ -1454,10 +1456,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      var newShift =      {
         startTime: null,
         stopTime: null,
+        startTimeObj: null,
+        stopTimeObj: null,
         startTimeMeridian: null,
         stopTimeMeridian: null,
         milesPerShift: 0,
-        note: "Add a note here.",
+        note: "",
         isSelected: true,
         idx: 0
       };
@@ -1471,21 +1475,27 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     console.log('updated shifts array is ', $scope.tsData.shifts);
   };
 
-  $scope.selectStartTime = function(time, shiftSelected, shiftIdx){
-    console.log('data is ', time, shiftSelected, shiftSelected.$$hashKey);
-    console.log('shift idx is ', shiftIdx);
+  $scope.updateStartTime = function(time, shiftSelected, shiftIdx){
+    console.log('time is ', time, 'shift selected is ', shiftSelected, 'shift idx is ', shiftIdx);
     var convertedTime = $scope.adjustTimeForCalendar(time);
     console.log('converted time is ', convertedTime);
+
     shiftSelected.startTimeMeridian = time;
-    shiftSelected.startTime = convertedTime;
+    shiftSelected.startTimeObj = convertedTime;
+    shiftSelected.idx = shiftIdx;
 
     console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
-    // $scope.tsData.shifts[shiftIdx] = shiftSelected;
-    // console.log('updated shifts array is ', $scope.tsData.shifts);
+    $scope.tsData.shifts[shiftIdx] = shiftSelected;
+    console.log('updated shifts array is ', $scope.tsData.shifts);
   };
 
-  $scope.loadOutterIndex = function(parentIdx){
-    console.log('parent idx is ', parentIdx);
-  }
+  $scope.updateEndTime = function(time, shiftSelected, shiftIdx){
+    var convertedTime = $scope.adjustTimeForCalendar(time);
+    shiftSelected.endTimeMeridian = time;
+    shiftSelected.endTimeObj = convertedTime;
+    shiftSelected.idx = shiftIdx;
+    $scope.tsData.shifts[shiftIdx] = shiftSelected;
+    console.log('updated shifts array is ', $scope.tsData.shifts);
+  };
 
 }]);

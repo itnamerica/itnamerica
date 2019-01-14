@@ -58,16 +58,14 @@
                     <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Pick Time
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu scrollable-menu" aria-labelledby="timepicker dropdown">
-                      <li ng-repeat="time in timesForPicker"><a ng-click="selectStartTime(time, shift, $parent.$index)" ng-class="{'no-border': $last}">{{time}}</a></li>
+                      <li ng-repeat="time in timesForPicker">
+                        <a ng-click="updateStartTime(time, shift, $parent.$index)" ng-class="{'no-border': $last}">{{time}}</a>
+                      </li>
                     </ul>
                   </div>
                 </td>
 
                 <td>
-                  <!-- <input  style="width:90%" type="time" id="start" name="start" min="6:00" max="23:00" step="60" ng-model="shift.start">
-                </td>
-
-                <td> -->
                   <input  style="width:90%" type="time" id="stop" name="stop" min="6:00" max="23:00" step="900" ng-model="shift.stopTimeMeridian">
                 </td>
 
