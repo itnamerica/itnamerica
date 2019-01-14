@@ -40,9 +40,9 @@
           <p class="title">Start/Stop Shifts <i class="fa fa-plus-circle" ng-click="addShift()"></i></p>
           <p style="text-align:left;font-size:20px"><em style="text-align:left">Total Mileage Refund: ${{tsData.totalMileageRefund | number: 3}}</em></p>
 
-          <div class="each-shift" style="background:grey;padding:5px">
+          <div class="each-shift" style="padding:5px">
             <table class="table table-responsive">
-              <thead>
+              <thead style="background:#595656">
                 <th style="15%">Shift #</th>
                 <th>Start</th>
                 <th>Stop</th>
@@ -53,7 +53,8 @@
               </thead>
 
 
-              <tbody ng-repeat="shift in tsData.shifts">
+              <tbody style="background:grey">
+                <tr ng-repeat="shift in tsData.shifts" ng-class="{blueHighlight: $index === tsData.shiftSelectedIdx}">shiftidx: {{shiftIdx}} selectedidx {{tsData.shiftSelectedIdx}}
                 <td style="width:15%;font-size:25px">
                   {{$index + 1}} <br />
                   <em style="font-size:16px">Mileage refund: ${{shift.mileageRefund | number: 3}}</em>
@@ -103,6 +104,7 @@
                 <td>
                   <i class="fa fa-check" ng-click="recordShift($index)"></i>
                   </td>
+                </tr>
               </tbody>
             </table>
           </div>

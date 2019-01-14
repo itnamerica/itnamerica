@@ -2250,6 +2250,12 @@ form textarea.form-control {font-size:25px}
   color:red;
   margin-top:50px;
 }
+.blueHighlight {
+  background:#529ba8;
+}
+/* .timesheet table tbody tr {
+  background:#529ba8;
+} */
 
 #footer {
     width:100%;

@@ -1436,7 +1436,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      date: new Date(),
      tookLunch: false,
      dayOfPeriod: 0, //calculate
-     shiftSelected: {},
+     shiftSelecteIdx: 0,
      rates: {
        mileageRate: 0.555,
        dailyRate: 7.14,
@@ -1520,10 +1520,12 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   };
 
   $scope.recordShift = function(shiftIdx){
+    $scope.tsData.shiftSelectedIdx = shiftIdx;
     $scope.tsData.shifts[shiftIdx].mileageRefund = $scope.calculateMileageRate(shiftIdx); //calculate mileage refund
-    $scope.tsData.totalMileageRefund = $scope.tsData.totalMileageRefund + $scope.tsData.shifts[shiftIdx].mileageRefund; //add to total daily mileage refund
+    $scope.tsData.totalMileageRefund += $scope.tsData.shifts[shiftIdx].mileageRefund; //add to total daily mileage refund
     $scope.isDeductLunch(); //if lunch during shift or >5hrs work, deduct
     $scope.calculateOverTime(); //rates change when OT
+    console.log('shit selected idx is ', $scope.tsData.shiftSelectedIdx);
   };
 
   $scope.calculateMileageRate = function(shiftIdx){
