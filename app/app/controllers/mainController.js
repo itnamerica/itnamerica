@@ -1498,4 +1498,15 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     console.log('updated shifts array is ', $scope.tsData.shifts);
   };
 
+  $scope.showNote = {};
+  $scope.openNote = function(shiftIdx){
+    console.log('shift idx is ', shiftIdx);
+    $scope.showNote[shiftIdx] = true;
+  };
+
+  $scope.closeNote = function(shiftIdx){
+    console.log('shift idx is ', shiftIdx);
+    $scope.showNote[shiftIdx] = false;
+  };
+
 }]);
