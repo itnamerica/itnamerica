@@ -54,7 +54,7 @@
 
 
               <tbody style="background:grey">
-                <tr ng-repeat="shift in tsData.shifts" ng-class="{blueHighlight: $index === tsData.shiftSelectedIdx}">shiftidx: {{shiftIdx}} selectedidx {{tsData.shiftSelectedIdx}}
+                <tr ng-repeat="shift in tsData.shifts" ng-class="{blueHighlight: $index === tsData.shiftSelectedIdx}">
                 <td style="width:15%;font-size:25px">
                   {{$index + 1}} <br />
                   <em style="font-size:16px">Mileage refund: ${{shift.mileageRefund | number: 3}}</em>

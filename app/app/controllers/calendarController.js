@@ -1,9 +1,9 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', 'ParseVariablesService', '$q',  function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, ParseVariablesService, $q) {
+myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', 'ParseVariablesService', '$q', 'CalendarService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, ParseVariablesService, $q, CalendarService) {
     console.log('inside calendar controller');
     $scope.eventObj = {}
-    $scope.adjustTimeForCalendar = ParseVariablesService.adjustTimeForCalendar;
+    $scope.adjustTimeForCalendar = CalendarService.adjustTimeForCalendar;
 
     //agenda here refers to a detailed day view of the monthly calendar after selecting day.
     $scope.initAgenda = function() {
@@ -186,11 +186,11 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
                   .then(function(response){
                     console.log('final response from delete is ', response);
                     location.reload()
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     //removeEvents from fullcalendar not working so much force event to hide on DOM with CSS
                     var cssElem = $scope.theJsEvent.currentTarget.className;
                     var idx = cssElem.indexOf(' ');
@@ -233,8 +233,8 @@ myApp.controller('CalendarCtrl', ['$scope', '$transitions', '$http', '$anchorScr
         })//end of calendar config
       });//end of promise
     };
-    
-    
+
+
     $scope.matchRelevantEvent = function(allEvents, calEvent){
       var eventTitle = calEvent.title;
       var eventTitleSquashed = calEvent.title.replace(/[^a-zA-Z0-9]+/g, "");

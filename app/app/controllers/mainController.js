@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', 'ParseVariablesService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService, ParseVariablesService) {
+myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window', 'FormService', '$sce', 'DataService', '$q', 'FileUploadService', 'Upload', 'LongVariablesService', 'ParseVariablesService', 'CalendarService', function($scope, $transitions, $http, $anchorScroll, $location, $stateParams, $timeout, $state, $rootScope, $window, FormService, $sce, DataService, $q, FileUploadService, Upload, LongVariablesService, ParseVariablesService, CalendarService) {
     console.log('inside main controller', $stateParams);
     $scope.comments = $stateParams.filter;
     $scope.assetsPath = "assets";
@@ -64,7 +64,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.fileExtensionsObj = LongVariablesService.fileExtensionsObj
     $scope.commentData = {};
     $scope.timesForPicker = LongVariablesService.timesForPicker;
-    $scope.adjustTimeForCalendar = ParseVariablesService.adjustTimeForCalendar; //function
+    $scope.adjustTimeForCalendar = CalendarService.adjustTimeForCalendar; //function
+    $scope.convertMinsToHoursMinsObj = CalendarService.convertMinsToHoursMinsObj; //function
 
 
 
@@ -1440,7 +1441,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
      rates: {
        mileageRate: 0.555,
        dailyRate: 7.14,
-       weeklyRate: 50
+       weeklyRate: 50,
+       otBenchmark: 8 //overtime benchmark in hours
      },
      shifts: [
        {
@@ -1457,7 +1459,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
          mileageRefund: 0
        }
      ],
-     totalMileageRefund: 0
+     totalMileageRefund: 0,
+     dailyWorkTimeMins: 0,
+     dailyWorkOvertimeMins: 0
    };
 
    $scope.addShift = function(){
@@ -1523,8 +1527,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.tsData.shiftSelectedIdx = $scope.tsData.shifts[shiftIdx].idx = shiftIdx;
     $scope.tsData.shifts[shiftIdx].mileageRefund = $scope.calculateMileageRate(shiftIdx); //calculate mileage refund
     $scope.tsData.totalMileageRefund += $scope.tsData.shifts[shiftIdx].mileageRefund; //add to total daily mileage refund
-    $scope.isDeductLunch(); //if lunch during shift or >5hrs work, deduct
-    $scope.calculateOverTime(); //rates change when OT
+    //$scope.isDeductLunch(); //if lunch during shift or >5hrs work, deduct
+    $scope.calculateWorkTimeSelected(shiftIdx); //calculates work time and work overtime
     console.log('shit selected idx is ', $scope.tsData.shiftSelectedIdx);
   };
 
@@ -1535,11 +1539,30 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   };
 
   $scope.isDeductLunch = function(){
-
   };
 
-  $scope.calculateOverTime = function(){
+  $scope.calculateWorkTimeSelected = function(shiftIdx){
+    var startTimeObj = $scope.tsData.shifts[shiftIdx].startTimeObj;
+    var endTimeObj = $scope.tsData.shifts[shiftIdx].endTimeObj;
+    var startTimeMins = (startTimeObj.hour * 60) + startTimeObj.mins;
+    var endTimeMins = (endTimeObj.hour * 60) + endTimeObj.mins;
+    var timeDiffMins = endTimeMins - startTimeMins;
+    var timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
+      console.log('worktime mins is ', timeDiffMins, 'hours mins is ', timeDiffHoursMins);
+    $scope.tsData.dailyWorkTimeMins = timeDiffMins;
 
+    $scope.tsData.dailyWorkOvertimeMins += $scope.calculateDailyOverTimeMins();
+  };
+
+  $scope.calculateDailyOverTimeMins = function(){
+    var overtimeMins;
+    var otBenchmarkMins = $scope.tsData.otBenchmark * 60;
+    if ($scope.tsData.dailyWorkTimeMins > otBenchmarkMins) {
+      overtimeMins = $scope.tsData.dailyWorkTimeMins - otBenchmarkMins
+      console.log('overtime of ', overtimeMins);
+      $scope.tsData.dailyWorkOvertimeMins += overTimeMins;
+    }
+    console.log('total worktime mins is ', $scope.tsData.dailyWorkOvertimeMins);
   };
 
 }]);
