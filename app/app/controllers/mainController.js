@@ -65,6 +65,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     $scope.commentData = {};
     $scope.timesForPicker = LongVariablesService.timesForPicker;
     $scope.adjustTimeForCalendar = ParseVariablesService.adjustTimeForCalendar; //function
+    $scope.showNote = {};
 
 
 
@@ -1498,15 +1499,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     console.log('updated shifts array is ', $scope.tsData.shifts);
   };
 
-  $scope.showNote = {};
-  $scope.openNote = function(shiftIdx){
-    console.log('shift idx is ', shiftIdx);
-    $scope.showNote[shiftIdx] = true;
-  };
-
-  $scope.closeNote = function(shiftIdx){
-    console.log('shift idx is ', shiftIdx);
-    $scope.showNote[shiftIdx] = false;
+  $scope.toggleNote = function(shiftIdx){
+    $scope.showNote[shiftIdx] = !$scope.showNote[shiftIdx];
   };
 
 }]);

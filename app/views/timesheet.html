@@ -80,10 +80,10 @@
                 </td>
 
                 <td class="show-note">
-                  <i class="fa fa-plus-circle pt-25" ng-click="openNote($index)" ng-show="!showNote[$index]"></i>
+                  <i class="fa fa-plus-circle pt-25" ng-click="toggleNote($index)" ng-show="!showNote[$index]"></i>
 
                   <div ng-show="showNote[$index]">
-                    <i class="fa fa-minus-circle" ng-click="closeNote($index)"></i>
+                    <i class="fa fa-minus-circle" ng-click="toggleNote($index)"></i>
                     <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
                   </div>
                 </td>
