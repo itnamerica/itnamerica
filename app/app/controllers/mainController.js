@@ -1540,19 +1540,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     return mileageRefund;
   };
 
-  // $scope.calculateWorkTime2 = function(shiftIdx){
-  //   var startTimeObj = $scope.tsData.shifts[shiftIdx].startTimeObj;
-  //   var endTimeObj = $scope.tsData.shifts[shiftIdx].endTimeObj;
-  //   var startTimeMins = (startTimeObj.hour * 60) + startTimeObj.min;
-  //   var endTimeMins = (endTimeObj.hour * 60) + endTimeObj.min;
-  //   console.log('start time mins is ', startTimeMins,'end 0, endTimeMins');
-  //   var timeDiffMins = endTimeMins - startTimeMins;
-  //   var timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
-  //   console.log('worktime mins is ', timeDiffMins, 'hours mins is ', timeDiffHoursMins);
-  //   $scope.tsData.dailyWorkTimeMins = timeDiffMins;
-  //   $scope.tsData.dailyWorkOvertimeMins += $scope.calculateDailyOverTimeMins();
-  // };
-
   $scope.calculateWorkTime = function(shiftIdx){
     var startTimeObj; var endTimeObj; var startTimeMins; var endTimeMins; var timeDiffMins; var overtime;
     var timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
@@ -1563,15 +1550,17 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       endTimeMins = (endTimeObj.hour * 60) + endTimeObj.min;
       timeDiffMins = endTimeMins - startTimeMins;
       timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
-      console.log('worktime mins is ', timeDiffMins, 'hours mins is ', timeDiffHoursMins);
+      console.log('worktime mins is ', timeDiffMins, ', hours mins is ', timeDiffHoursMins);
       $scope.tsData.dailyWorkTimeMins = timeDiffMins;
-       $scope.calculateOvertime();
     }
+    $scope.calculateOvertime();
   };
 
   $scope.calculateOvertime = function(){
     var overtimeMins;
-    var otBenchmarkMins = $scope.tsData.otBenchmark * 60;
+    var otBenchmarkMins = parseInt($scope.tsData.rates.otBenchmark) * 60;
+    console.log('ot benchmark mins is ', otBenchmarkMins);
+
     if ($scope.tsData.dailyWorkTimeMins > otBenchmarkMins) {
       overtimeMins = $scope.tsData.dailyWorkTimeMins - otBenchmarkMins
       console.log('overtime of ', overtimeMins);
@@ -1579,5 +1568,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     }
     console.log('total worktime mins is ', $scope.tsData.dailyWorkOvertimeMins);
   };
+
 
 }]);
