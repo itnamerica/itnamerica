@@ -47,6 +47,7 @@
                 <th>Stop</th>
                 <th>Miles Driven</th>
                 <th>Add note</th>
+                <th>Delete</th>
               </thead>
               <tbody ng-repeat="shift in tsData.shifts">
                 <td style="width:15%;font-size:25px">{{$index + 1}}</td>
@@ -79,14 +80,14 @@
                 </td>
 
                 <td class="show-note">
-                  <i class="fa fa-plus-circle" ng-click="openNote($index)" ng-show="!showNote[$index]"></i>
+                  <i class="fa fa-plus-circle pt-25" ng-click="openNote($index)" ng-show="!showNote[$index]"></i>
 
                   <div ng-show="showNote[$index]">
                     <i class="fa fa-minus-circle" ng-click="closeNote($index)"></i>
                     <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
                   </div>
-                  <i class="fa fa-trash" ng-click="removeShift(shift, $index)"></i>
                 </td>
+                <td><i class="fa fa-trash" ng-click="removeShift(shift, $index)"></i></td>
               </tbody>
             </table>
           </div>
