@@ -1520,7 +1520,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   };
 
   $scope.recordShift = function(shiftIdx){
-    $scope.tsData.shiftSelectedIdx = shiftIdx;
+    $scope.tsData.shiftSelectedIdx = $scope.tsData.shifts[shiftIdx].idx = shiftIdx;
     $scope.tsData.shifts[shiftIdx].mileageRefund = $scope.calculateMileageRate(shiftIdx); //calculate mileage refund
     $scope.tsData.totalMileageRefund += $scope.tsData.shifts[shiftIdx].mileageRefund; //add to total daily mileage refund
     $scope.isDeductLunch(); //if lunch during shift or >5hrs work, deduct
