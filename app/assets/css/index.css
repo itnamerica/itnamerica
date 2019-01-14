@@ -2247,6 +2247,10 @@ form textarea.form-control {font-size:25px}
     max-height: 200px;
     overflow-x: hidden;
 }
+.warning-msg {
+  color:red;
+  margin-top:50px;
+}
 
 #footer {
     width:100%;

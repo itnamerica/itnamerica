@@ -93,11 +93,8 @@
           </div>
         </div><!--shifts-->
 
-
-
-
-
-
+        <p class="warning-msg"><strong>{{warningMsg}}</strong></p>
+        {{test1}}
 
         <div class="formBtns" style="margin-top:20px">
           <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
@@ -111,7 +108,7 @@
   </div>
 </div>
 
-<div class="back-btn-wrap" style="margin-top:10px">
+<div class="back-btn-wrap">
   <a ui-sref="affiliate({filter: itnAffiliate.name})" class="back-btn">
     <h3>Back to Previous Page</h3>
   </a>

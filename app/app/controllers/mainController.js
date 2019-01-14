@@ -1445,7 +1445,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        stopTimeObj: null,
        startTimeMeridian: null,
        stopTimeMeridian: null,
-       milesPerShift: 10,
+       milesPerShift: 0,
        note: "",
        isSelected: true,
        idx: 0
@@ -1453,27 +1453,31 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    ];
 
    $scope.addShift = function(){
-     console.log('inside add new shift');
-     var newShift =      {
-        startTime: null,
-        stopTime: null,
-        startTimeObj: null,
-        stopTimeObj: null,
-        startTimeMeridian: null,
-        stopTimeMeridian: null,
-        milesPerShift: 0,
-        note: "",
-        isSelected: true,
-        idx: 0
-      };
-    $scope.tsData.shifts.push(newShift);
+     var newShift;
+     if ($scope.tsData.shifts.length < 5) { //add max 5 shifts per day
+       newShift =      {
+          startTime: null,
+          stopTime: null,
+          startTimeObj: null,
+          stopTimeObj: null,
+          startTimeMeridian: null,
+          stopTimeMeridian: null,
+          milesPerShift: 0,
+          note: "",
+          isSelected: true,
+          idx: 0
+        };
+      $scope.tsData.shifts.push(newShift);
+    } else {
+      $scope.warningMsg = "You cannot work on more than 5 shifts per day.";
+      $timeout(function() {
+         $scope.warningMsg = "";
+      }, 4000);
+    }
   };
 
   $scope.removeShift = function(shiftSelected, shiftIdx){
-    console.log('shifts array is ', $scope.tsData.shifts);
-    console.log('inside remove shift, shift is ', shiftSelected, shiftIdx);
     $scope.tsData.shifts.splice(shiftIdx, 1);
-    console.log('updated shifts array is ', $scope.tsData.shifts);
   };
 
   $scope.updateStartTime = function(time, shiftSelected, shiftIdx){
