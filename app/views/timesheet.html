@@ -18,12 +18,12 @@
 
           <div class="col-sm-6 form-group">
             <label for="driver name">Enter name: <span style="color:red">*</span></label><br>
-            <input type="text" class="form-control" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength">
+            <input type="text" class="form-control" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength" style="text-align:center">
           </div>
 
           <div class="col-sm-3 form-group">
             <label for="date">Date: <span style="color:red">*</span></label><br>
-            <input type="date" class="form-control" name="date" ng-model="tsData.date" style="display:inline-block">
+            <input type="date" class="form-control" name="date" ng-model="tsData.date" style="display:inline-block;text-align:center">
           </div>
           <!-- answer: {{tsData.date | date : "dd-MM-y" }}   -->
 
@@ -136,16 +136,10 @@
 
 
 
-
-
-
-        <!-- <div class="form-group">
-          <label class="checkbox-inline">Lunchtime taken?
-            <input type="checkbox" value="yes" name="tookLunch" ng-model="formData.tookLunch"></label>
-        </div>answer: {{tsData.tookLunch}} -->
-
-        <!-- <div class="form-group">
-          <label for="date">Date2: <span style="color:red">*</span></label><br>
-          <input type="text" class="form-control" name="date2" placeholder="Example: mm/dd/yyyy" ng-model="tsData.date2" ng-pattern="dobPattern">
-        </div>
-        answer: {{tsData.date2}} -->
+<script>
+$(".dropdown li a").click(function(){
+  console.log('btn clicked');
+  $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+});
+</script>

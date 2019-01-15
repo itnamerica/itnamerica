@@ -1494,6 +1494,8 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   };
 
   $scope.updateStartTime = function(time, shiftSelected, shiftIdx){
+    // $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+    
     console.log('time is ', time, 'shift selected is ', shiftSelected, 'shift idx is ', shiftIdx);
     var convertedTime = $scope.adjustTimeForCalendar(time);
     console.log('converted time is ', convertedTime);
