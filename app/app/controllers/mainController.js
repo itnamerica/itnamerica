@@ -1432,7 +1432,6 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
    };
 
   $scope.showNote = {};
-
   $scope.tsData = {
      date: new Date(),
      tookLunch: false,
@@ -1456,12 +1455,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
          note: "",
          isSelected: true,
          idx: 0,
-         mileageRefund: 0
+         mileageRefund: 0,
+         timeDiffHoursMins: 0,
+         timeDiffMins: 0
        }
      ],
      totalMileageRefund: 0,
      dailyWorkTimeMins: 0,
-     dailyWorkOvertimeMins: 0
+     dailyOvertimeMins: 0
    };
 
    $scope.addShift = function(){
@@ -1478,7 +1479,9 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
           note: "",
           isSelected: true,
           idx: 0,
-          mileageRefund: 0
+          mileageRefund: 0,
+          timeDiffHoursMins: 0,
+          timeDiffMins: 0
         };
       $scope.tsData.shifts.push(newShift);
     } else {
@@ -1495,7 +1498,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
 
   $scope.updateStartTime = function(time, shiftSelected, shiftIdx){
     // $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-    
+
     console.log('time is ', time, 'shift selected is ', shiftSelected, 'shift idx is ', shiftIdx);
     var convertedTime = $scope.adjustTimeForCalendar(time);
     console.log('converted time is ', convertedTime);
@@ -1525,15 +1528,13 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
   $scope.calculateDayOfPeriod = function(day){
   };
 
-  $scope.isDeductLunch = function(){
-  };
-
   $scope.recordShift = function(shiftIdx){
     $scope.tsData.shiftSelectedIdx = $scope.tsData.shifts[shiftIdx].idx = shiftIdx;
     $scope.tsData.shifts[shiftIdx].mileageRefund = $scope.calculateMileageRate(shiftIdx); //calculate mileage refund
     $scope.tsData.totalMileageRefund += $scope.tsData.shifts[shiftIdx].mileageRefund; //add to total daily mileage refund
-    //$scope.isDeductLunch(); //if lunch during shift or >5hrs work, deduct
-    $scope.calculateWorkTime(shiftIdx); //calculates work time and work overtime
+    $scope.calculateTotalWorkTime(shiftIdx); //calculates work time and work overtime
+    $scope.isDeductLunch(); //if lunch during shift, deduct
+    $scope.calculateOvertime();
   };
 
   $scope.calculateMileageRate = function(shiftIdx){
@@ -1542,7 +1543,7 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
     return mileageRefund;
   };
 
-  $scope.calculateWorkTime = function(shiftIdx){
+  $scope.calculateTotalWorkTime = function(shiftIdx){
     var startTimeObj; var endTimeObj; var startTimeMins; var endTimeMins; var timeDiffMins; var overtime;
     var timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
     for (var i in $scope.tsData.shifts) {
@@ -1552,24 +1553,42 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
       endTimeMins = (endTimeObj.hour * 60) + endTimeObj.min;
       timeDiffMins = endTimeMins - startTimeMins;
       timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
+      $scope.tsData.shifts[shiftIdx].timeDiffMins = timeDiffMins;
+      $scope.tsData.shifts[shiftIdx].timeDiffHoursMins = timeDiffHoursMins;
       console.log('worktime mins is ', timeDiffMins, ', hours mins is ', timeDiffHoursMins);
-      $scope.tsData.dailyWorkTimeMins = timeDiffMins;
+      $scope.tsData.dailyWorkTimeMins += timeDiffMins;
     }
-    $scope.calculateOvertime();
+  };
+
+  // $scope.isDeductLunch = function(){
+  //   if ($scope.tsData.tookLunch){
+  //     return $scope.tsData.dailyWorkTimeMins - 30
+  //   } else {
+  //     return $scope.tsData.dailyWorkTimeMins
+  //   }
+  // };
+
+  $scope.isDeductLunch = function(){
+    $scope.tsData.tookLunch ? ($scope.tsData.dailyWorkTimeMins - 30) : ($scope.tsData.dailyWorkTimeMins)
   };
 
   $scope.calculateOvertime = function(){
-    var overtimeMins;
-    var otBenchmarkMins = parseInt($scope.tsData.rates.otBenchmark) * 60;
-    console.log('ot benchmark mins is ', otBenchmarkMins);
-
-    if ($scope.tsData.dailyWorkTimeMins > otBenchmarkMins) {
-      overtimeMins = $scope.tsData.dailyWorkTimeMins - otBenchmarkMins
-      console.log('overtime of ', overtimeMins);
-      $scope.tsData.dailyWorkOvertimeMins += overTimeMins;
-    }
-    console.log('total worktime mins is ', $scope.tsData.dailyWorkOvertimeMins);
+    var otBenchmarkMins = $scope.tsData.rates.otBenchmark * 60;
+    $scope.tsData.dailyOvertimeMins = $scope.tsData.dailyWorkTimeMins - otBenchmarkMins
   };
+
+  // $scope.calculateOvertime = function(){
+  //   var overtimeMins;
+  //   var otBenchmarkMins = parseInt($scope.tsData.rates.otBenchmark) * 60;
+  //   console.log('ot benchmark mins is ', otBenchmarkMins);
+  //
+  //   if ($scope.tsData.dailyWorkTimeMins > otBenchmarkMins) {
+  //     overtimeMins = $scope.tsData.dailyWorkTimeMins - otBenchmarkMins
+  //     console.log('overtime of ', overtimeMins);
+  //     $scope.tsData.dailyWorkOvertimeMins += overTimeMins;
+  //   }
+  //   console.log('total worktime mins is ', $scope.tsData.dailyWorkOvertimeMins);
+  // };
 
 
 }]);

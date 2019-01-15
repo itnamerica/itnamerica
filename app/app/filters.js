@@ -102,3 +102,14 @@ myApp.filter('hexToBase64', function() {
        }
      };
  });
+
+ myApp.filter('isAbs', function () {
+  return function(val) {
+    if (val === Math.abs(val)){
+      return val;
+    } else {
+      return 0;
+    }
+
+  }
+});
