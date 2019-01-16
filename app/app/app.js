@@ -238,6 +238,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         .state('timesheet', {
             url: '/timesheet?filter',
             templateUrl: viewsPath + 'timesheet.html',
+            controller: 'TimesheetCtrl',
             params : {
               filter: null,
             }

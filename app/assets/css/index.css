@@ -2223,7 +2223,7 @@ form textarea.form-control {font-size:25px}
 .timesheet .fa-plus-circle {
   margin-left: 2%;
 }
-.timesheet .fa-trash, .timesheet .fa-check {
+.timesheet .fa-trash {
   font-size: 25px;
   padding-top: 15px;
 }
@@ -2252,6 +2252,9 @@ form textarea.form-control {font-size:25px}
 }
 .blueHighlight {
   background:#529ba8;
+}
+.timesheet select {
+  color:black;
 }
 #footer {
     width:100%;

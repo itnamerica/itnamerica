@@ -29,7 +29,7 @@
 
           <div class="col-sm-3 form-group" style="margin-top:80px">
             <label for="lunchtime taken">Lunch taken during shift? <span style="color:red">*</span></label>
-            <input type="checkbox" name="tookLunch" value="true" ng-model="tsData.tookLunch" style="width:20px;height:20px">
+            <input type="checkbox" name="tookLunch" value="true" ng-model="tsData.tookLunch" ng-change="deductLunch()" style="width:20px;height:20px">
           </div>
 
       </div>
@@ -66,27 +66,17 @@
                 </td>
 
                 <td>
-                  <div class="dropdown ta-center">
-                    <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Pick Start Time
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu scrollable-menu" aria-labelledby="timepicker dropdown">
-                      <li ng-repeat="time in timesForPicker">
-                        <a ng-click="updateStartTime(time, shift, $parent.$index)" ng-class="{'no-border': $last}">{{time}}</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <select ng-model="selectedStart"
+                          ng-change="updateStartTime(selectedStart, shift, $index)"
+                          ng-options="time as time for time in timesForPicker">
+                  </select>
                 </td>
 
                 <td>
-                  <div class="dropdown ta-center">
-                    <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Pick End Time
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu scrollable-menu" aria-labelledby="timepicker dropdown">
-                      <li ng-repeat="time in timesForPicker">
-                        <a ng-click="updateEndTime(time, shift, $parent.$index)" ng-class="{'no-border': $last}">{{time}}</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <select ng-model="selectedEnd"
+                          ng-change="updateEndTime(selectedEnd, shift, $index)"
+                          ng-options="time as time for time in timesForPicker">
+                  </select>
                 </td>
 
                 <td>
@@ -107,7 +97,7 @@
                 </td>
 
                 <td>
-                  <i class="fa fa-check" ng-click="recordShift($index)"></i>
+                  <i class="fa fa-check" ng-click="recordShift($index)" style="font-size:50px"></i>
                   </td>
                 </tr>
               </tbody>
@@ -116,7 +106,6 @@
         </div><!--shifts-->
 
         <p class="warning-msg"><strong>{{warningMsg}}</strong></p>
-        {{test1}}
 
         <div class="formBtns" style="margin-top:20px">
           <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
@@ -138,13 +127,3 @@
     <h3>Back to Portal</h3>
   </a>
 </div>
-
-
-
-<script>
-$(".dropdown li a").click(function(){
-  console.log('btn clicked');
-  $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-});
-</script>
