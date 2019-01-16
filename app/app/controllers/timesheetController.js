@@ -7,8 +7,8 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.adjustTimeForCalendar = CalendarService.adjustTimeForCalendar; //function
     $scope.convertMinsToHoursMinsObj = CalendarService.convertMinsToHoursMinsObj; //function
     $scope.showNote = {};
-    $scope.selectedEnd = $scope.timesForPicker[0];
-    $scope.selectedStart = $scope.timesForPicker[0];
+    $scope.selectedStartTime = $scope.timesForPicker[0];
+    $scope.selectedEndTime = $scope.timesForPicker[0];
     $scope.tsData = {
        date: new Date(),
        tookLunch: false,

@@ -66,15 +66,15 @@
                 </td>
 
                 <td>
-                  <select ng-model="selectedStart"
-                          ng-change="updateStartTime(selectedStart, shift, $index)"
+                  <select ng-model="selectedStartTime"
+                          ng-change="updateStartTime(selectedStartTime, shift, $index)"
                           ng-options="time as time for time in timesForPicker">
                   </select>
                 </td>
 
                 <td>
-                  <select ng-model="selectedEnd"
-                          ng-change="updateEndTime(selectedEnd, shift, $index)"
+                  <select ng-model="selectedEndTime"
+                          ng-change="updateEndTime(selectedEndTime, shift, $index)"
                           ng-options="time as time for time in timesForPicker">
                   </select>
                 </td>
