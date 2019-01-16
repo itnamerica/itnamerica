@@ -9,6 +9,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.showNote = {};
     $scope.selectedStartTime = $scope.timesForPicker[0];
     $scope.selectedEndTime = $scope.timesForPicker[0];
+    
     $scope.tsData = {
        date: new Date(),
        tookLunch: false,
@@ -42,6 +43,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        dailyOvertimeMins: 0
      };
 
+
      $scope.addShift = function(){
        var newShift;
        if ($scope.tsData.shifts.length < 5) { //add max 5 shifts per day
@@ -69,9 +71,11 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       }
     };
 
+
     $scope.removeShift = function(shiftSelected, shiftIdx){
       $scope.tsData.shifts.splice(shiftIdx, 1);
     };
+
 
     $scope.updateStartTime = function(timeSelected, shiftSelected, shiftIdx){
       console.log('time selected is ', timeSelected);
@@ -87,6 +91,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       console.log('updated shifts array is ', $scope.tsData.shifts);
     };
 
+
     $scope.updateEndTime = function(timeSelected, shiftSelected, shiftIdx){
       console.log('time selected is ', timeSelected);
       console.log('shift selected is ', shiftSelected);
@@ -101,12 +106,15 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       console.log('updated shifts array is ', $scope.tsData.shifts);
     };
 
+
     $scope.toggleNote = function(shiftIdx){
       $scope.showNote[shiftIdx] = !$scope.showNote[shiftIdx];
     };
 
+
     $scope.calculateDayOfPeriod = function(day){
     };
+
 
     $scope.recordShift = function(shiftIdx){
       $scope.tsData.shiftSelectedIdx = $scope.tsData.shifts[shiftIdx].idx = shiftIdx;
@@ -116,11 +124,13 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       $scope.calculateOvertime();
     };
 
+
     $scope.calculateMileageRefund = function(shiftIdx){
       var mileageRefund = $scope.tsData.rates.mileageRate * $scope.tsData.shifts[shiftIdx].milesPerShift
       console.log('mileageRefund is ', mileageRefund);
       return mileageRefund;
     };
+
 
     $scope.calculateTotalWorkTime = function(shiftIdx){
       var startTimeObj; var endTimeObj; var startTimeMins; var endTimeMins; var timeDiffMins; var overtime;
@@ -141,6 +151,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       }
     };
 
+
     $scope.deductLunch = function(){
       console.log('deduct lunch val is ', $scope.tsData.tookLunch);
       if ($scope.tsData.tookLunch){ // if lunch selected, deduct 30mins
@@ -149,12 +160,14 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
         $scope.tsData.dailyWorkTimeMins = $scope.tsData.dailyWorkTimeMins + 30
       }
       console.log('updated deduct lunch time is ', $scope.tsData.dailyWorkTimeMins);
-    }
+    };
+
 
     $scope.calculateOvertime = function(){
       var otBenchmarkMins = $scope.tsData.rates.otBenchmark * 60;
       $scope.tsData.dailyOvertimeMins = $scope.tsData.dailyWorkTimeMins - otBenchmarkMins
     };
+
 
     $scope.submitTimesheet = function(){
     };
