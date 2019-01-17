@@ -9,7 +9,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.showNote = {};
     $scope.selectedStartTime = $scope.timesForPicker[0];
     $scope.selectedEndTime = $scope.timesForPicker[0];
-    
+
     $scope.tsData = {
        date: new Date(),
        tookLunch: false,
@@ -81,13 +81,13 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       console.log('time selected is ', timeSelected);
       console.log('shift selected is ', shiftSelected);
       console.log('shift idx is ', shiftIdx);
-      var convertedTime = $scope.adjustTimeForCalendar(timeSelected);
-      console.log('converted timeSelected is ', convertedTime);
+      var startTimeObj = $scope.adjustTimeForCalendar(timeSelected);
+      console.log('converted timeSelected is ', startTimeObj);
       shiftSelected.startTimeMeridian = timeSelected;
-      shiftSelected.startTimeObj = convertedTime;
+      shiftSelected.startTimeObj = startTimeObj;
       shiftSelected.idx = shiftIdx;
-      console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
       $scope.tsData.shifts[shiftIdx] = shiftSelected;
+      console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
       console.log('updated shifts array is ', $scope.tsData.shifts);
     };
 
@@ -96,14 +96,21 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       console.log('time selected is ', timeSelected);
       console.log('shift selected is ', shiftSelected);
       console.log('shift idx is ', shiftIdx);
-      var convertedTime = $scope.adjustTimeForCalendar(timeSelected);
-      console.log('converted timeSelected is ', convertedTime);
+      var endTimeObj = $scope.adjustTimeForCalendar(timeSelected);
+      console.log('converted timeSelected is ', endTimeObj);
+      //before assigning new end time to shift obj, need to check that endtime is later than startTime
+      $scope.lockCellIfEarlierThanStartTime(timeSelected, shiftSelected, shiftIdx, endTimeObj);
       shiftSelected.endTimeMeridian = timeSelected;
-      shiftSelected.endTimeObj = convertedTime;
+      shiftSelected.endTimeObj = endTimeObj;
       shiftSelected.idx = shiftIdx;
-      console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
       $scope.tsData.shifts[shiftIdx] = shiftSelected;
+      console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
       console.log('updated shifts array is ', $scope.tsData.shifts);
+    };
+
+    $scope.lockCellIfEarlierThanStartTime = function(timeSelected, shiftSelected, shiftIdx, endTimeObj){
+      var timeDiffMins = $scope.calculateTimeDiffMins(shiftSelected.startTimeObj, endTimeObj);
+      console.log('time diff mins is ', timeDiffMins);
     };
 
 
@@ -133,22 +140,26 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.calculateTotalWorkTime = function(shiftIdx){
-      var startTimeObj; var endTimeObj; var startTimeMins; var endTimeMins; var timeDiffMins; var overtime;
-      var timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
+      var startTimeObj; var endTimeObj; var startTimeMins; var endTimeMins; var timeDiffMins; var overtime; var timeDiffHoursMins;
       for (var i in $scope.tsData.shifts) {
         console.log('each ', $scope.tsData.shifts[i]);
         startTimeObj = $scope.tsData.shifts[i].startTimeObj;
         endTimeObj = $scope.tsData.shifts[i].endTimeObj;
         console.log('start time obj ', startTimeObj, 'end time obj', endTimeObj);
-        startTimeMins = (startTimeObj.hour * 60) + startTimeObj.min;
-        endTimeMins = (endTimeObj.hour * 60) + endTimeObj.min;
-        timeDiffMins = endTimeMins - startTimeMins;
+        timeDiffMins = $scope.calculateTimeDiffMins(startTimeObj, endTimeObj);
         timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
         $scope.tsData.shifts[shiftIdx].timeDiffMins = timeDiffMins;
         $scope.tsData.shifts[shiftIdx].timeDiffHoursMins = timeDiffHoursMins;
         console.log('worktime mins is ', timeDiffMins, ', hours mins is ', timeDiffHoursMins);
         $scope.tsData.dailyWorkTimeMins += timeDiffMins;
       }
+    };
+
+    $scope.calculateTimeDiffMins = function(startTimeObj, endTimeObj){
+      var startTimeMins = (startTimeObj.hour * 60) + startTimeObj.min;
+      var endTimeMins = (endTimeObj.hour * 60) + endTimeObj.min;
+      var timeDiffMins = endTimeMins - startTimeMins;
+      return timeDiffMins
     };
 
 
