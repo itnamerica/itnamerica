@@ -2,16 +2,13 @@ var myApp = angular.module('myApp');
 
 myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window','DataService', 'LongVariablesService', 'CalendarService', '$q', function($scope, $transitions, $http, $location, $stateParams, $timeout, $state, $rootScope, $window, DataService, LongVariablesService, CalendarService, $q) {
 
-    console.log('inside timesheet controller');
     $scope.timesForPicker = LongVariablesService.timesForPicker;
     $scope.adjustTimeForCalendar = CalendarService.adjustTimeForCalendar; //function
     $scope.convertMinsToHoursMinsObj = CalendarService.convertMinsToHoursMinsObj; //function
     $scope.showNote = {};
     $scope.selectedStartTime = $scope.timesForPicker[0];
     $scope.selectedEndTime = $scope.timesForPicker[0];
-    $scope.disabledStartTime = false;
-    $scope.disabledEndTime = true;
-
+    $scope.shiftsAdded = 0;
     $scope.tsData = {
        date: new Date(),
        tookLunch: false,
@@ -23,126 +20,125 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
          weeklyRate: 50,
          otBenchmark: 8 //overtime benchmark in hours
        },
-       shifts: [
-         {
-           startTime: null,
-           stopTime: null,
-           startTimeObj: null,
-           stopTimeObj: null,
-           startTimeMeridian: null,
-           stopTimeMeridian: null,
-           milesPerShift: 0,
-           note: "",
-           isSelected: true,
-           idx: 0,
-           mileageRefund: 0,
-           timeDiffHoursMins: 0,
-           timeDiffMins: 0
-         }
-       ],
+       shifts: [],
        totalMileageRefund: 0,
        dailyWorkTimeMins: 0,
        dailyOvertimeMins: 0
      };
+     var newShift = {
+      startTime: null,
+      stopTime: null,
+      startTimeObj: null,
+      stopTimeObj: null,
+      startTimeMeridian: null,
+      stopTimeMeridian: null,
+      milesPerShift: 0,
+      note: "",
+      isSelected: true,
+      idx: 0,
+      mileageRefund: 0,
+      timeDiffHoursMins: 0,
+      timeDiffMins: 0,
+      saved: false,
+      overtime: false
+    };
+    $scope.tsData.shifts.push(newShift);
+
+
+
+     $scope.checkIfPreviousShiftSaved = function(){
+       var shiftsNumber = $scope.tsData.shifts.length;
+       var lastShift = $scope.tsData.shifts[shiftsNumber-1];
+       if (lastShift.saved){
+         return true
+       } else {
+         return false
+       }
+     };
+
+
+     $scope.highlightOvertimeShift = function(){
+       if ($scope.tsData.dailyOvertimeMins === Math.abs($scope.tsData.dailyOvertimeMins)){ //if overtime mins
+         $scope.highlighted = true;
+       }
+     };
 
 
      $scope.addShift = function(){
-       var newShift;
+       var previousShiftSaved = $scope.checkIfPreviousShiftSaved();
+       if (!previousShiftSaved) {
+         swal("Oops","Please save your previous shift before adding a new one.","error");
+         return;
+       }
        if ($scope.tsData.shifts.length < 5) { //add max 5 shifts per day
-         newShift =      {
-            startTime: null,
-            stopTime: null,
-            startTimeObj: null,
-            stopTimeObj: null,
-            startTimeMeridian: null,
-            stopTimeMeridian: null,
-            milesPerShift: 0,
-            note: "",
-            isSelected: true,
-            idx: 0,
-            mileageRefund: 0,
-            timeDiffHoursMins: 0,
-            timeDiffMins: 0
-          };
-        $scope.tsData.shifts.push(newShift);
+        $scope.tsData.shifts.push(angular.copy(newShift));
       } else {
-        $scope.warningMsg = "You cannot work on more than 5 shifts per day.";
-        $timeout(function() {
-           $scope.warningMsg = "";
-        }, 4000);
+        swal("Oops","You cannot work on more than 5 shifts per day.","error");
       }
+      console.log('after add, shifts are ', $scope.tsData.shifts);
+      $scope.highlightOvertimeShift();
     };
 
 
     $scope.removeShift = function(shiftSelected, shiftIdx){
       $scope.tsData.shifts.splice(shiftIdx, 1);
+      console.log('after remove, shifts are ', $scope.tsData.shifts);
+    };
+
+
+    $scope.checkIfShiftLaterThanPrevious = function(shiftIdx, startTimeObj){
+      var previousShiftEndTimeObj = $scope.tsData.shifts[shiftIdx-1].endTimeObj;
+      var previousShiftEndTimeMins = $scope.convertTimeObjToMins(previousShiftEndTimeObj);
+      var thisShiftStartTimeMins = $scope.convertTimeObjToMins(startTimeObj);
+      var timeDiff = thisShiftStartTimeMins - previousShiftEndTimeMins;
+      if (timeDiff === Math.abs(timeDiff)){ //if nxt start time later than prev end time
+        return true;
+      } else {
+        return false;
+      }
     };
 
 
     $scope.updateStartTime = function(timeSelected, shiftSelected, shiftIdx){
-      console.log('time selected is ', timeSelected);
-      console.log('shift selected is ', shiftSelected);
-      console.log('shift idx is ', shiftIdx);
       var startTimeObj = $scope.adjustTimeForCalendar(timeSelected);
-      console.log('converted timeSelected is ', startTimeObj);
-      //before assigning new start time to shift obj, need to check that starttime is earlier than endTime
-      // if (shiftSelected.endTimeObj){
-      //   var timeSelectedIsOK = $scope.lockCellIfLaterThanEndTime(timeSelected, shiftSelected, shiftIdx, startTimeObj);
-      //   if (!timeSelectedIsOK){
-      //     return false;
-      //   }
-      // }
+      console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
+      if (shiftIdx > 0){ //check for all, except first shift
+        var laterThanPrevious = $scope.checkIfShiftLaterThanPrevious(shiftIdx, startTimeObj);
+        if (!laterThanPrevious){
+          swal("Create a later shift","Your shifts must be submitted chronologically.","error");
+        }
+      }
       shiftSelected.startTimeMeridian = timeSelected;
       shiftSelected.startTimeObj = startTimeObj;
       shiftSelected.idx = shiftIdx;
       $scope.tsData.shifts[shiftIdx] = shiftSelected;
-      $scope.disabledEndTime = false; //once starttime is selected, enable endtime selection
-      console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
-      console.log('updated shifts array is ', $scope.tsData.shifts);
+      console.log('updated shift times after update start is ', $scope.tsData.shifts[shiftIdx]);
     };
 
 
     $scope.updateEndTime = function(timeSelected, shiftSelected, shiftIdx){
-      $scope.disabledStartTime = true;
-      console.log('time selected is ', timeSelected);
-      console.log('shift selected is ', shiftSelected);
-      console.log('shift idx is ', shiftIdx);
       var endTimeObj = $scope.adjustTimeForCalendar(timeSelected);
-      console.log('converted timeSelected is ', endTimeObj);
       //before assigning new end time to shift obj, need to check that endtime is later than startTime
-      var timeSelectedIsOK = $scope.lockCellIfEarlierThanStartTime(timeSelected, shiftSelected, shiftIdx, endTimeObj);
+      var timeSelectedIsOK = $scope.lockCellIfEarlierThanStartTime(shiftSelected, shiftIdx, endTimeObj);
       if (!timeSelectedIsOK){
-        return false;
+        swal("Wrong time selected","You cannot select an end time earlier than a start time.","error");
+        return;
       }
       shiftSelected.endTimeMeridian = timeSelected;
       shiftSelected.endTimeObj = endTimeObj;
       shiftSelected.idx = shiftIdx;
       $scope.tsData.shifts[shiftIdx] = shiftSelected;
-      console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
-      console.log('updated shifts array is ', $scope.tsData.shifts);
+      console.log('updated shift times after update end is ', $scope.tsData.shifts[shiftIdx]);
     };
 
 
-    $scope.lockCellIfEarlierThanStartTime = function(timeSelected, shiftSelected, shiftIdx, endTimeObj){
+    $scope.lockCellIfEarlierThanStartTime = function(shiftSelected, shiftIdx, endTimeObj){
       var timeDiffMins = $scope.calculateTimeDiffMins(shiftSelected.startTimeObj, endTimeObj);
       console.log('time diff mins is ', timeDiffMins);
-      if (timeDiffMins !== Math.abs(timeDiffMins)){ //if val negative, endTime is earlier so alert user
-        swal("Wrong time selected","You cannot select an end time earlier than a start time.","error");
-        return true
-      } else {
-        return false;
-      }
-    };
-
-
-    $scope.lockCellIfLaterThanEndTime = function(timeSelected, shiftSelected, shiftIdx, startTimeObj){
-      var timeDiffMins = $scope.calculateTimeDiffMins(shiftSelected.endTimeObj, startTimeObj);
-      console.log('time diff mins is ', timeDiffMins);
       if (timeDiffMins === Math.abs(timeDiffMins)){ //if val negative, endTime is earlier so alert user
-        swal("Wrong time selected","You cannot select a start time later than an end time.","error");
-        return false
-      } else {
         return true
+      } else {
+        return false
       }
     };
 
@@ -157,17 +153,19 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.recordShift = function(shiftIdx){
+      $scope.tsData.shifts[shiftIdx].saved = true;
       $scope.tsData.shiftSelectedIdx = $scope.tsData.shifts[shiftIdx].idx = shiftIdx;
       $scope.tsData.shifts[shiftIdx].mileageRefund = $scope.calculateMileageRefund(shiftIdx); //calculate mileage refund
       $scope.tsData.totalMileageRefund += $scope.tsData.shifts[shiftIdx].mileageRefund; //add to total daily mileage refund
       $scope.calculateTotalWorkTime(shiftIdx); //calculates work time and work overtime
       $scope.calculateOvertime();
+      console.log('new shift saved is ', $scope.tsData.shifts[shiftIdx]);
+      console.log('after record, shifts are ', $scope.tsData.shifts)
     };
 
 
     $scope.calculateMileageRefund = function(shiftIdx){
-      var mileageRefund = $scope.tsData.rates.mileageRate * $scope.tsData.shifts[shiftIdx].milesPerShift
-      console.log('mileageRefund is ', mileageRefund);
+      var mileageRefund = $scope.tsData.rates.mileageRate * $scope.tsData.shifts[shiftIdx].milesPerShift;
       return mileageRefund;
     };
 
@@ -175,29 +173,31 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.calculateTotalWorkTime = function(shiftIdx){
       var startTimeObj; var endTimeObj; var startTimeMins; var endTimeMins; var timeDiffMins; var overtime; var timeDiffHoursMins;
       for (var i in $scope.tsData.shifts) {
-        console.log('each ', $scope.tsData.shifts[i]);
         startTimeObj = $scope.tsData.shifts[i].startTimeObj;
         endTimeObj = $scope.tsData.shifts[i].endTimeObj;
-        console.log('start time obj ', startTimeObj, 'end time obj', endTimeObj);
         timeDiffMins = $scope.calculateTimeDiffMins(startTimeObj, endTimeObj);
         timeDiffHoursMins = $scope.convertMinsToHoursMinsObj(timeDiffMins);
         $scope.tsData.shifts[shiftIdx].timeDiffMins = timeDiffMins;
         $scope.tsData.shifts[shiftIdx].timeDiffHoursMins = timeDiffHoursMins;
-        console.log('worktime mins is ', timeDiffMins, ', hours mins is ', timeDiffHoursMins);
         $scope.tsData.dailyWorkTimeMins += timeDiffMins;
       }
     };
 
+
     $scope.calculateTimeDiffMins = function(startTimeObj, endTimeObj){
-      var startTimeMins = (startTimeObj.hour * 60) + startTimeObj.min;
-      var endTimeMins = (endTimeObj.hour * 60) + endTimeObj.min;
+      var startTimeMins = $scope.convertTimeObjToMins(startTimeObj);
+      var endTimeMins = $scope.convertTimeObjToMins(endTimeObj);
       var timeDiffMins = endTimeMins - startTimeMins;
       return timeDiffMins
     };
 
+    $scope.convertTimeObjToMins = function(timeObj){
+      var timeMins = (timeObj.hour * 60) + timeObj.min;
+      return timeMins;
+    };
+
 
     $scope.deductLunch = function(){
-      console.log('deduct lunch val is ', $scope.tsData.tookLunch);
       if ($scope.tsData.tookLunch){ // if lunch selected, deduct 30mins
         $scope.tsData.dailyWorkTimeMins = $scope.tsData.dailyWorkTimeMins - 30
       } else {

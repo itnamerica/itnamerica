@@ -35,7 +35,7 @@
       </div>
 
 
-
+{{tsData.shifts}}
         <div class="shifts">
           <p class="title">Start/Stop Shifts <i class="fa fa-plus-circle" ng-click="addShift()"></i></p>
           <p style="text-align:left;font-size:20px"><em style="text-align:left">
@@ -58,7 +58,7 @@
 
 
               <tbody style="background:grey">
-                <tr ng-repeat="shift in tsData.shifts" ng-class="{blueHighlight: $index === tsData.shiftSelectedIdx}">
+                <tr ng-repeat="shift in tsData.shifts" ng-class="{blueHighlight: $index === tsData.shiftSelectedIdx, highlighted: highlighted}">
                 <td style="width:15%;font-size:25px">
                   {{$index + 1}} <br />
                   <em style="font-size:16px">Mileage refund: ${{shift.mileageRefund | number: 3}}</em><br />
@@ -68,18 +68,14 @@
                 <td>
                   <select ng-model="selectedStartTime"
                           ng-change="updateStartTime(selectedStartTime, shift, $index)"
-                          ng-options="time as time for time in timesForPicker"
-                          ng-disabled="disabledStartTime"
-                          ng-class="{disabled: disabledStartTime}">
+                          ng-options="time as time for time in timesForPicker"">
                   </select>
                 </td>
 
                 <td>
                   <select ng-model="selectedEndTime"
                           ng-change="updateEndTime(selectedEndTime, shift, $index)"
-                          ng-options="time as time for time in timesForPicker"
-                          ng-disabled="disabledEndTime"
-                          ng-class="{disabled: disabledEndTime}">
+                          ng-options="time as time for time in timesForPicker">
                   </select>
                 </td>
 
