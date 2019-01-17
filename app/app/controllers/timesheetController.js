@@ -10,6 +10,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.selectedStartTime = $scope.timesForPicker[0];
     $scope.selectedEndTime = $scope.timesForPicker[0];
     $scope.disabledStartTime = false;
+    $scope.disabledEndTime = true;
 
     $scope.tsData = {
        date: new Date(),
@@ -95,6 +96,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       shiftSelected.startTimeObj = startTimeObj;
       shiftSelected.idx = shiftIdx;
       $scope.tsData.shifts[shiftIdx] = shiftSelected;
+      $scope.disabledEndTime = false; //once starttime is selected, enable endtime selection
       console.log("shift is ", $scope.tsData.shifts[shiftIdx]);
       console.log('updated shifts array is ', $scope.tsData.shifts);
     };
