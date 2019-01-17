@@ -2254,6 +2254,10 @@ form textarea.form-control {font-size:25px}
 .blueHighlight {
   background:#529ba8;
 }
+.disabled {
+  color:grey !important;
+  font-style: italic;
+}
 .timesheet select {
   color:black;
 }

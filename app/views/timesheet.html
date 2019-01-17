@@ -68,7 +68,9 @@
                 <td>
                   <select ng-model="selectedStartTime"
                           ng-change="updateStartTime(selectedStartTime, shift, $index)"
-                          ng-options="time as time for time in timesForPicker">
+                          ng-options="time as time for time in timesForPicker"
+                          ng-disabled="disabledStartTime"
+                          ng-class="{disabled: disabledStartTime}">
                   </select>
                 </td>
 
