@@ -99,7 +99,10 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       var endTimeObj = $scope.adjustTimeForCalendar(timeSelected);
       console.log('converted timeSelected is ', endTimeObj);
       //before assigning new end time to shift obj, need to check that endtime is later than startTime
-      $scope.lockCellIfEarlierThanStartTime(timeSelected, shiftSelected, shiftIdx, endTimeObj);
+      var timeSelectedIsOK = $scope.lockCellIfEarlierThanStartTime(timeSelected, shiftSelected, shiftIdx, endTimeObj);
+      if (!timeSelectedIsOK){
+        return false;
+      }
       shiftSelected.endTimeMeridian = timeSelected;
       shiftSelected.endTimeObj = endTimeObj;
       shiftSelected.idx = shiftIdx;
@@ -111,6 +114,12 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.lockCellIfEarlierThanStartTime = function(timeSelected, shiftSelected, shiftIdx, endTimeObj){
       var timeDiffMins = $scope.calculateTimeDiffMins(shiftSelected.startTimeObj, endTimeObj);
       console.log('time diff mins is ', timeDiffMins);
+      if (timeDiffMins !== Math.abs(timeDiffMins)){ //if val negative, endTime is earlier so alert user
+        swal("Wrong time selected","You cannot select an end time earlier than a start time.","error");
+        return false
+      } else {
+        return true
+      }
     };
 
 
