@@ -8,7 +8,7 @@
 
         <p class="title">Driver Information<p>
 
-        <div class="rates">
+        <div class="mileage-rates">
           Mileage rate: ${{tsData.rates.mileageRate}}<br />
           After-hours daily rate: ${{tsData.rates.dailyRate}}<br />
           Weekly: ${{tsData.rates.weeklyRate}}
@@ -40,7 +40,7 @@
             Start/Stop Shifts <i class="fa fa-plus-circle" style="font-size:40px" ng-click="addShift()"></i>
           </p>
           
-          <p style="text-align:left;font-size:20px"><em style="text-align:left">
+          <p class="mileage-data"><em style="text-align:left">
             Total Mileage Refund: ${{tsData.totalMileageRefund | number: 3}} <br />
             Total daily work time: {{tsData.dailyWorkTimeMins}}mins<br />
             Total daily Overtime: {{tsData.dailyOvertimeMins | isAbs}}mins - tabs highlighted
@@ -62,6 +62,7 @@
               <tbody style="background:grey">
                 <tr ng-repeat="shift in tsData.shifts" 
                     ng-class="{highlighted: ($index + 1) >= shiftIdxTrigger}">
+                    
                 <td style="width:15%;font-size:35px">
                   {{$index + 1}} <br />
                 </td>
@@ -101,7 +102,9 @@
                   <i class="fa fa-check" ng-click="recordShift($index)" style="font-size:50px"></i>
                   </td>
                 </tr>
-                <tr>
+                
+                <tr ng-repeat="shift in tsData.shifts" 
+                    ng-class="{highlighted: ($index + 1) >= shiftIdxTrigger}">
                   <td colspan="7" style="border-top:none">
                     <em style="font-size:16px">
                       Mileage refund: ${{shift.mileageRefund | number: 3}} | 

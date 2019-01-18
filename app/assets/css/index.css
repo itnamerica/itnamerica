@@ -2206,10 +2206,7 @@ form textarea.form-control {font-size:25px}
   padding:2%;
   text-align:center;
 }
-.timesheet input[type=checkbox] {
-  /* margin-top: -20px; */
-}
-.timesheet .rates {
+.timesheet .mileage-rates {
   text-align: right;
   font-size: 20px;
   font-style: italic;
@@ -2220,6 +2217,11 @@ form textarea.form-control {font-size:25px}
   text-align: left;
   text-decoration: underline;
   margin-top: 50px;
+}
+.timesheet .mileage-data {
+  text-align: right;
+  margin-top: -50px;
+  font-size:20px
 }
 .timesheet .fa-plus-circle {
   margin-left: 2%;
