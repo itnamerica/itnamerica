@@ -57,15 +57,17 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        }
      };
 
-     $scope.overtimeCount = 0;
+     $scope.overtimeCount = false;
      $scope.highlightOvertimeShift = function(shiftIdxTrigger){
-       if (!$scope.overtimeFlag){
          if ($scope.tsData.dailyOvertimeMins === Math.abs($scope.tsData.dailyOvertimeMins)){ //if overtime mins
-           $scope.overtimeFlag = $scope.tsData.shifts[shiftIdxTrigger];
-           $scope.shiftIdxTrigger = shiftIdxTrigger;
+           // $scope.overtimeShift = $scope.tsData.shifts[shiftIdxTrigger];
+           if ($scope.overtimeCount === false){
+             console.log('index catalyst', shiftIdxTrigger)
+              $scope.overtimeCount = true;
+              $scope.shiftIdxTrigger = shiftIdxTrigger;
+           }
            // $scope.highlighted = true;
          }
-       }
      };
 
 
