@@ -2240,7 +2240,7 @@ form textarea.form-control {font-size:25px}
   margin-bottom: 15px;
 }
 .timesheet .semi-white-bg {
-  margin-bottom:5%;
+  margin: 5% 0;
   background:rgba(255,255,255,0.4);
   border-radius:5px;
 }
@@ -2252,6 +2252,9 @@ form textarea.form-control {font-size:25px}
 }
 .timesheet .show-note div, .timesheet .show-note .fa-trash {
   display:inline-block;
+}
+.timesheet ul li {
+  width: 10%;
 }
 .scrollable-menu {
     height: auto;

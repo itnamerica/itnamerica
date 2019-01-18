@@ -241,6 +241,15 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: 'TimesheetCtrl',
             params : {
               filter: null,
+              day: 0
+            }
+        })
+        .state('timesheet-tabs', {
+            url: '/timesheet-tabs?filter',
+            templateUrl: viewsPath + 'timesheet-tabs.html',
+            controller: 'TimesheetCtrl',
+            params : {
+              filter: null,
             }
         })
         .state('affiliate-landing', {
