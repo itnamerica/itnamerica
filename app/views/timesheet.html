@@ -1,5 +1,5 @@
 <div class="timesheet portal" ng-init="parseAffiliateNameToList()">
-  <div class="container" style="width:95%">
+  <div class="container-fluid">
     <h2>ITN<em>{{itnAffiliate.name}}</em> Timesheet</h2>
 
     <div class="timesheet-card card">
@@ -60,6 +60,7 @@
 
 
               <tbody style="background:grey">
+                
                 <tr ng-repeat="shift in tsData.shifts" 
                     ng-class="{highlighted: ($index + 1) >= shiftIdxTrigger}">
                     
@@ -99,19 +100,14 @@
                 </td>
 
                 <td>
-                  <i class="fa fa-check" ng-click="recordShift($index)" style="font-size:50px"></i>
+                  <i class="fa fa-check" ng-click="recordShift($index)" style="font-size:50px"></i><br>
+                  <em style="font-size:16px">
+                    Mileage refund: ${{shift.mileageRefund | number: 3}} <br>
+                    Shift duration: {{shift.timeDiffMins}}mins
+                  </em>
                   </td>
                 </tr>
-                
-                <tr ng-repeat="shift in tsData.shifts" 
-                    ng-class="{highlighted: ($index + 1) >= shiftIdxTrigger}">
-                  <td colspan="7" style="border-top:none">
-                    <em style="font-size:16px">
-                      Mileage refund: ${{shift.mileageRefund | number: 3}} | 
-                      Shift duration: {{shift.timeDiffMins}}mins
-                    </em>
-                  </td>
-                </tr>
+
               </tbody>
             </table>
           </div>
