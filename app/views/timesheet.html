@@ -57,7 +57,7 @@
 
 
               <tbody style="background:grey">
-                <tr ng-repeat="shift in tsData.shifts" ng-class="{blueHighlight: $index === tsData.shiftSelectedIdx, highlighted: $index > shiftIdxTrigger}">
+                <tr ng-repeat="shift in tsData.shifts" ng-class="{highlighted: ($index + 1) === shiftIdxTrigger}">
                 <td style="width:15%;font-size:25px">
                   {{$index + 1}} <br />
                   <em style="font-size:16px">Mileage refund: ${{shift.mileageRefund | number: 3}}</em><br />
