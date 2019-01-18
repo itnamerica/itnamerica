@@ -43,6 +43,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       overtime: false
     };
     $scope.tsData.shifts.push(newShift);
+    
 
 
 
@@ -56,10 +57,14 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        }
      };
 
-
-     $scope.highlightOvertimeShift = function(){
-       if ($scope.tsData.dailyOvertimeMins === Math.abs($scope.tsData.dailyOvertimeMins)){ //if overtime mins
-         $scope.highlighted = true;
+     $scope.overtimeCount = 0;
+     $scope.highlightOvertimeShift = function(shiftIdxTrigger){
+       if (!$scope.overtimeFlag){
+         if ($scope.tsData.dailyOvertimeMins === Math.abs($scope.tsData.dailyOvertimeMins)){ //if overtime mins
+           $scope.overtimeFlag = $scope.tsData.shifts[shiftIdxTrigger];
+           $scope.shiftIdxTrigger = shiftIdxTrigger;
+           // $scope.highlighted = true;
+         }
        }
      };
 
@@ -76,7 +81,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
         swal("Oops","You cannot work on more than 5 shifts per day.","error");
       }
       console.log('after add, shifts are ', $scope.tsData.shifts);
-      $scope.highlightOvertimeShift();
+      $scope.highlightOvertimeShift($scope.tsData.shifts.length);
     };
 
 
