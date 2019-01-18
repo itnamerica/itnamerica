@@ -36,11 +36,14 @@
 
 
         <div class="shifts">
-          <p class="title">Start/Stop Shifts <i class="fa fa-plus-circle" ng-click="addShift()"></i></p>
+          <p class="title">
+            Start/Stop Shifts <i class="fa fa-plus-circle" style="font-size:40px" ng-click="addShift()"></i>
+          </p>
+          
           <p style="text-align:left;font-size:20px"><em style="text-align:left">
             Total Mileage Refund: ${{tsData.totalMileageRefund | number: 3}} <br />
             Total daily work time: {{tsData.dailyWorkTimeMins}}mins<br />
-            Total daily Overtime: {{tsData.dailyOvertimeMins | isAbs}}mins - (tabs highlighted)
+            Total daily Overtime: {{tsData.dailyOvertimeMins | isAbs}}mins - tabs highlighted
           </em></p>
 
           <div class="each-shift" style="padding:5px">
@@ -61,8 +64,6 @@
                     ng-class="{highlighted: ($index + 1) >= shiftIdxTrigger}">
                 <td style="width:15%;font-size:35px">
                   {{$index + 1}} <br />
-                  <em style="font-size:16px">Mileage refund: ${{shift.mileageRefund | number: 3}}</em><br />
-                  <em style="font-size:16px">Shift duration: {{shift.timeDiffMins}}mins</em><br />
                 </td>
 
                 <td>
@@ -98,6 +99,14 @@
 
                 <td>
                   <i class="fa fa-check" ng-click="recordShift($index)" style="font-size:50px"></i>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="7" style="border-top:none">
+                    <em style="font-size:16px">
+                      Mileage refund: ${{shift.mileageRefund | number: 3}} | 
+                      Shift duration: {{shift.timeDiffMins}}mins
+                    </em>
                   </td>
                 </tr>
               </tbody>
