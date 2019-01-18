@@ -75,7 +75,23 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
          return;
        }
        if ($scope.tsData.shifts.length < 5) { //add max 5 shifts per day
-         var newShift2 = angular.copy(newShift)
+         var newShift2 = {
+          startTime: null,
+          stopTime: null,
+          startTimeObj: null,
+          stopTimeObj: null,
+          startTimeMeridian: null,
+          stopTimeMeridian: null,
+          milesPerShift: 0,
+          note: "",
+          isSelected: true,
+          idx: 0,
+          mileageRefund: 0,
+          timeDiffHoursMins: 0,
+          timeDiffMins: 0,
+          saved: false,
+          overtime: false
+        };
         $scope.tsData.shifts.push(newShift2);
       } else {
         swal("Oops","You cannot work on more than 5 shifts per day.","error");
