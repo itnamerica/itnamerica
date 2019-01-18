@@ -2224,12 +2224,20 @@ form textarea.form-control {font-size:25px}
   font-size:16px
 }
 .timesheet .fa-plus-circle {
-  margin-left: 2%;
+  font-size:40px;  
+  margin-left: 2%  
+}
+.timesheet .fa-pencil {
   font-size: 35px;
+  padding-top:15px
 }
 .timesheet .fa-trash {
   font-size: 35px;
   padding-top: 15px;
+}
+.timesheet .fa-check {
+  font-size:50px;
+  margin-bottom: 15px;
 }
 .timesheet .semi-white-bg {
   margin-bottom:5%;
