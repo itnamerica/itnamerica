@@ -40,7 +40,7 @@
           <p style="text-align:left;font-size:20px"><em style="text-align:left">
             Total Mileage Refund: ${{tsData.totalMileageRefund | number: 3}} <br />
             Total daily work time: {{tsData.dailyWorkTimeMins}}mins<br />
-            Total daily Overtime: {{tsData.dailyOvertimeMins | isAbs}}mins
+            Total daily Overtime: {{tsData.dailyOvertimeMins | isAbs}}mins - (tabs highlighted)
           </em></p>
 
           <div class="each-shift" style="padding:5px">
@@ -63,7 +63,6 @@
                   {{$index + 1}} <br />
                   <em style="font-size:16px">Mileage refund: ${{shift.mileageRefund | number: 3}}</em><br />
                   <em style="font-size:16px">Shift duration: {{shift.timeDiffMins}}mins</em><br />
-                  idx: {{$index}}, shiftidx: {{shiftIdxTrigger}}
                 </td>
 
                 <td>
