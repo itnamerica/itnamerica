@@ -2209,9 +2209,9 @@ form textarea.form-control {font-size:25px}
 .timesheet input[type=checkbox] {
   /* margin-top: -20px; */
 }
-.timesheet .rates {
+.timesheet .mileage-rates {
   text-align: right;
-  font-size: 20px;
+  font-size: 16px;
   font-style: italic;
   margin-top: -100px;
   margin-bottom: 20px;
@@ -2221,6 +2221,11 @@ form textarea.form-control {font-size:25px}
   text-decoration: underline;
   margin-top: 50px;
 }
+.timesheet .mileage-data {
+  text-align:right;
+  font-size:16px;
+  margin-top: -4%;
+}
 .timesheet .fa-plus-circle {
   margin-left: 2%;
 }
@@ -2229,7 +2234,7 @@ form textarea.form-control {font-size:25px}
   padding-top: 15px;
 }
 .timesheet .semi-white-bg {
-  padding-bottom:5%;
+  margin: 5% 0;
   background:rgba(255,255,255,0.4);
   border-radius:5px;
 }
@@ -2260,6 +2265,14 @@ form textarea.form-control {font-size:25px}
 }
 .timesheet select {
   color:black;
+}
+.timesheets ul li {
+  width:6%;
+  /* width:100px; */
+}
+.timesheets ul li a {
+  /* font-size: 20px; */
+  padding: 10px 5px !important;
 }
 #footer {
     width:100%;

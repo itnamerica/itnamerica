@@ -148,10 +148,6 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     };
 
 
-    $scope.calculateDayOfPeriod = function(day){
-    };
-
-
     $scope.recordShift = function(shiftIdx){
       $scope.tsData.shifts[shiftIdx].saved = true;
       $scope.tsData.shiftSelectedIdx = $scope.tsData.shifts[shiftIdx].idx = shiftIdx;
@@ -214,6 +210,13 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.submitTimesheet = function(){
+    };
+
+    $scope.parseDay = function(){
+      console.log('params are ', $stateParams);
+      if ($stateParams.day){
+        $scope.tsData.day = $stateParams.day;
+      }
     };
 
 

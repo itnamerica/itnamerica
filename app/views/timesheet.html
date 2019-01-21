@@ -1,6 +1,6 @@
-<div class="timesheet portal" ng-init="parseAffiliateNameToList()">
-  <div class="container" style="width:95%">
-    <h2>ITN<em>{{itnAffiliate.name}}</em> Timesheet</h2>
+<div class="timesheet portal" ng-init="parseAffiliateNameToList();parseDay()">
+  <div class="container-fluid" style="width:95%">
+    <h2>ITN<em>{{itnAffiliate.name}}</em> Timesheet - Day {{tsData.day}}</h2>
 
     <div class="timesheet-card card">
 
@@ -8,7 +8,7 @@
 
         <p class="title">Driver Information<p>
 
-        <div class="rates">
+        <div class="mileage-rates">
           Mileage rate: ${{tsData.rates.mileageRate}}<br />
           After-hours daily rate: ${{tsData.rates.dailyRate}}<br />
           Weekly: ${{tsData.rates.weeklyRate}}
@@ -16,7 +16,7 @@
 
         <div class="row semi-white-bg">
 
-          <div class="col-sm-6 form-group">
+          <div class="col-sm-5 form-group">
             <label for="driver name">Enter name: <span style="color:red">*</span></label><br>
             <input type="text" class="form-control" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength" style="text-align:center">
           </div>
@@ -27,7 +27,7 @@
           </div>
           <!-- answer: {{tsData.date | date : "dd-MM-y" }}   -->
 
-          <div class="col-sm-3 form-group" style="margin-top:80px">
+          <div class="col-sm-4 form-group" style="margin-top:80px">
             <label for="lunchtime taken">Lunch taken during shift? <span style="color:red">*</span></label>
             <input type="checkbox" name="tookLunch" value="true" ng-model="tsData.tookLunch" ng-change="deductLunch()" style="width:20px;height:20px">
           </div>
@@ -35,10 +35,9 @@
       </div>
 
 
-{{tsData.shifts}}
         <div class="shifts">
           <p class="title">Start/Stop Shifts <i class="fa fa-plus-circle" ng-click="addShift()"></i></p>
-          <p style="text-align:left;font-size:20px"><em style="text-align:left">
+          <p class="mileage-data"><em style="text-align:left">
             Total Mileage Refund: ${{tsData.totalMileageRefund | number: 3}} <br />
             Total daily work time: {{tsData.dailyWorkTimeMins}}mins<br />
             Total daily Overtime: {{tsData.dailyOvertimeMins | isAbs}}mins
@@ -84,7 +83,7 @@
                 </td>
 
                 <td class="show-note">
-                  <i class="fa fa-plus-circle" style="padding-top:15px" ng-click="toggleNote($index)" ng-show="!showNote[$index]"></i>
+                  <i class="fa fa-pencil" style="padding-top:15px" ng-click="toggleNote($index)" ng-show="!showNote[$index]"></i>
 
                   <div ng-show="showNote[$index]">
                     <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
