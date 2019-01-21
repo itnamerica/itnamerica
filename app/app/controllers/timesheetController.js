@@ -236,6 +236,54 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
     $scope.submitTimesheet = function(){
     };
+    
+    
+    $scope.parseAffiliateNameToList = function(affiliate){
+      if ($stateParams.filter){   //if comments page loaded directly from browser with filter params
+        console.log('affiliate param in parseAffiliate is ', affiliate);
+        // $scope.getCommentsPerAffiliate(affiliate);
+        var affiliate = {};
+        affiliate.name = $stateParams.filter;
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
+      } else if (affiliate){ //if comments loaded from affiliate section
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
+      }
+      console.log('$scope.itnAffiliate in parseAffiliate is ', $scope.itnAffiliate);
+    };
+    
+    
+    $scope.parseAffiliateNameToList = function(affiliate){
+      if ($stateParams.filter){   //if comments page loaded directly from browser with filter params
+        console.log('affiliate param in parseAffiliate is ', affiliate);
+        // $scope.getCommentsPerAffiliate(affiliate);
+        var affiliate = {};
+        affiliate.name = $stateParams.filter;
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
+      } else if (affiliate){ //if comments loaded from affiliate section
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
+      }
+      console.log('$scope.itnAffiliate in parseAffiliate is ', $scope.itnAffiliate);
+    };
 
 
 }]);
