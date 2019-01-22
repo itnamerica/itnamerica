@@ -259,26 +259,58 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       })
   };
   this.getTimesheets = function(){
-    $http.get('/getTimesheets').then(function(data){
-      console.log('timesheets returned are ', data);
-    })
+    $http.get('/getTimesheets')
+      .then(function(data){
+        console.log('log from post is ', data);
+        if (data.status = 200){
+          return data
+        } else {
+          return error
+        }
+      }).catch(function(error) {
+          return error
+      })
   };
   this.saveTimesheet = function(timesheet){
     console.log('ts to be saved is ', timesheet);
     var affiliate = timesheet.affiliate;
     var day = timesheet.day;
-    $http.put('/saveTimesheet', {timesheet: timesheet}).then(function(data){
-      console.log('log from post is ', data);
-    })
+    $http.put('/saveTimesheet', {timesheet: timesheet})
+      .then(function(data){
+        console.log('log from post is ', data);
+        if (data.status = 200){
+          return data
+        } else {
+          return error
+        }
+      }).catch(function(error) {
+          return error
+      })
   };
   this.deleteTimesheet = function(timesheet){
-    $http.delete('/deleteTimesheet').then(function(data){
+    $http.delete('/deleteTimesheet')
+    .then(function(data){
       console.log('log from post is ', data);
+      if (data.status = 200){
+        return data
+      } else {
+        return error
+      }
+    }).catch(function(error) {
+        return error
     })
   };
   this.editTimesheet = function(timesheet){
-    $http.put('/editTimesheet').then(function(data){
+    $http.put('/editTimesheet')
+    .then(function(data){
       console.log('log from post is ', data);
+      if (data.status = 200){
+        return data
+      } else {
+        return error
+      }
+    }).catch(function(error) {
+        return error
     })
   };
 

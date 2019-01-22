@@ -261,14 +261,14 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.deleteTimesheet = function(){
-      DataService.deleteTimesheet().then(function(data){
+      DataService.deleteTimesheet($scope.tsData).then(function(data){
         console.log('return from delete ', data);
       })
     };
 
 
     $scope.editTimesheet = function(){
-      DataService.editTimesheet().then(function(data){
+      DataService.editTimesheet($scope.tsData).then(function(data){
         console.log('return from edit ', data);
       })
     };
