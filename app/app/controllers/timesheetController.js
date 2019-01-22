@@ -241,21 +241,26 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
     $scope.parseDayAndAffiliateParams = function(){
       console.log('stateparams are ', $stateParams);
+      var params = $stateParams.filter;
       if ($stateParams.filter && ($stateParams.filter.indexOf('?day=') !== -1)){
-        var params = $stateParams.filter;
         console.log('filter is ', params);
         $scope.tsData.day = params.substr(params.indexOf('=') + 1);
         console.log('day is ', $scope.tsData.day);
         $scope.tsData.affiliate = params.substr(0, params.indexOf('?'));
         console.log('affiliate is ', $scope.tsData.affiliate);
       } else if ($stateParams.filter){
-        $scope.tsData.affiliate = params.substr(0, params.indexOf('?'));
+        console.log('filter, only aff is ', params);
+        $scope.tsData.affiliate = $stateParams.filter;
       }
+      console.log('just created affiliate var is ', $scope.tsData.affiliate);
+      $scope.getTimesheets();
     };
 
     $scope.getTimesheets = function(){
-      DataService.getTimesheets().then(function(data){
+      console.log('in ctrl, getting ts from affiliate ', $scope.tsData.affiliate);
+      DataService.getTimesheets($scope.tsData.affiliate).then(function(data){
         console.log('ts returned from get ', data);
+        $scope.timesheets = data;
       })
     };
 

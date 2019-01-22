@@ -258,8 +258,13 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
           return error
       })
   };
-  this.getTimesheets = function(){
-    $http.get('/getTimesheets')
+  this.getTimesheets = function(affiliateName){
+    console.log('in service, getting ts from affiliate ', affiliateName);
+    $http.get('/getTimesheets', {
+      params: {
+        affiliateName: affiliateName
+      }
+    })
       .then(function(data){
         console.log('log from post is ', data);
         if (data.status = 200){
@@ -273,7 +278,7 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
   };
   this.saveTimesheet = function(timesheet){
     console.log('ts to be saved is ', timesheet);
-    var affiliate = timesheet.affiliate;
+    var affiliateName = timesheet.affiliateName;
     var day = timesheet.day;
     $http.put('/saveTimesheet', {timesheet: timesheet})
       .then(function(data){
@@ -288,7 +293,7 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       })
   };
   this.deleteTimesheet = function(timesheet){
-    $http.delete('/deleteTimesheet')
+    $http.put('/deleteTimesheet', {timesheet: timesheet})
     .then(function(data){
       console.log('log from post is ', data);
       if (data.status = 200){

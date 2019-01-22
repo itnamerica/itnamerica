@@ -143,8 +143,18 @@
       </form>
     </div><!--timesheet-card-->
 
+  </div><!--container-fluid-->
+</div><!--timesheets-->
+
+
+<div class="container-fluid">
+  <h2>Recorded Timesheets</h2>
+
+  <div ng-repeat="timesheet in timesheets">
+    each ts: {{timesheet}}
+    </div>
   </div>
-</div>
+
 
 <div class="back-btn-wrap">
   <a ui-sref="affiliate({filter: itnAffiliate.name})" class="back-btn">

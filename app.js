@@ -249,11 +249,22 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /fetchgeneralInfoPerAffiliate get request
 
 
+  app.get('/getTimesheet', function (req,res) {
+    var affiliateName = req.query.affiliateName;
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var timesheets = result[0].timesheets;
+      console.log('timesheets are: ', timesheets);
+      res.send(result);
+    })
+  });
+
+
   app.put('/saveTimesheet', function (req,res) {
     var timesheet = req.body.timesheet;
-    var affiliate = req.body.timesheet.affiliate;
+    var affiliateName = req.body.timesheet.affiliateName;
 
-    db.collection('timesheets').find({name: affiliate}).toArray(function (err, result) {
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
       if (err) { throw new Error('No record found. ', err) };
       var recordId = result[0]._id;
       console.log('recordId:', recordId);
@@ -269,10 +280,10 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
   app.put('/deleteTimesheet', function (req,res) {
     var timesheet = req.body.timesheet;
-    var affiliate = req.body.timesheet.affiliate;
+    var affiliateName = req.body.timesheet.affiliateName;
     console.log('ts is ', timesheet, typeof(timesheet));
 
-    db.collection('timesheets').find({name: affiliate}).toArray(function (err, result) {
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
       if (err) { throw new Error('No record found. ', err) };
       var recordId = result[0]._id;
       console.log('recordId:', recordId);
