@@ -249,7 +249,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /fetchgeneralInfoPerAffiliate get request
 
 
-  app.get('/getTimesheet', function (req,res) {
+  app.get('/getTimesheets', function (req,res) {
     var affiliateName = req.query.affiliateName;
     db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
       if (err) { throw new Error('No record found. ', err) };
