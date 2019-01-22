@@ -265,10 +265,16 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
         affiliateName: affiliateName
       }
     })
-      .then(function(data){
-        console.log('log from post is ', data.data);
-        return data.data;
-      })
+    .then(function(data){
+      console.log('log from post is ', data);
+      if (data.status === 200){
+        return data
+      } else {
+        return error
+      }
+    }).catch(function(error) {
+        return error
+    })
   };
   this.saveTimesheet = function(timesheet){
     console.log('ts to be saved is ', timesheet);

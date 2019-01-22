@@ -144,16 +144,18 @@
     </div><!--timesheet-card-->
 
   </div><!--container-fluid-->
-</div><!--timesheets-->
 
+  <div class="container-fluid recorded-timesheets">
+    <h2>Recorded Timesheets</h2>
 
-<div class="container-fluid">
-  <h2>Recorded Timesheets</h2>
-
-  <div ng-repeat="timesheet in timesheets">
-    each ts: {{timesheet}}
+    <div ng-repeat="timesheet in timesheets">
+      each ts: {{timesheet.timesheets}}
+      </div>
     </div>
   </div>
+
+</div><!--timesheets-->
+
 
 
 <div class="back-btn-wrap">

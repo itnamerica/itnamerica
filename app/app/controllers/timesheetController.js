@@ -261,8 +261,9 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       var affiliateName = $scope.tsData.affiliate;
       DataService.retrieveTimesheets(affiliateName)
       .then(function(data){
-        console.log('ts returned from get ', data);
-        $scope.timesheets = data.timesheets;
+        console.log('data from ctrl is ', data.data);
+        $scope.timesheets = data.data;
+        console.log('timesheets are', $scope.timesheets);
       })
     };
 
