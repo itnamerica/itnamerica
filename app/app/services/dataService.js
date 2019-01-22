@@ -257,6 +257,26 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
         console.log('bad is ', error);
           return error
       })
-  }
+  };
+  this.getTimesheets = function(){
+    $http.get('/getTimesheets').then(function(data){
+      console.log('timesheets returned are ', data);
+    })
+  };
+  this.saveTimesheet = function(timesheet){
+    $http.post('/saveTimesheet').then(function(data){
+      console.log('log from post is ', data);
+    })
+  };
+  this.deleteTimesheet = function(timesheet){
+    $http.delete('/deleteTimesheet').then(function(data){
+      console.log('log from post is ', data);
+    })
+  };
+  this.editTimesheet = function(timesheet){
+    $http.put('/editTimesheet').then(function(data){
+      console.log('log from post is ', data);
+    })
+  };
 
 }]);

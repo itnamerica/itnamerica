@@ -249,6 +249,13 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /fetchgeneralInfoPerAffiliate get request
 
 
+  app.post('/addCalendarEvent', formidable(), function (req,res) {
+    db.collection('calendar').save(req.body.newEvent, function(err, result){
+      if (err) { return console.log('connecting to db, but not saving obj', err);}
+      console.log('contact form saved to database', result);
+      res.send(result);
+    })
+  });
 
 
 

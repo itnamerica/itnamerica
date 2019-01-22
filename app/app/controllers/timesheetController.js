@@ -232,6 +232,9 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.submitTimesheet = function(){
+      DataService.saveTimesheet($scope.tsData).then(function(data){
+        console.log('returned from save ', data);
+      })
     };
 
     $scope.parseDayAndAffiliateParams = function(){
@@ -246,6 +249,26 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       } else if ($stateParams.filter){
         $scope.tsData.affiliate = params.substr(0, params.indexOf('?'));
       }
+    };
+
+    $scope.getTimesheets = function(){
+      DataService.getTimesheets().then(function(data){
+        console.log('ts returned from get ', data);
+      })
+    };
+
+
+    $scope.deleteTimesheet = function(){
+      DataService.deleteTimesheet().then(function(data){
+        console.log('return from delete ', data);
+      })
+    };
+
+
+    $scope.editTimesheet = function(){
+      DataService.editTimesheet().then(function(data){
+        console.log('return from edit ', data);
+      })
     };
 
 
