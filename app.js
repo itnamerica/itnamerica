@@ -249,6 +249,63 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /fetchgeneralInfoPerAffiliate get request
 
 
+  app.get('/getTimesheets', function (req,res) {
+    var affiliateName = req.query.affiliateName;
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var timesheets = result[0].timesheets;
+      console.log('timesheets are: ', timesheets);
+      res.send(result);
+    })
+  });
+
+
+  app.put('/saveTimesheet', function (req,res) {
+    var timesheet = req.body.timesheet;
+    var affiliateName = req.body.timesheet.affiliateName;
+
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      console.log('recordId:', recordId);
+      var newTimesheet = { $addToSet: {timesheets: timesheet} };
+      db.collection('timesheets').update(
+         { _id: recordId },
+         newTimesheet
+      )
+      console.log('timesheet is saved in db', timesheet, typeof(timesheet));
+      res.send(result);
+    })
+  });
+
+  app.put('/deleteTimesheet', function (req,res) {
+    var timesheet = req.body.timesheet;
+    var affiliateName = req.body.timesheet.affiliateName;
+    console.log('ts is ', timesheet, typeof(timesheet));
+
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      console.log('recordId:', recordId);
+      var newTimesheet = { $pull: {timesheets: timesheet} };
+      db.collection('timesheets').update(
+         { _id: recordId },
+         newTimesheet
+      )
+      console.log('timesheet is delete from db', timesheet, typeof(timesheet));
+      res.send(result);
+    })
+  });
+
+
+
+  app.post('/addCalendarEvent', formidable(), function (req,res) {
+    db.collection('calendar').save(req.body.newEvent, function(err, result){
+      if (err) { return console.log('connecting to db, but not saving obj', err);}
+      console.log('contact form saved to database', result);
+      res.send(result);
+    })
+  });
 
 
 

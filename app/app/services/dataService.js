@@ -257,6 +257,66 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
         console.log('bad is ', error);
           return error
       })
-  }
+  };
+  this.retrieveTimesheets = function(affiliateName){
+    console.log('in service, getting ts from affiliate ', affiliateName);
+    return $http.get('/getTimesheets', {
+      params: {
+        affiliateName: affiliateName
+      }
+    })
+    .then(function(data){
+      console.log('log from post is ', data);
+      if (data.status === 200){
+        return data
+      } else {
+        return error
+      }
+    }).catch(function(error) {
+        return error
+    })
+  };
+  this.saveTimesheet = function(timesheet){
+    console.log('ts to be saved is ', timesheet);
+    var affiliateName = timesheet.affiliateName;
+    var day = timesheet.day;
+    return $http.put('/saveTimesheet', {timesheet: timesheet})
+      .then(function(data){
+        console.log('log from post is ', data);
+        if (data.status === 200){
+          return data
+        } else {
+          return error
+        }
+      }).catch(function(error) {
+          return error
+      })
+  };
+  this.deleteTimesheet = function(timesheet){
+    return $http.put('/deleteTimesheet', {timesheet: timesheet})
+    .then(function(data){
+      console.log('log from post is ', data);
+      if (data.status === 200){
+        return data
+      } else {
+        return error
+      }
+    }).catch(function(error) {
+        return error
+    })
+  };
+  this.editTimesheet = function(timesheet){
+    return $http.put('/editTimesheet')
+    .then(function(data){
+      console.log('log from post is ', data);
+      if (data.status === 200){
+        return data
+      } else {
+        return error
+      }
+    }).catch(function(error) {
+        return error
+    })
+  };
 
 }]);

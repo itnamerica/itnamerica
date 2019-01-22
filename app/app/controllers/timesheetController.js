@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window','DataService', 'LongVariablesService', 'CalendarService', '$q', function($scope, $transitions, $http, $location, $stateParams, $timeout, $state, $rootScope, $window, DataService, LongVariablesService, CalendarService, $q) {
+myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window','DataService', 'LongVariablesService', 'CalendarService', '$q', 'DataService', function($scope, $transitions, $http, $location, $stateParams, $timeout, $state, $rootScope, $window, DataService, LongVariablesService, CalendarService, $q, DataService) {
 
     $scope.timesForPicker = LongVariablesService.timesForPicker;
     $scope.adjustTimeForCalendar = CalendarService.adjustTimeForCalendar; //function
@@ -122,8 +122,8 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.updateStartTime = function(timeSelected, shiftSelected, shiftIdx){
+            console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       var startTimeObj = $scope.adjustTimeForCalendar(timeSelected);
-      console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       if (shiftIdx > 0){ //check for all, except first shift
         var laterThanPrevious = $scope.checkIfShiftLaterThanPrevious(shiftIdx, startTimeObj);
         if (!laterThanPrevious){
@@ -139,6 +139,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.updateEndTime = function(timeSelected, shiftSelected, shiftIdx){
+            console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       var endTimeObj = $scope.adjustTimeForCalendar(timeSelected);
       //before assigning new end time to shift obj, need to check that endtime is later than startTime
       var timeSelectedIsOK = $scope.lockCellIfEarlierThanStartTime(shiftSelected, shiftIdx, endTimeObj);
@@ -232,85 +233,52 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.submitTimesheet = function(){
-    };
-
-    $scope.parseDay = function(){
-      console.log('params are ', $stateParams);
-      if ($stateParams.day){
-        $scope.tsData.day = $stateParams.day;
-      }
-    };
-
-
-    $scope.parseAffiliateNameToList = function(affiliate){
-      if ($stateParams.filter){   //if comments page loaded directly from browser with filter params
-        console.log('affiliate param in parseAffiliate is ', affiliate);
-        // $scope.getCommentsPerAffiliate(affiliate);
-        var affiliate = {};
-        affiliate.name = $stateParams.filter;
-        for (var eachAffiliate in $scope.affiliateList){
-          var theAffiliate = $scope.affiliateList[eachAffiliate]
-          if (theAffiliate.name === affiliate.name){
-            $scope.itnAffiliate = theAffiliate;
-          }
-        }
-      } else if (affiliate){ //if comments loaded from affiliate section
-        for (var eachAffiliate in $scope.affiliateList){
-          var theAffiliate = $scope.affiliateList[eachAffiliate]
-          if (theAffiliate.name === affiliate.name){
-            $scope.itnAffiliate = theAffiliate;
-          }
-        }
-      }
-      console.log('$scope.itnAffiliate in parseAffiliate is ', $scope.itnAffiliate);
-    };
-
-
-    $scope.parseAffiliateNameToList = function(affiliate){
-      if ($stateParams.filter){   //if comments page loaded directly from browser with filter params
-        console.log('affiliate param in parseAffiliate is ', affiliate);
-        // $scope.getCommentsPerAffiliate(affiliate);
-        var affiliate = {};
-        affiliate.name = $stateParams.filter;
-        for (var eachAffiliate in $scope.affiliateList){
-          var theAffiliate = $scope.affiliateList[eachAffiliate]
-          if (theAffiliate.name === affiliate.name){
-            $scope.itnAffiliate = theAffiliate;
-          }
-        }
-      } else if (affiliate){ //if comments loaded from affiliate section
-        for (var eachAffiliate in $scope.affiliateList){
-          var theAffiliate = $scope.affiliateList[eachAffiliate]
-          if (theAffiliate.name === affiliate.name){
-            $scope.itnAffiliate = theAffiliate;
-          }
-        }
-      }
-      console.log('$scope.itnAffiliate in parseAffiliate is ', $scope.itnAffiliate);
-    };
-
-
-    $scope.parseAffiliateName = function(){
-      console.log('stateparams are ', $stateParams);
-      if ($stateParams.affiliate){
-        $scope.tsData.affiliate = $stateParams.affiliate;
-      } else if ($stateParams.filter){
-        $scope.tsData.affiliate = $stateParams.filter;
-      }
+      console.log('timesheet to be saved in ', $scope.tsData);
+      DataService.saveTimesheet($scope.tsData).then(function(data){
+        console.log('returned from save ', data);
+      })
     };
 
     $scope.parseDayAndAffiliateParams = function(){
       console.log('stateparams are ', $stateParams);
+      var params = $stateParams.filter;
       if ($stateParams.filter && ($stateParams.filter.indexOf('?day=') !== -1)){
-        var params = $stateParams.filter;
         console.log('filter is ', params);
         $scope.tsData.day = params.substr(params.indexOf('=') + 1);
         console.log('day is ', $scope.tsData.day);
         $scope.tsData.affiliate = params.substr(0, params.indexOf('?'));
         console.log('affiliate is ', $scope.tsData.affiliate);
       } else if ($stateParams.filter){
-        $scope.tsData.affiliate = params.substr(0, params.indexOf('?'));
+        console.log('filter, only aff is ', params);
+        $scope.tsData.affiliate = $stateParams.filter;
       }
+      console.log('just created affiliate var is ', $scope.tsData.affiliate);
+      $scope.getTimesheets();
+    };
+
+    $scope.getTimesheets = function(){
+      console.log('in ctrl, getting ts from affiliate ', $scope.tsData.affiliate);
+      var affiliateName = $scope.tsData.affiliate;
+      DataService.retrieveTimesheets(affiliateName)
+      .then(function(data){
+        console.log('data from ctrl is ', data.data);
+        $scope.timesheets = data.data;
+        console.log('timesheets are', $scope.timesheets);
+      })
+    };
+
+
+    $scope.deleteTimesheet = function(){
+      DataService.deleteTimesheet($scope.tsData).then(function(data){
+        console.log('return from delete ', data);
+      })
+    };
+
+
+    $scope.editTimesheet = function(){
+      DataService.editTimesheet($scope.tsData).then(function(data){
+        console.log('return from edit ', data);
+      })
     };
 
 

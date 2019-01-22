@@ -1431,5 +1431,14 @@ myApp.controller('MainCtrl', ['$scope', '$transitions', '$http', '$anchorScroll'
        }
    };
 
+   // $scope.getTimesheets = function(){
+   //   var affiliateName = 'Gateway';
+   //   DataService.retrieveTimesheets(affiliateName)
+   //   .then(function(data){
+   //     console.log('ts returned from get ', data);
+   //     $scope.timesheets = data.timesheets;
+   //   })
+   // };
+
 
 }]);

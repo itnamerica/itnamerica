@@ -56,8 +56,8 @@
       </div><!--col-md-4-->
 
       <div class="col-md-4">
-        <!-- <a ui-sref="timesheets({day: 1})"> -->
-        <a ng-click="generateRESTUrl(itnAffiliate, 'timesheet')">
+        <a ui-sref="timesheet({filter: itnAffiliate.name + '?day=1'})">
+        <!-- <a ng-click="generateRESTUrl(itnAffiliate, 'timesheet')"> -->
           <div class="block" style="background:#fdbf43">
             <img ng-src="{{assetsPath}}/images/timesheets.svg" alt="icon of a timesheet" style="object-fit:contain;width:140px;margin-left:0;margin-top:13%"/>
             <h5>Submit Timesheet</h5>
