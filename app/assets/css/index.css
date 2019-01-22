@@ -2227,11 +2227,20 @@ form textarea.form-control {font-size:25px}
   margin-top: -4%;
 }
 .timesheet .fa-plus-circle {
-  margin-left: 2%;
+  font-size:40px;
+  margin-left: 2%
+}
+.timesheet .fa-pencil {
+  font-size: 35px;
+  padding-top:15px
 }
 .timesheet .fa-trash {
-  font-size: 25px;
+  font-size: 35px;
   padding-top: 15px;
+}
+.timesheet .fa-check {
+  font-size:50px;
+  margin-bottom: 15px;
 }
 .timesheet .semi-white-bg {
   margin: 5% 0;
@@ -2246,6 +2255,9 @@ form textarea.form-control {font-size:25px}
 }
 .timesheet .show-note div, .timesheet .show-note .fa-trash {
   display:inline-block;
+}
+.timesheet ul li {
+  width: 10%;
 }
 .scrollable-menu {
     height: auto;
@@ -2266,12 +2278,10 @@ form textarea.form-control {font-size:25px}
 .timesheet select {
   color:black;
 }
-.timesheets ul li {
+.timesheet ul li {
   width:6%;
-  /* width:100px; */
 }
-.timesheets ul li a {
-  /* font-size: 20px; */
+.timesheet ul li a {
   padding: 10px 5px !important;
 }
 #footer {

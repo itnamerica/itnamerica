@@ -235,31 +235,14 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/rides-data?filter',
             templateUrl: viewsPath + 'rides-data.html'
         })
-        // .state('timesheet', {
-        //     url: '/timesheet?filter',
-        //     templateUrl: viewsPath + 'timesheet.html',
-        //     controller: 'TimesheetCtrl',
-        //     params : {
-        //       filter: null,
-        //     }
-        // })
-        .state('timesheets', {
-            url: '/timesheets',
+        .state('timesheet', {
+            url: '/timesheet?filter',
             // abstract: true,
-            templateUrl: viewsPath + 'timesheets.html',
-            controller: 'TimesheetCtrl',
-            params : {
-              filter: null,
-              day: 1
-            }
-        })
-        .state('timesheets.day', {
-            url: '/day',
             templateUrl: viewsPath + 'timesheet.html',
             controller: 'TimesheetCtrl',
             params : {
               filter: null,
-              day: 1
+              day: null
             }
         })
         .state('affiliate-landing', {

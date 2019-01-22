@@ -14,6 +14,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        tookLunch: false,
        dayOfPeriod: 0, //calculate
        shiftSelecteIdx: 0,
+       affiliate: null,
        rates: {
          mileageRate: 0.555,
          dailyRate: 7.14,
@@ -43,6 +44,8 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       overtime: false
     };
     $scope.tsData.shifts.push(newShift);
+    $scope.overtimeFlag = false;
+
 
 
 
@@ -56,11 +59,13 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        }
      };
 
-
-     $scope.highlightOvertimeShift = function(){
-       if ($scope.tsData.dailyOvertimeMins === Math.abs($scope.tsData.dailyOvertimeMins)){ //if overtime mins
-         $scope.highlighted = true;
-       }
+     $scope.highlightOvertimeShift = function(shiftIdxTrigger){
+         if ($scope.tsData.dailyOvertimeMins === Math.abs($scope.tsData.dailyOvertimeMins)){ //if overtime mins
+           if ($scope.overtimeFlag === false){
+              $scope.overtimeFlag = true;
+              $scope.shiftIdxTrigger = shiftIdxTrigger;
+           }
+         }
      };
 
 
@@ -71,12 +76,29 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
          return;
        }
        if ($scope.tsData.shifts.length < 5) { //add max 5 shifts per day
-        $scope.tsData.shifts.push(angular.copy(newShift));
+         var newShift2 = {
+          startTime: null,
+          stopTime: null,
+          startTimeObj: null,
+          stopTimeObj: null,
+          startTimeMeridian: null,
+          stopTimeMeridian: null,
+          milesPerShift: 0,
+          note: "",
+          isSelected: true,
+          idx: 0,
+          mileageRefund: 0,
+          timeDiffHoursMins: 0,
+          timeDiffMins: 0,
+          saved: false,
+          overtime: false
+        };
+        $scope.tsData.shifts.push(newShift2);
       } else {
         swal("Oops","You cannot work on more than 5 shifts per day.","error");
       }
       console.log('after add, shifts are ', $scope.tsData.shifts);
-      $scope.highlightOvertimeShift();
+      $scope.highlightOvertimeShift($scope.tsData.shifts.length);
     };
 
 
@@ -216,6 +238,78 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       console.log('params are ', $stateParams);
       if ($stateParams.day){
         $scope.tsData.day = $stateParams.day;
+      }
+    };
+
+
+    $scope.parseAffiliateNameToList = function(affiliate){
+      if ($stateParams.filter){   //if comments page loaded directly from browser with filter params
+        console.log('affiliate param in parseAffiliate is ', affiliate);
+        // $scope.getCommentsPerAffiliate(affiliate);
+        var affiliate = {};
+        affiliate.name = $stateParams.filter;
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
+      } else if (affiliate){ //if comments loaded from affiliate section
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
+      }
+      console.log('$scope.itnAffiliate in parseAffiliate is ', $scope.itnAffiliate);
+    };
+
+
+    $scope.parseAffiliateNameToList = function(affiliate){
+      if ($stateParams.filter){   //if comments page loaded directly from browser with filter params
+        console.log('affiliate param in parseAffiliate is ', affiliate);
+        // $scope.getCommentsPerAffiliate(affiliate);
+        var affiliate = {};
+        affiliate.name = $stateParams.filter;
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
+      } else if (affiliate){ //if comments loaded from affiliate section
+        for (var eachAffiliate in $scope.affiliateList){
+          var theAffiliate = $scope.affiliateList[eachAffiliate]
+          if (theAffiliate.name === affiliate.name){
+            $scope.itnAffiliate = theAffiliate;
+          }
+        }
+      }
+      console.log('$scope.itnAffiliate in parseAffiliate is ', $scope.itnAffiliate);
+    };
+
+
+    $scope.parseAffiliateName = function(){
+      console.log('stateparams are ', $stateParams);
+      if ($stateParams.affiliate){
+        $scope.tsData.affiliate = $stateParams.affiliate;
+      } else if ($stateParams.filter){
+        $scope.tsData.affiliate = $stateParams.filter;
+      }
+    };
+
+    $scope.parseDayAndAffiliateParams = function(){
+      console.log('stateparams are ', $stateParams);
+      if ($stateParams.filter && ($stateParams.filter.indexOf('?day=') !== -1)){
+        var params = $stateParams.filter;
+        console.log('filter is ', params);
+        $scope.tsData.day = params.substr(params.indexOf('=') + 1);
+        console.log('day is ', $scope.tsData.day);
+        $scope.tsData.affiliate = params.substr(0, params.indexOf('?'));
+        console.log('affiliate is ', $scope.tsData.affiliate);
+      } else if ($stateParams.filter){
+        $scope.tsData.affiliate = params.substr(0, params.indexOf('?'));
       }
     };
 
