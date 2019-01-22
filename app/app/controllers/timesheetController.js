@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window','DataService', 'LongVariablesService', 'CalendarService', '$q', function($scope, $transitions, $http, $location, $stateParams, $timeout, $state, $rootScope, $window, DataService, LongVariablesService, CalendarService, $q) {
+myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window','DataService', 'LongVariablesService', 'CalendarService', '$q', 'DataService', function($scope, $transitions, $http, $location, $stateParams, $timeout, $state, $rootScope, $window, DataService, LongVariablesService, CalendarService, $q, DataService) {
 
     $scope.timesForPicker = LongVariablesService.timesForPicker;
     $scope.adjustTimeForCalendar = CalendarService.adjustTimeForCalendar; //function
@@ -122,8 +122,8 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.updateStartTime = function(timeSelected, shiftSelected, shiftIdx){
+            console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       var startTimeObj = $scope.adjustTimeForCalendar(timeSelected);
-      console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       if (shiftIdx > 0){ //check for all, except first shift
         var laterThanPrevious = $scope.checkIfShiftLaterThanPrevious(shiftIdx, startTimeObj);
         if (!laterThanPrevious){
@@ -139,6 +139,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.updateEndTime = function(timeSelected, shiftSelected, shiftIdx){
+            console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       var endTimeObj = $scope.adjustTimeForCalendar(timeSelected);
       //before assigning new end time to shift obj, need to check that endtime is later than startTime
       var timeSelectedIsOK = $scope.lockCellIfEarlierThanStartTime(shiftSelected, shiftIdx, endTimeObj);
@@ -232,6 +233,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.submitTimesheet = function(){
+      console.log('timesheet to be saved in ', $scope.tsData);
       DataService.saveTimesheet($scope.tsData).then(function(data){
         console.log('returned from save ', data);
       })

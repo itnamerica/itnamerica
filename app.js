@@ -249,6 +249,35 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /fetchgeneralInfoPerAffiliate get request
 
 
+  app.put('/saveTimesheet', function (req,res) {
+    var timesheet = req.body.timesheet;
+    var affiliate = req.body.timesheet.affiliate;
+    console.log('ts is ', timesheet, typeof(timesheet));
+
+    db.collection('timesheets').find({name: affiliate}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      console.log('recordId:', recordId);
+      var newTimesheet = { $addToSet: {timesheets: timesheet} };
+      db.collection('timesheets').update(
+         { _id: recordId },
+         newTimesheet
+      )
+      res.send(result);
+    })
+  });
+
+
+  // app.post('/saveTimesheet', function (req,res) {
+  //   console.log('ts is ', req.body.timesheet);
+  //   db.collection('timesheets').save(req.body.timesheet, function(err, result){
+  //     if (err) { return console.log('connecting to db, but not saving obj', err);}
+  //     console.log('contact form saved to database', result);
+  //     res.send(result);
+  //   })
+  // });
+
+
   app.post('/addCalendarEvent', formidable(), function (req,res) {
     db.collection('calendar').save(req.body.newEvent, function(err, result){
       if (err) { return console.log('connecting to db, but not saving obj', err);}

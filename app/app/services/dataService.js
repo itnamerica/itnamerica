@@ -264,7 +264,10 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
     })
   };
   this.saveTimesheet = function(timesheet){
-    $http.post('/saveTimesheet').then(function(data){
+    console.log('ts to be saved is ', timesheet);
+    var affiliate = timesheet.affiliate;
+    var day = timesheet.day;
+    $http.put('/saveTimesheet', {timesheet: timesheet}).then(function(data){
       console.log('log from post is ', data);
     })
   };
