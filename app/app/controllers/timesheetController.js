@@ -10,6 +10,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.selectedEndTime = $scope.timesForPicker[0];
     $scope.shiftsAdded = 0;
     $scope.tsData = {
+       name: null,
        date: new Date(),
        tookLunch: false,
        dayOfPeriod: 0, //calculate
@@ -27,6 +28,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        dailyOvertimeMins: 0
      };
      var newShift = {
+      name: null,
       startTime: null,
       stopTime: null,
       startTimeObj: null,
@@ -77,6 +79,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        }
        if ($scope.tsData.shifts.length < 5) { //add max 5 shifts per day
          var newShift2 = {
+          name: null,
           startTime: null,
           stopTime: null,
           startTimeObj: null,
@@ -256,9 +259,10 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       $scope.getTimesheets();
     };
 
-    $scope.parseDayParamIfTimesheet = function(){
-      if ($stateParams.day){
+    $scope.parseParamsIfTimesheet = function(){
+      if ($stateParams.day && $stateParams.timesheet){
         $scope.existingTimesheetDay = $stateParams.day;
+        $scope.existingTimesheet = $stateParams.timesheet;
       }
     }
 
