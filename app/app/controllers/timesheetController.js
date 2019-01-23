@@ -291,31 +291,8 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     };
 
 
-    $scope.createNewTimesheet = function(){
-      console.log('inside create new ts func');
-      $scope.showNewTimesheet = true;
-      $scope.showCurrentTimesheet = false;
-      var pathName = 'timesheet({filter:' + $scope.tsData.affiliate + '})';
-      console.log('pathname is ', pathName);
-      $state.go(pathName);
-    };
-
-
-    $scope.viewCurrentTimesheet = function(){
-      console.log('inside view current ts func');
-      $scope.showCurrentTimesheet = true;
-      $scope.showNewTimesheet = false;
+    $scope.isNewTimesheet = function(){
+      $scope.viewNewTimesheet = $stateParams.isNewTimesheet;
     }
-
-
-    // $scope.viewTimesheet = function(currentTimesheet){
-    //   console.log('current timesheet is ', currentTimesheet);
-    //   $scope.showCurrentTimesheet = true;
-    //   $scope.showNewTimesheet = false;
-    //   var pathName = 'timesheet({filter:' + $scope.tsData.affiliate + '?day=' + currentTimesheet.day + ', day:' + currentTimesheet.day + ', timesheet:' + currentTimesheet + '})';
-    //   console.log('pathname is ', pathName);
-    //   $state.go(pathName);
-    // };
-
 
 }]);

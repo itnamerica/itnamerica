@@ -253,7 +253,9 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             params : {
               filter: null,
               day: null,
-              timesheet: null
+              timesheet: null,
+              viewNewTimesheet: false,
+              test: "hello"
             }
         })
         .state('affiliate-landing', {

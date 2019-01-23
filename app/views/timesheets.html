@@ -1,15 +1,14 @@
-<div class="timesheet portal" ng-init="parseDayAndAffiliateParams();getTimesheets();parseParamsIfTimesheet()">
+<div class="timesheet portal" ng-init="parseDayAndAffiliateParams();getTimesheets();parseParamsIfTimesheet();isNewTimesheet()">
     <div class="container-fluid recorded-timesheets">
       <h2>Timesheets for ITN<em>{{tsData.affiliate}}</em></h2>
 
-        <a ng-click="createNewTimesheet()"
+        <a ui-sref="timesheet({filter: tsData.affiliate, viewNewTimesheet: true, test: 'goodbye'})"
            class="btn btn-lg"
            style="margin-left:60%;">
            Create New Timesheet
          </a>
 
         <a ui-sref="timesheet({filter: tsData.affiliate + '?day=' + timesheet.day, day: timesheet.day, timesheet: timesheet})"
-           ng-click="viewCurrentTimesheet()"
            ng-repeat="timesheet in timesheets"
            style="display:block">
            Day {{timesheet.day}} | {{timesheet.date | date}}
