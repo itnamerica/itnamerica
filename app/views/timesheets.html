@@ -8,7 +8,8 @@
            Create New Timesheet
          </a>
 
-        <a ng-click="viewTimesheet(timesheet)"
+        <a ui-sref="timesheet({filter: tsData.affiliate + '?day=' + timesheet.day, day: timesheet.day, timesheet: timesheet})"
+           ng-click="viewCurrentTimesheet()"
            ng-repeat="timesheet in timesheets"
            style="display:block">
            Day {{timesheet.day}} | {{timesheet.date | date}}

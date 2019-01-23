@@ -19,7 +19,7 @@
     </ul>
 
 
-    <div class="current-timesheet container-fluid" style="width:95%" ng-hide="showNewTimesheet" ng-show="showCurrentTimesheet">
+    <div class="current-timesheet container-fluid" style="width:95%">
       <h2>Current ITN<em>{{tsData.affiliate}}</em> Timesheet - Day {{existingTimesheetDay}}</h2>
 
       <div class="timesheet-card card">
@@ -121,7 +121,7 @@
 
 
 
-  <div class="new-timesheet container-fluid" style="width:95%" ng-show="showNewTimesheet" ng-hide="showCurrentTimesheet">
+  <div class="new-timesheet container-fluid" style="width:95%" ng-show="showNewTimesheet" ng-show="showNewTimesheet">
     <h2>New ITN<em>{{tsData.affiliate}}</em> Timesheet - Day {{tsData.day}}</h2>
 
     <div class="timesheet-card card">
@@ -243,18 +243,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  <div class="container-fluid recorded-timesheets">
+  <!-- <div class="container-fluid recorded-timesheets">
     <h2>Recorded Timesheets for ITN<em>{{tsData.affiliate}}</em></h2>
 
 
@@ -262,16 +251,7 @@
        Timesheet Day {{timesheet.day}} | {{timesheet.date | date}}
       </a>
 
-    </div>
-  </div>
-
-
-
-
-
-
-
-
+    </div> -->
 
 
 </div><!--timesheets-->
