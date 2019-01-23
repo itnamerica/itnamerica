@@ -291,4 +291,21 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     };
 
 
+    $scope.createNewTimesheet = function(){
+      $scope.showNewTimesheet = true;
+      $scope.showCurrentTimesheet = false;
+      $state.go('timesheet({filter:' + tsData.affiliate + '})');
+    };
+
+
+    $scope.viewTimesheet = function(currentTimesheet){
+      console.log('current timesheet is ', currentTimesheet);
+      $scope.showCurrentTimesheet = true;
+      $scope.showNewTimesheet = false;
+      var pathName = 'timesheet({filter:' + $scope.tsData.affiliate + '?day=' + currentTimesheet.day + ', day:' + currentTimesheet.day + ', timesheet:' + currentTimesheet + '})';
+      console.log('pathname is ', pathName);
+      $state.go(pathName);
+    };
+
+
 }]);

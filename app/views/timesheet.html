@@ -19,7 +19,7 @@
     </ul>
 
 
-    <div class="container-fluid" style="width:95%" ng-show="existingTimesheetDay">
+    <div class="current-timesheet container-fluid" style="width:95%" ng-hide="showNewTimesheet" ng-show="showCurrentTimesheet">
       <h2>Current ITN<em>{{tsData.affiliate}}</em> Timesheet - Day {{existingTimesheetDay}}</h2>
 
       <div class="timesheet-card card">
@@ -121,7 +121,7 @@
 
 
 
-  <div class="container-fluid" style="width:95%">
+  <div class="new-timesheet container-fluid" style="width:95%" ng-show="showNewTimesheet" ng-hide="showCurrentTimesheet">
     <h2>New ITN<em>{{tsData.affiliate}}</em> Timesheet - Day {{tsData.day}}</h2>
 
     <div class="timesheet-card card">
@@ -240,6 +240,17 @@
     </div><!--timesheet-card-->
 
   </div><!--container-fluid-->
+
+
+
+
+
+
+
+
+
+
+
 
 
 
