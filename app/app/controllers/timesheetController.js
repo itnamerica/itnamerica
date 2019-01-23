@@ -256,6 +256,12 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       $scope.getTimesheets();
     };
 
+    $scope.parseDayParamIfTimesheet = function(){
+      if ($stateParams.day){
+        $scope.existingTimesheetDay = $stateParams.day;
+      }
+    }
+
     $scope.getTimesheets = function(){
       console.log('in ctrl, getting ts from affiliate ', $scope.tsData.affiliate);
       var affiliateName = $scope.tsData.affiliate;

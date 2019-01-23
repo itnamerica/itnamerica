@@ -1,4 +1,4 @@
-<div class="timesheet portal" ng-init="parseDayAndAffiliateParams()">
+<div class="timesheet portal" ng-init="parseDayAndAffiliateParams();parseDayParamIfTimesheet()">
 
       <ul class="nav nav-tabs">
         <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=1'})">Day 1</a></li>
@@ -18,6 +18,130 @@
         <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=15'})">Day 15</a></li>
       </ul>
 
+
+      <div class="container-fluid" style="width:95%" ng-show="existingTimesheetDay"> Existing TS for day {{existingTimesheetDay}}
+        <h2>ITN<em>{{tsData.affiliate}}</em> Timesheet - Day {{tsData.day}}</h2>
+
+        <div class="timesheet-card card">
+
+
+            <p class="title">Driver Information<p>
+
+            <div class="mileage-rates">
+              Mileage rate: ${{tsData.rates.mileageRate}}<br />
+              After-hours daily rate: ${{tsData.rates.dailyRate}}<br />
+              Weekly: ${{tsData.rates.weeklyRate}}
+            </div>
+
+            <div class="row semi-white-bg">
+
+              <div class="col-sm-5">
+                <label for="driver name">Name: </label><br>
+              </div>
+
+              <div class="col-sm-3">
+                <label for="date">Date: </label><br>
+              </div>
+
+              <div class="col-sm-4" style="margin-top:80px">
+                <label for="lunchtime taken">Lunch taken during shift? </label>
+              </div>
+
+          </div>
+
+
+            <div class="shifts">
+              <p class="title">
+                Start/Stop Shifts <i class="fa fa-plus-circle" ng-click="addShift()"></i>
+              </p>
+
+              <p class="mileage-data"><em style="text-align:left">
+                Total Mileage Refund: ${{tsData.totalMileageRefund | number: 3}} <br />
+                Total daily work time: {{tsData.dailyWorkTimeMins}}mins<br />
+                Total daily Overtime: {{tsData.dailyOvertimeMins | isAbs}}mins - tabs highlighted
+              </em></p>
+
+              <div class="each-shift" style="padding:5px">
+                <table class="table table-responsive">
+                  <thead style="background:#595656">
+                    <th style="15%">Shift #</th>
+                    <th>Start</th>
+                    <th>Stop</th>
+                    <th>Miles Driven</th>
+                    <th>Add note</th>
+                    <th>Delete</th>
+                    <th style="color:#afcace">Save Shift</th>
+                  </thead>
+
+
+                  <tbody style="background:grey">
+
+                    <tr ng-repeat="shift in tsData.shifts"
+                        ng-class="{highlighted: ($index + 1) >= shiftIdxTrigger}">
+
+                    <td style="width:15%;font-size:35px">
+                      {{$index + 1}} <br />
+                    </td>
+
+                    <td>
+                      <select ng-model="selectedStartTime"
+                              ng-change="updateStartTime(selectedStartTime, shift, $index)"
+                              ng-options="time as time for time in timesForPicker">
+                      </select>
+                    </td>
+
+                    <td>
+                      <select ng-model="selectedEndTime"
+                              ng-change="updateEndTime(selectedEndTime, shift, $index)"
+                              ng-options="time as time for time in timesForPicker">
+                      </select>
+                    </td>
+
+                    <td>
+                      <input style="text-align:center;border-radius:5px" type="number" min="0" max="100" ng-model="shift.milesPerShift">
+                    </td>
+
+                    <td class="show-note">
+                      <i class="fa fa-pencil" style="padding-top:15px" ng-click="toggleNote($index)" ng-show="!showNote[$index]"></i>
+
+                      <div ng-show="showNote[$index]">
+                        <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
+                        <i class="fa fa-minus-circle" ng-click="toggleNote($index)"></i>
+                      </div>
+                    </td>
+
+                    <td>
+                      <i class="fa fa-trash" ng-click="removeShift(shift, $index)"></i>
+                    </td>
+
+                    <td>
+                      <i class="fa fa-check" ng-click="recordShift($index)"></i><br>
+                      <em style="font-size:16px">
+                        Mileage refund: ${{shift.mileageRefund | number: 3}} <br>
+                        Shift duration: {{shift.timeDiffMins}}mins
+                      </em>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div><!--shifts-->
+
+            <p class="warning-msg"><strong>{{warningMsg}}</strong></p>
+
+            <div class="formBtns" style="margin-top:20px">
+              <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
+              <button type="submit" ng-disabled="itnForm.$invalid || loading" class="btn btn-lg pull-right btn-danger" style="background:#e05944; margin-left:2%">Submit</button>
+            </div>
+
+        </div><!--timesheet-card-->
+
+      </div><!--container-fluid-->
+
+
+
+
   <div class="container-fluid" style="width:95%">
     <h2>ITN<em>{{tsData.affiliate}}</em> Timesheet - Day {{tsData.day}}</h2>
 
@@ -35,19 +159,19 @@
 
         <div class="row semi-white-bg">
 
-          <div class="col-sm-5 form-group">
-            <label for="driver name">Enter name: <span style="color:red">*</span></label><br>
+          <div class="col-sm-5">
+            <label for="driver name">Enter name: </label><br>
             <input type="text" class="form-control" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength" style="text-align:center">
           </div>
 
           <div class="col-sm-3 form-group">
-            <label for="date">Date: <span style="color:red">*</span></label><br>
+            <label for="date">Date: </label><br>
             <input type="date" class="form-control" name="date" ng-model="tsData.date" style="display:inline-block;text-align:center">
           </div>
           <!-- answer: {{tsData.date | date : "dd-MM-y" }}   -->
 
           <div class="col-sm-4 form-group" style="margin-top:80px">
-            <label for="lunchtime taken">Lunch taken during shift? <span style="color:red">*</span></label>
+            <label for="lunchtime taken">Lunch taken during shift? </label>
             <input type="checkbox" name="tookLunch" value="true" ng-model="tsData.tookLunch" ng-change="deductLunch()" style="width:20px;height:20px">
           </div>
 
@@ -153,7 +277,7 @@
       day: {{timesheet.timesheets.day}}
       </a> -->
 
-      <a ui-sref="timesheet({filter: tsData.affiliate + '?day=' + timesheet.day})" ng-repeat="timesheet in timesheets" style="display:block">
+      <a ui-sref="timesheet({filter: tsData.affiliate + '?day=' + timesheet.day, day: timesheet.day})" ng-repeat="timesheet in timesheets" style="display:block">
        Timesheet Day {{timesheet.day}} | {{timesheet.date | date}}
       </a>
 
