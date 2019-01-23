@@ -244,7 +244,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
               filter: null,
               day: null,
               timesheet: null,
-              viewNewTimesheet: null
+              viewNewTimesheet: false
             }
         })
         .state('timesheets', {
@@ -255,7 +255,7 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
               filter: null,
               day: null,
               timesheet: null,
-              viewNewTimesheet: null
+              viewNewTimesheet: false
             }
         })
         .state('affiliate-landing', {
