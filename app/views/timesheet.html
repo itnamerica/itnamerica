@@ -153,10 +153,9 @@
       day: {{timesheet.timesheets.day}}
       </a> -->
 
-      <a ng-repeat="timesheet in timesheets">
-        each ts-   date: {{timesheet.date}},  day: {{timesheet.day}}
-
-        </a>
+      <a ng-repeat="timesheet in timesheets" style="display:block">
+       Timesheet Day {{timesheet.day}} | {{timesheet.date | date}}
+      </a>
 
     </div>
   </div>
