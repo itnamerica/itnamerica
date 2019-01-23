@@ -256,7 +256,6 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
         $scope.tsData.affiliate = $stateParams.filter;
       }
       console.log('just created affiliate var is ', $scope.tsData.affiliate);
-      $scope.getTimesheets();
     };
 
     $scope.parseParamsIfTimesheet = function(){

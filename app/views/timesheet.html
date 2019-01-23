@@ -1,4 +1,4 @@
-<div class="timesheet portal" ng-init="parseDayAndAffiliateParams();parseParamsIfTimesheet()">
+<div class="timesheet portal" ng-init="parseDayAndAffiliateParams();getTimesheets();parseParamsIfTimesheet()">
 
     <ul class="nav nav-tabs">
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=1'})">Day 1</a></li>
@@ -33,7 +33,7 @@
             Weekly: ${{tsData.rates.weeklyRate}}
           </div>
 
-          <div class="row semi-white-bg">
+          <div class="row semi-white-bg" style="padding: 20px 0;">
 
             <div class="col-sm-5">
               <label for="driver name">Name: {{existingTimesheet.name}}</label><br>
@@ -68,7 +68,7 @@
                   <th>Start</th>
                   <th>Stop</th>
                   <th>Miles Driven</th>
-                  <th>Add note</th>
+                  <th>Notes</th>
                   <th>Delete</th>
                   <th style="color:#afcace">Save Shift</th>
                 </thead>
@@ -87,7 +87,7 @@
 
                   <td>{{shift.endTimeMeridian}}</td>
 
-                  <td>{{shift.milesDriven}}</td>
+                  <td>{{shift.milesPerShift}}</td>
 
                   <td class="show-note"></td><td>{{shift.note}}</td><td>
                     <i class="fa fa-trash" ng-click="removeShift(shift, $index)"></i>
@@ -138,7 +138,7 @@
 
         <div class="row semi-white-bg">
 
-          <div class="col-sm-5">
+          <div class="col-sm-5 form-group">
             <label for="driver name">Enter name: </label><br>
             <input type="text" class="form-control" name="driverName" ng-model="tsData.name" ng-minlength="minlength" ng-maxlength="maxlength" style="text-align:center">
           </div>
