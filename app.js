@@ -262,7 +262,8 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
 
   app.put('/saveTimesheet', function (req,res) {
     var timesheet = req.body.timesheet;
-    var affiliateName = req.body.timesheet.affiliateName;
+    var affiliateName = req.body.timesheet.affiliate;
+    console.log('saving timesheets table for affiliate ', affiliateName);
 
     db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
       if (err) { throw new Error('No record found. ', err) };

@@ -262,7 +262,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       DataService.retrieveTimesheets(affiliateName)
       .then(function(data){
         console.log('data from ctrl is ', data.data);
-        $scope.timesheets = data.data;
+        $scope.timesheets = data.data[0].timesheets;
         console.log('timesheets are', $scope.timesheets);
       })
     };

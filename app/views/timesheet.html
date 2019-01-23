@@ -146,13 +146,28 @@
   </div><!--container-fluid-->
 
   <div class="container-fluid recorded-timesheets">
-    <h2>Recorded Timesheets</h2>
+    <h2>Recorded Timesheets for ITN<em>{{tsData.affiliate}}</em></h2>
 
-    <div ng-repeat="timesheet in timesheets">
-      each ts: {{timesheet.timesheets}}
-      </div>
+    <!-- <a ng-repeat="timesheet in timesheets">
+      each ts: date: {{timesheet.timesheets.date}}
+      day: {{timesheet.timesheets.day}}
+      </a> -->
+
+      <a ng-repeat="timesheet in timesheets">
+        each ts: date: {{timesheet}}
+        </a>
+
     </div>
   </div>
+
+
+
+
+
+
+
+
+
 
 </div><!--timesheets-->
 
