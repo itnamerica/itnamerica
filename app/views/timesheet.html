@@ -1,5 +1,8 @@
 <div class="timesheet portal" ng-init="parseDayAndAffiliateParams();parseParamsIfTimesheet();isNewTimesheet()">
-viewNewTimesheet: {{viewNewTimesheet}}
+
+  <a ui-sref="timesheets({filter: tsData.affiliate})" class="btn btn-lg">Timesheets Index</a>
+
+
     <ul class="nav nav-tabs">
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=1'})">Day 1</a></li>
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=2'})">Day 2</a></li>
