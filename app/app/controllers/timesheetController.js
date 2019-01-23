@@ -292,7 +292,8 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.isNewTimesheet = function(){
-      $scope.viewNewTimesheet = $stateParams.isNewTimesheet;
+      $scope.viewNewTimesheet = $stateParams.viewNewTimesheet;
+      console.log('viewNewTimesheet is ', $scope.viewNewTimesheet);
     }
 
 }]);
