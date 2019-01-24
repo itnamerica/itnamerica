@@ -8,14 +8,26 @@
            Create New Timesheet
          </a>
 
-        <a ui-sref="timesheet({filter: tsData.affiliate + '?day=' + timesheet.day, day: timesheet.day, timesheet: timesheet})"
-           ng-repeat="timesheet in timesheets"
-           style="display:block">
-           Day {{timesheet.day}} | {{timesheet.date | date}}
-        </a>
 
-    </div>
-</div>
+          <div class="row" ng-repeat="timesheet in timesheets | orderBy:timesheet.day:true " style="width:70%">
+            <div class="col-sm-6">
+              <a ui-sref="timesheet({filter: tsData.affiliate + '?day=' + timesheet.day, day: timesheet.day, timesheet: timesheet})"
+                 style="display:block">
+                 Day {{timesheet.day}} | {{timesheet.date | date}}
+              </a>
+            </div>
+            <div class="col-sm-6">
+             <button type="button" 
+                     ng-click="deleteTimesheetFromIndex(timesheet)" 
+                     class="btn btn-lg btn-primary pull-left itn-green-bg"  
+                     style="margin-left:2%;background:#e05944 !important">
+                     Delete Timesheet
+             </button>
+           </div>
+        </div>
+
+    </div><!--container-->
+</div><!--timesheet-->
 
 
 

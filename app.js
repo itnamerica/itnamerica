@@ -254,7 +254,7 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
       if (err) { throw new Error('No record found. ', err) };
       var timesheets = result[0].timesheets;
-      console.log('timesheets are: ', timesheets);
+      // console.log('timesheets are: ', timesheets);
       res.send(result);
     })
   });
@@ -279,24 +279,6 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
     })
   });
 
-  app.put('/deleteTimesheet', function (req,res) {
-    var timesheet = req.body.timesheet;
-    var affiliateName = req.body.timesheet.affiliateName;
-    console.log('ts is ', timesheet, typeof(timesheet));
-
-    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
-      if (err) { throw new Error('No record found. ', err) };
-      var recordId = result[0]._id;
-      console.log('recordId:', recordId);
-      var newTimesheet = { $pull: {timesheets: timesheet} };
-      db.collection('timesheets').update(
-         { _id: recordId },
-         newTimesheet
-      )
-      console.log('timesheet is delete from db', timesheet, typeof(timesheet));
-      res.send(result);
-    })
-  });
 
 
 
@@ -464,6 +446,27 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
       res.send(result);
     });
   }); // end of /updateEmployee edit request
+  
+  
+  
+  app.delete('/deleteTimesheet', function (req,res) {
+    var timesheet = JSON.parse(req.query.timesheet);
+    var affiliateName = req.query.affiliateName;
+    console.log('timesheet to delete in backend is ', timesheet, affiliateName);
+
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      console.log('recordId:', recordId);
+      var newTimesheet = { $pull: {timesheets: timesheet} };
+      db.collection('timesheets').update(
+         { _id: recordId },
+         newTimesheet
+      )
+      console.log('timesheet is delete from db', timesheet, typeof(timesheet));
+      res.send(result);
+    })
+  });
 
 
 

@@ -235,9 +235,13 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.submitTimesheet = function(){
+      $scope.calculateDayOfPeriod();
       console.log('timesheet to be saved in ', $scope.tsData);
       DataService.saveTimesheet($scope.tsData).then(function(data){
         console.log('returned from save ', data);
+        swal("Timesheet added","Your timesheet was succesfully saved to the database.","success");
+      }).catch(function(error){
+        swal("Error","There was an error saving your timesheet. Please try again or contact Customer Support","error");
       })
     };
     
@@ -325,7 +329,15 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.deleteTimesheet = function(){
+      console.log('timesheet to delete is ', $scope.tsData);
       DataService.deleteTimesheet($scope.tsData).then(function(data){
+        console.log('return from delete ', data);
+      })
+    };
+    
+    $scope.deleteTimesheetFromIndex = function(timesheet){
+      console.log('timesheet to delete is ', timesheet);
+      DataService.deleteTimesheet(timesheet).then(function(data){
         console.log('return from delete ', data);
       })
     };
@@ -341,6 +353,29 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.isNewTimesheet = function(){
       $scope.viewNewTimesheet = $stateParams.viewNewTimesheet;
       console.log('viewNewTimesheet is ', $scope.viewNewTimesheet);
-    }
+    };
+    
+    
+    $scope.calculateDayOfPeriod = function(){
+      var day = $scope.tsData.date.getDate();
+      console.log('day of month is ', day);
+      var range1 = 15; var range2 = 31;
+      var period1 = []; var period2 = [];
+      for (var i = 1; i <= range1; i++) { period1.push(i)}
+      for (var i = range1; i <= range2; i++) { period2.push(i)}
+      if (day < range1){
+        //if day contains number in period1, assign the index of array as day of object
+        if (period1.indexOf(day) !== - 1){
+          var idx = period1.indexOf(day);
+          $scope.tsData.day = idx + 1;
+        }
+      } else {
+          if (period2.indexOf(day) !== - 1){
+            var idx = period2.indexOf(day);
+            $scope.tsData.day = idx + 1;
+          }
+      }
+      console.log('day of period is ', $scope.tsData.day)
+    };
 
 }]);

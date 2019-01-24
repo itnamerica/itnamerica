@@ -3,7 +3,7 @@
   <a ui-sref="timesheets({filter: tsData.affiliate})" class="btn btn-lg">Timesheets Index</a>
 
 
-    <ul class="nav nav-tabs">
+    <!-- <ul class="nav nav-tabs">
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=1'})">Day 1</a></li>
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=2'})">Day 2</a></li>
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=3'})">Day 3</a></li>
@@ -19,7 +19,7 @@
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=13'})">Day 13</a></li>
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=14'})">Day 14</a></li>
       <li><a ui-sref="timesheet({filter: tsData.affiliate + '?day=15'})">Day 15</a></li>
-    </ul>
+    </ul> -->
 
 
     <div class="current-timesheet container-fluid" style="width:95%" ng-hide="viewNewTimesheet">
@@ -113,8 +113,9 @@
           <p class="warning-msg"><strong>{{warningMsg}}</strong></p>
 
           <div class="formBtns" style="margin-top:20px">
-            <button type="button" ng-click="tsData = {}" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Reset Form</button>
-            <button type="submit" ng-disabled="itnForm.$invalid || loading" class="btn btn-lg pull-right btn-danger" style="background:#e05944; margin-left:2%">Submit</button>
+            <button type="button" ng-click="editTimesheet()" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%">Edit Timesheet</button>
+            <button type="button" ng-click="deleteTimesheet()" class="btn btn-lg btn-primary pull-left itn-green-bg"  style="margin-left:2%;background:#e05944 !important">Delete Timesheet</button>
+            <button type="submit" ng-disabled="itnForm.$invalid || loading" class="btn btn-lg pull-right btn-danger" style="margin-left:2%">Submit</button>
           </div>
 
       </div><!--timesheet-card-->
@@ -124,9 +125,9 @@
 
 
 
+
   <div class="new-timesheet container-fluid" style="width:95%" ng-show="viewNewTimesheet">
     <h2>New ITN<em>{{tsData.affiliate}}</em> Timesheet - Day {{tsData.day}}</h2>
->>>>>>> timesheet-day-dynamic
 
     <div class="timesheet-card card">
 
@@ -241,6 +242,10 @@
         </div><!--shifts-->
 
         <p class="warning-msg"><strong>{{warningMsg}}</strong></p>
+        
+        <div class="formBtns" style="margin-top:20px">
+          <button type="submit" ng-disabled="itnForm.$invalid || loading" class="btn btn-lg pull-right btn-danger" style="margin-left:2%">Submit</button>
+        </div>
 
     </div><!--timesheet-card-->
 

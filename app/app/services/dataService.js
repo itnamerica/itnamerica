@@ -291,7 +291,13 @@ myApp.service('DataService', ['$http','$q', function($http, $q){
       })
   };
   this.deleteTimesheet = function(timesheet){
-    return $http.put('/deleteTimesheet', {timesheet: timesheet})
+    console.log('timesheet to delete in service is ', timesheet);
+    return $http.delete('/deleteTimesheet', {
+      params: {
+        timesheet: timesheet,
+        affiliateName: timesheet.affiliate
+      }
+    })
     .then(function(data){
       console.log('log from post is ', data);
       if (data.status === 200){
