@@ -237,7 +237,8 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.submitTimesheet = function(){
       $scope.calculateDayOfPeriod();
       console.log('timesheet to be saved in ', $scope.tsData);
-      DataService.saveTimesheet($scope.tsData).then(function(data){
+      DataService.saveTimesheet($scope.tsData)
+      .then(function(data){
         console.log('returned from save ', data);
         swal("Timesheet added","Your timesheet was succesfully saved to the database.","success");
       }).catch(function(error){
@@ -337,15 +338,23 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     
     $scope.deleteTimesheetFromIndex = function(timesheet){
       console.log('timesheet to delete is ', timesheet);
-      DataService.deleteTimesheet(timesheet).then(function(data){
-        console.log('return from delete ', data);
+      DataService.deleteTimesheet(timesheet)
+      .then(function(data){
+        console.log('returned from delete ', data);
+        swal("Timesheet deleted","Your timesheet was succesfully deleted from the database.","success");
+      }).catch(function(error){
+        swal("Error","There was an error deleting your timesheet. Please try again or contact Customer Support","error");
       })
     };
 
 
     $scope.editTimesheet = function(){
-      DataService.editTimesheet($scope.tsData).then(function(data){
-        console.log('return from edit ', data);
+      DataService.editTimesheet($scope.tsData)
+      .then(function(data){
+        console.log('returned from edit ', data);
+        swal("Timesheet deleted","Your timesheet was succesfully updated.","success");
+      }).catch(function(error){
+        swal("Error","There was an error updating your timesheet. Please try again or contact Customer Support","error");
       })
     };
 
