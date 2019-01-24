@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp');
 
-myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window','DataService', 'LongVariablesService', 'CalendarService', '$q', function($scope, $transitions, $http, $location, $stateParams, $timeout, $state, $rootScope, $window, DataService, LongVariablesService, CalendarService, $q) {
+myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location', '$stateParams', '$timeout', '$state', '$rootScope', '$window','DataService', 'LongVariablesService', 'CalendarService', '$q', 'DataService', function($scope, $transitions, $http, $location, $stateParams, $timeout, $state, $rootScope, $window, DataService, LongVariablesService, CalendarService, $q, DataService) {
 
     $scope.timesForPicker = LongVariablesService.timesForPicker;
     $scope.adjustTimeForCalendar = CalendarService.adjustTimeForCalendar; //function
@@ -10,10 +10,12 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     $scope.selectedEndTime = $scope.timesForPicker[0];
     $scope.shiftsAdded = 0;
     $scope.tsData = {
+       name: null,
        date: new Date(),
        tookLunch: false,
        dayOfPeriod: 0, //calculate
        shiftSelecteIdx: 0,
+       affiliate: null,
        rates: {
          mileageRate: 0.555,
          dailyRate: 7.14,
@@ -26,6 +28,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        dailyOvertimeMins: 0
      };
      var newShift = {
+      name: null,
       startTime: null,
       stopTime: null,
       startTimeObj: null,
@@ -44,7 +47,6 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
     };
     $scope.tsData.shifts.push(newShift);
     $scope.overtimeFlag = false;
-    
 
 
 
@@ -76,6 +78,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
        }
        if ($scope.tsData.shifts.length < 5) { //add max 5 shifts per day
          var newShift2 = {
+          name: null,
           startTime: null,
           stopTime: null,
           startTimeObj: null,
@@ -121,8 +124,8 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.updateStartTime = function(timeSelected, shiftSelected, shiftIdx){
+            console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       var startTimeObj = $scope.adjustTimeForCalendar(timeSelected);
-      console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       if (shiftIdx > 0){ //check for all, except first shift
         var laterThanPrevious = $scope.checkIfShiftLaterThanPrevious(shiftIdx, startTimeObj);
         if (!laterThanPrevious){
@@ -138,6 +141,7 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.updateEndTime = function(timeSelected, shiftSelected, shiftIdx){
+            console.log('shift idx is ', 0, 'selected and time ', shiftSelected, timeSelected);
       var endTimeObj = $scope.adjustTimeForCalendar(timeSelected);
       //before assigning new end time to shift obj, need to check that endtime is later than startTime
       var timeSelectedIsOK = $scope.lockCellIfEarlierThanStartTime(shiftSelected, shiftIdx, endTimeObj);
@@ -166,10 +170,6 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
     $scope.toggleNote = function(shiftIdx){
       $scope.showNote[shiftIdx] = !$scope.showNote[shiftIdx];
-    };
-
-
-    $scope.calculateDayOfPeriod = function(day){
     };
 
 
@@ -235,6 +235,10 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
 
 
     $scope.submitTimesheet = function(){
+      console.log('timesheet to be saved in ', $scope.tsData);
+      DataService.saveTimesheet($scope.tsData).then(function(data){
+        console.log('returned from save ', data);
+      })
     };
     
     
@@ -285,5 +289,58 @@ myApp.controller('TimesheetCtrl', ['$scope', '$transitions', '$http', '$location
       console.log('$scope.itnAffiliate in parseAffiliate is ', $scope.itnAffiliate);
     };
 
+    $scope.parseDayAndAffiliateParams = function(){
+      console.log('stateparams are ', $stateParams);
+      var params = $stateParams.filter;
+      if ($stateParams.filter && ($stateParams.filter.indexOf('?day=') !== -1)){
+        console.log('filter is ', params);
+        $scope.tsData.day = params.substr(params.indexOf('=') + 1);
+        console.log('day is ', $scope.tsData.day);
+        $scope.tsData.affiliate = params.substr(0, params.indexOf('?'));
+        console.log('affiliate is ', $scope.tsData.affiliate);
+      } else if ($stateParams.filter){
+        console.log('filter, only aff is ', params);
+        $scope.tsData.affiliate = $stateParams.filter;
+      }
+      console.log('just created affiliate var is ', $scope.tsData.affiliate);
+    };
+
+    $scope.parseParamsIfTimesheet = function(){
+      if ($stateParams.day && $stateParams.timesheet){
+        $scope.existingTimesheetDay = $stateParams.day;
+        $scope.existingTimesheet = $stateParams.timesheet;
+      }
+    }
+
+    $scope.getTimesheets = function(){
+      console.log('in ctrl, getting ts from affiliate ', $scope.tsData.affiliate);
+      var affiliateName = $scope.tsData.affiliate;
+      DataService.retrieveTimesheets(affiliateName)
+      .then(function(data){
+        console.log('data from ctrl is ', data.data);
+        $scope.timesheets = data.data[0].timesheets;
+        console.log('timesheets are', $scope.timesheets);
+      })
+    };
+
+
+    $scope.deleteTimesheet = function(){
+      DataService.deleteTimesheet($scope.tsData).then(function(data){
+        console.log('return from delete ', data);
+      })
+    };
+
+
+    $scope.editTimesheet = function(){
+      DataService.editTimesheet($scope.tsData).then(function(data){
+        console.log('return from edit ', data);
+      })
+    };
+
+
+    $scope.isNewTimesheet = function(){
+      $scope.viewNewTimesheet = $stateParams.viewNewTimesheet;
+      console.log('viewNewTimesheet is ', $scope.viewNewTimesheet);
+    }
 
 }]);

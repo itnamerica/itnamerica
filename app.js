@@ -38,8 +38,8 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-operations','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs', '/important-docs-landing','/employee-profiles','/dept-report','/hr-tickets', '/calendar-ris','/affiliate','/comments','/web-traffic','/affiliate-info','/rides-data','/documents','/timesheet', '/timesheets','/affiliate-landing','/shift-scheduler','/annual-report-2018'];
 
-var allPages = ['/home','/what-we-do','/organization','/faces-of-our-members','/faq','/news','/contact','/become-member','/member-app','/volunteer-to-drive','/volunteer-app','/family-involvement','/member-programs','/pay-online','/donate','/corporate', '/non-rider-member','/dashboard','/login', '/view-form','/draft','/million-rides-campaign-photo-album','/annual-report-2017','/about','/ways-to-give','/find-your-itn','/portal','/login-portal','/itnamerica','/itn-operations','/other','/rides-in-sight','/nda2018xyz','/rides','/calendar','/human-resources','/agenda','/ttp','/research','/important-docs', '/important-docs-landing','/employee-profiles','/dept-report','/hr-tickets', '/calendar-ris','/affiliate','/comments','/web-traffic','/affiliate-info','/rides-data','/documents','/timesheet','/affiliate-landing','/shift-scheduler','/annual-report-2018','/timesheet-tabs'];
 
 MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itnamerica-new', function(err, client) {
   if (err) {
@@ -249,6 +249,64 @@ MongoClient.connect('mongodb://itnadmin:itnUser0136!@ds119442.mlab.com:19442/itn
   }); // end of /fetchgeneralInfoPerAffiliate get request
 
 
+  app.get('/getTimesheets', function (req,res) {
+    var affiliateName = req.query.affiliateName;
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var timesheets = result[0].timesheets;
+      console.log('timesheets are: ', timesheets);
+      res.send(result);
+    })
+  });
+
+
+  app.put('/saveTimesheet', function (req,res) {
+    var timesheet = req.body.timesheet;
+    var affiliateName = req.body.timesheet.affiliate;
+    console.log('saving timesheets table for affiliate ', affiliateName);
+
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      console.log('recordId:', recordId);
+      var newTimesheet = { $addToSet: {timesheets: timesheet} };
+      db.collection('timesheets').update(
+         { _id: recordId },
+         newTimesheet
+      )
+      console.log('timesheet is saved in db', timesheet, typeof(timesheet));
+      res.send(result);
+    })
+  });
+
+  app.put('/deleteTimesheet', function (req,res) {
+    var timesheet = req.body.timesheet;
+    var affiliateName = req.body.timesheet.affiliateName;
+    console.log('ts is ', timesheet, typeof(timesheet));
+
+    db.collection('timesheets').find({name: affiliateName}).toArray(function (err, result) {
+      if (err) { throw new Error('No record found. ', err) };
+      var recordId = result[0]._id;
+      console.log('recordId:', recordId);
+      var newTimesheet = { $pull: {timesheets: timesheet} };
+      db.collection('timesheets').update(
+         { _id: recordId },
+         newTimesheet
+      )
+      console.log('timesheet is delete from db', timesheet, typeof(timesheet));
+      res.send(result);
+    })
+  });
+
+
+
+  app.post('/addCalendarEvent', formidable(), function (req,res) {
+    db.collection('calendar').save(req.body.newEvent, function(err, result){
+      if (err) { return console.log('connecting to db, but not saving obj', err);}
+      console.log('contact form saved to database', result);
+      res.send(result);
+    })
+  });
 
 
 

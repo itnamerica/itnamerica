@@ -237,19 +237,25 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('timesheet', {
             url: '/timesheet?filter',
+            // abstract: true,
             templateUrl: viewsPath + 'timesheet.html',
             controller: 'TimesheetCtrl',
             params : {
               filter: null,
-              day: 0
+              day: null,
+              timesheet: null,
+              viewNewTimesheet: false
             }
         })
-        .state('timesheet-tabs', {
-            url: '/timesheet-tabs?filter',
-            templateUrl: viewsPath + 'timesheet-tabs.html',
+        .state('timesheets', {
+            url: '/timesheets?filter',
+            templateUrl: viewsPath + 'timesheets.html',
             controller: 'TimesheetCtrl',
             params : {
               filter: null,
+              day: null,
+              timesheet: null,
+              viewNewTimesheet: false
             }
         })
         .state('affiliate-landing', {
