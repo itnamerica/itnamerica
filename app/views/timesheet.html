@@ -165,11 +165,7 @@
           <p class="title">
             Start/Stop Shifts <i class="fa fa-plus-circle" ng-click="addShift()"></i>
           </p>
-<<<<<<< HEAD
-          
-=======
 
->>>>>>> timesheet-day-dynamic
           <p class="mileage-data"><em style="text-align:left">
             Total Mileage Refund: ${{tsData.totalMileageRefund | number: 3}} <br />
             Total daily work time: {{tsData.dailyWorkTimeMins}}mins<br />
@@ -190,17 +186,10 @@
 
 
               <tbody style="background:grey">
-<<<<<<< HEAD
-                
-                <tr ng-repeat="shift in tsData.shifts" 
-                    ng-class="{highlighted: ($index + 1) >= shiftIdxTrigger}">
-                    
-=======
 
                 <tr ng-repeat="shift in tsData.shifts"
                     ng-class="{highlighted: ($index + 1) >= shiftIdxTrigger}">
 
->>>>>>> timesheet-day-dynamic
                 <td style="width:15%;font-size:35px">
                   {{$index + 1}} <br />
                 </td>
@@ -224,11 +213,8 @@
                 </td>
 
                 <td class="show-note">
-<<<<<<< HEAD
-                  <i class="fa fa-pencil" ng-click="toggleNote($index)" ng-show="!showNote[$index]"></i>
-=======
+
                   <i class="fa fa-pencil" style="padding-top:15px" ng-click="toggleNote($index)" ng-show="!showNote[$index]"></i>
->>>>>>> timesheet-day-dynamic
 
                   <div ng-show="showNote[$index]">
                     <textarea class="form-control" type="textarea" name="note" id="note" placeholder="Message" maxlength="2000" rows="3" ng-minlength="minlength" ng-maxlength="maxMsgLength" ng-model="shift.note"></textarea>
